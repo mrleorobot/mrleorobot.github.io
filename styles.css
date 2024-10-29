@@ -1,0 +1,142 @@
+body {
+    font-family: 'Arial', sans-serif; /* Experimente Arial ou outra fonte */
+    font-weight: normal; /* Peso da fonte normal */
+    background-color: #f0f0f0; /* Um fundo suave e claro para melhorar a legibilidade */
+    background-image: url('background.png'); /* Adicionando a imagem de fundo */
+    background-size: cover; /* Fazendo a imagem cobrir todo o fundo */
+    background-position: center; /* Centralizando a imagem */
+    background-repeat: no-repeat; /* Evitando repetição da imagem */
+    color: #333; /* Cor do texto, um tom escuro que contrasta bem com o fundo claro */
+    line-height: 1.6; /* Aumentando o espaçamento entre linhas para uma leitura mais confortável */
+    margin: 0; /* Removendo margens padrão */
+    padding: 0; /* Removendo preenchimentos padrão */
+}
+
+/* Cabeçalho */
+header {
+    background: #003366; /* Um tom de azul escuro que confere um ar de seriedade e profissionalismo */
+    color: #ffffff; /* A cor do texto no cabeçalho é branca para garantir um bom contraste */
+    padding: 20px 0; /* Criando um espaço interno generoso para o cabeçalho */
+    text-align: center; /* Centralizando o texto do cabeçalho */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adicionando uma sombra sutil para dar profundidade ao cabeçalho */
+}
+
+header h1 {
+    margin: 0; /* Removendo a margem padrão do cabeçalho */
+    font-size: 2.5em; /* Definindo um tamanho de fonte grande para o título */
+}
+
+/* Container principal */
+.container {
+    width: 80%; /* Definindo uma largura de 80% para o container principal */
+    margin: 20px auto; /* Centralizando o container na página com margens automáticas */
+    overflow: hidden; /* Controlando o fluxo de conteúdo */
+    background: #ffffff; /* Definindo um fundo branco para o conteúdo do site */
+    border-radius: 10px; /* Arredondando as bordas do container para um visual mais suave */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Adicionando uma sombra sutil ao redor do container para destacar o conteúdo */
+    padding: 20px; /* Criando um espaço interno dentro do container */
+}
+
+/* Imagens */
+img {
+    max-width: 100%; /* Assegurando que as imagens não ultrapassem a largura do container, mantendo a responsividade */
+    height: auto; /* Mantendo a proporção original das imagens */
+    border-radius: 5px; /* Adicionando bordas levemente arredondadas às imagens */
+}
+
+/* Tabela */
+table {
+    width: 100%; /* A tabela ocupará toda a largura disponível */
+    border-collapse: collapse; /* Removendo espaço entre as células da tabela */
+    margin: 20px 0; /* Margens superior e inferior para espaçamento */
+}
+
+table, th, td {
+    border: 1px solid #ddd; /* Definindo uma borda leve e cinza para a tabela */
+}
+
+th, td {
+    padding: 12px; /* Espaçamento interno nas células da tabela para conforto visual */
+    text-align: left; /* Alinhando o texto à esquerda nas células */
+}
+
+th {
+    background-color: #007BFF; /* Usando um azul royal para o fundo das células do cabeçalho */
+    color: white; /* Texto branco nas células do cabeçalho para um bom contraste */
+}
+
+/* Formulário */
+form {
+    background: #f9f9f9; /* Um fundo suave e claro para o formulário */
+    padding: 20px; /* Espaçamento interno para o formulário */
+    margin: 20px 0; /* Margem superior e inferior para separar o formulário do restante do conteúdo */
+    border-radius: 5px; /* Arredondando as bordas do formulário para um visual mais agradável */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adicionando uma sombra leve ao formulário para destaque */
+}
+
+/* Rodapé */
+footer {
+    background: #003366; /* Um azul escuro no rodapé, criando uma continuidade com o cabeçalho */
+    color: white; /* Texto em branco para garantir legibilidade */
+    text-align: center; /* Centralizando o texto no rodapé */
+    padding: 15px 0; /* Criando um espaço interno adequado para o rodapé */
+    position: relative; /* Definindo a posição relativa para o rodapé */
+    bottom: 0; /* Posicionando o rodapé na parte inferior */
+    width: 100%; /* Garantindo que o rodapé ocupe toda a largura da página */
+    margin-top: 20px; /* Margem superior para espaçamento */
+}
+
+/* Links */
+a {
+    color: #007BFF; /* Azul royal para links, que se destaca sobre o fundo */
+    text-decoration: none; /* Removendo sublinhados dos links para um visual mais limpo */
+}
+
+a:hover {
+    text-decoration: underline; /* Sublinhando links ao passar o mouse para indicar interatividade */
+    color: #0056b3; /* Alterando a cor para um azul mais escuro ao passar o mouse */
+}
+
+/* Títulos */
+h2 {
+    color: #003366; /* Azul escuro para títulos de seções, criando uma hierarquia visual clara */
+    margin-top: 20px; /* Margem superior para espaçamento */
+    font-size: 1.8em; /* Tamanho de fonte maior para títulos de seções */
+}
+
+h3 {
+    color: #333; /* Cor escura para subtítulos, mantendo a legibilidade */
+    margin-top: 15px; /* Espaçamento superior para separar dos elementos anteriores */
+    font-size: 1.5em; /* Tamanho de fonte maior para subtítulos */
+}
+
+h4 {
+    color: #666; /* Um tom de cinza para títulos menores, criando uma hierarquia suave */
+    font-size: 1.2em; /* Tamanho de fonte para títulos de nível inferior */
+}
+
+/* Lista */
+ul {
+    list-style: none; /* Removendo os marcadores padrão das listas */
+    padding: 0; /* Removendo o preenchimento padrão */
+}
+
+ul li {
+    padding: 5px 0; /* Espaçamento entre os itens da lista */
+}
+
+/* Estilo do botão de envio no formulário */
+input[type="submit"] {
+    background-color: #007BFF; /* Um azul royal para o botão, chamando a atenção */
+    color: white; /* Texto em branco para legibilidade */
+    border: none; /* Removendo a borda padrão do botão */
+    padding: 10px 20px; /* Espaçamento interno generoso para o botão */
+    border-radius: 5px; /* Arredondando as bordas do botão */
+    cursor: pointer; /* Mudando o cursor para indicar que é clicável */
+    font-size: 1em; /* Tamanho de fonte padrão para o texto do botão */
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3; /* Um azul mais escuro ao passar o mouse para indicar interatividade */
+
+}
