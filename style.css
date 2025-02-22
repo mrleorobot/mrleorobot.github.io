@@ -1,0 +1,126 @@
+/* Definição de variáveis de cores para facilitar ajustes */
+:root {
+    --bg-color: #f5f0e1; /* Fundo bege claro */
+    --text-color: #5e4b3c; /* Marrom claro */
+    --button-color: #d9c2a3; /* Bege médio */
+    --button-hover: #b89a7c;
+    --border-color: #c5b3a1;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos gerais */
+body {
+    font-family: "Comic Sans MS", "Poppins", sans-serif; /* Deixa um tom engraçado */
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Container principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+/* Título estilizado */
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, var(--text-color), var(--button-hover));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: bounce 1.5s infinite;
+}
+
+/* Animação engraçada no título */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Campo de entrada estilizado */
+input {
+    width: 80%;
+    max-width: 300px;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+    background-color: white;
+}
+
+input:focus {
+    border-color: var(--button-hover);
+}
+
+/* Botão estilizado */
+button {
+    margin-top: 15px;
+    background-color: var(--button-color);
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    color: var(--text-color);
+    box-shadow: 2px 2px 10px var(--shadow-color);
+}
+
+button:hover {
+    background-color: var(--button-hover);
+    transform: scale(1.05);
+}
+
+/* Caixa de perguntas estilizada */
+.perguntas {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 4px 4px 15px var(--shadow-color);
+    margin-top: 20px;
+    max-width: 90%;
+    text-align: left;
+}
+
+.perguntas p {
+    font-size: 18px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: var(--button-color);
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.perguntas p:hover {
+    background: var(--button-hover);
+    transform: scale(1.02);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 22px;
+    }
+
+    input, button {
+        font-size: 14px;
+    }
+
+    .perguntas p {
+        font-size: 16px;
+    }
+}
+

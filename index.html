@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perguntas de CorelDRAW</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Olá Cornos e Curiosos, coloque seu nome ai abaixo vá</h1>
+        <input type="text" id="nome" placeholder="Talita você está preparada?">
+        <button onclick="mostrarPerguntas()">Ver perguntas</button>
+        <div id="perguntas" class="perguntas" style="display: none;"></div>
+    </div>
+
+    <script>
+        function mostrarPerguntas() {
+            let nome = document.getElementById("nome").value;
+            if (nome.trim() === "") {
+                alert("Digite um nome primeiro!");
+                return;
+            }
+
+            let perguntas = [
+                "1. Quais são as principais diferenças entre o CorelDRAW X6 e outras versões mais recentes? Por favor explicar as vantagens de usar o software mais recente.",
+                "2. Como funciona o sistema de camadas no CorelDRAW X6 e como utilizá-lo para organizar projetos complexos que utilizam um alto número de camadas?",
+                "3. Quais são as melhores práticas para exportar arquivos no CorelDRAW X6 para impressão e para uso digital?",
+                "4. Como otimizar o uso de vetores e imagens bitmap no CorelDRAW X6 para manter a qualidade do design?",
+                "5. Quais atalhos de teclado e ferramentas menos conhecidas podem agilizar o fluxo de trabalho no CorelDRAW X6?"
+            ];
+
+            let divPerguntas = document.getElementById("perguntas");
+            divPerguntas.innerHTML = `<h2>Olá, ${nome}!</h2>` + perguntas.map(p => `<p>${p}</p>`).join("");
+            divPerguntas.style.display = "block";
+        }
+    </script>
+</body>
+</html>
