@@ -1020,5 +1020,119 @@
       }
     });
   </script>
+  <script defer>
+    /**
+     * ========================================================
+     * VERSION 1.1: LIGHTWEIGHT MOTION DESIGN (VANILLA JS)
+     * ========================================================
+     * Este script adiciona interatividade elegante sem bibliotecas externas.
+     * Focado em performance e experiência do usuário.
+     */
+
+    // --------------------------------------------------------
+    // 1. The Storyteller Effect (Typewriter)
+    // --------------------------------------------------------
+    function initTypewriter() {
+      const titleElement = document.querySelector('.typewriter-text');
+      if (!titleElement) return;
+
+      // O texto original está no HTML (bom para SEO). 
+      // Vamos capturá-lo, limpá-lo e redigitá-lo.
+      // Usamos o caractere '|' como um marcador secreto para a quebra de linha (<br>).
+      const textToType = "Criatividade|em Código.";
+      let currentIndex = 0;
+      
+      // Limpa o conteúdo inicial para começar a animação
+      titleElement.innerHTML = '';
+
+      function type() {
+        // Verifica se ainda há letras para digitar
+        if (currentIndex < textToType.length) {
+          const char = textToType.charAt(currentIndex);
+          
+          // Se encontrarmos o marcador '|', inserimos uma quebra de linha real
+          if (char === '|') {
+            titleElement.innerHTML += '<br>';
+          } else {
+            titleElement.innerHTML += char;
+          }
+          
+          currentIndex++;
+          
+          // Velocidade realista: variação aleatória entre 50ms e 120ms por letra
+          // Imita o ritmo natural de digitação humana
+          const typingSpeed = Math.random() * 70 + 50;
+          setTimeout(type, typingSpeed);
+        }
+      }
+
+      // Inicia o efeito com um pequeno atraso (800ms) para criar suspense ao carregar a página
+      setTimeout(type, 800);
+    }
+
+    // --------------------------------------------------------
+    // 2. The Cinematic Scroll (Intersection Observer)
+    // --------------------------------------------------------
+    function initCinematicScroll() {
+      // Seleciona todos os elementos que devem ser animados ao rolar a página
+      const elementsToAnimate = document.querySelectorAll('.animate-up');
+
+      // Configurações do nosso "olheiro" (Observer)
+      const observerOptions = {
+        root: null, // null significa que estamos observando a janela principal (viewport)
+        rootMargin: '0px', // Sem margem extra
+        threshold: 0.15 // A animação dispara quando 15% do elemento aparece na tela
+      };
+
+      // Cria o Observer
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          // Se o elemento entrou na área visível...
+          if (entry.isIntersecting) {
+            // Adiciona a classe '.visible' que engatilha a transição CSS (opacity e transform)
+            entry.target.classList.add('visible');
+            // Para de observar este elemento (a animação acontece apenas uma vez)
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      // Instrui o Observer a vigiar cada um dos elementos selecionados
+      elementsToAnimate.forEach(element => {
+        observer.observe(element);
+      });
+    }
+
+    // --------------------------------------------------------
+    // 3. Technical Easter Egg: Pixel Mode (Mantido)
+    // --------------------------------------------------------
+    function initPixelMode() {
+      const pixelToggleBtn = document.getElementById('pixelToggle');
+      const body = document.body;
+
+      // Check saved preference
+      if (localStorage.getItem('pixelMode') === 'enabled') {
+        body.classList.add('pixel-mode');
+      }
+
+      pixelToggleBtn.addEventListener('click', () => {
+        body.classList.toggle('pixel-mode');
+        
+        // Save preference
+        if (body.classList.contains('pixel-mode')) {
+          localStorage.setItem('pixelMode', 'enabled');
+        } else {
+          localStorage.setItem('pixelMode', 'disabled');
+        }
+      });
+    }
+
+    // Inicializa todas as funções quando o DOM estiver pronto
+    document.addEventListener('DOMContentLoaded', () => {
+      initTypewriter();
+      initCinematicScroll();
+      initPixelMode();
+    });
+  </script>
 </body>
 </html>
