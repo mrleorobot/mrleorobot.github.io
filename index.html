@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO & Meta Tags -->
+  <title>Leonilson Souza | Tecnologia da Informação, Web Design & Power BI | Natal/RN</title>
+  <meta name="description" content="Portfólio de Leonilson Souza. Profissional de Tecnologia da Informação, Web Design, Power BI e Suporte Técnico em Natal/RN. Transformando problemas complexos em soluções simples." />
+  
+  <!-- Open Graph / LinkedIn Sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://seusite.com.br/" />
+  <meta property="og:title" content="Leonilson Souza | Tecnologia e Web Design" />
+  <meta property="og:description" content="Profissional de Tecnologia da Informação, Web Design e Power BI em Natal/RN." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?auto=format&fit=crop&w=1200&q=80" /> <!-- Imagem de preview profissional -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Fonts: Space Grotesk (Spider-Verse), Nunito (Stardew/Friendly), VT323 (Undertale) -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Space+Grotesk:wght@700;900&family=VT323&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Arcane & Steven Universe Palette */
+      --arcane-bg: #0a0f1d;
+      --arcane-hex: #00e5ff;
+      --arcane-gold: #c8aa6e;
+      --su-pink: #ff7b9c;
+      --su-purple: #9d84cb;
+      --su-sky: #8ecfc9;
+      
+      /* Stardew Valley UI */
+      --stardew-bg: #fdf6e3;
+      --stardew-border: #d4a373;
+      --stardew-text: #5c4033;
+
+      /* Spider-Verse */
+      --spider-red: #ff2a2a;
+      --spider-blue: #00f0ff;
+      --spider-yellow: #ffeb3b;
+
+      /* Kurzgesagt */
+      --kurz-shadow: rgba(0,0,0,0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--arcane-bg);
+      color: #f8fafc;
+      line-height: 1.8;
+      letter-spacing: 0.02em;
+      overflow-x: hidden;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Accessibility: Keyboard Focus */
+    *:focus-visible {
+      outline: 3px solid var(--arcane-hex);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    /* Spider-Verse Typography */
+    h1, h2, .spider-text {
+      font-family: 'Space Grotesk', sans-serif;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 15, 29, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: var(--arcane-hex);
+      text-decoration: none;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 0 var(--su-purple);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a:not(.btn-cv) {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:not(.btn-cv):hover {
+      color: var(--su-pink);
+      transform: translateY(-2px);
+    }
+
+    /* Strategic CTA: Hextech CV Button */
+    .btn-cv {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.5rem 1.2rem;
+      background: rgba(0, 229, 255, 0.05);
+      color: var(--arcane-hex);
+      border: 2px solid var(--arcane-hex);
+      border-radius: 4px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.2), inset 0 0 10px rgba(0, 229, 255, 0.1);
+    }
+
+    .btn-cv:hover {
+      background: var(--arcane-hex);
+      color: #000;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    /* Sections */
+    section {
+      min-height: 100vh;
+      padding: 10rem 5% 6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* HERO: Arcane x Spider-Verse */
+    #hero {
+      background: radial-gradient(circle at top right, #2a1b3d 0%, var(--arcane-bg) 60%);
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .glitch-title {
+      font-size: 4.5rem;
+      line-height: 1;
+      margin-bottom: 1rem;
+      color: #fff;
+      text-shadow: 
+        3px 3px 0 var(--spider-red), 
+        -3px -3px 0 var(--spider-blue);
+      transform: skew(-2deg);
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      color: var(--arcane-hex);
+      font-family: 'Space Grotesk', sans-serif;
+      margin-bottom: 2rem;
+      letter-spacing: 1px;
+    }
+
+    .hero-text {
+      font-size: 1.2rem;
+      color: #d1d5db;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+      /* Anne with an E / Perks vibe */
+      font-style: italic;
+      border-left: 4px solid var(--su-pink);
+      padding-left: 1rem;
+    }
+
+    .btn-spider {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: var(--spider-yellow);
+      color: #000;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 900;
+      text-decoration: none;
+      text-transform: uppercase;
+      border: 3px solid #000;
+      box-shadow: 6px 6px 0 var(--spider-red);
+      transition: all 0.2s ease;
+      transform: skew(-5deg);
+    }
+
+    .btn-spider:hover {
+      transform: skew(-5deg) translate(-2px, -2px);
+      box-shadow: 8px 8px 0 var(--spider-blue);
+    }
+
+    /* ABOUT: Anne with an E / Perks of Being a Wallflower */
+    #about {
+      background: linear-gradient(to bottom, var(--arcane-bg), #1a1525);
+    }
+
+    .narrative-box {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3rem;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .narrative-box h2 {
+      color: var(--su-pink);
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+    }
+
+    .narrative-box p {
+      margin-bottom: 1.8rem;
+      font-size: 1.1rem;
+      color: #f1f5f9;
+    }
+
+    /* Profile Image & Layout */
+    .narrative-content {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .narrative-text {
+      flex: 1;
+    }
+
+    .profile-frame {
+      flex-shrink: 0;
+      width: 240px;
+      border-radius: 12px;
+      overflow: hidden;
+      /* Spider-Verse offset printing effect */
+      box-shadow: -8px 8px 0 var(--su-pink), 8px -8px 0 var(--arcane-hex);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profile-frame:hover {
+      transform: translate(2px, -2px);
+      box-shadow: -10px 10px 0 var(--su-pink), 10px -10px 0 var(--arcane-hex);
+    }
+
+    .profile-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: contrast(1.1);
+      transition: transform 0.5s ease;
+    }
+
+    .profile-frame:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Social Proof: Testimonials */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 4px solid var(--su-pink);
+      padding: 2rem;
+      border-radius: 0 16px 16px 0;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      border-left-color: var(--arcane-hex);
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      color: #d1d5db;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-author {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--arcane-gold);
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+    }
+
+    /* Technical Easter Egg: Pixel Mode Toggle */
+    .pixel-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--su-purple);
+      border: 2px solid #fff;
+      color: #fff;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .pixel-toggle:hover {
+      transform: scale(1.1) rotate(10deg);
+      background: var(--su-pink);
+    }
+
+    /* Pixel Mode Active Styles */
+    body.pixel-mode h1, 
+    body.pixel-mode h2, 
+    body.pixel-mode h3,
+    body.pixel-mode .hero-name,
+    body.pixel-mode .logo {
+      font-family: 'VT323', monospace !important;
+      letter-spacing: 2px;
+    }
+
+    body.pixel-mode .kurz-card, 
+    body.pixel-mode .narrative-box, 
+    body.pixel-mode .contact-panel, 
+    body.pixel-mode .testimonial-card,
+    body.pixel-mode .btn-spider,
+    body.pixel-mode .btn-cv,
+    body.pixel-mode .profile-frame {
+      border-radius: 0 !important;
+      border: 4px solid #fff !important;
+      box-shadow: 8px 8px 0 var(--arcane-hex) !important;
+    }
+
+    body.pixel-mode .profile-frame img {
+      filter: grayscale(100%) contrast(1.5);
+      image-rendering: pixelated;
+    }
+
+    body.pixel-mode .kurz-card {
+      box-shadow: 8px 8px 0 #000 !important;
+    }
+
+    body.pixel-mode * {
+      transition: none !important; /* Snappy retro feel */
+    }
+
+    /* SKILLS: Kurzgesagt (Flat, Vibrant, Clear) */
+    #skills {
+      background: #1a1525;
+    }
+
+    .skills-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .skills-header h2 {
+      font-size: 3rem;
+      color: var(--arcane-hex);
+    }
+
+    .kurz-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .kurz-card {
+      background: var(--su-purple);
+      border-radius: 24px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 8px 0 #7a62a3; /* Flat 3D effect */
+      transition: transform 0.2s ease;
+      width: 100%;
+      max-width: 300px;
+      flex-grow: 0;
+    }
+
+    .kurz-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .kurz-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      line-height: 1;
+    }
+
+    .kurz-card h3 svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    .kurz-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .kurz-tag {
+      background: rgba(255,255,255,0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .kurz-card.learning {
+      background: var(--su-sky);
+      box-shadow: 0 8px 0 #6baaa4;
+    }
+
+    /* PROJECTS: Undertale (Branching, Pixelated, Dialogue) */
+    #projects {
+      background: #000;
+      border-top: 4px solid #fff;
+      border-bottom: 4px solid #fff;
+    }
+
+    .undertale-container {
+      max-width: 900px;
+      margin: 0 auto;
+      font-family: 'VT323', monospace;
+    }
+
+    .dialogue-box {
+      border: 6px solid #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      margin-bottom: 3rem;
+      font-size: 1.8rem;
+      line-height: 1.4;
+    }
+
+    .dialogue-box span {
+      color: var(--spider-yellow);
+    }
+
+    .project-battle-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .ut-card {
+      border: 4px solid #fff;
+      padding: 2rem;
+      background: #000;
+      transition: all 0.2s;
+    }
+
+    .ut-card:hover {
+      border-color: var(--spider-yellow);
+    }
+
+    .ut-card h3 {
+      font-family: 'VT323', monospace;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .ut-card p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #ccc;
+    }
+
+    .ut-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .ut-btn {
+      background: #000;
+      color: #fff;
+      border: 2px solid #fff;
+      font-family: 'VT323', monospace;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .ut-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .ut-btn.act {
+      border-color: var(--spider-yellow);
+      color: var(--spider-yellow);
+    }
+    .ut-btn.act:hover {
+      background: var(--spider-yellow);
+      color: #000;
+    }
+
+    /* CONTACT: Unified with About & Skills */
+    #contact {
+      background: linear-gradient(to bottom, #000, #1a1525);
+      border-top: none;
+    }
+
+    .contact-panel {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 3rem;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .contact-panel h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--su-pink);
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+    }
+
+    .contact-panel p {
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+      color: #f1f5f9;
+    }
+
+    .contact-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .contact-links {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .contact-link {
+      border-radius: 16px;
+      padding: 1.2rem;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .contact-link:hover {
+      transform: translateY(-4px);
+    }
+    
+    .contact-link:active {
+      transform: translateY(2px);
+    }
+
+    .contact-link.email { background: var(--su-purple); box-shadow: 0 6px 0 #7a62a3; }
+    .contact-link.email:hover { box-shadow: 0 10px 0 #7a62a3; }
+    .contact-link.email:active { box-shadow: 0 2px 0 #7a62a3; }
+
+    .contact-link.whatsapp { background: var(--su-sky); box-shadow: 0 6px 0 #6baaa4; color: #000; }
+    .contact-link.whatsapp:hover { box-shadow: 0 10px 0 #6baaa4; }
+    .contact-link.whatsapp:active { box-shadow: 0 2px 0 #6baaa4; }
+
+    .contact-link.linkedin { background: var(--arcane-hex); box-shadow: 0 6px 0 #00a0b3; color: #000; }
+    .contact-link.linkedin:hover { box-shadow: 0 10px 0 #00a0b3; }
+    .contact-link.linkedin:active { box-shadow: 0 2px 0 #00a0b3; }
+
+    .contact-link.github { background: var(--su-pink); box-shadow: 0 6px 0 #d85a7f; }
+    .contact-link.github:hover { box-shadow: 0 10px 0 #d85a7f; }
+    .contact-link.github:active { box-shadow: 0 2px 0 #d85a7f; }
+
+    .contact-link svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    /* Animations */
+    .animate-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .animate-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 6rem 5% 4rem; }
+      .glitch-title { font-size: 2.8rem; }
+      .project-battle-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; } /* Simplified for mobile view in this demo */
+      .contact-panel { padding: 2rem 1.5rem; }
+      .dialogue-box { font-size: 1.4rem; padding: 1.5rem; }
+      
+      .narrative-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+      }
+      .profile-frame {
+        width: 200px;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav aria-label="Navegação principal">
+      <a href="#hero" class="logo" aria-label="Voltar ao topo">LEONILSON_</a>
+      <div class="nav-links">
+        <a href="#about">Origem</a>
+        <a href="#skills">Inventário</a>
+        <a href="#projects">Jornada</a>
+        <a href="#contact">Conectar</a>
+        <a href="curriculo.pdf" download="Leonilson_Souza_CV.pdf" target="_blank" rel="noopener noreferrer" class="btn-cv" aria-label="Baixar Currículo em PDF">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download CV
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+  <!-- HERO: Spider-Verse x Arcane -->
+  <section id="hero">
+    <div class="hero-content animate-up">
+      <h1 class="glitch-title">Criatividade<br>em Código.</h1>
+      <div class="hero-name" style="font-size: 2rem; color: #fff; font-family: 'Space Grotesk', sans-serif; font-weight: 700; margin-bottom: 0.5rem;">Leonilson Souza</div>
+      <div class="hero-subtitle" style="font-size: 1.2rem; margin-bottom: 2rem;">Atendimento ao Cliente | Rotinas Administrativas | Apoio Técnico</div>
+      <p class="hero-text">
+        "Sempre fui movido pela curiosidade de entender as engrenagens do mundo. Descobri na tecnologia a ferramenta ideal para unir lógica, design e empatia na construção de soluções reais."
+      </p>
+      <a href="#projects" class="btn-spider" aria-label="Ir para a seção de projetos">Iniciar Jornada</a>
+    </div>
+  </section>
+
+  <!-- ABOUT: Anne with an E / Perks of Being a Wallflower -->
+  <section id="about">
+    <div class="narrative-box animate-up">
+      <div class="narrative-content">
+        <div class="profile-frame">
+          <!-- A imagem deve ser salva como profile.jpg na mesma pasta -->
+          <img src="profile.jpg" alt="Retrato em preto e branco de Leonilson Souza" loading="lazy" />
+        </div>
+        <div class="narrative-text">
+          <h2>A Perspectiva Humana</h2>
+          <p>
+            Minha experiência como Instrutor de Informática e Web Design me ensinou que a verdadeira tecnologia não é sobre máquinas, mas sobre conectar pessoas ao conhecimento. 
+          </p>
+          <p>
+            Hoje, aplico essa mesma didática no Desenvolvimento Web e na análise de dados com Power BI, traduzindo lógicas complexas em interfaces visuais simples e acessíveis. 
+          </p>
+          <p>
+            Meu objetivo é construir soluções que não apenas funcionem perfeitamente, mas que guiem o usuário com a mesma clareza e empatia de uma sala de aula.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL PROOF: Testimonials -->
+    <div class="testimonials-grid">
+      <div class="testimonial-card animate-up">
+        <p class="testimonial-text">"O Leonilson tem uma paciência incrível para explicar conceitos difíceis de programação. Graças à sua didática, consegui entender a lógica por trás do código sem me sentir frustrado."</p>
+        <p class="testimonial-author">— Ex-Aluno de Web Design</p>
+      </div>
+      <div class="testimonial-card animate-up">
+        <p class="testimonial-text">"Trabalhar com ele é ter a certeza de que os processos técnicos estarão sempre organizados e acessíveis. Ele consegue simplificar o uso de sistemas para qualquer pessoa da equipe."</p>
+        <p class="testimonial-author">— Colega de Administração</p>
+      </div>
+      <div class="testimonial-card animate-up">
+        <p class="testimonial-text">"As aulas de informática eram muito visuais e fáceis de acompanhar. Ele realmente se importa em garantir que o aluno não apenas decore, mas entenda a ferramenta."</p>
+        <p class="testimonial-author">— Ex-Aluno de Informática</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS: Kurzgesagt (Didactic, Flat, Vibrant) -->
+  <section id="skills">
+    <div class="skills-header animate-up">
+      <h2>Meu Inventário</h2>
+      <p style="color: #a0aec0; font-size: 1.2rem;">Ferramentas e habilidades que uso para entender, construir e explicar soluções.</p>
+    </div>
+    <div class="kurz-grid">
+      <div class="kurz-card animate-up">
+        <h3>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+          Fundamentos & Lógica
+        </h3>
+        <div class="kurz-tags">
+          <span class="kurz-tag">Linux</span>
+          <span class="kurz-tag">Redes</span>
+          <span class="kurz-tag">Hardware</span>
+          <span class="kurz-tag">Suporte Técnico</span>
+          <span class="kurz-tag">Resolução de Problemas</span>
+          <span class="kurz-tag">Pensamento Lógico</span>
+        </div>
+      </div>
+      <div class="kurz-card animate-up" style="background: var(--su-pink); box-shadow: 0 8px 0 #d85a7f;">
+        <h3>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          Soft Skills
+        </h3>
+        <div class="kurz-tags">
+          <span class="kurz-tag">Empatia</span>
+          <span class="kurz-tag">Comunicação Clara</span>
+          <span class="kurz-tag">Didática</span>
+          <span class="kurz-tag">Organização de Ideias</span>
+          <span class="kurz-tag">Simplificar o Complexo</span>
+        </div>
+      </div>
+      <div class="kurz-card animate-up" style="background: #f59e0b; box-shadow: 0 8px 0 #d97706;">
+        <h3>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg>
+          Criatividade & Abordagem
+        </h3>
+        <div class="kurz-tags">
+          <span class="kurz-tag">Criatividade</span>
+          <span class="kurz-tag">Pensamento Visual</span>
+          <span class="kurz-tag">Storytelling</span>
+          <span class="kurz-tag">Adaptabilidade</span>
+        </div>
+      </div>
+      <div class="kurz-card animate-up" style="background: #008b99; box-shadow: 0 8px 0 #006670;">
+        <h3>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+          Ferramentas
+        </h3>
+        <div class="kurz-tags">
+          <span class="kurz-tag">Git & GitHub</span>
+          <span class="kurz-tag">VS Code</span>
+          <span class="kurz-tag">Navegadores (DevTools)</span>
+        </div>
+      </div>
+      <div class="kurz-card learning animate-up">
+        <h3>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
+          Em Expansão
+        </h3>
+        <div class="kurz-tags">
+          <span class="kurz-tag">HTML & CSS</span>
+          <span class="kurz-tag">JavaScript</span>
+          <span class="kurz-tag">Java</span>
+          <span class="kurz-tag">Inteligência Artificial</span>
+          <span class="kurz-tag">Segurança da Informação</span>
+          <span class="kurz-tag">SEO</span>
+          <span class="kurz-tag">Python</span>
+          <span class="kurz-tag">PHP</span>
+          <span class="kurz-tag">Power BI</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS: Undertale (Branching Narrative) -->
+  <section id="projects">
+    <div class="undertale-container">
+      <div class="dialogue-box animate-up">
+        * Arquivos de projetos e experimentos.<br>
+        * Selecione um repositório para analisar.
+      </div>
+      
+      <div class="project-battle-grid">
+        <div class="ut-card animate-up">
+          <h3>Primeiro Projeto Web</h3>
+          <p>* Uma página estática desenvolvida para consolidar fundamentos de estruturação e estilização.</p>
+          <div class="ut-actions">
+            <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="ut-btn act" aria-label="Ver Primeiro Projeto Web no GitHub">❤ VER NO GITHUB</a>
+          </div>
+        </div>
+
+        <div class="ut-card animate-up">
+          <h3>Lógica & Algoritmos</h3>
+          <p>* Resoluções de problemas clássicos focados em performance e estruturas de controle.</p>
+          <div class="ut-actions">
+            <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="ut-btn act" aria-label="Ver projeto Lógica e Algoritmos no GitHub">❤ VER NO GITHUB</a>
+          </div>
+        </div>
+
+        <div class="ut-card animate-up" style="grid-column: 1 / -1; text-align: center;">
+          <h3 style="color: #888;">[ Em Desenvolvimento ]</h3>
+          <p style="color: #666;">* Novos sistemas estão sendo arquitetados. Retorne em breve.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT: Unified with About & Skills -->
+  <section id="contact">
+    <div class="contact-panel animate-up">
+      <h2>Iniciar Conexão</h2>
+      <p>Sempre aberto a novas oportunidades, colaborações e desafios técnicos. Vamos construir algo juntos?</p>
+      
+      <div class="contact-links">
+        <a href="mailto:leosouza5555@gmail.com" class="contact-link email" aria-label="Enviar email para leosouza5555@gmail.com">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          Email
+        </a>
+        <a href="https://wa.me/5584992238449" target="_blank" rel="noopener noreferrer" class="contact-link whatsapp" aria-label="Entrar em contato via WhatsApp">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          WhatsApp
+        </a>
+        <a href="https://linkedin.com/in/leonilsonsouza" target="_blank" rel="noopener noreferrer" class="contact-link linkedin" aria-label="Visitar perfil no LinkedIn">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="contact-link github" aria-label="Visitar perfil no GitHub">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <footer style="text-align: center; padding: 2rem; background: #1a1525; color: #a0aec0; font-size: 0.9rem;">
+    <p>&copy; 2026 Leonilson Souza. Natal/RN.</p>
+  </footer>
+
+  <!-- TECHNICAL EASTER EGG: Pixel Mode Toggle -->
+  <button class="pixel-toggle" id="pixelToggle" aria-label="Ativar Modo Pixel Art">
+    <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" ry="2"></rect><path d="M12 12h.01"></path><path d="M17 12h.01"></path><path d="M7 12h.01"></path></svg>
+  </button>
+
+  <script defer>
+    // Pixel Mode Toggle Logic
+    const pixelToggleBtn = document.getElementById('pixelToggle');
+    const body = document.body;
+
+    // Check saved preference
+    if (localStorage.getItem('pixelMode') === 'enabled') {
+      body.classList.add('pixel-mode');
+    }
+
+    pixelToggleBtn.addEventListener('click', () => {
+      body.classList.toggle('pixel-mode');
+      
+      // Save preference
+      if (body.classList.contains('pixel-mode')) {
+        localStorage.setItem('pixelMode', 'enabled');
+      } else {
+        localStorage.setItem('pixelMode', 'disabled');
+      }
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-up').forEach(element => {
+      observer.observe(element);
+    });
+  </script>
+</body>
+</html>
+
