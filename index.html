@@ -4,20 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <!-- SEO & Meta Tags -->
   <title>Leonilson Souza | Tecnologia da Informação, Web Design & Power BI | Natal/RN</title>
   <meta name="description" content="Portfólio de Leonilson Souza. Profissional de Tecnologia da Informação, Web Design, Power BI e Suporte Técnico em Natal/RN. Transformando problemas complexos em soluções simples." />
   
-  <!-- Open Graph / LinkedIn Sharing -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://seusite.com.br/" />
   <meta property="og:title" content="Leonilson Souza | Tecnologia e Web Design" />
   <meta property="og:description" content="Profissional de Tecnologia da Informação, Web Design e Power BI em Natal/RN." />
-  <meta property="og:image" content="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?auto=format&fit=crop&w=1200&q=80" /> <!-- Imagem de preview profissional -->
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?auto=format&fit=crop&w=1200&q=80" /> <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Fonts: Space Grotesk (Spider-Verse), Nunito (Stardew/Friendly), VT323 (Undertale) -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Space+Grotesk:wght@700;900&family=VT323&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -778,10 +773,9 @@
   </header>
 
   <main>
-  <!-- HERO: Spider-Verse x Arcane -->
   <section id="hero">
     <div class="hero-content animate-up">
-      <h1 class="glitch-title">Criatividade<br>em Código.</h1>
+      <h1 class="glitch-title typewriter-text">Criatividade<br>em Código.</h1>
       <div class="hero-name" style="font-size: 2rem; color: #fff; font-family: 'Space Grotesk', sans-serif; font-weight: 700; margin-bottom: 0.5rem;">Leonilson Souza</div>
       <div class="hero-subtitle" style="font-size: 1.2rem; margin-bottom: 2rem;">Atendimento ao Cliente | Rotinas Administrativas | Apoio Técnico</div>
       <p class="hero-text">
@@ -791,12 +785,10 @@
     </div>
   </section>
 
-  <!-- ABOUT: Anne with an E / Perks of Being a Wallflower -->
   <section id="about">
     <div class="narrative-box animate-up">
       <div class="narrative-content">
         <div class="profile-frame">
-          <!-- A imagem deve ser salva como profile.jpg na mesma pasta -->
           <img src="profile.jpg" alt="Retrato em preto e branco de Leonilson Souza" loading="lazy" />
         </div>
         <div class="narrative-text">
@@ -814,7 +806,6 @@
       </div>
     </div>
 
-    <!-- SOCIAL PROOF: Testimonials -->
     <div class="testimonials-grid">
       <div class="testimonial-card animate-up">
         <p class="testimonial-text">"O Professor Leo tem uma paciência incrível para explicar conceitos difíceis. Graças à sua didática, consegui entender a lógica por trás do código sem me sentir frustrado."</p>
@@ -831,8 +822,7 @@
     </div>
   </section>
 
- <!-- SKILLS: Kurzgesagt (Didactic, Flat, Vibrant) -->
-  <section id="skills">
+ <section id="skills">
     <div class="skills-header animate-up">
       <h2>Meu Inventário</h2>
       <p style="color: #a0aec0; font-size: 1.2rem;">Ferramentas e habilidades que uso para entender, construir e explicar soluções.</p>
@@ -908,7 +898,6 @@
     </div>
   </section>
 
-  <!-- PROJECTS: Undertale (Branching, Pixelated, Dialogue) -->
  <section id="projects">
     <div class="undertale-container">
       <div class="dialogue-box animate-up">
@@ -936,8 +925,7 @@
     </div>
   </section>
 
-  <!-- CONTACT: Unified with About & Skills -->
-<section id="contact">
+  <section id="contact">
     <div class="contact-panel animate-up">
       <h2>Vamos Conectar?</h2>
       <p>Estou sempre aberto a novas oportunidades, projetos desafiadores ou apenas uma boa conversa sobre tecnologia e design.</p>
@@ -969,7 +957,6 @@
     <p>Construído com lógica e empatia.</p>
   </footer>
 
-  <!-- Technical Easter Egg: Pixel Mode Toggle -->
   <button class="pixel-toggle" id="pixelToggle" aria-label="Ativar Modo Pixel Art">
     <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
       <rect x="2" y="6" width="20" height="12"></rect>
@@ -980,46 +967,6 @@
     </svg>
   </button>
 
-  <script>
-    // Intersection Observer for Scroll Animations
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.15
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.animate-up').forEach(el => {
-      observer.observe(el);
-    });
-
-    // Technical Easter Egg: Pixel Mode
-    const pixelToggle = document.getElementById('pixelToggle');
-    const body = document.body;
-
-    // Check local storage for preference
-    if (localStorage.getItem('pixelMode') === 'enabled') {
-      body.classList.add('pixel-mode');
-    }
-
-    pixelToggle.addEventListener('click', () => {
-      body.classList.toggle('pixel-mode');
-      
-      if (body.classList.contains('pixel-mode')) {
-        localStorage.setItem('pixelMode', 'enabled');
-      } else {
-        localStorage.setItem('pixelMode', 'disabled');
-      }
-    });
-  </script>
   <script defer>
     /**
      * ========================================================
