@@ -1047,6 +1047,33 @@
       transform: translateY(-2px);
       color: var(--arcane-hex);
     }
+
+    /* =========================================
+       AJUSTES MOBILE ESTRITOS - GALERIA
+    ========================================= */
+    @media screen and (max-width: 768px) {
+        #projetos-design .design-grid {
+            grid-template-columns: 1fr !important; 
+            padding: 10px !important;
+            gap: 15px !important;
+        }
+        
+        #projetos-design .design-card {
+            padding: 15px !important; 
+        }
+
+        #projetos-design .imagem-card-projeto {
+            height: 220px !important; 
+            margin-bottom: 10px !important;
+        }
+        
+        #projetos-design .btn-projeto {
+            display: block !important;
+            text-align: center !important;
+            width: 100% !important; 
+            box-sizing: border-box !important;
+        }
+    }
   </style>
 </head>
 <body>
@@ -1238,8 +1265,8 @@
   <section id="projetos-design">
     <div class="design-header hidden-scroll">
       <h2>Galeria de Projetos & Design</h2>
-      <p>Explorações visuais, interfaces e protótipos criativos.</p>
-      <div style="margin-top: 15px; display: inline-block; padding: 6px 16px; background: rgba(255, 255, 255, 0.05); color: #bbb; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.5px;">
+      <p style="text-align: center; color: #a0aab2; max-width: 800px; margin: 0 auto 40px auto; font-size: 16px; line-height: 1.6;">Uma seleção de protótipos conceituais e estudos de caso desenvolvidos durante minha jornada de especialização. Cada projeto explora fundamentos de UI/UX, branding e design visual, demonstrando a aplicação prática de conceitos teóricos em cenários do mundo real.</p>
+      <div style="margin-top: -15px; display: inline-block; padding: 6px 16px; background: rgba(255, 255, 255, 0.05); color: #bbb; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.5px;">
         Em breve, uma nova guia no site com os projetos detalhados!
       </div>
     </div>
@@ -1277,18 +1304,18 @@
         </div>
       </div>
       <div class="design-card hidden-scroll">
-        <div class="img-placeholder" style="width: 100%; height: 280px; border-radius: 12px; margin-bottom: 15px; background: rgba(255,255,255,0.05);"></div>
+        <img src="mockup-editorial.png" alt="Mockup Editorial LDS Magazine" class="imagem-card-projeto">
         <div class="design-content">
-          <h3>Projeto 5</h3>
-          <p>Breve descrição do projeto...</p>
+          <h3>Design Editorial: LDS Magazine</h3>
+          <p>Diagramação e direção de arte para editorial. Foco em hierarquia tipográfica, grid estruturado e uso estratégico de espaços em branco (respiros visuais) para transmitir a essência minimalista da marca.</p>
           <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
         </div>
       </div>
       <div class="design-card hidden-scroll">
-        <div class="img-placeholder" style="width: 100%; height: 280px; border-radius: 12px; margin-bottom: 15px; background: rgba(255,255,255,0.05);"></div>
+        <img src="mockup-pixelart.jpg" alt="Mockup Game Design Pixel Art Leo" class="imagem-card-projeto">
         <div class="design-content">
-          <h3>Projeto 6</h3>
-          <p>Breve descrição do projeto...</p>
+          <h3>Creative Coding & Pixel Art</h3>
+          <p>Desenvolvimento de ambientes imersivos e assets em Pixel Art. Foco na criação de experiências de usuário (UX) inspiradas em jogos retrô, com implementação de telas de onboarding e narrativas visuais criativas.</p>
           <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
         </div>
       </div>
