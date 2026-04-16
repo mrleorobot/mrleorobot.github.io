@@ -1074,9 +1074,152 @@
             box-sizing: border-box !important;
         }
     }
+
+    /* =========================================
+       LIGHT MODE
+    ========================================= */
+    body.light-mode {
+      background: #f4f7f6 !important;
+      color: #1e293b !important;
+    }
+
+    body.light-mode header nav {
+      background: rgba(255, 255, 255, 0.95) !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+    }
+
+    body.light-mode .nav-links a:not(.btn-cv) {
+      color: #1e293b !important;
+    }
+
+    body.light-mode h1, 
+    body.light-mode h2, 
+    body.light-mode h3 {
+      text-shadow: none !important;
+      color: #0f172a !important;
+    }
+
+    body.light-mode .glitch-title {
+      color: #0f172a !important;
+    }
+
+    body.light-mode .hero-name,
+    body.light-mode .hero-text,
+    body.light-mode p,
+    body.light-mode span,
+    body.light-mode .contact-link {
+      color: #334155 !important;
+    }
+
+    /* Manter destaque do "Em Alta" e "Em Declínio" na dashboard */
+    body.light-mode #tech-trends-2030 span[style*="00ffff"] { color: #0284c7 !important; text-shadow: none !important; }
+    body.light-mode #tech-trends-2030 span[style*="ff00ff"] { color: #be185d !important; text-shadow: none !important; }
+
+    /* Bento Box Reformat */
+    body.light-mode .design-card,
+    body.light-mode .kurz-card,
+    body.light-mode .ut-card,
+    body.light-mode .narrative-box,
+    body.light-mode .contact-panel,
+    body.light-mode .dialogue-box {
+      background: rgba(255, 255, 255, 0.7) !important;
+      border: 1px solid rgba(0, 0, 0, 0.1) !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    body.light-mode .kurz-tag {
+      background: rgba(0, 0, 0, 0.05) !important;
+      border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    }
+
+    body.light-mode #suporte-gestao,
+    body.light-mode #hero {
+      background: none !important;
+    }
+
+    body.light-mode .contact-link {
+      background: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    /* Fix for section backgrounds failing to apply light mode */
+    body.light-mode #about {
+      background: linear-gradient(to bottom, #f4f7f6, #e2e8f0) !important;
+    }
+    body.light-mode #skills {
+      background: #e2e8f0 !important;
+    }
+    body.light-mode #projetos-design {
+      background: #f4f7f6 !important;
+    }
+    body.light-mode #contact {
+      background: #e2e8f0 !important;
+    }
+
+    /* Keep Undertale section DARK */
+    body.light-mode #projects {
+      background: #000 !important;
+      color: #fff !important;
+    }
+    body.light-mode #projects h2, 
+    body.light-mode #projects h3,
+    body.light-mode #projects p,
+    body.light-mode #projects span {
+      color: #fff !important;
+    }
+    body.light-mode #projects .dialogue-box span {
+      color: var(--spider-yellow) !important;
+    }
+    body.light-mode #projects .ut-card {
+      background: transparent !important;
+      border: 4px solid #fff !important;
+      color: #fff !important;
+    }
+    body.light-mode #projects .dialogue-box {
+      background: transparent !important;
+      border: 4px solid #fff !important;
+      color: #fff !important;
+    }
+
+    /* THEME TOGGLE BUTTON */
+    .theme-toggle-btn {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(20, 25, 38, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    body.light-mode .theme-toggle-btn {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      color: #1e293b;
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.1) rotate(-5deg);
+      border-color: var(--arcane-hex);
+    }
   </style>
 </head>
 <body>
+
+  <!-- Theme Toggle Button -->
+  <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Alternar Modo Claro/Escuro">☀️</button>
 
   <header>
     <nav aria-label="Navegação principal">
@@ -1322,6 +1465,117 @@
     </div>
   </section>
 
+  <section id="suporte-gestao" style="padding: 50px 0;">
+    <div class="design-header hidden-scroll">
+      <h2 style="font-size: 2.5rem; color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 2rem;">Além do Código: Suporte & Atendimento</h2>
+    </div>
+    <div class="design-grid container">
+      <div class="design-card hidden-scroll">
+        <div class="design-content">
+          <h3>Atendimento & Acolhimento</h3>
+          <p>Comunicação sempre clara, gentil e empática. Facilidade em ouvir os usuários com paciência, entender suas reais necessidades e oferecer um suporte focado em conexões humanas autênticas.</p>
+        </div>
+      </div>
+      <div class="design-card hidden-scroll">
+        <div class="design-content">
+          <h3>Suporte Técnico Didático</h3>
+          <p>Experiência prática como Professor de Informática. Atuo como a ponte entre a tecnologia e o usuário, traduzindo termos técnicos e processos complexos para uma linguagem simples e acessível.</p>
+        </div>
+      </div>
+      <div class="design-card hidden-scroll">
+        <div class="design-content">
+          <h3>Apoio & Ferramentas</h3>
+          <p>Foco na utilização de ferramentas tecnológicas (como softwares, documentação e análise de dados) para estruturar tarefas passo a passo, auxiliando a equipe e mantendo os processos organizados nos bastidores.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tech-trends-2030" style="padding: 50px 0;">
+    <div class="hidden-scroll">
+      <h2 style="font-size: 2.5rem; color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 0.5rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);">Radar de Mercado: Tech Trends 2030</h2>
+      <p style="text-align: center; color: #a0aab2; max-width: 800px; margin: 0 auto 3rem auto; font-size: 1.1rem; padding: 0 1rem;">Projeções baseadas no Fórum Econômico Mundial, estruturadas com UI Design nativo.</p>
+    </div>
+    
+    <div class="design-card hidden-scroll" style="max-width: 1000px; margin: 0 auto; width: 90%; padding: 2.5rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+        
+        <!-- Coluna 1 -->
+        <div>
+          <h3 style="color: #fff; font-family: 'Space Grotesk', sans-serif; margin-bottom: 0.5rem; font-size: 1.3rem;">Em Alta (Oportunidades)</h3>
+          <p style="color: #a0aab2; font-size: 0.95rem; line-height: 1.5; margin-bottom: 2rem;"><strong>Como nos adaptamos?</strong> O aprendizado contínuo é a chave. Ao invés de temer as IAs, devemos dominá-las como extensões das nossas próprias habilidades criativas e analíticas, multiplicando assim a nossa eficiência.</p>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
+              <span>IA & Machine Learning</span>
+              <span style="color: #00ffff; text-shadow: 0 0 5px rgba(0,255,255,0.5);">95%</span>
+            </div>
+            <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <div style="width: 95%; height: 100%; background: linear-gradient(90deg, transparent, #00ffff); border-radius: 10px; box-shadow: 0 0 10px #00ffff;"></div>
+            </div>
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
+              <span>Cibersegurança & Cloud</span>
+              <span style="color: #00ffff; text-shadow: 0 0 5px rgba(0,255,255,0.5);">85%</span>
+            </div>
+            <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <div style="width: 85%; height: 100%; background: linear-gradient(90deg, transparent, #00ffff); border-radius: 10px; box-shadow: 0 0 10px #00ffff;"></div>
+            </div>
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
+              <span>Energias Renováveis</span>
+              <span style="color: #00ffff; text-shadow: 0 0 5px rgba(0,255,255,0.5);">80%</span>
+            </div>
+            <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <div style="width: 80%; height: 100%; background: linear-gradient(90deg, transparent, #00ffff); border-radius: 10px; box-shadow: 0 0 10px #00ffff;"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Coluna 2 -->
+        <div>
+          <h3 style="color: #fff; font-family: 'Space Grotesk', sans-serif; margin-bottom: 0.5rem; font-size: 1.3rem;">Em Declínio (Automação)</h3>
+          <p style="color: #a0aab2; font-size: 0.95rem; line-height: 1.5; margin-bottom: 2rem;"><strong>O contra-movimento:</strong> Com as tarefas repetitivas automatizadas, o verdadeiro valor de mercado volta para as conexões genuínas. Empatia, escuta ativa e inteligência emocional não são codificáveis. A máquina cuida do processo, nós cuidamos das pessoas.</p>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
+              <span>Operadores de Dados/Telemarketing</span>
+              <span style="color: #ff00ff; text-shadow: 0 0 5px rgba(255,0,255,0.5);">90%</span>
+            </div>
+            <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <div style="width: 90%; height: 100%; background: linear-gradient(90deg, transparent, #ff00ff); border-radius: 10px; box-shadow: 0 0 10px #ff00ff;"></div>
+            </div>
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
+              <span>Caixas e Atendimento Físico</span>
+              <span style="color: #ff00ff; text-shadow: 0 0 5px rgba(255,0,255,0.5);">75%</span>
+            </div>
+            <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <div style="width: 75%; height: 100%; background: linear-gradient(90deg, transparent, #ff00ff); border-radius: 10px; box-shadow: 0 0 10px #ff00ff;"></div>
+            </div>
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
+              <span>Tarefas Administrativas/Papel</span>
+              <span style="color: #ff00ff; text-shadow: 0 0 5px rgba(255,0,255,0.5);">70%</span>
+            </div>
+            <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <div style="width: 70%; height: 100%; background: linear-gradient(90deg, transparent, #ff00ff); border-radius: 10px; box-shadow: 0 0 10px #ff00ff;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <section id="contact">
     <div class="contact-panel hidden-scroll">
       <h2>Vamos Conectar?</h2>
@@ -1528,6 +1782,34 @@
         });
       }
     }
+
+    // --------------------------------------------------------
+    // 5. Theme Toggle (Light/Dark Mode)
+    // --------------------------------------------------------
+    const themeBtn = document.getElementById('themeToggleBtn');
+    const body = document.body;
+    
+    // Check local storage for preference
+    const savedTheme = localStorage.getItem('portfolioTheme');
+    if (savedTheme === 'light') {
+      body.classList.add('light-mode');
+      if(themeBtn) themeBtn.textContent = '🌙';
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        body.classList.toggle('light-mode');
+        
+        if (body.classList.contains('light-mode')) {
+          localStorage.setItem('portfolioTheme', 'light');
+          themeBtn.textContent = '🌙';
+        } else {
+          localStorage.setItem('portfolioTheme', 'dark');
+          themeBtn.textContent = '☀️';
+        }
+      });
+    }
+
   </script>
 </body>
 </html>
