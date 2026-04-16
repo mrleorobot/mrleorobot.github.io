@@ -762,7 +762,8 @@
     .testimonial-card,
     .kurz-card,
     .contact-panel,
-    #game-wrapper {
+    #game-wrapper,
+    .design-card {
       background: rgba(15, 20, 35, 0.4) !important; /* Fundo escuro semi-transparente */
       backdrop-filter: blur(16px) !important; /* Efeito de vidro fosco */
       -webkit-backdrop-filter: blur(16px) !important; /* Suporte para Safari */
@@ -920,6 +921,131 @@
       .hamburger.active .hamburger-line:nth-child(3) {
         transform: translateY(-9px) rotate(-45deg);
       }
+    }
+
+    /* ==========================================================================
+       PROJETOS DESIGN (GALERIA)
+       ========================================================================== */
+    #projetos-design {
+      padding: 6rem 2rem;
+      background: linear-gradient(to bottom, #0a0f1a, #05080f);
+    }
+    
+    .design-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .design-header h2 {
+      font-size: 2.5rem;
+      color: var(--arcane-hex);
+      margin-bottom: 1rem;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .design-header p {
+      color: #a0aec0;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .design-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .design-card {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .img-placeholder {
+      width: 100%;
+      height: 200px;
+      background: rgba(0, 229, 255, 0.05);
+      border: 2px dashed rgba(0, 229, 255, 0.2);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(0, 229, 255, 0.6);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .imagem-card-projeto {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .design-card:hover .img-placeholder {
+      background: rgba(0, 229, 255, 0.1);
+      border-color: rgba(0, 229, 255, 0.4);
+      color: var(--arcane-hex);
+    }
+    
+    .design-card h3 {
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .design-card p {
+      color: #d1d5db;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .design-content {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .btn-projeto {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: auto;
+      padding: 0 1.5rem;
+      min-height: 44px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.4) 100%);
+      border: 1px solid rgba(0, 229, 255, 0.5);
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn-projeto:hover {
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.6) 100%);
+      border-color: var(--arcane-hex);
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.4), inset 0 0 10px rgba(0, 229, 255, 0.2);
+      transform: translateY(-2px);
+      color: var(--arcane-hex);
     }
   </style>
 </head>
@@ -1103,6 +1229,39 @@
             <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="ut-btn act" aria-label="Ver detalhes do projeto Landing Page">♥ Ver Detalhes</a>
             <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="ut-btn" aria-label="Ver código do projeto Landing Page">Código</a>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projetos-design">
+    <div class="design-header hidden-scroll">
+      <h2>Galeria de Projetos & Design</h2>
+      <p>Explorações visuais, interfaces e protótipos criativos.</p>
+    </div>
+    <div class="design-grid">
+      <div class="design-card hidden-scroll">
+        <img src="mockup-convite.png" alt="Mockup UI/UX Convite Mobile" class="imagem-card-projeto">
+        <div class="design-content">
+          <h3>Convite Digital Interativo (UI/UX)</h3>
+          <p>Design de interface mobile com foco na jornada do usuário. Estruturação de hierarquia visual e implementação de botões de Call-to-Action (CTA) interativos para confirmação de presença e localização.</p>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn-projeto">Ver Projeto</a>
+        </div>
+      </div>
+      <div class="design-card hidden-scroll">
+        <div class="img-placeholder">Imagem 2</div>
+        <div class="design-content">
+          <h3>Card 2</h3>
+          <p>Breve descrição do projeto de design, destacando o desafio e a solução visual implementada.</p>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn-projeto">Ver Projeto</a>
+        </div>
+      </div>
+      <div class="design-card hidden-scroll">
+        <div class="img-placeholder">Imagem 3</div>
+        <div class="design-content">
+          <h3>Card 3</h3>
+          <p>Breve descrição do projeto de design, destacando o desafio e a solução visual implementada.</p>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn-projeto">Ver Projeto</a>
         </div>
       </div>
     </div>
