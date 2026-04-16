@@ -752,6 +752,175 @@
     body.pixel-mode * {
       transition: none !important; /* Snappy retro feel */
     }
+
+    /* ==========================================================================
+       BENTO BOX & GLASSMORPHISM OVERRIDES (V2.0)
+       ========================================================================== */
+    
+    /* 1. Bento Box & Glassmorphism Containers */
+    .narrative-box,
+    .testimonial-card,
+    .kurz-card,
+    .contact-panel,
+    #game-wrapper {
+      background: rgba(15, 20, 35, 0.4) !important; /* Fundo escuro semi-transparente */
+      backdrop-filter: blur(16px) !important; /* Efeito de vidro fosco */
+      -webkit-backdrop-filter: blur(16px) !important; /* Suporte para Safari */
+      border: 1px solid rgba(255, 255, 255, 0.08) !important; /* Borda de vidro sutil */
+      border-radius: 24px !important; /* Arredondamento generoso estilo Bento Box */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important; /* Profundidade 3D com brilho interno */
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease !important;
+      overflow: hidden !important; /* Garante que o conteúdo respeite as bordas arredondadas */
+    }
+
+    /* 2. Hover Effects para Cards (Profundidade Dinâmica) */
+    .testimonial-card:hover,
+    .kurz-card:hover {
+      transform: translateY(-8px) !important; /* Levanta o card suavemente */
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 229, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important; /* Sombra expandida com brilho neon */
+      border-color: rgba(0, 229, 255, 0.3) !important; /* Borda acende levemente com a cor Arcane */
+    }
+
+    /* 3. Hover Effects para Botões e Links */
+    .btn-cv,
+    .btn-spider,
+    .contact-link {
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+      border-radius: 14px !important; /* Arredondando botões para combinar com o Bento Box */
+    }
+
+    .btn-cv:hover,
+    .btn-spider:hover,
+    .contact-link:hover {
+      transform: translateY(-4px) scale(1.02) !important; /* Levanta e expande levemente */
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    /* Ajuste específico para o botão do Spider-Verse não perder sua identidade, mas ganhar o hover suave */
+    .btn-spider:hover {
+      box-shadow: 8px 8px 0 var(--spider-blue), 0 15px 25px rgba(0,0,0,0.5) !important;
+    }
+
+    /* 4. Classes de Animação para o futuro JS */
+    .hidden-scroll {
+      opacity: 0 !important;
+      transform: translateY(30px) !important;
+      pointer-events: none !important; /* Evita cliques enquanto invisível */
+    }
+
+    .show-scroll {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      pointer-events: auto !important;
+      transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+    }
+
+    /* ==========================================================================
+       SEARCH BAR & HAMBURGER MENU
+       ========================================================================== */
+    
+    /* Search Bar */
+    .search-container {
+      text-align: center;
+      margin: 0 auto 3rem auto;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 14px 24px;
+      border-radius: 24px;
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      background: rgba(15, 20, 35, 0.6);
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    #searchInput:focus {
+      border-color: var(--arcane-hex);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    #searchInput::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1001;
+    }
+
+    .hamburger-line {
+      width: 30px;
+      height: 3px;
+      background-color: var(--arcane-hex);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    @media (max-width: 767px) {
+      .hamburger {
+        display: flex;
+      }
+
+      nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 5%;
+        position: fixed;
+        background: rgba(10, 15, 29, 0.95);
+        border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 80%;
+        max-width: 300px;
+        background: rgba(10, 15, 29, 0.98);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        backdrop-filter: blur(16px);
+        border-left: 1px solid rgba(0, 229, 255, 0.2);
+        box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+        z-index: 1000;
+        margin: 0;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      /* Hamburger Animation */
+      .hamburger.active .hamburger-line:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+      }
+      .hamburger.active .hamburger-line:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active .hamburger-line:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+      }
+    }
   </style>
 </head>
 <body>
@@ -759,6 +928,14 @@
   <header>
     <nav aria-label="Navegação principal">
       <a href="#hero" class="logo" aria-label="Voltar ao topo">LEONILSON_</a>
+      
+      <!-- Hamburger Menu Button -->
+      <button class="hamburger" aria-label="Abrir menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
       <div class="nav-links">
         <a href="#about">Origem</a>
         <a href="#skills">Inventário</a>
@@ -774,7 +951,7 @@
 
   <main>
   <section id="hero">
-    <div class="hero-content animate-up">
+    <div class="hero-content hidden-scroll">
       <h1 class="glitch-title typewriter-text">Criatividade<br>em Código.</h1>
       <div class="hero-name" style="font-size: 2rem; color: #fff; font-family: 'Space Grotesk', sans-serif; font-weight: 700; margin-bottom: 0.5rem;">Leonilson Souza</div>
       <div class="hero-subtitle" style="font-size: 1.2rem; margin-bottom: 2rem;">Atendimento ao Cliente | Rotinas Administrativas | Apoio Técnico</div>
@@ -786,7 +963,7 @@
   </section>
 
   <section id="about">
-    <div class="narrative-box animate-up">
+    <div class="narrative-box hidden-scroll">
       <div class="narrative-content">
         <div class="profile-frame">
           <img src="profile.jpg" alt="Retrato em preto e branco de Leonilson Souza" loading="lazy" />
@@ -807,15 +984,15 @@
     </div>
 
     <div class="testimonials-grid">
-      <div class="testimonial-card animate-up">
+      <div class="testimonial-card hidden-scroll">
         <p class="testimonial-text">"O Professor Leo tem uma paciência incrível para explicar conceitos difíceis. Graças à sua didática, consegui entender a lógica por trás do código sem me sentir frustrado."</p>
         <p class="testimonial-author">— Ex-Aluno de Web Design</p>
       </div>
-      <div class="testimonial-card animate-up">
+      <div class="testimonial-card hidden-scroll">
         <p class="testimonial-text">"Trabalhar com ele é ter a certeza de que os processos técnicos estarão sempre organizados e acessíveis. Ele consegue simplificar o uso de sistemas para qualquer pessoa da equipe."</p>
         <p class="testimonial-author">— Colega de Administração</p>
       </div>
-      <div class="testimonial-card animate-up">
+      <div class="testimonial-card hidden-scroll">
         <p class="testimonial-text">"As aulas de informática eram muito visuais e fáceis de acompanhar. Ele realmente se importa em garantir que o aluno não apenas decore, mas entenda a ferramenta."</p>
         <p class="testimonial-author">— Ex-Aluno de Informática</p>
       </div>
@@ -823,12 +1000,18 @@
   </section>
 
  <section id="skills">
-    <div class="skills-header animate-up">
+    <div class="skills-header hidden-scroll">
       <h2>Meu Inventário</h2>
       <p style="color: #a0aec0; font-size: 1.2rem;">Ferramentas e habilidades que uso para entender, construir e explicar soluções.</p>
     </div>
+
+    <!-- Search Bar -->
+    <div class="search-container hidden-scroll">
+      <input type="text" id="searchInput" placeholder="Pesquisar habilidades ou projetos..." aria-label="Pesquisar portfólio">
+    </div>
+
     <div class="kurz-grid">
-      <div class="kurz-card animate-up">
+      <div class="kurz-card hidden-scroll">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
           Fundamentos & Lógica
@@ -842,7 +1025,7 @@
           <span class="kurz-tag">Pensamento Lógico</span>
         </div>
       </div>
-      <div class="kurz-card animate-up" style="background: var(--su-pink); box-shadow: 0 8px 0 #d85a7f;">
+      <div class="kurz-card hidden-scroll" style="background: var(--su-pink); box-shadow: 0 8px 0 #d85a7f;">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
           Soft Skills
@@ -855,7 +1038,7 @@
           <span class="kurz-tag">Simplificar o Complexo</span>
         </div>
       </div>
-      <div class="kurz-card animate-up" style="background: #f59e0b; box-shadow: 0 8px 0 #d97706;">
+      <div class="kurz-card hidden-scroll" style="background: #f59e0b; box-shadow: 0 8px 0 #d97706;">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg>
           Criatividade & Abordagem
@@ -867,7 +1050,7 @@
           <span class="kurz-tag">Adaptabilidade</span>
         </div>
       </div>
-      <div class="kurz-card animate-up" style="background: #008b99; box-shadow: 0 8px 0 #006670;">
+      <div class="kurz-card hidden-scroll" style="background: #008b99; box-shadow: 0 8px 0 #006670;">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
           Ferramentas
@@ -878,7 +1061,7 @@
           <span class="kurz-tag">Navegadores (DevTools)</span>
         </div>
       </div>
-      <div class="kurz-card learning animate-up">
+      <div class="kurz-card learning hidden-scroll">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
           Em Expansão
@@ -900,12 +1083,12 @@
 
  <section id="projects">
     <div class="undertale-container">
-      <div class="dialogue-box animate-up">
+      <div class="dialogue-box hidden-scroll">
         * Um novo desafio aparece! <br>
         * O que você vai fazer? <span>[Analisar]</span>
       </div>
       <div class="project-battle-grid">
-        <div class="ut-card animate-up">
+        <div class="ut-card hidden-scroll">
           <h3>Projetos em andamento</h3>
           <p>* Acesso ao meu perfil no Github onde futuros projetos serão enviados</p>
           <div class="ut-actions">
@@ -913,7 +1096,7 @@
             <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="ut-btn" aria-label="Ver código do projeto Dashboard de Vendas">Código</a>
           </div>
         </div>
-        <div class="ut-card animate-up">
+        <div class="ut-card hidden-scroll">
           <h3>Para antigos Alunos</h3>
           <p>* Banco de Aulas de 2024, Slides e Pdfs de 2025 ainda serão enviados ao repositório</p>
           <div class="ut-actions">
@@ -926,7 +1109,7 @@
   </section>
 
   <section id="contact">
-    <div class="contact-panel animate-up">
+    <div class="contact-panel hidden-scroll">
       <h2>Vamos Conectar?</h2>
       <p>Estou sempre aberto a novas oportunidades, projetos desafiadores ou apenas uma boa conversa sobre tecnologia e design.</p>
       
@@ -1022,7 +1205,7 @@
     // --------------------------------------------------------
     function initCinematicScroll() {
       // Seleciona todos os elementos que devem ser animados ao rolar a página
-      const elementsToAnimate = document.querySelectorAll('.animate-up');
+      const elementsToAnimate = document.querySelectorAll('.hidden-scroll');
 
       // Configurações do nosso "olheiro" (Observer)
       const observerOptions = {
@@ -1036,8 +1219,8 @@
         entries.forEach(entry => {
           // Se o elemento entrou na área visível...
           if (entry.isIntersecting) {
-            // Adiciona a classe '.visible' que engatilha a transição CSS (opacity e transform)
-            entry.target.classList.add('visible');
+            // Adiciona a classe '.show-scroll' que engatilha a transição CSS (opacity e transform)
+            entry.target.classList.add('show-scroll');
             // Para de observar este elemento (a animação acontece apenas uma vez)
             observer.unobserve(entry.target);
           }
@@ -1079,7 +1262,58 @@
       initTypewriter();
       initCinematicScroll();
       initPixelMode();
+      initSearchAndMenu();
     });
+
+    // --------------------------------------------------------
+    // 4. Search Filter & Mobile Menu
+    // --------------------------------------------------------
+    function initSearchAndMenu() {
+      // Mobile Menu
+      const hamburger = document.querySelector('.hamburger');
+      const navLinks = document.querySelector('.nav-links');
+      
+      if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+          const isActive = hamburger.classList.contains('active');
+          hamburger.classList.toggle('active');
+          navLinks.classList.toggle('active');
+          hamburger.setAttribute('aria-expanded', !isActive);
+        });
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+          link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      // Search Filter
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          const term = e.target.value.toLowerCase();
+          // Select both inventory cards and project cards
+          const cards = document.querySelectorAll('.kurz-card, .ut-card');
+          
+          cards.forEach(card => {
+            const text = card.innerText.toLowerCase();
+            if (text.includes(term)) {
+              card.style.display = '';
+              // Re-trigger animation if it was hidden
+              if (card.classList.contains('hidden-scroll')) {
+                card.classList.add('show-scroll');
+              }
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      }
+    }
   </script>
 </body>
 </html>
