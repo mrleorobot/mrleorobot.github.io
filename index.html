@@ -60,8 +60,8 @@
 
     /* Accessibility: Keyboard Focus */
     *:focus-visible {
-      outline: 3px solid var(--arcane-hex);
-      outline-offset: 4px;
+      outline: 2px solid #00ffff !important;
+      outline-offset: 4px !important;
       border-radius: 4px;
     }
 
@@ -115,13 +115,15 @@
       font-family: 'Space Grotesk', sans-serif;
       font-size: 0.9rem;
       transition: all 0.3s ease;
+      padding: 12px 24px; /* Touch target ampliado para Acessibilidade/Mobile */
+      display: inline-block;
     }
 
     .btn-cv {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 0.8rem 1.2rem; /* Aumentado para melhor touch target no mobile */
+      padding: 12px 24px; /* Touch target otimizado */
       background: rgba(0, 229, 255, 0.05);
       color: var(--arcane-hex);
       border: 2px solid var(--arcane-hex);
@@ -132,6 +134,10 @@
       text-transform: uppercase;
       text-decoration: none;
       transition: all 0.3s ease;
+    }
+
+    main {
+      width: 100%;
     }
 
     /* Sections */
@@ -533,13 +539,13 @@
 
     .contact-link {
       border-radius: 12px;
-      padding: 1rem;
+      padding: 12px 24px;
       font-size: 1.1rem;
       justify-content: center;
       text-decoration: none;
       color: #fff;
       font-weight: 700;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 12px;
     }
@@ -1024,7 +1030,7 @@
       align-items: center;
       justify-content: center;
       margin-top: auto;
-      padding: 0 1.5rem;
+      padding: 12px 24px;
       min-height: 44px;
       border-radius: 50px;
       background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.4) 100%);
@@ -1075,28 +1081,136 @@
         }
     }
 
+    /* ==========================================================================
+       FAQ SECTION (HYBRID ACCORDION)
+       ========================================================================== */
+    #faq {
+      padding: 60px 0;
+      position: relative;
+    }
+    
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .faq-item {
+      background: rgba(26, 21, 37, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .faq-item:hover {
+      border-color: var(--arcane-hex);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      outline: none;
+      transition: color 0.3s ease;
+    }
+    
+    .faq-question:hover {
+      color: var(--arcane-hex);
+    }
+
+    .faq-icon {
+      font-size: 1.5rem;
+      font-weight: 300;
+      transition: transform 0.4s ease;
+      color: var(--arcane-hex);
+      line-height: 1;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer-wrapper {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .faq-answer-content {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      color: #a0aab2;
+      line-height: 1.6;
+      font-size: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      margin-top: 0.5rem;
+      padding-top: 1.5rem;
+    }
+
     /* =========================================
        LIGHT MODE
     ========================================= */
     body.light-mode {
-      background: #f4f7f6 !important;
-      color: #1e293b !important;
+      background: #f1f5f9 !important; /* Slate 100/Off-White suave para não estourar a visão */
+      color: #0f172a !important; /* Slate 900 */
+    }
+
+    body.light-mode *:focus-visible {
+      outline-color: #2563eb !important; /* Azul royal vibrante da Vercel/Stripe */
     }
 
     body.light-mode header nav {
-      background: rgba(255, 255, 255, 0.95) !important;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+      background: rgba(255, 255, 255, 0.8) !important;
+      backdrop-filter: blur(12px) !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
     }
 
     body.light-mode .nav-links a:not(.btn-cv) {
-      color: #1e293b !important;
+      color: #0f172a !important;
     }
 
     body.light-mode h1, 
     body.light-mode h2, 
-    body.light-mode h3 {
+    body.light-mode h3,
+    body.light-mode .hero-subtitle {
       text-shadow: none !important;
-      color: #0f172a !important;
+      color: #0f172a !important; /* Títulos marcantes em Black/Slate-900 */
+    }
+    
+    body.light-mode .btn-projeto, 
+    body.light-mode a[download], 
+    body.light-mode button:not(.theme-toggle-btn):not(.ut-btn) { 
+      background: linear-gradient(135deg, #1d4ed8, #4f46e5) !important; /* Degradê Indigo/Blue elegante */
+      color: #ffffff !important; 
+      text-shadow: none !important; 
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25) !important; /* Sombra brilhante e conectada */
+      border: 1px solid rgba(0,0,0,0.05) !important; 
+    }
+
+    body.light-mode footer, 
+    body.light-mode .footer { 
+      background: #f8fafc !important; 
+      color: #0f172a !important; 
+      border-top: 1px solid #e2e8f0 !important; 
+      box-shadow: none !important; 
+    }
+    body.light-mode footer p, 
+    body.light-mode footer span { 
+      color: #64748b !important; 
     }
 
     body.light-mode .glitch-title {
@@ -1107,57 +1221,148 @@
     body.light-mode .hero-text,
     body.light-mode p,
     body.light-mode span,
+    body.light-mode small,
     body.light-mode .contact-link {
-      color: #334155 !important;
+      color: #475569 !important; /* Escala cinza moderna (Slate 600) para textos secundários */
+    }
+
+    /* Aviso 'Em breve' na galeria */
+    body.light-mode .design-header div[style*="margin-top: -15px"] {
+      color: #475569 !important;
+      background: #f1f5f9 !important;
+      border-color: #e2e8f0 !important;
     }
 
     /* Manter destaque do "Em Alta" e "Em Declínio" na dashboard */
-    body.light-mode #tech-trends-2030 span[style*="00ffff"] { color: #0284c7 !important; text-shadow: none !important; }
-    body.light-mode #tech-trends-2030 span[style*="ff00ff"] { color: #be185d !important; text-shadow: none !important; }
+    body.light-mode #tech-trends-2030 span[style*="00ffff"] { color: #2563eb !important; text-shadow: none !important; }
+    body.light-mode #tech-trends-2030 span[style*="ff00ff"] { color: #e11d48 !important; text-shadow: none !important; }
 
-    /* Bento Box Reformat */
+    /* Bento Box Reformat EXCLUINDO componentes Undertale */
     body.light-mode .design-card,
     body.light-mode .kurz-card,
-    body.light-mode .ut-card,
     body.light-mode .narrative-box,
-    body.light-mode .contact-panel,
-    body.light-mode .dialogue-box {
-      background: rgba(255, 255, 255, 0.7) !important;
-      border: 1px solid rgba(0, 0, 0, 0.1) !important;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+    body.light-mode .contact-panel {
+      background: #ffffff !important; /* Cards brancos puros contrastando com o fundo fafafa */
+      border: 1px solid rgba(0, 0, 0, 0.05) !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03) !important; /* Sombras bem maiores mas transparentes */
     }
 
+    body.light-mode .tech-label {
+      color: #0f172a !important;
+      font-weight: 600 !important;
+    }
+    
     body.light-mode .kurz-tag {
-      background: rgba(0, 0, 0, 0.05) !important;
-      border: 1px solid rgba(0, 0, 0, 0.1) !important;
-    }
-
-    body.light-mode #suporte-gestao,
-    body.light-mode #hero {
-      background: none !important;
+      background: #f1f5f9 !important;
+      border: 1px solid #e2e8f0 !important;
+      color: #475569 !important;
     }
 
     body.light-mode .contact-link {
-      background: rgba(255, 255, 255, 0.5) !important;
+      background: #f1f5f9 !important;
+      border: 1px solid #e2e8f0 !important;
+      color: #0f172a !important;
     }
 
-    /* Fix for section backgrounds failing to apply light mode */
-    body.light-mode #about {
-      background: linear-gradient(to bottom, #f4f7f6, #e2e8f0) !important;
-    }
-    body.light-mode #skills {
+    body.light-mode .tech-bar-container {
       background: #e2e8f0 !important;
+      border-color: #cbd5e1 !important;
     }
-    body.light-mode #projetos-design {
-      background: #f4f7f6 !important;
+
+    body.light-mode .tech-color-cyan {
+      color: #2563eb !important; /* Blue 600 */
+      text-shadow: none !important;
     }
+    body.light-mode .tech-bg-cyan {
+      background: linear-gradient(90deg, rgba(37,99,235,0.15), #2563eb) !important;
+      box-shadow: none !important;
+    }
+
+    body.light-mode .tech-color-magenta {
+      color: #e11d48 !important; /* Rose 600 */
+      text-shadow: none !important;
+    }
+    body.light-mode .tech-bg-magenta {
+      background: linear-gradient(90deg, rgba(225,29,72,0.15), #e11d48) !important;
+      box-shadow: none !important;
+    }
+
+    /* === CORREÇÃO FORÇADA DE FUNDOS: APLICAR TEMA CLARO A TODAS AS SEÇÕES === */
+    body.light-mode #hero,
+    body.light-mode #about,
+    body.light-mode #skills,
+    body.light-mode #projetos-design,
+    body.light-mode #suporte-gestao,
+    body.light-mode #tech-trends-2030,
+    body.light-mode #faq,
     body.light-mode #contact {
-      background: #e2e8f0 !important;
+      background: none !important;
+      background-color: #f1f5f9 !important;
+      background-image: none !important;
     }
 
-    /* Keep Undertale section DARK */
+    /* Regras do Light Mode para o FAQ (Contraste Perfeito) */
+    body.light-mode .faq-item {
+      background: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02) !important;
+    }
+    body.light-mode .faq-item:hover {
+      border-color: #cbd5e1 !important;
+    }
+    body.light-mode .faq-question {
+      color: #0f172a !important;
+      font-weight: 600 !important;
+    }
+    body.light-mode .faq-icon {
+      color: #2563eb !important;
+    }
+    body.light-mode .faq-answer-content {
+      color: #475569 !important;
+      border-top-color: #f1f5f9 !important;
+    }
+
+    /* =========================================
+       TECH TRENDS BARS & NUMBERS
+    ========================================= */
+    .tech-bar-container {
+      width: 100%; 
+      height: 12px; 
+      background: rgba(255,255,255,0.05); 
+      border-radius: 10px; 
+      overflow: hidden; 
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .tech-bar {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 2s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    
+    .tech-color-cyan {
+      color: #00ffff;
+      text-shadow: 0 0 5px rgba(0,255,255,0.5);
+    }
+    .tech-bg-cyan {
+      background: linear-gradient(90deg, transparent, #00ffff); 
+      box-shadow: 0 0 10px #00ffff;
+    }
+
+    .tech-color-magenta {
+      color: #ff00ff;
+      text-shadow: 0 0 5px rgba(255,0,255,0.5);
+    }
+    .tech-bg-magenta {
+      background: linear-gradient(90deg, transparent, #ff00ff); 
+      box-shadow: 0 0 10px #ff00ff;
+    }
+
+    /* === PROTEÇÃO ABSOLUTA DA SEÇÃO UNDERTALE (#projects) === */
     body.light-mode #projects {
       background: #000 !important;
+      background-color: #000 !important;
+      background-image: none !important;
       color: #fff !important;
     }
     body.light-mode #projects h2, 
@@ -1165,18 +1370,20 @@
     body.light-mode #projects p,
     body.light-mode #projects span {
       color: #fff !important;
+      text-shadow: none !important;
     }
     body.light-mode #projects .dialogue-box span {
       color: var(--spider-yellow) !important;
     }
-    body.light-mode #projects .ut-card {
-      background: transparent !important;
-      border: 4px solid #fff !important;
-      color: #fff !important;
-    }
+    body.light-mode #projects .ut-card,
     body.light-mode #projects .dialogue-box {
       background: transparent !important;
+      background-color: transparent !important;
       border: 4px solid #fff !important;
+      color: #fff !important;
+      box-shadow: none !important;
+    }
+    body.light-mode #projects .ut-btn {
       color: #fff !important;
     }
 
@@ -1214,12 +1421,88 @@
       transform: scale(1.1) rotate(-5deg);
       border-color: var(--arcane-hex);
     }
+
+    /* ==========================================================================
+       TOAST NOTIFICATION (COPY EMAIL)
+       ========================================================================== */
+    #toast-notificacao {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 12px 24px;
+      background: rgba(20, 25, 38, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      border-left: 4px solid var(--arcane-hex);
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    .toast-escondido {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+
+    .toast-visivel {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.4s ease;
+      pointer-events: auto;
+    }
+
+    /* Light Mode para o toast e o github card */
+    body.light-mode #toast-notificacao {
+      background: rgba(255, 255, 255, 0.95);
+      color: #1e293b;
+      border-left-color: #005f73;
+    }
+    body.light-mode #live-github-card {
+      background: rgba(255, 255, 255, 0.7) !important;
+      border-color: rgba(0, 0, 0, 0.1) !important;
+      color: #334155 !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+    }
+    body.light-mode #live-github-card strong {
+      color: #005f73 !important;
+      text-shadow: none !important;
+    }
+    body.light-mode #status-disponibilidade {
+      background: rgba(255, 255, 255, 0.7) !important;
+      border-color: rgba(0, 0, 0, 0.1) !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+    }
+    body.light-mode #status-disponibilidade #texto-status {
+      color: #334155 !important;
+    }
+    body.light-mode #widget-clima {
+      background: rgba(255, 255, 255, 0.7) !important;
+      border-color: rgba(0, 0, 0, 0.1) !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+    }
+    body.light-mode #widget-clima #clima-icone {
+      color: #005f73 !important;
+    }
+    body.light-mode #widget-clima #clima-texto {
+      color: #334155 !important;
+    }
   </style>
 </head>
 <body>
 
   <!-- Theme Toggle Button -->
-  <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Alternar Modo Claro/Escuro">☀️</button>
+  <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Alternar Modo Claro/Escuro">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+  </button>
+  
+  <!-- Elemento Toast de Notificação -->
+  <div id="toast-notificacao" class="toast-escondido" role="alert" aria-live="assertive">E-mail copiado com sucesso!</div>
 
   <header>
     <nav aria-label="Navegação principal">
@@ -1246,11 +1529,14 @@
     </nav>
   </header>
 
-  <main>
+  <main role="main">
   <section id="hero">
     <div class="hero-content hidden-scroll">
       <h1 class="glitch-title typewriter-text">Criatividade<br>em Código.</h1>
-      <div class="hero-name" style="font-size: 2rem; color: #fff; font-family: 'Space Grotesk', sans-serif; font-weight: 700; margin-bottom: 0.5rem;">Leonilson Souza</div>
+      <div class="hero-name" style="color: #fff; font-family: 'Space Grotesk', sans-serif; margin-bottom: 0.5rem;">
+        <span id="saudacao-visitante" style="display: block; font-size: 1.1rem; font-weight: 400; opacity: 0.8; margin-bottom: 0.3rem;">Olá, seja muito bem-vindo!</span>
+        <span style="font-size: 2.8rem; font-weight: 700; line-height: 1.1;">Leonilson Souza</span>
+      </div>
       <div class="hero-subtitle" style="font-size: 1.2rem; margin-bottom: 2rem;">Atendimento ao Cliente | Rotinas Administrativas | Apoio Técnico</div>
       <p class="hero-text">
         "Sempre fui movido pela curiosidade de entender as engrenagens do mundo. Descobri na tecnologia a ferramenta ideal para unir lógica, design e empatia na construção de soluções reais."
@@ -1276,6 +1562,16 @@
           <p>
             Meu objetivo é construir soluções que não apenas funcionem perfeitamente, mas que guiem o usuário com a mesma clareza e empatia de uma sala de aula.
           </p>
+
+          <div id="live-github-card" aria-live="polite" style="margin-top: 20px; padding: 15px; border-radius: 12px; background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2); display: inline-block;">
+            <strong style="color: #00ffff; display: inline-flex; align-items: center; gap: 6px;">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+              </svg>
+              Status ao Vivo (GitHub)
+            </strong><br>
+            <span style="font-size: 14px;">Repositórios Públicos: <b id="gh-repos">⏳</b> | Seguidores: <b id="gh-followers">⏳</b></span>
+          </div>
         </div>
       </div>
     </div>
@@ -1507,31 +1803,31 @@
           
           <div style="margin-bottom: 1.5rem;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
-              <span>IA & Machine Learning</span>
-              <span style="color: #00ffff; text-shadow: 0 0 5px rgba(0,255,255,0.5);">95%</span>
+              <span class="tech-label">IA & Machine Learning</span>
+              <span class="tech-color-cyan"><span class="contador" data-alvo="95">0</span>%</span>
             </div>
-            <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <div style="width: 95%; height: 100%; background: linear-gradient(90deg, transparent, #00ffff); border-radius: 10px; box-shadow: 0 0 10px #00ffff;"></div>
-            </div>
-          </div>
-          
-          <div style="margin-bottom: 1.5rem;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
-              <span>Cibersegurança & Cloud</span>
-              <span style="color: #00ffff; text-shadow: 0 0 5px rgba(0,255,255,0.5);">85%</span>
-            </div>
-            <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <div style="width: 85%; height: 100%; background: linear-gradient(90deg, transparent, #00ffff); border-radius: 10px; box-shadow: 0 0 10px #00ffff;"></div>
+            <div class="tech-bar-container">
+              <div class="tech-bar tech-bg-cyan" data-alvo-largura="95" style="width: 0%;"></div>
             </div>
           </div>
           
           <div style="margin-bottom: 1.5rem;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
-              <span>Energias Renováveis</span>
-              <span style="color: #00ffff; text-shadow: 0 0 5px rgba(0,255,255,0.5);">80%</span>
+              <span class="tech-label">Cibersegurança & Cloud</span>
+              <span class="tech-color-cyan"><span class="contador" data-alvo="85">0</span>%</span>
             </div>
-            <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <div style="width: 80%; height: 100%; background: linear-gradient(90deg, transparent, #00ffff); border-radius: 10px; box-shadow: 0 0 10px #00ffff;"></div>
+            <div class="tech-bar-container">
+              <div class="tech-bar tech-bg-cyan" data-alvo-largura="85" style="width: 0%;"></div>
+            </div>
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
+              <span class="tech-label">Energias Renováveis</span>
+              <span class="tech-color-cyan"><span class="contador" data-alvo="80">0</span>%</span>
+            </div>
+            <div class="tech-bar-container">
+              <div class="tech-bar tech-bg-cyan" data-alvo-largura="80" style="width: 0%;"></div>
             </div>
           </div>
         </div>
@@ -1543,31 +1839,31 @@
           
           <div style="margin-bottom: 1.5rem;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
-              <span>Operadores de Dados/Telemarketing</span>
-              <span style="color: #ff00ff; text-shadow: 0 0 5px rgba(255,0,255,0.5);">90%</span>
+              <span class="tech-label">Operadores de Dados/Telemarketing</span>
+              <span class="tech-color-magenta"><span class="contador" data-alvo="90">0</span>%</span>
             </div>
-            <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <div style="width: 90%; height: 100%; background: linear-gradient(90deg, transparent, #ff00ff); border-radius: 10px; box-shadow: 0 0 10px #ff00ff;"></div>
-            </div>
-          </div>
-          
-          <div style="margin-bottom: 1.5rem;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
-              <span>Caixas e Atendimento Físico</span>
-              <span style="color: #ff00ff; text-shadow: 0 0 5px rgba(255,0,255,0.5);">75%</span>
-            </div>
-            <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <div style="width: 75%; height: 100%; background: linear-gradient(90deg, transparent, #ff00ff); border-radius: 10px; box-shadow: 0 0 10px #ff00ff;"></div>
+            <div class="tech-bar-container">
+              <div class="tech-bar tech-bg-magenta" data-alvo-largura="90" style="width: 0%;"></div>
             </div>
           </div>
           
           <div style="margin-bottom: 1.5rem;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
-              <span>Tarefas Administrativas/Papel</span>
-              <span style="color: #ff00ff; text-shadow: 0 0 5px rgba(255,0,255,0.5);">70%</span>
+              <span class="tech-label">Caixas e Atendimento Físico</span>
+              <span class="tech-color-magenta"><span class="contador" data-alvo="75">0</span>%</span>
             </div>
-            <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <div style="width: 70%; height: 100%; background: linear-gradient(90deg, transparent, #ff00ff); border-radius: 10px; box-shadow: 0 0 10px #ff00ff;"></div>
+            <div class="tech-bar-container">
+              <div class="tech-bar tech-bg-magenta" data-alvo-largura="75" style="width: 0%;"></div>
+            </div>
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
+              <span class="tech-label">Tarefas Administrativas/Papel</span>
+              <span class="tech-color-magenta"><span class="contador" data-alvo="70">0</span>%</span>
+            </div>
+            <div class="tech-bar-container">
+              <div class="tech-bar tech-bg-magenta" data-alvo-largura="70" style="width: 0%;"></div>
             </div>
           </div>
         </div>
@@ -1576,13 +1872,94 @@
     </div>
   </section>
 
+  <section id="faq">
+    <div class="faq-container">
+      <h2 style="font-size: 2.5rem; color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 2.5rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);" class="hidden-scroll">Perguntas Frequentes</h2>
+      
+      <div class="faq-item hidden-scroll">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
+          Você trabalha apenas com Design ou também programa?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div id="faq-answer-1" class="faq-answer-wrapper">
+          <div class="faq-answer-content">
+            Sou um profissional com perfil híbrido! Tenho base prática em Design Gráfico e Web Design, mas também atuo diretamente com código. Atualmente, desenvolvo minhas habilidades em programação (HTML, CSS, JavaScript), unindo o meu olhar estético de designer à construção de interfaces funcionais e responsivas.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item hidden-scroll">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
+          Como você atua no Atendimento e Suporte ao Cliente?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div id="faq-answer-2" class="faq-answer-wrapper">
+          <div class="faq-answer-content">
+            Utilizo minha vivência como Instrutor de Informática para oferecer um suporte humanizado e empático. Minha maior força é a escuta ativa: tenho facilidade em ouvir as reais necessidades do cliente e traduzir problemas técnicos complexos para uma linguagem simples, clara e acolhedora, garantindo a melhor experiência possível.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item hidden-scroll">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
+          Você possui experiência com rotinas administrativas?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div id="faq-answer-3" class="faq-answer-wrapper">
+          <div class="faq-answer-content">
+            Sim! Possuo sólida experiência prática. Já fui responsável pela operação e fechamento de caixa, além da conferência de mercadorias sob alta demanda na Cantina CDF. Além de lidar com tecnologia, aplico meu conhecimento em ferramentas digitais (Pacote Office, Google Workspace e sistemas) para organizar o back-office, gerenciar dados e otimizar as tarefas diárias da equipe.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item hidden-scroll">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
+          Como funciona o seu processo de organização de trabalho?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div id="faq-answer-4" class="faq-answer-wrapper">
+          <div class="faq-answer-content">
+            Trago a mentalidade de planejamento de um professor para a minha rotina. Quebro grandes metas e projetos complexos em passos diários menores e gerenciáveis. Foco em uma organização metódica, agilidade na execução sob pressão e comunicação clara para não deixar a equipe ou o cliente no escuro.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item hidden-scroll">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
+          Você busca atuar em qual área prioritariamente?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div id="faq-answer-5" class="faq-answer-wrapper">
+          <div class="faq-answer-content">
+            Busco posições que valorizem o meu perfil versátil, que une a agilidade técnica ao relacionamento humano. Por ser adaptável, posso agregar muito valor atuando tanto no Desenvolvimento Web e Design, quanto na linha de frente em times de Suporte Técnico (Help Desk), Atendimento ao Cliente e Assistência Administrativa.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <section id="contact">
     <div class="contact-panel hidden-scroll">
       <h2>Vamos Conectar?</h2>
       <p>Estou sempre aberto a novas oportunidades, projetos desafiadores ou apenas uma boa conversa sobre tecnologia e design.</p>
       
+      <div style="display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+        <div id="status-disponibilidade" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); font-size: 14px; transition: all 0.3s ease;">
+          <span id="bolinha-status" style="width: 10px; height: 10px; border-radius: 50%; display: inline-block;"></span>
+          <span id="texto-status" style="color: #d1d5db; font-weight: 500; font-family: 'Space Grotesk', sans-serif;">Verificando status...</span>
+        </div>
+
+        <div id="widget-clima" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2); font-size: 14px; transition: all 0.3s ease;">
+          <span id="clima-icone" style="display: inline-flex; align-items: center; justify-content: center; color: #00ffff;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </span> 
+          <span id="clima-texto" style="color: #d1d5db; font-weight: 500; font-family: 'Space Grotesk', sans-serif;">Buscando clima em Natal, RN...</span>
+        </div>
+      </div>
+
       <div class="contact-links">
-        <a href="mailto:leosouza5555@gmail.com" class="contact-link email" aria-label="Enviar email para Leonilson">
+        <a href="#" id="btn-copiar-email" class="contact-link email" aria-label="Copiar email de Leonilson">
           <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
           Email
         </a>
@@ -1603,7 +1980,7 @@
   </section>
   </main>
 
-  <footer style="text-align: center; padding: 2rem; background: #000; color: #666; font-family: 'Space Grotesk', sans-serif;">
+  <footer role="contentinfo" style="text-align: center; padding: 2rem; background: #000; color: #666; font-family: 'Space Grotesk', sans-serif;">
     <p>&copy; 2026 Leonilson Souza</p>
     <p>Construído com lógica e empatia.</p>
   </footer>
@@ -1789,11 +2166,14 @@
     const themeBtn = document.getElementById('themeToggleBtn');
     const body = document.body;
     
+    const iconSun = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+    const iconMoon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+
     // Check local storage for preference
     const savedTheme = localStorage.getItem('portfolioTheme');
     if (savedTheme === 'light') {
       body.classList.add('light-mode');
-      if(themeBtn) themeBtn.textContent = '🌙';
+      if(themeBtn) themeBtn.innerHTML = iconMoon;
     }
 
     if (themeBtn) {
@@ -1802,13 +2182,269 @@
         
         if (body.classList.contains('light-mode')) {
           localStorage.setItem('portfolioTheme', 'light');
-          themeBtn.textContent = '🌙';
+          themeBtn.innerHTML = iconMoon;
         } else {
           localStorage.setItem('portfolioTheme', 'dark');
-          themeBtn.textContent = '☀️';
+          themeBtn.innerHTML = iconSun;
         }
       });
     }
+
+    // --------------------------------------------------------
+    // 6. FAQ Accordion Logic
+    // --------------------------------------------------------
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentNode;
+        const answer = item.querySelector('.faq-answer-wrapper');
+        const isActive = item.classList.contains('active');
+
+        // Fecha outros abertos (opcional, mas garante um visual limpo)
+        document.querySelectorAll('.faq-item').forEach(otherItem => {
+          otherItem.classList.remove('active');
+          otherItem.querySelector('.faq-answer-wrapper').style.maxHeight = null;
+          otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+
+        // Se este estava fechado, abre.
+        if (!isActive) {
+          item.classList.add('active');
+          answer.style.maxHeight = answer.scrollHeight + "px";
+          question.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // --------------------------------------------------------
+    // 7. Copy Email Toast Logic
+    // --------------------------------------------------------
+    const btnCopiarEmail = document.getElementById('btn-copiar-email');
+    const toastNotificacao = document.getElementById('toast-notificacao');
+
+    if (btnCopiarEmail && toastNotificacao) {
+      btnCopiarEmail.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        const copyText = 'leosouza5555@gmail.com';
+        
+        const showToast = () => {
+          toastNotificacao.classList.remove('toast-escondido');
+          toastNotificacao.classList.add('toast-visivel');
+          setTimeout(() => {
+            toastNotificacao.classList.remove('toast-visivel');
+            toastNotificacao.classList.add('toast-escondido');
+          }, 3000);
+        };
+
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(copyText)
+            .then(showToast)
+            .catch(err => console.error('Erro ao copiar', err));
+        } else {
+          // Fallback para iframes ou HTTP
+          const textArea = document.createElement("textarea");
+          textArea.value = copyText;
+          textArea.style.position = "fixed";
+          textArea.style.left = "-999999px";
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          try {
+            document.execCommand('copy');
+            showToast();
+          } catch (err) {
+            console.error('Fallback: Erro ao copiar', err);
+          }
+          textArea.remove();
+        }
+      });
+    }
+
+    // --------------------------------------------------------
+    // 8. Animated Counters Logic
+    // --------------------------------------------------------
+    const contadores = document.querySelectorAll('.contador');
+
+    if (contadores.length > 0) {
+      const observarContadores = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const alvo = parseInt(el.getAttribute('data-alvo'), 10);
+            const duration = 2000; // 2 segundos
+            const frameRate = 1000 / 60; // 60fps
+            const totalFrames = Math.round(duration / frameRate);
+            let currentFrame = 0;
+
+            const counterInterval = setInterval(() => {
+              currentFrame++;
+              const progresso = currentFrame / totalFrames;
+              // Easing out cubic
+              const easeOut = 1 - Math.pow(1 - progresso, 3);
+              const valorAtual = Math.round(alvo * easeOut);
+
+              el.innerText = valorAtual;
+
+              if (currentFrame >= totalFrames) {
+                el.innerText = alvo;
+                clearInterval(counterInterval);
+              }
+            }, frameRate);
+
+            // Anima também a barra associada, se houver
+            const container = el.closest('div[style*="margin-bottom: 1.5rem"]');
+            if (container) {
+              const barra = container.querySelector('.tech-bar');
+              if (barra) {
+                const larguraFinal = barra.getAttribute('data-alvo-largura');
+                // Adicionamos um pequeno delay (setTimeout) para dar um charme visual a mais (staggering)
+                setTimeout(() => {
+                  barra.style.width = larguraFinal + '%';
+                }, 100);
+              }
+            }
+
+            // Parar de observar após engatilhar a animação
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.5
+      });
+
+      contadores.forEach(contador => {
+        observarContadores.observe(contador);
+      });
+    }
+
+    // --------------------------------------------------------
+    // 9. GitHub API Integration
+    // --------------------------------------------------------
+    async function buscarDadosGitHub() {
+      try {
+        const response = await fetch('https://api.github.com/users/mrleorobot');
+        if (!response.ok) throw new Error('Falha ao buscar dados do GitHub');
+        
+        const data = await response.json();
+        
+        document.getElementById('gh-repos').innerText = data.public_repos;
+        document.getElementById('gh-followers').innerText = data.followers;
+      } catch (error) {
+        console.error("Erro na integração com GitHub:", error);
+        document.getElementById('gh-repos').innerText = 'Indisponível';
+        document.getElementById('gh-followers').innerText = 'Indisponível';
+      }
+    }
+    
+    buscarDadosGitHub();
+
+    // --------------------------------------------------------
+    // 10. Memory / Returning Visitor Greeting
+    // --------------------------------------------------------
+    const visitouAntes = localStorage.getItem('visitouLeo');
+    const saudacaoEl = document.getElementById('saudacao-visitante');
+
+    if (saudacaoEl) {
+      if (visitouAntes === null) {
+        // Primeira visita: grava no localStorage e mantém o HTML base
+        localStorage.setItem('visitouLeo', 'sim');
+      } else if (visitouAntes === 'sim') {
+        // Visitante retornando: muda o texto sem emojis
+        saudacaoEl.innerHTML = 'Bem-vindo de volta! Que bom te ver de novo.';
+      }
+    }
+
+    // --------------------------------------------------------
+    // 11. Availability Status Logic (Business Hours)
+    // --------------------------------------------------------
+    function verificarDisponibilidade() {
+      const agora = new Date();
+      const hora = agora.getHours();
+      const diaDaSemana = agora.getDay(); // 0 = Domingo, 6 = Sábado
+      
+      const bolinhaElement = document.getElementById('bolinha-status');
+      const textoElement = document.getElementById('texto-status');
+      
+      if (!bolinhaElement || !textoElement) return;
+
+      // Horários Disponíveis:
+      // - Segunda a Sexta (1 a 5): 08:00 às 17:59
+      // - Sábado (6): 08:00 às 16:59
+      const isDiaDeSemana = (diaDaSemana >= 1 && diaDaSemana <= 5 && hora >= 8 && hora < 18);
+      const isSabado = (diaDaSemana === 6 && hora >= 8 && hora < 17);
+
+      if (isDiaDeSemana || isSabado) {
+        bolinhaElement.style.backgroundColor = '#00ff00';
+        bolinhaElement.style.boxShadow = '0 0 10px rgba(0, 255, 0, 0.8)';
+        textoElement.innerText = 'Online - Disponível para contato';
+      } else {
+        bolinhaElement.style.backgroundColor = '#ffb703';
+        bolinhaElement.style.boxShadow = '0 0 10px rgba(255, 183, 3, 0.8)';
+        textoElement.innerText = 'Offline - Recarregando as baterias';
+      }
+    }
+
+    verificarDisponibilidade();
+    setInterval(verificarDisponibilidade, 60000); // Atualiza a cada 1 minuto
+
+    // --------------------------------------------------------
+    // 12. Weather Widget (OpenWeather API)
+    // --------------------------------------------------------
+    async function buscarClima() {
+      // INSTRUÇÃO: Substitua 'SUA_CHAVE_AQUI' pela sua API Key real do OpenWeatherMap
+      const apiKey = 'SUA_CHAVE_AQUI'; 
+      const cidade = 'Natal,BR';
+      
+      const iconeEl = document.getElementById('clima-icone');
+      const textoEl = document.getElementById('clima-texto');
+      
+      if (!iconeEl || !textoEl) return;
+
+      const svgMap = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>';
+      const svgSun = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+      const svgCloud = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
+      const svgRain = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
+      const svgStorm = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>';
+      const svgSnow = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="M20 16l-4-4 4-4"></path><path d="M4 8l4 4-4 4"></path><path d="M16 4l-4 4-4-4"></path><path d="M8 20l4-4 4 4"></path></svg>';
+
+      if (apiKey === 'SUA_CHAVE_AQUI') {
+        // Mock (Fallback UI) para que o design não perca a elegância enquanto não tem chave oficial
+        iconeEl.innerHTML = svgCloud;
+        textoEl.innerText = 'Natal, RN: 28°C, Parcialmente Nublado';
+        return;
+      }
+
+      try {
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&units=metric&lang=pt_br&appid=${apiKey}`;
+        const response = await fetch(url);
+        
+        if (!response.ok) throw new Error('Falha ao buscar dados de clima');
+        
+        const data = await response.json();
+        const temp = Math.round(data.main.temp);
+        const descricao = data.weather[0].description;
+        const descCapitalizada = descricao.charAt(0).toUpperCase() + descricao.slice(1);
+        
+        // Mapeia alguns climas básicos pra vetores SVG profissionais da Feather Icons
+        let iconeStr = svgMap;
+        const weatherMain = data.weather[0].main.toLowerCase();
+        if (weatherMain.includes('clear')) iconeStr = svgSun;
+        else if (weatherMain.includes('cloud')) iconeStr = svgCloud;
+        else if (weatherMain.includes('rain') || weatherMain.includes('drizzle')) iconeStr = svgRain;
+        else if (weatherMain.includes('thunderstorm')) iconeStr = svgStorm;
+        else if (weatherMain.includes('snow')) iconeStr = svgSnow;
+
+        iconeEl.innerHTML = iconeStr;
+        textoEl.innerText = `Natal, RN: ${temp}°C, ${descCapitalizada}`;
+      } catch (error) {
+        console.error("Erro na integração com OpenWeather:", error);
+        iconeEl.innerHTML = svgMap;
+        textoEl.innerText = 'Natal, RN: Clima indisponível';
+      }
+    }
+
+    buscarClima();
 
   </script>
 </body>
