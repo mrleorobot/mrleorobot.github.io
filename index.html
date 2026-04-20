@@ -167,7 +167,7 @@
     }
 
     .glitch-title {
-      font-size: 2.8rem;
+      font-size: clamp(2.5rem, 6vw + 1rem, 4.5rem);
       line-height: 1.1;
       margin-bottom: 1rem;
       color: #fff;
@@ -176,7 +176,7 @@
     }
 
     .hero-name {
-      font-size: 1.8rem;
+      font-size: clamp(1.6rem, 3vw + 0.5rem, 2rem);
       color: #fff;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
@@ -184,7 +184,7 @@
     }
 
     .hero-subtitle {
-      font-size: 1.1rem;
+      font-size: clamp(1rem, 2vw + 1rem, 1.5rem);
       color: var(--arcane-hex);
       font-family: 'Space Grotesk', sans-serif;
       margin-bottom: 2rem;
@@ -192,7 +192,7 @@
     }
 
     .hero-text {
-      font-size: 1.1rem;
+      font-size: clamp(1rem, 2vw + 0.5rem, 1.2rem);
       color: #d1d5db;
       width: 95%;
       max-width: 600px;
@@ -267,7 +267,7 @@
 
     .narrative-text h2 {
       color: var(--su-pink);
-      font-size: 2rem;
+      font-size: clamp(2rem, 4vw + 0.5rem, 2.5rem);
       margin-bottom: 1.5rem;
       text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
       text-align: center;
@@ -326,7 +326,7 @@
     }
 
     .skills-header h2 {
-      font-size: 2.5rem;
+      font-size: clamp(2rem, 5vw + 1rem, 3rem);
       color: var(--arcane-hex);
       margin-bottom: 1rem;
     }
@@ -464,7 +464,7 @@
     }
 
     .ut-card h3 {
-      font-size: 1.8rem;
+      font-size: clamp(1.4rem, 3vw + 0.5rem, 1.8rem);
       margin-bottom: 0.8rem;
     }
 
@@ -518,7 +518,7 @@
 
     .contact-panel h2 {
       color: var(--su-pink);
-      font-size: 2.2rem;
+      font-size: clamp(1.8rem, 4vw + 0.5rem, 2.5rem);
       margin-bottom: 1rem;
     }
 
@@ -610,6 +610,9 @@
       .nav-links {
         margin-top: 1rem;
         margin-bottom: 2rem; /* Substantial gap below CV button */
+        flex-direction: column; /* Stacked clearly */
+        align-items: center;
+        gap: 1.5rem;
       }
 
       .btn-cv {
@@ -644,6 +647,83 @@
         width: 100%; /* Full width for easier tapping */
         text-align: center;
       }
+
+      /* =========================================
+         FIXES DE GRID & EXCESSO DE PADDING (MOBILE)
+         ========================================= */
+      section {
+        padding: 5rem 5% 3rem !important; /* Mais respiro e menos exagero em dispositivos móveis */
+      }
+      
+      #tech-trends-2030 .design-card {
+        width: 95% !important;
+        padding: 1.5rem !important;
+      }
+      
+      #tech-trends-2030 .design-card > div[style*="display: grid"] {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+      }
+      
+      .narrative-content {
+        gap: 1.5rem;
+      }
+      
+      /* Toggle e Toast Notification Fixes */
+      .theme-toggle-btn {
+        width: 48px !important;
+        height: 48px !important;
+        bottom: 16px !important;
+        left: 16px !important;
+        font-size: 1.2rem !important;
+      }
+
+      #toast-notificacao {
+        bottom: 80px !important;
+        right: auto !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 80% !important;
+        text-align: center;
+      }
+
+      footer {
+        padding-bottom: 80px !important; /* Libera espaço para os botões fixos */
+      }
+      
+      /* Prevents Tech Labels from displacing the percentage numbers */
+      .tech-label {
+        flex: 1;
+        padding-right: 15px;
+        line-height: 1.3;
+      }
+    }
+
+    /* =========================================
+       SUPER SMALL MOBILE FIXES (MAX-WIDTH: 480px)
+       ========================================= */
+    @media (max-width: 480px) {
+      /* Ajuste dos Widgets de Status/Clima */
+      #status-disponibilidade, #widget-clima {
+        width: 100% !important;
+        justify-content: center !important;
+        font-size: 13px !important;
+        padding: 10px !important;
+      }
+
+      .contact-links {
+        width: 100% !important;
+      }
+
+      /* Aumenta padding dos labels para garantir respiro no fundo do card branco */
+      .kurz-card {
+        padding: 1.5rem 15px !important;
+      }
+
+      /* Logo top padding fix */
+      .logo {
+        padding-top: 10px;
+      }
     }
 
     /* =========================================
@@ -662,10 +742,8 @@
       
       /* Hero */
       .hero-content { align-items: flex-start; text-align: left; }
-      .glitch-title { font-size: 4.5rem; text-shadow: 3px 3px 0 var(--spider-red), -3px -3px 0 var(--spider-blue); }
-      .hero-name { font-size: 2rem; }
-      .hero-subtitle { font-size: 1.5rem; }
-      .hero-text { margin: 0 0 2.5rem 0; font-size: 1.2rem; width: 100%; }
+      .glitch-title { text-shadow: 3px 3px 0 var(--spider-red), -3px -3px 0 var(--spider-blue); }
+      .hero-text { margin: 0 0 2.5rem 0; width: 100%; }
       .btn-spider { padding: 1rem 2.5rem; box-shadow: 6px 6px 0 var(--spider-red); }
       .btn-spider:hover { transform: skew(-5deg) translate(-2px, -2px); box-shadow: 8px 8px 0 var(--spider-blue); }
       
@@ -675,7 +753,7 @@
       .profile-frame { width: 240px; height: auto; border-radius: 12px; box-shadow: -8px 8px 0 var(--su-pink), 8px -8px 0 var(--arcane-hex); }
       .profile-frame:hover { transform: translate(2px, -2px); box-shadow: -10px 10px 0 var(--su-pink), 10px -10px 0 var(--arcane-hex); }
       .profile-frame:hover img { transform: scale(1.05); }
-      .narrative-text h2 { text-align: left; font-size: 2.5rem; }
+      .narrative-text h2 { text-align: left; }
       .narrative-text p { width: 100%; }
       
       /* Testimonials */
@@ -684,7 +762,6 @@
       .testimonial-card:hover { transform: translateY(-5px); border-left-color: var(--arcane-hex); }
       
       /* Skills */
-      .skills-header h2 { font-size: 3rem; }
       .kurz-grid { flex-direction: row; flex-wrap: wrap; justify-content: center; }
       .kurz-card { width: calc(33.333% - 1.5rem); max-width: 350px; padding: 2rem; border-radius: 24px; box-shadow: 0 8px 0 #7a62a3; }
       .kurz-card:hover { transform: translateY(-5px); }
@@ -692,7 +769,7 @@
       .kurz-tag { flex-grow: 0; justify-content: center; }
       
       /* Projects */
-      .dialogue-box { padding: 2rem; font-size: 1.8rem; border-width: 6px; }
+      .dialogue-box { padding: 2rem; border-width: 6px; }
       .project-battle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
       .ut-card { padding: 2rem; border-width: 4px; }
       .ut-card:hover { border-color: var(--spider-yellow); }
@@ -703,7 +780,6 @@
       
       /* Contact */
       .contact-panel { padding: 3rem; border-radius: 20px; }
-      .contact-panel h2 { font-size: 2.5rem; }
       .contact-links { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
       .contact-link { padding: 1.2rem; border-radius: 16px; }
       .contact-link:hover { transform: translateY(-4px); }
@@ -723,40 +799,135 @@
     }
 
     /* =========================================
-       PIXEL MODE (EASTER EGG)
+       RETRO MODE (EVOLUÇÃO DO PIXEL ART)
        ========================================= */
-    body.pixel-mode h1, 
-    body.pixel-mode h2, 
-    body.pixel-mode h3,
-    body.pixel-mode .hero-name,
-    body.pixel-mode .logo {
-      font-family: 'VT323', monospace !important;
+    body.modo-retro,
+    body.modo-retro * {
+      /* Muda todas as fontes possíveis para Monospace/Pixeladas */
+      font-family: 'VT323', 'Courier New', Courier, monospace !important;
+    }
+
+    body.modo-retro h1, 
+    body.modo-retro h2, 
+    body.modo-retro h3,
+    body.modo-retro .hero-name,
+    body.modo-retro .logo {
       letter-spacing: 2px;
+      text-transform: uppercase;
     }
 
-    body.pixel-mode .kurz-card, 
-    body.pixel-mode .narrative-box, 
-    body.pixel-mode .contact-panel, 
-    body.pixel-mode .testimonial-card,
-    body.pixel-mode .btn-spider,
-    body.pixel-mode .btn-cv,
-    body.pixel-mode .profile-frame {
+    /* Força ícones e imagens a não suavizarem as bordas */
+    body.modo-retro img,
+    body.modo-retro svg {
+      image-rendering: pixelated !important;
+      image-rendering: crisp-edges !important;
+    }
+
+    body.modo-retro .kurz-card, 
+    body.modo-retro .narrative-box, 
+    body.modo-retro .contact-panel, 
+    body.modo-retro .testimonial-card,
+    body.modo-retro .btn-spider,
+    body.modo-retro .btn-cv,
+    body.modo-retro .profile-frame,
+    body.modo-retro .design-card {
       border-radius: 0 !important;
-      border: 4px solid #fff !important;
-      box-shadow: 8px 8px 0 var(--arcane-hex) !important;
+      border: 4px solid #ffaa00 !important;
+      box-shadow: 8px 8px 0 rgba(255, 170, 0, 0.3) !important;
+      background: #110d00 !important; /* Fundo levemente aquecido */
+      color: #ffaa00 !important;
+    }
+    
+    body.modo-retro .kurz-card h3,
+    body.modo-retro .kurz-card span,
+    body.modo-retro p,
+    body.modo-retro a {
+      color: #ffaa00 !important;
+      text-shadow: none !important;
     }
 
-    body.pixel-mode .profile-frame img {
-      filter: grayscale(100%) contrast(1.5);
+    body.modo-retro .profile-frame img,
+    body.modo-retro .gallery-frame img {
+      filter: grayscale(100%) sepia(100%) hue-rotate(-15deg) saturate(3) contrast(1.5);
       image-rendering: pixelated;
     }
 
-    body.pixel-mode .kurz-card {
-      box-shadow: 8px 8px 0 #000 !important;
+    body.modo-retro .kurz-card {
+      box-shadow: 8px 8px 0 #664400 !important;
     }
 
-    body.pixel-mode * {
+    body.modo-retro * {
       transition: none !important; /* Snappy retro feel */
+    }
+
+    /* Animação do Botão Insert Coin */
+    body.modo-retro #pixelToggle {
+      animation: insert-coin 1s infinite alternate;
+      border-radius: 0;
+      border: 2px solid #ffaa00;
+      background: #110d00;
+      color: #ffaa00;
+    }
+    body.modo-retro #pixelToggle svg {
+      color: #ffaa00;
+    }
+
+    @keyframes insert-coin {
+      from { opacity: 1; box-shadow: 0 0 10px #ffaa00; }
+      to { opacity: 0.5; box-shadow: 0 0 20px #ffaa00; }
+    }
+
+    /* Scanlines Overlay */
+    #scanlines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      pointer-events: none;
+      z-index: 99995;
+      display: none;
+    }
+    body.modo-retro #scanlines {
+      display: block;
+    }
+
+    /* Retro Overlay (BIOS / Mosaic Boot) */
+    #retro-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      z-index: 100000;
+      pointer-events: none;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: #ffaa00;
+      font-family: 'VT323', monospace;
+      font-size: 2rem;
+      text-transform: uppercase;
+    }
+    
+    .ativar-retro {
+      display: flex !important;
+      animation: bios-boot 0.8s ease-in-out forwards;
+    }
+
+    @keyframes bios-boot {
+      0% { opacity: 1; clip-path: inset(50% 0 50% 0); background: #000; }
+      30% { opacity: 1; clip-path: inset(0 0 0 0); background: #000; }
+      70% { opacity: 1; background: repeating-linear-gradient(45deg, #ffaa00, #000 10%); mix-blend-mode: color-burn; }
+      100% { opacity: 0; clip-path: inset(0 0 0 0); }
     }
 
     /* ==========================================================================
@@ -868,7 +1039,7 @@
       border: none;
       cursor: pointer;
       padding: 10px;
-      z-index: 1001;
+      z-index: 10001; /* Z-INDEX ALTÍSSIMO GARANTE NÃO SOBREPOR OUTROS BOTÕES */
     }
 
     .hamburger-line {
@@ -909,12 +1080,13 @@
         backdrop-filter: blur(16px);
         border-left: 1px solid rgba(0, 229, 255, 0.2);
         box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-        z-index: 1000;
+        z-index: 10000; /* Sidebar acima de tudo, exceto hamburger */
         margin: 0;
       }
 
       .nav-links.active {
         right: 0;
+        box-shadow: 0 0 0 100vw rgba(0,0,0,0.7); /* Cria um falso overlay perfeitamente escalável escuro atrás da sidebar */
       }
 
       /* Hamburger Animation */
@@ -942,7 +1114,7 @@
       margin-bottom: 4rem;
     }
     .design-header h2 {
-      font-size: 2.5rem;
+      font-size: clamp(2rem, 5vw + 1rem, 2.5rem);
       color: var(--arcane-hex);
       margin-bottom: 1rem;
       font-family: 'Space Grotesk', sans-serif;
@@ -1358,6 +1530,41 @@
       box-shadow: 0 0 10px #ff00ff;
     }
 
+    /* =========================================
+       FIXES FINAIS DE LIGHT MODE (MOBILE + OVERLAY + SEARCH)
+    ========================================= */
+    body.light-mode .nav-links {
+      background: #f8fafc !important; /* Branco / Off-white sólido */
+      border-left: 1px solid #e2e8f0 !important;
+    }
+    
+    body.light-mode .nav-links.active {
+      box-shadow: 0 0 0 100vw rgba(0,0,0,0.3), -10px 0 30px rgba(0,0,0,0.05) !important; /* Overlay sutil escuro */
+    }
+
+    body.light-mode .nav-links a:not(.btn-cv) {
+      color: #0f172a !important; /* Texte limpo e escuro */
+    }
+
+    body.light-mode .hamburger-line {
+      background-color: #0f172a !important; /* Linhas em escuro */
+    }
+
+    body.light-mode #searchInput {
+      background: rgba(0, 0, 0, 0.03) !important; /* Cinza muito translúcido para contraste */
+      color: #0f172a !important;
+      border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    }
+
+    body.light-mode #searchInput::placeholder {
+      color: rgba(0, 0, 0, 0.5) !important;
+    }
+    
+    body.light-mode #searchInput:focus {
+      border-color: #2563eb !important;
+      background: #fff !important;
+    }
+
     /* === PROTEÇÃO ABSOLUTA DA SEÇÃO UNDERTALE (#projects) === */
     body.light-mode #projects {
       background: #000 !important;
@@ -1492,9 +1699,225 @@
     body.light-mode #widget-clima #clima-texto {
       color: #334155 !important;
     }
+
+    /* =========================================
+       GLITCH OVERLAY (THEME TRANSITION - ENHANCED CYBERPUNK)
+       ========================================= */
+    #glitch-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 100000; /* Cobertura absoluta sobre tudo */
+      pointer-events: none;
+      display: none;
+      background: transparent; /* Permite ver o site sendo misturado */
+    }
+    
+    .ativar-glitch {
+      display: block !important;
+      animation: master-flash 0.45s ease-in-out forwards;
+    }
+    
+    @keyframes master-flash {
+      0% { background: rgba(0,255,255,0.1); backdrop-filter: invert(0) contrast(1) saturate(1); }
+      30% { background: rgba(255,0,255,0.2); backdrop-filter: invert(0.9) contrast(2) saturate(3) hue-rotate(90deg); }
+      70% { background: rgba(255,255,0,0.2); backdrop-filter: invert(0.2) contrast(3) saturate(2) hue-rotate(-90deg); }
+      100% { background: rgba(0,0,0,0); backdrop-filter: invert(0) contrast(1) saturate(1); }
+    }
+    
+    .ativar-glitch::before,
+    .ativar-glitch::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      pointer-events: none;
+    }
+    
+    .ativar-glitch::before {
+      background: linear-gradient(
+        0deg, 
+        rgba(0, 229, 255, 0.4) 0%, 
+        transparent 20%, 
+        rgba(0, 100, 255, 0.5) 40%, 
+        transparent 60%, 
+        rgba(0, 229, 255, 0.3) 80%,
+        transparent 100%
+      ), url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)"/></svg>');
+      mix-blend-mode: hard-light;
+      animation: glitch-anim-1 0.15s infinite linear alternate-reverse;
+    }
+    
+    .ativar-glitch::after {
+      background: linear-gradient(
+        0deg, 
+        rgba(255, 0, 255, 0.4) 10%, 
+        rgba(255, 255, 0, 0.3) 30%, 
+        transparent 50%, 
+        rgba(255, 0, 150, 0.5) 70%, 
+        transparent 90%
+      );
+      mix-blend-mode: difference;
+      animation: glitch-anim-2 0.2s infinite linear alternate-reverse;
+    }
+    
+    @keyframes glitch-anim-1 {
+      0% { clip-path: inset(10% 0 80% 0); transform: translate(-30px, 5px) skewX(10deg); opacity: 1; }
+      20% { clip-path: inset(60% 0 10% 0); transform: translate(30px, -5px) skewX(-20deg); opacity: 0.8; }
+      40% { clip-path: inset(30% 0 50% 0); transform: translate(-40px, 15px) skewX(5deg); opacity: 1; }
+      60% { clip-path: inset(80% 0 5% 0); transform: translate(40px, -15px) skewX(-15deg); opacity: 0.9; }
+      80% { clip-path: inset(5% 0 70% 0); transform: translate(-20px, 20px) skewX(20deg); opacity: 1; }
+      100% { clip-path: inset(40% 0 20% 0); transform: translate(20px, -20px) skewX(-5deg); opacity: 0.8; }
+    }
+    
+    @keyframes glitch-anim-2 {
+      0% { clip-path: inset(20% 0 60% 0); transform: translate(30px, -5px) skewX(-10deg); opacity: 0.9; }
+      20% { clip-path: inset(80% 0 5% 0); transform: translate(-30px, 10px) skewX(15deg); opacity: 1; }
+      40% { clip-path: inset(10% 0 40% 0); transform: translate(40px, -15px) skewX(-5deg); opacity: 0.8; }
+      60% { clip-path: inset(70% 0 20% 0); transform: translate(-40px, 5px) skewX(25deg); opacity: 1; }
+      80% { clip-path: inset(30% 0 50% 0); transform: translate(25px, -20px) skewX(-15deg); opacity: 0.9; }
+      100% { clip-path: inset(50% 0 10% 0); transform: translate(-25px, 20px) skewX(10deg); opacity: 1; }
+    }
+
+    /* =========================================
+       ACESSIBILIDADE: REDUCE MOTION (PONTO 7)
+       ========================================= */
+    @media (prefers-reduced-motion: reduce) {
+      /* Desativa smooth scroll */
+      html {
+        scroll-behavior: auto !important;
+      }
+
+      /* Desativa transições arrastadas globais */
+      * {
+        transition-duration: 0.1s !important;
+      }
+
+      /* Remove transformações extremas */
+      .btn-spider:hover, .btn-cv:hover, .pixel-toggle:hover {
+        transform: none !important;
+        animation: none !important;
+      }
+
+      /* Oculta Scanlines que podem causar tontura */
+      #scanlines {
+        display: none !important;
+      }
+
+      /* Glitch: Transforma flash piscante em Fade Suave */
+      .ativar-glitch {
+        animation: soft-fade-overlay 0.45s ease-in-out forwards !important;
+        backdrop-filter: blur(5px) !important;
+      }
+      .ativar-glitch::before, .ativar-glitch::after {
+        display: none !important;
+      }
+
+      /* Retro: Transforma clip-path rasgando a tela em Fade Suave */
+      .ativar-retro {
+        animation: soft-fade-overlay 0.8s ease-in-out forwards !important;
+        background: #110d00 !important;
+        color: transparent !important; /* Esconde frase piscante */
+      }
+
+      /* Remove piscar agressivo do botão Arcade e do OMORI Shake */
+      body.modo-retro #pixelToggle {
+        animation: none !important;
+        opacity: 1 !important;
+        box-shadow: 0 0 5px #ffaa00 !important;
+      }
+      
+      .sketchbook-wrapper:hover {
+        animation: none !important;
+      }
+
+      /* Keyframe Substituto Comum -> Fade In e Out Suave */
+      @keyframes soft-fade-overlay {
+        0% { opacity: 0; }
+        30% { opacity: 1; }
+        70% { opacity: 1; }
+        100% { opacity: 0; }
+      }
+    }
+
+    /* =========================================
+       PERFORMANCE: CONTENT VISIBILITY (PONTO 6)
+       ========================================= */
+    #skills, #projects, #game-dev, #projetos-design, #suporte-gestao, #tech-trends-2030, #faq, #contact {
+      content-visibility: auto;
+      contain-intrinsic-size: 0 500px;
+    }
+
+    /* =========================================
+       SEÇÃO GAME DEV (OMORI SKETCHBOOK)
+       ========================================= */
+    #game-dev {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .sketchbook-wrapper {
+      background: #f4f4f4;
+      color: #1a1a1a;
+      max-width: 800px;
+      width: 90%;
+      margin: 0 auto;
+      padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 2rem);
+      border: 3px solid #1a1a1a;
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* Bordas desenhadas à mão */
+      box-shadow: 5px 7px 0px rgba(0,0,0,0.8), -2px -2px 0px rgba(0,0,0,0.4);
+      text-align: center;
+      transition: transform 0.2s;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    .sketchbook-wrapper h2 {
+      font-family: 'Courier New', 'VT323', monospace;
+      font-size: clamp(2rem, 5vw + 1rem, 3rem);
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+      font-weight: 800;
+      color: #111;
+      text-transform: uppercase;
+    }
+
+    .sketchbook-wrapper p {
+      font-family: 'Courier New', 'VT323', monospace;
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* Efeito OMORI Shake no Hover */
+    .sketchbook-wrapper:hover {
+      animation: omori-shake 0.3s infinite;
+    }
+
+    @keyframes omori-shake {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      20% { transform: translate(-2px, -1px) rotate(-1deg); }
+      40% { transform: translate(1px, -2px) rotate(1deg); }
+      60% { transform: translate(-1px, 2px) rotate(0deg); }
+      80% { transform: translate(2px, 1px) rotate(1deg); }
+      100% { transform: translate(-1px, -1px) rotate(-1deg); }
+    }
   </style>
 </head>
 <body>
+
+  <!-- The Glitch Overlay -->
+  <div id="glitch-overlay" aria-hidden="true"></div>
+
+  <!-- The Retro Scanlines & Overlay -->
+  <div id="scanlines" aria-hidden="true"></div>
+  <div id="retro-overlay" aria-hidden="true">INITIALIZING BIOS...</div>
 
   <!-- Theme Toggle Button -->
   <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Alternar Modo Claro/Escuro">
@@ -1534,8 +1957,8 @@
     <div class="hero-content hidden-scroll">
       <h1 class="glitch-title typewriter-text">Criatividade<br>em Código.</h1>
       <div class="hero-name" style="color: #fff; font-family: 'Space Grotesk', sans-serif; margin-bottom: 0.5rem;">
-        <span id="saudacao-visitante" style="display: block; font-size: 1.1rem; font-weight: 400; opacity: 0.8; margin-bottom: 0.3rem;">Olá, seja muito bem-vindo!</span>
-        <span style="font-size: 2.8rem; font-weight: 700; line-height: 1.1;">Leonilson Souza</span>
+        <span id="saudacao-visitante" style="display: block; font-size: clamp(0.9rem, 2vw + 0.5rem, 1.1rem); font-weight: 400; opacity: 0.8; margin-bottom: 0.3rem;">Olá, seja muito bem-vindo!</span>
+        <span style="font-size: clamp(1.8rem, 5vw + 1rem, 2.8rem); font-weight: 700; line-height: 1.1;">Leonilson Souza</span>
       </div>
       <div class="hero-subtitle" style="font-size: 1.2rem; margin-bottom: 2rem;">Atendimento ao Cliente | Rotinas Administrativas | Apoio Técnico</div>
       <p class="hero-text">
@@ -1554,13 +1977,13 @@
         <div class="narrative-text">
           <h2>A Perspectiva Humana</h2>
           <p>
-            Minha experiência como Instrutor de Informática e Web Design me ensinou que a verdadeira tecnologia não é sobre máquinas, mas sobre conectar pessoas ao conhecimento. 
+            Minha fundação técnica foi forjada na sala de aula. Como Instrutor de Computação e Web Design, aprendi que dominar a linguagem da máquina é apenas 50% do trabalho; os outros 50% consistem na habilidade de traduzir sistemas complexos para pessoas reais, sem atritos ou jargões.
           </p>
           <p>
-            Hoje, aplico essa mesma didática no Desenvolvimento Web e na análise de dados com Power BI, traduzindo lógicas complexas em interfaces visuais simples e acessíveis. 
+            Tradução de Dificuldades em Soluções: Reduzo o tempo de integração técnica em projetos, atuando como a ponte empática entre as regras de negócio e a engenharia. Aplico essa mesma lente na construção de UIs e análise de dados (Power BI).
           </p>
           <p>
-            Meu objetivo é construir soluções que não apenas funcionem perfeitamente, mas que guiem o usuário com a mesma clareza e empatia de uma sala de aula.
+            Acredito profundamente que código bom não é aquele que apenas funciona na máquina do desenvolvedor, mas sim aquele que acolhe o usuário final e guia sua jornada com a maestria e clareza de um professor.
           </p>
 
           <div id="live-github-card" aria-live="polite" style="margin-top: 20px; padding: 15px; border-radius: 12px; background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2); display: inline-block;">
@@ -1570,7 +1993,8 @@
               </svg>
               Status ao Vivo (GitHub)
             </strong><br>
-            <span style="font-size: 14px;">Repositórios Públicos: <b id="gh-repos">⏳</b> | Seguidores: <b id="gh-followers">⏳</b></span>
+            <span style="font-size: 14px; margin-bottom: 5px; display: block;">Repositórios Públicos: <b id="gh-repos">⏳</b> | Seguidores: <b id="gh-followers">⏳</b></span>
+            <span style="font-size: 11px; opacity: 0.6; display: block; font-style: italic;">Dados consumidos via API com política de Cache Local Automático (Zero Rate Limit).</span>
           </div>
         </div>
       </div>
@@ -1701,6 +2125,19 @@
     </div>
   </section>
 
+  <section id="game-dev">
+    <div class="sketchbook-wrapper hidden-scroll">
+      <span style="display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; color: #555; text-transform: uppercase; margin-bottom: 0.5rem;">
+        ✦ Indie Game Dev ✦
+      </span>
+      <h2>Entre Pixels e Silêncios</h2>
+      <p>Meu futuro projeto de RPG Psicológico 2D.<br>Fragmentos de um mundo em construção... Onde as memórias se tornam código e a narrativa ganha vida.</p>
+      <div style="margin-top: 1.5rem; display: inline-block; padding: 0.5rem 1rem; border: 2px dashed #333; border-radius: 4px; font-weight: bold; font-family: 'Courier New', 'VT323', monospace; color: #111; text-transform: uppercase; letter-spacing: 1px;">
+        [ Em Desenvolvimento ]
+      </div>
+    </div>
+  </section>
+
   <section id="projetos-design">
     <div class="design-header hidden-scroll">
       <h2>Galeria de Projetos & Design</h2>
@@ -1763,25 +2200,25 @@
 
   <section id="suporte-gestao" style="padding: 50px 0;">
     <div class="design-header hidden-scroll">
-      <h2 style="font-size: 2.5rem; color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 2rem;">Além do Código: Suporte & Atendimento</h2>
+      <h2 style="font-size: clamp(2rem, 5vw + 1rem, 2.5rem); color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 2rem;">Além do Código: Suporte & Atendimento</h2>
     </div>
     <div class="design-grid container">
       <div class="design-card hidden-scroll">
         <div class="design-content">
-          <h3>Atendimento & Acolhimento</h3>
-          <p>Comunicação sempre clara, gentil e empática. Facilidade em ouvir os usuários com paciência, entender suas reais necessidades e oferecer um suporte focado em conexões humanas autênticas.</p>
+          <h3>Suporte Focado em Taxa de Resolução</h3>
+          <p>Comunicação não-violenta aliada a SLAs. Facilidade em ouvir ativamente os usuários, neutralizar frustrações e oferecer um suporte técnico que mapeia a raiz do problema, mantendo altos níveis de satisfação e retenção.</p>
         </div>
       </div>
       <div class="design-card hidden-scroll">
         <div class="design-content">
-          <h3>Suporte Técnico Didático</h3>
-          <p>Experiência prática como Professor de Informática. Atuo como a ponte entre a tecnologia e o usuário, traduzindo termos técnicos e processos complexos para uma linguagem simples e acessível.</p>
+          <h3>Instrutoria e Cultura de Documentação</h3>
+          <p>Através da minha experiência como Professor de Informática, atuo como a engrenagem que conecta o setor técnico ao administrativo. Minimizo horas de retrabalho traduzindo fluxos complexos em tutoriais e acessos visuais imbatíveis.</p>
         </div>
       </div>
       <div class="design-card hidden-scroll">
         <div class="design-content">
-          <h3>Apoio & Ferramentas</h3>
-          <p>Foco na utilização de ferramentas tecnológicas (como softwares, documentação e análise de dados) para estruturar tarefas passo a passo, auxiliando a equipe e mantendo os processos organizados nos bastidores.</p>
+          <h3>Gestão Ágil e Ferramentas</h3>
+          <p>Proficiente na utilização de esteiras de dados, softwares de gestão e dashboards de PowerBI. Minha meta não é apenas preencher planilhas ou fechar tickets, mas gerar relatórios organizados que suportem as decisões cruciais da equipe de produto e gerência.</p>
         </div>
       </div>
     </div>
@@ -1789,7 +2226,7 @@
 
   <section id="tech-trends-2030" style="padding: 50px 0;">
     <div class="hidden-scroll">
-      <h2 style="font-size: 2.5rem; color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 0.5rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);">Radar de Mercado: Tech Trends 2030</h2>
+      <h2 style="font-size: clamp(2rem, 5vw + 1rem, 2.5rem); color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 0.5rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);">Radar de Mercado: Tech Trends 2030</h2>
       <p style="text-align: center; color: #a0aab2; max-width: 800px; margin: 0 auto 3rem auto; font-size: 1.1rem; padding: 0 1rem;">Projeções baseadas no Fórum Econômico Mundial, estruturadas com UI Design nativo.</p>
     </div>
     
@@ -1798,7 +2235,7 @@
         
         <!-- Coluna 1 -->
         <div>
-          <h3 style="color: #fff; font-family: 'Space Grotesk', sans-serif; margin-bottom: 0.5rem; font-size: 1.3rem;">Em Alta (Oportunidades)</h3>
+          <h3 style="color: #fff; font-family: 'Space Grotesk', sans-serif; margin-bottom: 0.5rem; font-size: clamp(1.1rem, 2vw + 1rem, 1.3rem);">Em Alta (Oportunidades)</h3>
           <p style="color: #a0aab2; font-size: 0.95rem; line-height: 1.5; margin-bottom: 2rem;"><strong>Como nos adaptamos?</strong> O aprendizado contínuo é a chave. Ao invés de temer as IAs, devemos dominá-las como extensões das nossas próprias habilidades criativas e analíticas, multiplicando assim a nossa eficiência.</p>
           
           <div style="margin-bottom: 1.5rem;">
@@ -1834,7 +2271,7 @@
         
         <!-- Coluna 2 -->
         <div>
-          <h3 style="color: #fff; font-family: 'Space Grotesk', sans-serif; margin-bottom: 0.5rem; font-size: 1.3rem;">Em Declínio (Automação)</h3>
+          <h3 style="color: #fff; font-family: 'Space Grotesk', sans-serif; margin-bottom: 0.5rem; font-size: clamp(1.1rem, 2vw + 1rem, 1.3rem);">Em Declínio (Automação)</h3>
           <p style="color: #a0aab2; font-size: 0.95rem; line-height: 1.5; margin-bottom: 2rem;"><strong>O contra-movimento:</strong> Com as tarefas repetitivas automatizadas, o verdadeiro valor de mercado volta para as conexões genuínas. Empatia, escuta ativa e inteligência emocional não são codificáveis. A máquina cuida do processo, nós cuidamos das pessoas.</p>
           
           <div style="margin-bottom: 1.5rem;">
@@ -1874,7 +2311,7 @@
 
   <section id="faq">
     <div class="faq-container">
-      <h2 style="font-size: 2.5rem; color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 2.5rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);" class="hidden-scroll">Perguntas Frequentes</h2>
+      <h2 style="font-size: clamp(2rem, 5vw + 1rem, 2.5rem); color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 2.5rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);" class="hidden-scroll">Perguntas Frequentes</h2>
       
       <div class="faq-item hidden-scroll">
         <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
@@ -2004,6 +2441,13 @@
      * Focado em performance e experiência do usuário.
      */
 
+    // Easter Egg para Recrutadores Técnicos
+    console.log(
+      "%c🚀 Olá, Tech Recruiter ou Tech Lead! %c\n\nVejo que você gosta de olhar debaixo do capô. Este portfólio é 100% Vanilla JS, com Tipografia Fluida, Acessibilidade Sensorial, Busca Fuzzy e Cache de API no LocalStorage.\n\nSe gostou da organização e da atenção aos detalhes, vamos conversar sobre a próxima vaga da sua equipe!",
+      "color: #00e5ff; font-size: 20px; font-weight: bold; text-shadow: 1px 1px 0 #ff00ff;",
+      "color: #a0aec0; font-size: 14px; line-height: 1.5;"
+    );
+
     // --------------------------------------------------------
     // 1. The Storyteller Effect (Typewriter)
     // --------------------------------------------------------
@@ -2079,27 +2523,54 @@
     }
 
     // --------------------------------------------------------
-    // 3. Technical Easter Egg: Pixel Mode (Mantido)
+    // 3. Technical Easter Egg: Retro Mode (Evoluído)
     // --------------------------------------------------------
     function initPixelMode() {
       const pixelToggleBtn = document.getElementById('pixelToggle');
+      const retroOverlay = document.getElementById('retro-overlay');
       const body = document.body;
 
       // Check saved preference
-      if (localStorage.getItem('pixelMode') === 'enabled') {
-        body.classList.add('pixel-mode');
+      if (localStorage.getItem('retroMode') === 'enabled') {
+        body.classList.add('modo-retro');
       }
 
-      pixelToggleBtn.addEventListener('click', () => {
-        body.classList.toggle('pixel-mode');
-        
-        // Save preference
-        if (body.classList.contains('pixel-mode')) {
-          localStorage.setItem('pixelMode', 'enabled');
-        } else {
-          localStorage.setItem('pixelMode', 'disabled');
-        }
-      });
+      if (pixelToggleBtn) {
+        pixelToggleBtn.addEventListener('click', () => {
+          // PONTO 8: Haptic Feedback (Modo Retro)
+          if (navigator.vibrate) { navigator.vibrate([100, 50, 100]); }
+
+          // Ativa o Overlay Retro (Estilo BIOS)
+          if (retroOverlay) {
+            retroOverlay.classList.add('ativar-retro');
+            
+            setTimeout(() => {
+              body.classList.toggle('modo-retro');
+              
+              // Save preference
+              if (body.classList.contains('modo-retro')) {
+                localStorage.setItem('retroMode', 'enabled');
+              } else {
+                localStorage.setItem('retroMode', 'disabled');
+              }
+              
+              // Aguarda o fim da animação
+              setTimeout(() => {
+                retroOverlay.classList.remove('ativar-retro');
+              }, 500);
+
+            }, 300); // 300ms = Pico do boot (clip-path abrindo)
+          } else {
+            // Fallback
+            body.classList.toggle('modo-retro');
+            if (body.classList.contains('modo-retro')) {
+              localStorage.setItem('retroMode', 'enabled');
+            } else {
+              localStorage.setItem('retroMode', 'disabled');
+            }
+          }
+        });
+      }
     }
 
     // Inicializa todas as funções quando o DOM estiver pronto
@@ -2161,9 +2632,10 @@
     }
 
     // --------------------------------------------------------
-    // 5. Theme Toggle (Light/Dark Mode)
+    // 5. Theme Toggle (Light/Dark Mode) with Glitch Transition
     // --------------------------------------------------------
     const themeBtn = document.getElementById('themeToggleBtn');
+    const glitchOverlay = document.getElementById('glitch-overlay');
     const body = document.body;
     
     const iconSun = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
@@ -2173,19 +2645,51 @@
     const savedTheme = localStorage.getItem('portfolioTheme');
     if (savedTheme === 'light') {
       body.classList.add('light-mode');
+      // Força a atualização do design no Undertale se foi carregado inicialmente claro
+      if(window.writeUndertaleText) setTimeout(writeUndertaleText, 100); 
       if(themeBtn) themeBtn.innerHTML = iconMoon;
     }
 
     if (themeBtn) {
       themeBtn.addEventListener('click', () => {
-        body.classList.toggle('light-mode');
+        // PONTO 8: Haptic Feedback (Modo Glitch)
+        if (navigator.vibrate) { navigator.vibrate([100, 50, 100]); }
         
-        if (body.classList.contains('light-mode')) {
-          localStorage.setItem('portfolioTheme', 'light');
-          themeBtn.innerHTML = iconMoon;
+        // Ativa o Overlay Glitch
+        if (glitchOverlay) {
+          glitchOverlay.classList.add('ativar-glitch');
+          
+          // Aguarda o pico do Glitch (200ms) para trocar a classe do Body e do Ícone
+          setTimeout(() => {
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+              localStorage.setItem('portfolioTheme', 'light');
+              themeBtn.innerHTML = iconMoon;
+            } else {
+              localStorage.setItem('portfolioTheme', 'dark');
+              themeBtn.innerHTML = iconSun;
+            }
+
+            // Atualiza os modais da sessão Undertale se precisarem recalcular cores
+            if(window.writeUndertaleText) writeUndertaleText();
+
+            // Aguarda o final do pico (mais 250ms) para remover a tela do glitch
+            setTimeout(() => {
+              glitchOverlay.classList.remove('ativar-glitch');
+            }, 250);
+
+          }, 200);
         } else {
-          localStorage.setItem('portfolioTheme', 'dark');
-          themeBtn.innerHTML = iconSun;
+          // Fallback caso o overlay não exista na DOM
+          body.classList.toggle('light-mode');
+          if (body.classList.contains('light-mode')) {
+            localStorage.setItem('portfolioTheme', 'light');
+            themeBtn.innerHTML = iconMoon;
+          } else {
+            localStorage.setItem('portfolioTheme', 'dark');
+            themeBtn.innerHTML = iconSun;
+          }
         }
       });
     }
@@ -2222,40 +2726,56 @@
     const btnCopiarEmail = document.getElementById('btn-copiar-email');
     const toastNotificacao = document.getElementById('toast-notificacao');
 
-    if (btnCopiarEmail && toastNotificacao) {
+    if (btnCopiarEmail) {
+      const conteudoOriginalBtn = btnCopiarEmail.innerHTML;
+
       btnCopiarEmail.addEventListener('click', (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevenção: Impede o mailto padrão de abrir
         
-        const copyText = 'leosouza5555@gmail.com';
+        const emailCopy = 'leosouza5555@gmail.com';
         
-        const showToast = () => {
-          toastNotificacao.classList.remove('toast-escondido');
-          toastNotificacao.classList.add('toast-visivel');
+        const dispararFeedback = () => {
+          // Feedback Tátil Se disponível
+          if (navigator.vibrate) { navigator.vibrate(50); }
+
+          // Feedback Visual: Atualiza botão
+          btnCopiarEmail.innerHTML = '✨ E-mail copiado!';
+          btnCopiarEmail.style.background = '#00a0b3'; // Transição de cor
+
+          // Opcional: Atualiza o Toast também
+          if (toastNotificacao) {
+            toastNotificacao.innerHTML = '✨ E-mail copiado!';
+            toastNotificacao.classList.remove('toast-escondido');
+            toastNotificacao.classList.add('toast-visivel');
+          }
+
+          // Restaura após 3 segundos
           setTimeout(() => {
-            toastNotificacao.classList.remove('toast-visivel');
-            toastNotificacao.classList.add('toast-escondido');
+            btnCopiarEmail.innerHTML = conteudoOriginalBtn;
+            btnCopiarEmail.style.background = ''; // Volta pro CSS padrão
+            if (toastNotificacao) {
+              toastNotificacao.classList.remove('toast-visivel');
+              toastNotificacao.classList.add('toast-escondido');
+            }
           }, 3000);
         };
 
+        // Lógica de Cópia
         if (navigator.clipboard && window.isSecureContext) {
-          navigator.clipboard.writeText(copyText)
-            .then(showToast)
-            .catch(err => console.error('Erro ao copiar', err));
+          navigator.clipboard.writeText(emailCopy)
+            .then(dispararFeedback)
+            .catch(err => console.error('Erro ao copiar usando API Tátil', err));
         } else {
-          // Fallback para iframes ou HTTP
+          // Fallback Clássico para iframes legados
           const textArea = document.createElement("textarea");
-          textArea.value = copyText;
+          textArea.value = emailCopy;
           textArea.style.position = "fixed";
-          textArea.style.left = "-999999px";
           document.body.appendChild(textArea);
-          textArea.focus();
           textArea.select();
           try {
             document.execCommand('copy');
-            showToast();
-          } catch (err) {
-            console.error('Fallback: Erro ao copiar', err);
-          }
+            dispararFeedback();
+          } catch (err) {}
           textArea.remove();
         }
       });
@@ -2319,9 +2839,29 @@
     }
 
     // --------------------------------------------------------
-    // 9. GitHub API Integration
+    // 9. GitHub API Integration (Com Cache Inteligente)
     // --------------------------------------------------------
     async function buscarDadosGitHub() {
+      const cacheKey = 'githubDataCache';
+      const cacheTimestampKey = 'githubDataTimestamp';
+      const cacheDuration = 3600000; // 1 hora em milissegundos
+      const now = Date.now();
+
+      const cachedData = localStorage.getItem(cacheKey);
+      const cachedTimestamp = localStorage.getItem(cacheTimestampKey);
+
+      if (cachedData && cachedTimestamp && (now - cachedTimestamp < cacheDuration)) {
+        // Usa dados do cache se ainda estiverem válidos
+        try {
+          const data = JSON.parse(cachedData);
+          document.getElementById('gh-repos').innerText = data.public_repos;
+          document.getElementById('gh-followers').innerText = data.followers;
+          return; // Para a execução, evitando o fetch
+        } catch (e) {
+          console.warn("Erro ao ler cache do Github", e);
+        }
+      }
+
       try {
         const response = await fetch('https://api.github.com/users/mrleorobot');
         if (!response.ok) throw new Error('Falha ao buscar dados do GitHub');
@@ -2330,8 +2870,24 @@
         
         document.getElementById('gh-repos').innerText = data.public_repos;
         document.getElementById('gh-followers').innerText = data.followers;
+
+        // Salva os dados e recria o timestamp no localStorage
+        localStorage.setItem(cacheKey, JSON.stringify(data));
+        localStorage.setItem(cacheTimestampKey, now.toString());
+
       } catch (error) {
         console.error("Erro na integração com GitHub:", error);
+        
+        // Em caso de offline/falha, se houver cache vencido, tenta exibir ele mesmo
+        if (cachedData) {
+          try {
+            const data = JSON.parse(cachedData);
+            document.getElementById('gh-repos').innerText = data.public_repos + ' (Offline)';
+            document.getElementById('gh-followers').innerText = data.followers + ' (Offline)';
+            return;
+          } catch(e){}
+        }
+
         document.getElementById('gh-repos').innerText = 'Indisponível';
         document.getElementById('gh-followers').innerText = 'Indisponível';
       }
@@ -2389,62 +2945,64 @@
     setInterval(verificarDisponibilidade, 60000); // Atualiza a cada 1 minuto
 
     // --------------------------------------------------------
-    // 12. Weather Widget (OpenWeather API)
+    // 12. Weather Widget (Open-Meteo API - No Key Required)
     // --------------------------------------------------------
     async function buscarClima() {
-      // INSTRUÇÃO: Substitua 'SUA_CHAVE_AQUI' pela sua API Key real do OpenWeatherMap
-      const apiKey = 'SUA_CHAVE_AQUI'; 
-      const cidade = 'Natal,BR';
+      const lat = '-5.79';
+      const lon = '-35.21';
+      const cidadeNome = 'Natal, RN';
       
       const iconeEl = document.getElementById('clima-icone');
       const textoEl = document.getElementById('clima-texto');
       
       if (!iconeEl || !textoEl) return;
 
-      const svgMap = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>';
       const svgSun = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
       const svgCloud = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
       const svgRain = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
       const svgStorm = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>';
       const svgSnow = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="M20 16l-4-4 4-4"></path><path d="M4 8l4 4-4 4"></path><path d="M16 4l-4 4-4-4"></path><path d="M8 20l4-4 4 4"></path></svg>';
 
-      if (apiKey === 'SUA_CHAVE_AQUI') {
-        // Mock (Fallback UI) para que o design não perca a elegância enquanto não tem chave oficial
-        iconeEl.innerHTML = svgCloud;
-        textoEl.innerText = 'Natal, RN: 28°C, Parcialmente Nublado';
-        return;
-      }
-
       try {
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&units=metric&lang=pt_br&appid=${apiKey}`;
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
         const response = await fetch(url);
-        
-        if (!response.ok) throw new Error('Falha ao buscar dados de clima');
+        if (!response.ok) throw new Error('Falha ao buscar clima');
         
         const data = await response.json();
-        const temp = Math.round(data.main.temp);
-        const descricao = data.weather[0].description;
-        const descCapitalizada = descricao.charAt(0).toUpperCase() + descricao.slice(1);
+        const temp = Math.round(data.current_weather.temperature);
+        const code = data.current_weather.weathercode;
         
-        // Mapeia alguns climas básicos pra vetores SVG profissionais da Feather Icons
-        let iconeStr = svgMap;
-        const weatherMain = data.weather[0].main.toLowerCase();
-        if (weatherMain.includes('clear')) iconeStr = svgSun;
-        else if (weatherMain.includes('cloud')) iconeStr = svgCloud;
-        else if (weatherMain.includes('rain') || weatherMain.includes('drizzle')) iconeStr = svgRain;
-        else if (weatherMain.includes('thunderstorm')) iconeStr = svgStorm;
-        else if (weatherMain.includes('snow')) iconeStr = svgSnow;
-
-        iconeEl.innerHTML = iconeStr;
-        textoEl.innerText = `Natal, RN: ${temp}°C, ${descCapitalizada}`;
+        let statusTexto = 'Limpo';
+        let iconeSvg = svgSun;
+        
+        if (code === 0) {
+          statusTexto = 'Céu Limpo';
+          iconeSvg = svgSun;
+        } else if ([1, 2, 3, 45, 48].includes(code)) {
+          statusTexto = 'Nublado';
+          iconeSvg = svgCloud;
+        } else if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) {
+          statusTexto = 'Chuva';
+          iconeSvg = svgRain;
+        } else if ([71, 73, 75, 77, 85, 86].includes(code)) {
+          statusTexto = 'Neve';
+          iconeSvg = svgSnow;
+        } else if ([95, 96, 99].includes(code)) {
+          statusTexto = 'Tempestade';
+          iconeSvg = svgStorm;
+        }
+        
+        iconeEl.innerHTML = iconeSvg;
+        textoEl.innerText = `${cidadeNome}: ${temp}°C, ${statusTexto}`;
       } catch (error) {
-        console.error("Erro na integração com OpenWeather:", error);
-        iconeEl.innerHTML = svgMap;
-        textoEl.innerText = 'Natal, RN: Clima indisponível';
+        console.warn('Erro ao carregar clima real:', error);
+        iconeEl.innerHTML = svgCloud;
+        textoEl.innerText = `${cidadeNome}: Clima Indisponível`;
       }
     }
 
     buscarClima();
+    setInterval(buscarClima, 1800000); // 30 min
 
   </script>
 </body>
