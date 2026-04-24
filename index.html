@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Leonilson Souza | Tecnologia da Informação, Web Design & Power BI | Natal/RN</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
   <meta name="description" content="Portfólio de Leonilson Souza. Profissional de Tecnologia da Informação, Web Design, Power BI e Suporte Técnico em Natal/RN. Transformando problemas complexos em soluções simples." />
+  <meta name="theme-color" content="#0a0f1d" />
   
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://seusite.com.br/" />
@@ -16,6 +18,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Space+Grotesk:wght@700;900&family=VT323&display=swap" rel="stylesheet" />
   <style>
     :root {
+      /* Theme Backgrounds */
+      --page-bg: #0a0f1d;
+      --page-text: #f8fafc;
+      
       /* Arcane & Steven Universe Palette */
       --arcane-bg: #0a0f1d;
       --arcane-hex: #00e5ff;
@@ -46,12 +52,20 @@
 
     body {
       font-family: 'Nunito', sans-serif;
-      background-color: var(--arcane-bg);
-      color: #f8fafc;
-      line-height: 1.9; /* Aumentado para mobile */
+      background-color: var(--page-bg);
+      color: var(--page-text);
+      font-weight: 400;
+      line-height: 1.6;
       letter-spacing: 0.02em;
       overflow-x: hidden;
       caret-color: transparent;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body {
+        transition: none !important;
+      }
     }
 
     html {
@@ -65,11 +79,18 @@
       border-radius: 4px;
     }
 
+    /* Regras Globais de Tipografia (Hierarquia de Leitura) */
+    p {
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
     /* Spider-Verse Typography */
-    h1, h2, .spider-text {
+    h1, h2, h3, .spider-text {
       font-family: 'Space Grotesk', sans-serif;
-      text-transform: uppercase;
       font-weight: 900;
+      line-height: 1.2;
+      text-transform: uppercase;
     }
 
     /* =========================================
@@ -115,7 +136,7 @@
       font-family: 'Space Grotesk', sans-serif;
       font-size: 0.9rem;
       transition: all 0.3s ease;
-      padding: 12px 24px; /* Touch target ampliado para Acessibilidade/Mobile */
+      padding: 16px 24px; /* Touch target ampliado para Acessibilidade/Mobile */
       display: inline-block;
     }
 
@@ -123,7 +144,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 12px 24px; /* Touch target otimizado */
+      padding: 16px 24px; /* Touch target otimizado */
       background: rgba(0, 229, 255, 0.05);
       color: var(--arcane-hex);
       border: 2px solid var(--arcane-hex);
@@ -154,16 +175,41 @@
     #hero {
       background: radial-gradient(circle at top right, #2a1b3d 0%, var(--arcane-bg) 60%);
       text-align: center;
+      overflow: hidden; /* Evita que as partículas de pixel criem overflow */
+    }
+
+    /* Micro-partículas em background animado (Pixel Art Vibe) */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, #00e5ff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 50px 80px, #ff7b9c, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 90px 40px, #ffeb3b, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 130px 100px, rgba(255,255,255,0.8), rgba(0,0,0,0));
+      background-repeat: repeat;
+      background-size: 150px 150px;
+      animation: hero-pixels 30s linear infinite;
+      opacity: 0.6;
+      z-index: 1;
+    }
+
+    @keyframes hero-pixels {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-150px); }
     }
 
     .hero-content {
       width: 100%;
       max-width: 900px;
       margin: 0 auto;
-      z-index: 2;
+      z-index: 2; /* Fica acima das partículas */
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
     }
 
     .glitch-title {
@@ -186,9 +232,23 @@
     .hero-subtitle {
       font-size: clamp(1rem, 2vw + 1rem, 1.5rem);
       color: var(--arcane-hex);
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Courier New', Courier, monospace;
       margin-bottom: 2rem;
       letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    /* Terminal Console Cursor Effect no subtítulo */
+    .hero-subtitle::before {
+      content: '>_ ';
+      color: var(--su-pink);
+      font-weight: 900;
+      animation: blink-cursor 1s step-end infinite;
+    }
+
+    @keyframes blink-cursor {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
 
     .hero-text {
@@ -301,7 +361,7 @@
       font-style: italic;
       color: #d1d5db;
       font-size: 1rem;
-      line-height: 1.8;
+      line-height: 1.6;
       margin-bottom: 1rem;
       text-align: left;
     }
@@ -465,24 +525,24 @@
 
     .ut-card h3 {
       font-size: clamp(1.4rem, 3vw + 0.5rem, 1.8rem);
-      margin-bottom: 0.8rem;
+      margin-bottom: 1rem;
     }
 
     .ut-card p {
       font-size: 1.1rem;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
       color: #ccc;
     }
 
     .ut-actions {
       display: flex;
       flex-direction: column; /* Stacked buttons on mobile */
-      gap: 0.8rem;
+      gap: 1rem;
     }
 
     .ut-btn {
       text-align: center;
-      padding: 0.8rem;
+      padding: 1rem;
       font-size: 1.2rem;
       background: #000;
       color: #fff;
@@ -538,8 +598,8 @@
     }
 
     .contact-link {
-      border-radius: 12px;
-      padding: 12px 24px;
+      border-radius: 16px;
+      padding: 16px 24px;
       font-size: 1.1rem;
       justify-content: center;
       text-decoration: none;
@@ -547,7 +607,7 @@
       font-weight: 700;
       display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
     }
 
     .contact-link.email { background: var(--su-purple); box-shadow: 0 4px 0 #7a62a3; }
@@ -782,20 +842,16 @@
       .contact-panel { padding: 3rem; border-radius: 20px; }
       .contact-links { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
       .contact-link { padding: 1.2rem; border-radius: 16px; }
-      .contact-link:hover { transform: translateY(-4px); }
-      .contact-link:active { transform: translateY(2px); }
-      .contact-link.email:hover { box-shadow: 0 10px 0 #7a62a3; }
-      .contact-link.email:active { box-shadow: 0 2px 0 #7a62a3; }
-      .contact-link.whatsapp:hover { box-shadow: 0 10px 0 #6baaa4; }
-      .contact-link.whatsapp:active { box-shadow: 0 2px 0 #6baaa4; }
-      .contact-link.linkedin:hover { box-shadow: 0 10px 0 #00a0b3; }
-      .contact-link.linkedin:active { box-shadow: 0 2px 0 #00a0b3; }
-      .contact-link.github:hover { box-shadow: 0 10px 0 #d85a7f; }
-      .contact-link.github:active { box-shadow: 0 2px 0 #d85a7f; }
       
-      /* Pixel Toggle */
-      .pixel-toggle { bottom: 24px; right: 24px; width: 56px; height: 56px; }
-      .pixel-toggle:hover { transform: scale(1.1) rotate(10deg); background: var(--su-pink); }
+      @media (hover: hover) and (pointer: fine) {
+        .contact-link.email:hover { box-shadow: 0 10px 0 #7a62a3; }
+        .contact-link.whatsapp:hover { box-shadow: 0 10px 0 #6baaa4; }
+        .contact-link.linkedin:hover { box-shadow: 0 10px 0 #00a0b3; }
+        .contact-link.github:hover { box-shadow: 0 10px 0 #d85a7f; }
+        .ut-btn:hover { background: #fff; color: #000; }
+        .ut-btn.act:hover { background: var(--spider-yellow); color: #000; }
+        .pixel-toggle:hover { transform: scale(1.1) rotate(10deg); background: var(--su-pink); }
+      }
     }
 
     /* =========================================
@@ -962,21 +1018,49 @@
     /* 3. Hover Effects para Botões e Links */
     .btn-cv,
     .btn-spider,
+    .btn-projeto,
+    .close-search,
+    .theme-toggle-btn,
+    .pixel-toggle,
     .contact-link {
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
       border-radius: 14px !important; /* Arredondando botões para combinar com o Bento Box */
     }
 
-    .btn-cv:hover,
-    .btn-spider:hover,
-    .contact-link:hover {
-      transform: translateY(-4px) scale(1.02) !important; /* Levanta e expande levemente */
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4) !important;
+    /* Estado Active para Mobile & Touch (Botão responde "afundando") */
+    .btn-cv:active,
+    .btn-spider:active,
+    .btn-projeto:active,
+    .close-search:active,
+    .theme-toggle-btn:active,
+    .pixel-toggle:active,
+    .contact-link:active {
+      transform: translateY(2px) scale(0.98) !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
     }
 
-    /* Ajuste específico para o botão do Spider-Verse não perder sua identidade, mas ganhar o hover suave */
-    .btn-spider:hover {
-      box-shadow: 8px 8px 0 var(--spider-blue), 0 15px 25px rgba(0,0,0,0.5) !important;
+    /* Ajuste específico para o botao do Spider Verse no Active */
+    .btn-spider:active {
+      box-shadow: 4px 4px 0 var(--spider-red) !important;
+    }
+
+    /* Hover exclusivo para interfaces que possuem o mouse (Prevenção Bug Mobile) */
+    @media (hover: hover) and (pointer: fine) {
+      .btn-cv:hover,
+      .btn-spider:hover,
+      .btn-projeto:hover,
+      .close-search:hover,
+      .theme-toggle-btn:hover,
+      .pixel-toggle:hover,
+      .contact-link:hover {
+        transform: translateY(-4px) scale(1.02) !important; /* Levanta e expande levemente */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4) !important;
+      }
+      
+      /* Ajuste específico para o botão do Spider-Verse não perder sua identidade */
+      .btn-spider:hover {
+        box-shadow: 8px 8px 0 var(--spider-blue), 0 15px 25px rgba(0,0,0,0.5) !important;
+      }
     }
 
     /* 4. Classes de Animação para o futuro JS */
@@ -1202,8 +1286,8 @@
       align-items: center;
       justify-content: center;
       margin-top: auto;
-      padding: 12px 24px;
-      min-height: 44px;
+      padding: 16px 24px;
+      min-height: 48px;
       border-radius: 50px;
       background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.4) 100%);
       border: 1px solid rgba(0, 229, 255, 0.5);
@@ -1218,12 +1302,13 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
     
-    .btn-projeto:hover {
-      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.6) 100%);
-      border-color: var(--arcane-hex);
-      box-shadow: 0 0 15px rgba(0, 229, 255, 0.4), inset 0 0 10px rgba(0, 229, 255, 0.2);
-      transform: translateY(-2px);
-      color: var(--arcane-hex);
+    @media (hover: hover) and (pointer: fine) {
+      .btn-projeto:hover {
+        background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.6) 100%);
+        border-color: var(--arcane-hex);
+        box-shadow: 0 0 15px rgba(0, 229, 255, 0.4), inset 0 0 10px rgba(0, 229, 255, 0.2);
+        color: var(--arcane-hex);
+      }
     }
 
     /* =========================================
@@ -1232,17 +1317,17 @@
     @media screen and (max-width: 768px) {
         #projetos-design .design-grid {
             grid-template-columns: 1fr !important; 
-            padding: 10px !important;
-            gap: 15px !important;
+            padding: 16px !important;
+            gap: 16px !important;
         }
         
         #projetos-design .design-card {
-            padding: 15px !important; 
+            padding: 16px !important; 
         }
 
         #projetos-design .imagem-card-projeto {
             height: 220px !important; 
-            margin-bottom: 10px !important;
+            margin-bottom: 8px !important;
         }
         
         #projetos-design .btn-projeto {
@@ -1257,14 +1342,14 @@
        FAQ SECTION (HYBRID ACCORDION)
        ========================================================================== */
     #faq {
-      padding: 60px 0;
+      padding: 64px 0;
       position: relative;
     }
     
     .faq-container {
       max-width: 800px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 24px;
     }
 
     .faq-item {
@@ -1301,8 +1386,14 @@
       transition: color 0.3s ease;
     }
     
-    .faq-question:hover {
-      color: var(--arcane-hex);
+    .faq-question:active {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .faq-question:hover {
+        color: var(--arcane-hex);
+      }
     }
 
     .faq-icon {
@@ -1337,8 +1428,8 @@
        LIGHT MODE
     ========================================= */
     body.light-mode {
-      background: #f1f5f9 !important; /* Slate 100/Off-White suave para não estourar a visão */
-      color: #0f172a !important; /* Slate 900 */
+      --page-bg: #f1f5f9;
+      --page-text: #0f172a;
     }
 
     body.light-mode *:focus-visible {
@@ -1371,6 +1462,22 @@
       text-shadow: none !important; 
       box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25) !important; /* Sombra brilhante e conectada */
       border: 1px solid rgba(0,0,0,0.05) !important; 
+    }
+
+    /* Light Mode Button Micro-Interactions */
+    body.light-mode .btn-projeto:active, 
+    body.light-mode a[download]:active, 
+    body.light-mode button:not(.theme-toggle-btn):not(.ut-btn):active {
+      transform: translateY(2px) scale(0.98) !important;
+      box-shadow: 0 2px 10px rgba(79, 70, 229, 0.2) !important;
+    }
+    
+    @media (hover: hover) and (pointer: fine) {
+      body.light-mode .btn-projeto:hover, 
+      body.light-mode a[download]:hover, 
+      body.light-mode button:not(.theme-toggle-btn):not(.ut-btn):hover {
+        box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3) !important;
+      }
     }
 
     body.light-mode footer, 
@@ -1459,7 +1566,7 @@
       box-shadow: none !important;
     }
 
-    /* === CORREÇÃO FORÇADA DE FUNDOS: APLICAR TEMA CLARO A TODAS AS SEÇÕES === */
+    /* === CORREÇÃO FORÇADA DE FUNDOS: EVITAR SOBREPOSIÇÃO BRUTAL EM CERTAS SEÇÕES === */
     body.light-mode #hero,
     body.light-mode #about,
     body.light-mode #skills,
@@ -1469,7 +1576,7 @@
     body.light-mode #faq,
     body.light-mode #contact {
       background: none !important;
-      background-color: #f1f5f9 !important;
+      background-color: transparent !important;
       background-image: none !important;
     }
 
@@ -1634,9 +1741,9 @@
        ========================================================================== */
     #toast-notificacao {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
-      padding: 12px 24px;
+      bottom: 32px;
+      right: 32px;
+      padding: 16px 24px;
       background: rgba(20, 25, 38, 0.85);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -1836,6 +1943,15 @@
         animation: none !important;
       }
 
+      #hero::before {
+        animation: none !important;
+      }
+
+      .hero-subtitle::before {
+        animation: none !important;
+        opacity: 1 !important;
+      }
+
       /* Keyframe Substituto Comum -> Fade In e Out Suave */
       @keyframes soft-fade-overlay {
         0% { opacity: 0; }
@@ -1908,6 +2024,48 @@
       80% { transform: translate(2px, 1px) rotate(1deg); }
       100% { transform: translate(-1px, -1px) rotate(-1deg); }
     }
+    .kurz-tag { transition: transform 0.2s ease; cursor: default; }
+    .kurz-tag:hover { transform: scale(1.1); }
+    .kurz-tag img { transition: transform 0.2s ease; }
+
+    #btn-topo {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 99;
+      background: var(--arcane-hex);
+      color: #0a0f1d;
+      border: none;
+      border-radius: 50px;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 229, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #btn-topo.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #btn-topo:hover {
+      transform: scale(1.1) translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0, 229, 255, 0.6);
+    }
+    body.light-mode #btn-topo {
+      background: #2563eb;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+    }
+    body.light-mode #btn-topo:hover {
+      box-shadow: 0 6px 15px rgba(37, 99, 235, 0.6);
+    }
   </style>
 </head>
 <body>
@@ -1921,7 +2079,7 @@
 
   <!-- Theme Toggle Button -->
   <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Alternar Modo Claro/Escuro">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
   </button>
   
   <!-- Elemento Toast de Notificação -->
@@ -1977,18 +2135,18 @@
         <div class="narrative-text">
           <h2>A Perspectiva Humana</h2>
           <p>
-            Minha fundação técnica foi forjada na sala de aula. Como Instrutor de Computação e Web Design, aprendi que dominar a linguagem da máquina é apenas 50% do trabalho; os outros 50% consistem na habilidade de traduzir sistemas complexos para pessoas reais, sem atritos ou jargões.
+            Minha jornada técnica começou na sala de aula. Como <strong>Professor</strong> de Informática e Web Design, aprendi que dominar as ferramentas é apenas metade do trabalho; a outra metade é saber traduzir conceitos complexos para pessoas reais, de forma simples e direta.
           </p>
           <p>
-            Tradução de Dificuldades em Soluções: Reduzo o tempo de integração técnica em projetos, atuando como a ponte empática entre as regras de negócio e a engenharia. Aplico essa mesma lente na construção de UIs e análise de dados (Power BI).
+            Tradução de Dificuldades em Soluções: Reduzo o tempo de integração técnica em projetos, atuando como um facilitador entre os requisitos de negócio e a área técnica. Aplico essa mesma visão na criação de interfaces visuais e na análise de dados (Power BI).
           </p>
           <p>
-            Acredito profundamente que código bom não é aquele que apenas funciona na máquina do desenvolvedor, mas sim aquele que acolhe o usuário final e guia sua jornada com a maestria e clareza de um professor.
+            Acredito profundamente que código bom não é apenas o que funciona no servidor. Trago a <strong>Didática</strong> da sala de aula para meus projetos, construindo soluções que se transformam em <strong>Experiências Acessíveis</strong> e intuitivas para o usuário final.
           </p>
 
-          <div id="live-github-card" aria-live="polite" style="margin-top: 20px; padding: 15px; border-radius: 12px; background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2); display: inline-block;">
+          <div id="live-github-card" aria-live="polite" style="margin-top: 24px; padding: 16px; border-radius: 12px; background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2); display: inline-block;">
             <strong style="color: #00ffff; display: inline-flex; align-items: center; gap: 6px;">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
                 <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
               </svg>
               Status ao Vivo (GitHub)
@@ -2001,18 +2159,18 @@
     </div>
 
     <div class="testimonials-grid">
-      <div class="testimonial-card hidden-scroll">
+      <article class="testimonial-card hidden-scroll">
         <p class="testimonial-text">"O Professor Leo tem uma paciência incrível para explicar conceitos difíceis. Graças à sua didática, consegui entender a lógica por trás do código sem me sentir frustrado."</p>
         <p class="testimonial-author">— Ex-Aluno de Web Design</p>
-      </div>
-      <div class="testimonial-card hidden-scroll">
+      </article>
+      <article class="testimonial-card hidden-scroll">
         <p class="testimonial-text">"Trabalhar com ele é ter a certeza de que os processos técnicos estarão sempre organizados e acessíveis. Ele consegue simplificar o uso de sistemas para qualquer pessoa da equipe."</p>
         <p class="testimonial-author">— Colega de Administração</p>
-      </div>
-      <div class="testimonial-card hidden-scroll">
+      </article>
+      <article class="testimonial-card hidden-scroll">
         <p class="testimonial-text">"As aulas de informática eram muito visuais e fáceis de acompanhar. Ele realmente se importa em garantir que o aluno não apenas decore, mas entenda a ferramenta."</p>
         <p class="testimonial-author">— Ex-Aluno de Informática</p>
-      </div>
+      </article>
     </div>
   </section>
 
@@ -2028,21 +2186,21 @@
     </div>
 
     <div class="kurz-grid">
-      <div class="kurz-card hidden-scroll">
+      <article class="kurz-card hidden-scroll">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
           Fundamentos & Lógica
         </h3>
         <div class="kurz-tags">
-          <span class="kurz-tag">Linux</span>
+          <span class="kurz-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux" loading="lazy" width="20" height="20"> Linux</span>
           <span class="kurz-tag">Redes</span>
           <span class="kurz-tag">Hardware</span>
           <span class="kurz-tag">Suporte Técnico</span>
           <span class="kurz-tag">Resolução de Problemas</span>
           <span class="kurz-tag">Pensamento Lógico</span>
         </div>
-      </div>
-      <div class="kurz-card hidden-scroll" style="background: var(--su-pink); box-shadow: 0 8px 0 #d85a7f;">
+      </article>
+      <article class="kurz-card hidden-scroll" style="background: var(--su-pink); box-shadow: 0 8px 0 #d85a7f;">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
           Soft Skills
@@ -2054,8 +2212,8 @@
           <span class="kurz-tag">Organização de Ideias</span>
           <span class="kurz-tag">Simplificar o Complexo</span>
         </div>
-      </div>
-      <div class="kurz-card hidden-scroll" style="background: #f59e0b; box-shadow: 0 8px 0 #d97706;">
+      </article>
+      <article class="kurz-card hidden-scroll" style="background: #f59e0b; box-shadow: 0 8px 0 #d97706;">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg>
           Criatividade & Abordagem
@@ -2066,35 +2224,37 @@
           <span class="kurz-tag">Storytelling</span>
           <span class="kurz-tag">Adaptabilidade</span>
         </div>
-      </div>
-      <div class="kurz-card hidden-scroll" style="background: #008b99; box-shadow: 0 8px 0 #006670;">
+      </article>
+      <article class="kurz-card hidden-scroll" style="background: #008b99; box-shadow: 0 8px 0 #006670;">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
           Ferramentas
         </h3>
         <div class="kurz-tags">
-          <span class="kurz-tag">Git & GitHub</span>
-          <span class="kurz-tag">VS Code</span>
+          <span class="kurz-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git & GitHub" loading="lazy" width="20" height="20"> Git & GitHub</span>
+          <span class="kurz-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" loading="lazy" width="20" height="20"> VS Code</span>
           <span class="kurz-tag">Navegadores (DevTools)</span>
         </div>
-      </div>
-      <div class="kurz-card learning hidden-scroll">
+      </article>
+      <article class="kurz-card learning hidden-scroll">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
           Em Expansão
         </h3>
         <div class="kurz-tags">
-          <span class="kurz-tag">HTML5 & CSS3</span>
-          <span class="kurz-tag">JavaScript</span>
-          <span class="kurz-tag">Java</span>
+          <span class="kurz-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5" loading="lazy" width="20" height="20"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS3" loading="lazy" width="20" height="20"> HTML5 & CSS3</span>
+          <span class="kurz-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy" width="20" height="20"> JavaScript</span>
+          <span class="kurz-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java" loading="lazy" width="20" height="20"> Java</span>
+          <span class="kurz-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" loading="lazy" width="20" height="20"> Python</span>
+          <span class="kurz-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt="PHP" loading="lazy" width="20" height="20"> PHP</span>
+          <span class="kurz-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg" alt="Firebase" loading="lazy" width="20" height="20"> Firebase</span>
+          <span class="kurz-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg" alt="Canva" loading="lazy" width="20" height="20"> Canva</span>
           <span class="kurz-tag">Inteligência Artificial</span>
           <span class="kurz-tag">Segurança da Informação</span>
           <span class="kurz-tag">SEO</span>
-          <span class="kurz-tag">Python</span>
-          <span class="kurz-tag">PHP</span>
           <span class="kurz-tag">Power BI</span>
         </div>
-      </div>
+      </article>
     </div>
   </section>
 
@@ -2105,132 +2265,156 @@
         * O que você vai fazer? <span>[Analisar]</span>
       </div>
       <div class="project-battle-grid">
-        <div class="ut-card hidden-scroll">
+        <article class="ut-card hidden-scroll">
           <h3>Projetos em andamento</h3>
-          <p>* Acesso ao meu perfil no Github onde futuros projetos serão enviados</p>
+          <p>* Acompanhe meu GitHub para espiar os códigos que estou construindo no momento.</p>
           <div class="ut-actions">
             <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="ut-btn act" aria-label="Ver detalhes do projeto Dashboard de Vendas">♥ Ver Detalhes</a>
             <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="ut-btn" aria-label="Ver código do projeto Dashboard de Vendas">Código</a>
           </div>
-        </div>
-        <div class="ut-card hidden-scroll">
-          <h3>Para antigos Alunos</h3>
-          <p>* Banco de Aulas de 2024, Slides e Pdfs de 2025 ainda serão enviados ao repositório</p>
+        </article>
+        <article class="ut-card hidden-scroll">
+          <h3>Para Meus Alunos</h3>
+          <p>* Aqui guardo com carinho apostilas, slides e materiais para vocês sempre consultarem.</p>
           <div class="ut-actions">
             <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="ut-btn act" aria-label="Ver detalhes do projeto Landing Page">♥ Ver Detalhes</a>
             <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="ut-btn" aria-label="Ver código do projeto Landing Page">Código</a>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 
   <section id="game-dev">
-    <div class="sketchbook-wrapper hidden-scroll">
+    <article class="sketchbook-wrapper hidden-scroll">
       <span style="display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; color: #555; text-transform: uppercase; margin-bottom: 0.5rem;">
         ✦ Indie Game Dev ✦
       </span>
       <h2>Entre Pixels e Silêncios</h2>
-      <p>Meu futuro projeto de RPG Psicológico 2D.<br>Fragmentos de um mundo em construção... Onde as memórias se tornam código e a narrativa ganha vida.</p>
+      <p>Meu futuro projeto de RPG Psicológico 2D.<br>Mais que uma narrativa visual, um verdadeiro laboratório de engenharia: construção de um <strong>Motor 2D</strong> do zero em <strong>Vanilla JS</strong>, operando <strong>lógica complexa de colisão</strong>, manipulação de <strong>State Machines</strong> (gerenciamento de estados) e design autoral de <strong>sprites</strong>.</p>
       <div style="margin-top: 1.5rem; display: inline-block; padding: 0.5rem 1rem; border: 2px dashed #333; border-radius: 4px; font-weight: bold; font-family: 'Courier New', 'VT323', monospace; color: #111; text-transform: uppercase; letter-spacing: 1px;">
         [ Em Desenvolvimento ]
       </div>
-    </div>
+    </article>
   </section>
 
   <section id="projetos-design">
     <div class="design-header hidden-scroll">
       <h2>Galeria de Projetos & Design</h2>
-      <p style="text-align: center; color: #a0aab2; max-width: 800px; margin: 0 auto 40px auto; font-size: 16px; line-height: 1.6;">Uma seleção de protótipos conceituais e estudos de caso desenvolvidos durante minha jornada de especialização. Cada projeto explora fundamentos de UI/UX, branding e design visual, demonstrando a aplicação prática de conceitos teóricos em cenários do mundo real.</p>
-      <div style="margin-top: -15px; display: inline-block; padding: 6px 16px; background: rgba(255, 255, 255, 0.05); color: #bbb; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.5px;">
+      <p style="text-align: center; color: #a0aab2; max-width: 800px; margin: 0 auto 40px auto; font-size: 16px; line-height: 1.6;">Uma seleção de artes, protótipos e estudos desenvolvidos durante minha jornada. Aqui aplico fundamentos de UI/UX, branding e design visual para transformar conceitos em interfaces reais e centradas nas pessoas.</p>
+      <div style="margin-top: -16px; display: inline-block; padding: 8px 16px; background: rgba(255, 255, 255, 0.05); color: #bbb; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.5px;">
         Em breve, uma nova guia no site com os projetos detalhados!
       </div>
     </div>
     <div class="design-grid">
-      <div class="design-card hidden-scroll">
+      <article class="design-card hidden-scroll">
         <img src="mockup-convite.png" alt="Mockup UI/UX Convite Mobile" class="imagem-card-projeto">
         <div class="design-content">
           <h3>Convite Digital Interativo (UI/UX)</h3>
-          <p>Design de interface mobile com foco na jornada do usuário. Estruturação de hierarquia visual e implementação de botões de Call-to-Action (CTA) interativos para confirmação de presença e localização.</p>
+          <p>
+            <strong>Desafio:</strong> Modernizar o formato tradicional de convites de eventos.<br>
+            <strong>Solução:</strong> Interface mobile interativa focada na experiência do usuário com CTAs claros.<br>
+            <strong>Tech:</strong> Figma, Componentização, Prototipagem
+          </p>
           <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
         </div>
-      </div>
-      <div class="design-card hidden-scroll">
+      </article>
+      <article class="design-card hidden-scroll">
         <img src="mockup-hamburgueria.png" alt="Mockup Menu Digital Chefe Fast" class="imagem-card-projeto">
         <div class="design-content">
           <h3>Identidade Visual & Menu Digital</h3>
-          <p>Criação de identidade visual (Branding) e layout para cardápio digital do setor gastronômico. Aplicação prática de psicologia das cores e arquitetura da informação para otimizar a experiência do cliente e facilitar a leitura dos produtos.</p>
+          <p>
+            <strong>Desafio:</strong> Otimizar cardápios para leitura dinâmica com foco no cliente.<br>
+            <strong>Solução:</strong> Layout acessível embasado em psicologia das cores e arquitetura da informação.<br>
+            <strong>Tech:</strong> Photoshop, Illustrator, UI Design
+          </p>
           <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
         </div>
-      </div>
-      <div class="design-card hidden-scroll">
+      </article>
+      <article class="design-card hidden-scroll">
         <img src="mockup-psicologia.png" alt="Mockup Estudo Psicologia das Cores" class="imagem-card-projeto">
         <div class="design-content">
           <h3>Estudo: Psicologia das Cores</h3>
-          <p>Pesquisa teórica e design editorial sobre o impacto cognitivo das cores na experiência do usuário. Fundamentação essencial para a tomada de decisões em UI Design, Branding e criação de interfaces persuasivas.</p>
+          <p>
+            <strong>Desafio:</strong> Entender como as cores influenciam a experiência em aplicativos e sites.<br>
+            <strong>Solução:</strong> Material editorial que traduz a teoria das cores para decisões práticas de design.<br>
+            <strong>Tech:</strong> UX Research, Estudo de Comportamento
+          </p>
           <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
         </div>
-      </div>
-      <div class="design-card hidden-scroll">
+      </article>
+      <article class="design-card hidden-scroll">
         <img src="mockup-logo.png" alt="Mockup Branding LDS Magazine" class="imagem-card-projeto">
         <div class="design-content">
           <h3>Branding: LDS Magazine</h3>
-          <p>Design de logotipo e identidade visual minimalista. Foco em tipografia geométrica, peso visual e estruturação de grid para aplicação em design editorial de alto padrão.</p>
+          <p>
+            <strong>Desafio:</strong> Projetar uma identidade visual minimalista e de alto padrão.<br>
+            <strong>Solução:</strong> Logotipo guiado por tipografia geométrica, peso visual e grids sólidos.<br>
+            <strong>Tech:</strong> Illustrator, Teoria Modular, Branding
+          </p>
           <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
         </div>
-      </div>
-      <div class="design-card hidden-scroll">
+      </article>
+      <article class="design-card hidden-scroll">
         <img src="mockup-editorial.png" alt="Mockup Editorial LDS Magazine" class="imagem-card-projeto">
         <div class="design-content">
           <h3>Design Editorial: LDS Magazine</h3>
-          <p>Diagramação e direção de arte para editorial. Foco em hierarquia tipográfica, grid estruturado e uso estratégico de espaços em branco (respiros visuais) para transmitir a essência minimalista da marca.</p>
+          <p>
+            <strong>Desafio:</strong> Estruturar uma leitura fluida para materiais textuais densos.<br>
+            <strong>Solução:</strong> Direção de arte editorial pautada em respiros visuais e hierarquia clara.<br>
+            <strong>Tech:</strong> InDesign, Diagramação, Layout Gráfico
+          </p>
           <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
         </div>
-      </div>
-      <div class="design-card hidden-scroll">
+      </article>
+      <article class="design-card hidden-scroll">
         <img src="mockup-pixelart.jpg" alt="Mockup Game Design Pixel Art Leo" class="imagem-card-projeto">
         <div class="design-content">
           <h3>Creative Coding & Pixel Art</h3>
-          <p>Desenvolvimento de ambientes imersivos e assets em Pixel Art. Foco na criação de experiências de usuário (UX) inspiradas em jogos retrô, com implementação de telas de onboarding e narrativas visuais criativas.</p>
+          <p>
+            <strong>Desafio:</strong> Trazer a nostalgia dos jogos retrô para o ambiente de portfólio web.<br>
+            <strong>Solução:</strong> Assets em pixel art, onboarding amigável e UX lúdica em ambientes 2D.<br>
+            <strong>Tech:</strong> Aseprite, Game Design, UX Retrô
+          </p>
           <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
         </div>
-      </div>
+      </article>
     </div>
   </section>
 
-  <section id="suporte-gestao" style="padding: 50px 0;">
+  <section id="suporte-gestao" style="padding: 48px 0;">
     <div class="design-header hidden-scroll">
       <h2 style="font-size: clamp(2rem, 5vw + 1rem, 2.5rem); color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 2rem;">Além do Código: Suporte & Atendimento</h2>
     </div>
     <div class="design-grid container">
-      <div class="design-card hidden-scroll">
+      <article class="design-card hidden-scroll">
         <div class="design-content">
-          <h3>Suporte Focado em Taxa de Resolução</h3>
-          <p>Comunicação não-violenta aliada a SLAs. Facilidade em ouvir ativamente os usuários, neutralizar frustrações e oferecer um suporte técnico que mapeia a raiz do problema, mantendo altos níveis de satisfação e retenção.</p>
+          <h3>Suporte e Resolução de Problemas</h3>
+          <p>Comunicação empática focada em resultados. Busco ouvir ativamente os usuários, compreender suas dificuldades e oferecer um suporte técnico que vai direto à raiz do problema, mantendo a satisfação e confiança.</p>
         </div>
-      </div>
-      <div class="design-card hidden-scroll">
+      </article>
+      <article class="design-card hidden-scroll">
         <div class="design-content">
-          <h3>Instrutoria e Cultura de Documentação</h3>
-          <p>Através da minha experiência como Professor de Informática, atuo como a engrenagem que conecta o setor técnico ao administrativo. Minimizo horas de retrabalho traduzindo fluxos complexos em tutoriais e acessos visuais imbatíveis.</p>
+          <h3>Treinamento e Documentação</h3>
+          <p>Com a experiência em sala de aula, facilito a comunicação entre as equipes técnicas e os usuários. Reduzo o retrabalho ao transformar fluxos complexos em tutoriais e manuais visuais simples e compreensíveis.</p>
         </div>
-      </div>
-      <div class="design-card hidden-scroll">
+      </article>
+      <article class="design-card hidden-scroll">
         <div class="design-content">
-          <h3>Gestão Ágil e Ferramentas</h3>
-          <p>Proficiente na utilização de esteiras de dados, softwares de gestão e dashboards de PowerBI. Minha meta não é apenas preencher planilhas ou fechar tickets, mas gerar relatórios organizados que suportem as decisões cruciais da equipe de produto e gerência.</p>
+          <h3>Organização e Processos Ágeis</h3>
+          <p>Habilidade na utilização de esteiras de dados, softwares de gestão e dashboards de Power BI. Meu foco é organizar informações para gerar visibilidade e relatórios que ajudem a equipe a tomar decisões mais assertivas.</p>
         </div>
-      </div>
+      </article>
     </div>
   </section>
 
-  <section id="tech-trends-2030" style="padding: 50px 0;">
+  <section id="tech-trends-2030" style="padding: 48px 0;">
     <div class="hidden-scroll">
       <h2 style="font-size: clamp(2rem, 5vw + 1rem, 2.5rem); color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 0.5rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);">Radar de Mercado: Tech Trends 2030</h2>
       <p style="text-align: center; color: #a0aab2; max-width: 800px; margin: 0 auto 3rem auto; font-size: 1.1rem; padding: 0 1rem;">Projeções baseadas no Fórum Econômico Mundial, estruturadas com UI Design nativo.</p>
     </div>
     
-    <div class="design-card hidden-scroll" style="max-width: 1000px; margin: 0 auto; width: 90%; padding: 2.5rem;">
+    <article class="design-card hidden-scroll" style="max-width: 1000px; margin: 0 auto; width: 90%; padding: 2.5rem;">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
         
         <!-- Coluna 1 -->
@@ -2306,7 +2490,7 @@
         </div>
 
       </div>
-    </div>
+    </article>
   </section>
 
   <section id="faq">
@@ -2320,7 +2504,7 @@
         </button>
         <div id="faq-answer-1" class="faq-answer-wrapper">
           <div class="faq-answer-content">
-            Sou um profissional com perfil híbrido! Tenho base prática em Design Gráfico e Web Design, mas também atuo diretamente com código. Atualmente, desenvolvo minhas habilidades em programação (HTML, CSS, JavaScript), unindo o meu olhar estético de designer à construção de interfaces funcionais e responsivas.
+            Tenho um perfil bem híbrido! Comecei com uma base forte em Design Gráfico e Web Design, e hoje dedico bastante tempo ao código. Gosto de unir meu olhar para estética com a lógica de programação (HTML, CSS, JavaScript) para construir interfaces bonitas e muito confortáveis de usar.
           </div>
         </div>
       </div>
@@ -2332,7 +2516,7 @@
         </button>
         <div id="faq-answer-2" class="faq-answer-wrapper">
           <div class="faq-answer-content">
-            Utilizo minha vivência como Instrutor de Informática para oferecer um suporte humanizado e empático. Minha maior força é a escuta ativa: tenho facilidade em ouvir as reais necessidades do cliente e traduzir problemas técnicos complexos para uma linguagem simples, clara e acolhedora, garantindo a melhor experiência possível.
+            A sala de aula me ensinou muito sobre ter paciência e empatia. Quando um usuário traz uma dúvida, gosto de escutar com atenção e pegar aquele problema técnico que parece assustador, traduzindo ele para uma conversa tranquila, acolhedora e direta, garantindo que o cliente se sinta bem atendido.
           </div>
         </div>
       </div>
@@ -2344,7 +2528,7 @@
         </button>
         <div id="faq-answer-3" class="faq-answer-wrapper">
           <div class="faq-answer-content">
-            Sim! Possuo sólida experiência prática. Já fui responsável pela operação e fechamento de caixa, além da conferência de mercadorias sob alta demanda na Cantina CDF. Além de lidar com tecnologia, aplico meu conhecimento em ferramentas digitais (Pacote Office, Google Workspace e sistemas) para organizar o back-office, gerenciar dados e otimizar as tarefas diárias da equipe.
+            Com certeza! Tenho uma vivência prática muito enriquecedora. Já operei e fechei caixa e conferi mercadorias em dias de alta demanda, mantendo sempre a calma. Gosto muito de usar o meu conhecimento em tecnologia (Pacote Office, sistemas, etc) para organizar a rotina administrativa, facilitar processos e ajudar a equipe a ganhar tempo.
           </div>
         </div>
       </div>
@@ -2356,7 +2540,7 @@
         </button>
         <div id="faq-answer-4" class="faq-answer-wrapper">
           <div class="faq-answer-content">
-            Trago a mentalidade de planejamento de um professor para a minha rotina. Quebro grandes metas e projetos complexos em passos diários menores e gerenciáveis. Foco em uma organização metódica, agilidade na execução sob pressão e comunicação clara para não deixar a equipe ou o cliente no escuro.
+            Levo muito o planejamento das minhas aulas para o meu dia a dia. Gosto de pegar tarefas grandes ou projetos difíceis e dividi-los em passos menores e mais tranquilos de resolver. O meu foco principal é manter as coisas organizadas, manter a serenidade nos momentos de correria, e sempre me comunicar de forma clara para que ninguém fique com dúvidas.
           </div>
         </div>
       </div>
@@ -2368,7 +2552,7 @@
         </button>
         <div id="faq-answer-5" class="faq-answer-wrapper">
           <div class="faq-answer-content">
-            Busco posições que valorizem o meu perfil versátil, que une a agilidade técnica ao relacionamento humano. Por ser adaptável, posso agregar muito valor atuando tanto no Desenvolvimento Web e Design, quanto na linha de frente em times de Suporte Técnico (Help Desk), Atendimento ao Cliente e Assistência Administrativa.
+            Procuro oportunidades que celebrem o equilíbrio entre a habilidade técnica e o contato humano. Por ser muito adaptável, sinto que posso somar bastante tanto mergulhando no código (Desenvolvimento Web e Design) quanto atuando direto com as pessoas (Suporte Técnico, Atendimento e Assistência Administrativa).
           </div>
         </div>
       </div>
@@ -2381,7 +2565,7 @@
       <h2>Vamos Conectar?</h2>
       <p>Estou sempre aberto a novas oportunidades, projetos desafiadores ou apenas uma boa conversa sobre tecnologia e design.</p>
       
-      <div style="display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+      <div style="display: flex; gap: 8px; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 24px;">
         <div id="status-disponibilidade" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); font-size: 14px; transition: all 0.3s ease;">
           <span id="bolinha-status" style="width: 10px; height: 10px; border-radius: 50%; display: inline-block;"></span>
           <span id="texto-status" style="color: #d1d5db; font-weight: 500; font-family: 'Space Grotesk', sans-serif;">Verificando status...</span>
@@ -2389,27 +2573,27 @@
 
         <div id="widget-clima" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2); font-size: 14px; transition: all 0.3s ease;">
           <span id="clima-icone" style="display: inline-flex; align-items: center; justify-content: center; color: #00ffff;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
           </span> 
           <span id="clima-texto" style="color: #d1d5db; font-weight: 500; font-family: 'Space Grotesk', sans-serif;">Buscando clima em Natal, RN...</span>
         </div>
       </div>
 
       <div class="contact-links">
-        <a href="#" id="btn-copiar-email" class="contact-link email" aria-label="Copiar email de Leonilson">
-          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <a href="#" id="btn-copiar-email" role="button" class="contact-link email" aria-label="Copiar email de Leonilson">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
           Email
         </a>
         <a href="https://wa.me/5584992238449" target="_blank" rel="noopener noreferrer" class="contact-link whatsapp" aria-label="Entrar em contato via WhatsApp">
-          <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
           WhatsApp
         </a>
         <a href="https://www.linkedin.com/in/leonilsonsouza/" target="_blank" rel="noopener noreferrer" class="contact-link linkedin" aria-label="Visitar perfil no LinkedIn">
-          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
           LinkedIn
         </a>
         <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="contact-link github" aria-label="Visitar perfil no GitHub">
-          <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
           GitHub
         </a>
       </div>
@@ -2638,8 +2822,8 @@
     const glitchOverlay = document.getElementById('glitch-overlay');
     const body = document.body;
     
-    const iconSun = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
-    const iconMoon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+    const iconSun = '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+    const iconMoon = '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
 
     // Check local storage for preference
     const savedTheme = localStorage.getItem('portfolioTheme');
@@ -2957,11 +3141,11 @@
       
       if (!iconeEl || !textoEl) return;
 
-      const svgSun = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
-      const svgCloud = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
-      const svgRain = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
-      const svgStorm = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>';
-      const svgSnow = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="M20 16l-4-4 4-4"></path><path d="M4 8l4 4-4 4"></path><path d="M16 4l-4 4-4-4"></path><path d="M8 20l4-4 4 4"></path></svg>';
+      const svgSun = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+      const svgCloud = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
+      const svgRain = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
+      const svgStorm = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>';
+      const svgSnow = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="M20 16l-4-4 4-4"></path><path d="M4 8l4 4-4 4"></path><path d="M16 4l-4 4-4-4"></path><path d="M8 20l4-4 4 4"></path></svg>';
 
       try {
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
@@ -3004,6 +3188,80 @@
     buscarClima();
     setInterval(buscarClima, 1800000); // 30 min
 
+    // Back to top button logic
+    const btnTopo = document.getElementById('btn-topo');
+    if (btnTopo) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          btnTopo.classList.add('show');
+        } else {
+          btnTopo.classList.remove('show');
+        }
+      });
+      btnTopo.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Easter Egg: PokeAPI
+    console.log("%cOlá, Tech Recruiter! Vi que você gosta de olhar os bastidores. Digite a palavra pixel no teclado para uma surpresa. 😉", "color: #00e5ff; font-size: 14px; font-weight: bold; background: #0a0f1d; padding: 10px; border-radius: 5px;");
+    
+    let secretCode = 'pixel';
+    let inputCode = '';
+    
+    window.addEventListener('keydown', (e) => {
+      // Ignora teclas de controle puro para nao quebrar a string se nao for letra
+      if (e.key.length === 1) {
+        inputCode += e.key.toLowerCase();
+        if (inputCode.length > secretCode.length) {
+          inputCode = inputCode.substring(inputCode.length - secretCode.length);
+        }
+        if (inputCode === secretCode) {
+          inputCode = ''; // reset
+          activateEasterEgg();
+        }
+      }
+    });
+
+    async function activateEasterEgg() {
+      try {
+        const randomId = Math.floor(Math.random() * 151) + 1;
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
+        if (!response.ok) return;
+        const data = await response.json();
+        const spriteUrl = data.sprites && data.sprites.front_default;
+        
+        if (spriteUrl) {
+          const img = document.createElement('img');
+          img.src = spriteUrl;
+          img.alt = `Pokémon surpresa`;
+          img.style.position = 'fixed';
+          img.style.bottom = '20px';
+          img.style.left = '-100px';
+          img.style.zIndex = '9999';
+          img.style.width = '80px';
+          img.style.height = '80px';
+          img.style.imageRendering = 'pixelated';
+          img.style.pointerEvents = 'none';
+          img.style.transition = 'transform 6s linear';
+          document.body.appendChild(img);
+          
+          // Trigger reflow
+          void img.offsetWidth;
+          
+          // Animate
+          img.style.transform = `translateX(${window.innerWidth + 200}px)`;
+          
+          // Remove after animation
+          setTimeout(() => {
+            img.remove();
+          }, 6000);
+        }
+      } catch (err) {
+        // Fail silently
+      }
+    }
   </script>
+  <button aria-label="Voltar ao topo" id="btn-topo" class="btn-flutuante">↑</button>
 </body>
 </html>
