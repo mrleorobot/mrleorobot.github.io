@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Página Não Encontrada | Mr. Leo Robot</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0a0f1d;
+      --text-color: #f8fafc;
+      --accent-color: #00e5ff;
+      --spider-red: #ff3366;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Space Grotesk', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
+
+    .error-container {
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .ascii-robot {
+      font-family: 'VT323', monospace;
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      color: var(--accent-color);
+      line-height: 1.2;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+      white-space: pre;
+      position: relative;
+    }
+
+    .ascii-robot::before {
+      content: attr(data-text);
+      position: absolute;
+      left: -4px;
+      text-shadow: 2px 0 var(--spider-red);
+      top: 0;
+      color: var(--text-color);
+      background: var(--bg-color);
+      overflow: hidden;
+      clip: rect(0, 900px, 0, 0);
+      animation: noise-anim-2 3s infinite linear alternate-reverse;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+      text-shadow: 4px 4px 0 var(--spider-red), -4px -4px 0 var(--accent-color);
+      letter-spacing: -2px;
+    }
+
+    p {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      color: #a0aec0;
+      margin-bottom: 3rem;
+      line-height: 1.6;
+    }
+
+    .btn-home {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: #fadb5f; /* spider-yellow */
+      color: #000;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 6px 6px 0 var(--spider-red);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      cursor: pointer;
+    }
+
+    .btn-home:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 10px 10px 0 var(--spider-red), 0 15px 25px rgba(0,0,0,0.5);
+    }
+
+    .btn-home:active {
+      transform: translate(2px, 2px);
+      box-shadow: 4px 4px 0 var(--spider-red);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes noise-anim-2 {
+      0% { clip: rect(10px, 9999px, 86px, 0); }
+      5% { clip: rect(31px, 9999px, 15px, 0); }
+      10% { clip: rect(19px, 9999px, 90px, 0); }
+      15% { clip: rect(41px, 9999px, 33px, 0); }
+      20% { clip: rect(96px, 9999px, 7px, 0); }
+      25% { clip: rect(82px, 9999px, 59px, 0); }
+      30% { clip: rect(40px, 9999px, 77px, 0); }
+      35% { clip: rect(18px, 9999px, 49px, 0); }
+      40% { clip: rect(16px, 9999px, 91px, 0); }
+      45% { clip: rect(79px, 9999px, 39px, 0); }
+      50% { clip: rect(3px, 9999px, 60px, 0); }
+      55% { clip: rect(88px, 9999px, 75px, 0); }
+      60% { clip: rect(79px, 9999px, 11px, 0); }
+      65% { clip: rect(48px, 9999px, 35px, 0); }
+      70% { clip: rect(19px, 9999px, 55px, 0); }
+      75% { clip: rect(36px, 9999px, 19px, 0); }
+      80% { clip: rect(12px, 9999px, 81px, 0); }
+      85% { clip: rect(66px, 9999px, 40px, 0); }
+      90% { clip: rect(27px, 9999px, 10px, 0); }
+      95% { clip: rect(69px, 9999px, 63px, 0); }
+      100% { clip: rect(82px, 9999px, 20px, 0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="error-container">
+    <div class="ascii-robot" data-text="    [X_X]&#10;   /|___|\&#10;    /   \&#10; Bzzzt... Crash!">
+    [X_X]
+   /|___|\
+    /   \
+ Bzzzt... Crash!
+    </div>
+    <h1>Erro 404</h1>
+    <p>Bip... Bop... Parece que você se perdeu no ciberespaço, ou a página foi deletada.</p>
+    <a href="/" class="btn-home">Voltar para a Base (Home)</a>
+  </div>
+</body>
+</html>
