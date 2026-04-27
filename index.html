@@ -272,7 +272,19 @@
       pointer-events: none;
       letter-spacing: 0.5px;
       mix-blend-mode: hard-light;
-      transition: transform 0.1s ease-out;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
+      will-change: transform, opacity;
+      min-height: 2.2em; /* Prevents layout jump during typewriter effect */
+    }
+
+    /* Hero specific reveal overrides to maintain 3D transforms */
+    #hero .glitch-title.reveal-item {
+      opacity: 0;
+      transform: skew(-1deg) translateZ(50px) translateY(20px) !important;
+    }
+    #hero .glitch-title.reveal-item.revealed {
+      opacity: 1;
+      transform: skew(-1deg) translateZ(50px) translateY(0) !important;
     }
 
     .hero-magazine-visual {
@@ -285,7 +297,8 @@
       align-items: center;
       justify-content: center;
       transform: translateZ(20px);
-      transition: transform 0.15s ease-out;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
+      will-change: transform, opacity;
       /* Soft Fade Mask Integration */
       -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), 
                           linear-gradient(to bottom, transparent 0%, black 15%, black 80%, transparent 100%);
@@ -293,6 +306,15 @@
       mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), 
                   linear-gradient(to bottom, transparent 0%, black 15%, black 80%, transparent 100%);
       mask-composite: intersect;
+    }
+
+    #hero .hero-magazine-visual.reveal-item {
+      opacity: 0;
+      transform: translateZ(20px) translateY(20px) scale(1.02) !important;
+    }
+    #hero .hero-magazine-visual.reveal-item.revealed {
+      opacity: 1;
+      transform: translateZ(20px) translateY(0) scale(1) !important;
     }
 
     .magazine-frame {
@@ -1148,8 +1170,14 @@
       /* =========================================
          FIXES DE GRID & EXCESSO DE PADDING (MOBILE)
          ========================================= */
-      section {
+      section:not(#hero) {
         padding: 50px 6% !important;
+        width: 100%;
+        overflow-x: hidden;
+      }
+      
+      #hero {
+        padding: 150px 6% 50px 6% !important;
         width: 100%;
         overflow-x: hidden;
       }
@@ -1573,7 +1601,7 @@
     .reveal-item {
       opacity: 0 !important;
       transform: translateY(30px) !important;
-      transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+      transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
       will-change: opacity, transform;
       pointer-events: none !important;
     }
@@ -1663,7 +1691,7 @@
       #hero {
         height: auto;
         min-height: 80vh;
-        padding-top: 5rem;
+        padding-top: 150px; /* Increased padding to prevent overlap with fixed nav */
       }
       .hero-split-visual {
         flex-direction: column;
@@ -2680,10 +2708,10 @@
     <canvas id="hero-canvas" aria-hidden="true"></canvas>
     
     <section id="hero">
-      <div class="hero-split-visual reveal-item">
-        <h1 class="glitch-title typewriter-text">Criatividade<br>em Código.</h1>
+      <div class="hero-split-visual">
+        <h1 class="glitch-title typewriter-text reveal-item stagger-1">Criatividade<br>em Código.</h1>
         
-        <div class="hero-magazine-visual">
+        <div class="hero-magazine-visual reveal-item stagger-2">
           <div class="magazine-frame">
             <img src="profile.jpg" alt="Leonilson Souza - Editorial Visual" loading="eager">
           </div>
@@ -3215,6 +3243,12 @@
   </button>
 
   <script defer>
+    // Garantir que a página recomece no topo ao recarregar (Melhora a percepção das animações de entrada)
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
     /**
      * ========================================================
      * VERSION 1.1: LIGHTWEIGHT MOTION DESIGN (VANILLA JS)
@@ -3423,8 +3457,8 @@
         }
       }
 
-      // Inicia o efeito com um pequeno atraso (800ms) para criar suspense ao carregar a página
-      setTimeout(type, 800);
+      // Inicia o efeito com um pequeno atraso (300ms) para ser mais responsivo
+      setTimeout(type, 300);
     }
 
     // --------------------------------------------------------
@@ -3442,6 +3476,13 @@
       }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
       elementsToAnimate.forEach(element => observer.observe(element));
+
+      // Immediate reveal for Hero to improve F5 fluidity
+      const heroItems = document.querySelectorAll('#hero .reveal-item');
+      heroItems.forEach(item => {
+        // We use a tiny delay to ensure the browser registers the base styles first
+        setTimeout(() => item.classList.add('revealed'), 100);
+      });
     }
 
     // --------------------------------------------------------
