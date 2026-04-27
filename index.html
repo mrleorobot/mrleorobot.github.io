@@ -7,7 +7,7 @@
   <title>Leonilson Souza | Tecnologia da Informação, Web Design & Power BI | Natal/RN</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
   <meta name="description" content="Portfólio de Leonilson Souza. Profissional de Tecnologia da Informação, Web Design, Power BI e Suporte Técnico em Natal/RN. Transformando problemas complexos em soluções simples." />
-  <meta name="theme-color" content="#0a0f1d" />
+  <meta name="theme-color" content="#02040a" />
   
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://seusite.com.br/" />
@@ -19,11 +19,11 @@
   <style>
     :root {
       /* Theme Backgrounds */
-      --page-bg: #0a0f1d;
-      --page-text: #f8fafc;
+      --page-bg: #02040a;
+      --page-text: #e2e8f0;
       
       /* Arcane & Steven Universe Palette */
-      --arcane-bg: #0a0f1d;
+      --arcane-bg: #02040a;
       --arcane-hex: #00e5ff;
       --arcane-gold: #c8aa6e;
       --su-pink: #ff7b9c;
@@ -50,6 +50,16 @@
       box-sizing: border-box;
     }
 
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
+    }
+
+    * {
+      border-radius: inherit; /* Helps with some rounding issues in nested elements */
+    }
+
     body {
       font-family: 'Nunito', sans-serif;
       background-color: var(--page-bg);
@@ -70,6 +80,7 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 100px;
     }
 
     /* Accessibility: Keyboard Focus */
@@ -83,6 +94,7 @@
     p {
       font-weight: 400;
       line-height: 1.6;
+      text-wrap: balance; /* Previne palavras sozinhas em linhas novas */
     }
 
     /* Spider-Verse Typography */
@@ -91,6 +103,7 @@
       font-weight: 900;
       line-height: 1.2;
       text-transform: uppercase;
+      text-wrap: balance;
     }
 
     /* =========================================
@@ -102,31 +115,37 @@
       position: fixed;
       top: 0;
       width: 100%;
-      padding: 1rem 5%;
+      padding: 0.4rem 5%; /* Reduzido ainda mais */
       display: flex;
-      flex-direction: column;
+      flex-direction: row; 
+      justify-content: space-between;
       align-items: center;
-      gap: 1rem;
-      background: rgba(10, 15, 29, 0.95);
-      backdrop-filter: blur(10px);
+      background: rgba(8, 11, 18, 0.95);
+      backdrop-filter: blur(15px);
       z-index: 1000;
-      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+      border-bottom: 1px solid rgba(0, 229, 255, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      padding: 0.2rem 5%;
+      background: rgba(2, 4, 10, 0.98);
     }
 
     .logo {
-      font-size: 1.5rem;
+      font-size: 1.2rem; /* Reduzido de 1.5rem */
       color: var(--arcane-hex);
       text-decoration: none;
-      letter-spacing: 2px;
-      text-shadow: 2px 2px 0 var(--su-purple);
+      font-weight: 900;
+      letter-spacing: 1px;
+      font-family: 'Space Grotesk', sans-serif;
+      text-shadow: 1px 1px 0 var(--su-purple);
     }
 
     .nav-links {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      width: 100%;
+      gap: 0.5rem;
+      align-items: center;
     }
 
     .nav-links a:not(.btn-cv) {
@@ -134,27 +153,42 @@
       color: #fff;
       font-weight: 600;
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       transition: all 0.3s ease;
-      padding: 16px 24px; /* Touch target ampliado para Acessibilidade/Mobile */
+      padding: 10px 14px; /* Mais compacto */
       display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-radius: 4px;
+    }
+
+    .nav-links a:not(.btn-cv):hover {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
     }
 
     .btn-cv {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 16px 24px; /* Touch target otimizado */
+      gap: 6px;
+      padding: 8px 16px; /* Mais compacto */
       background: rgba(0, 229, 255, 0.05);
       color: var(--arcane-hex);
-      border: 2px solid var(--arcane-hex);
+      border: 1px solid var(--arcane-hex);
       border-radius: 4px;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
       text-decoration: none;
       transition: all 0.3s ease;
+    }
+
+    .btn-cv:hover {
+      background: var(--arcane-hex);
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 229, 255, 0.3);
     }
 
     main {
@@ -163,87 +197,12 @@
 
     /* Sections */
     section {
-      min-height: 100vh;
-      padding: 8rem 5% 4rem;
+      min-height: auto;
+      padding: 80px 5%; 
       display: flex;
       flex-direction: column;
       justify-content: center;
       position: relative;
-    }
-
-    /* HERO: Arcane x Spider-Verse */
-    #hero {
-      background: radial-gradient(circle at top right, #2a1b3d 0%, var(--arcane-bg) 60%);
-      text-align: center;
-      overflow: hidden; /* Evita que as partículas de pixel criem overflow */
-    }
-
-    /* Micro-partículas em background animado (Pixel Art Vibe) */
-    #hero::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none;
-      background-image: 
-        radial-gradient(2px 2px at 20px 30px, #00e5ff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 50px 80px, #ff7b9c, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 90px 40px, #ffeb3b, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 130px 100px, rgba(255,255,255,0.8), rgba(0,0,0,0));
-      background-repeat: repeat;
-      background-size: 150px 150px;
-      animation: hero-pixels 30s linear infinite;
-      opacity: 0.6;
-      z-index: 1;
-    }
-
-    @keyframes hero-pixels {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-150px); }
-    }
-
-    .hero-content {
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-      z-index: 2; /* Fica acima das partículas */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-    }
-
-    .glitch-title {
-      font-size: clamp(2.5rem, 6vw + 1rem, 4.5rem);
-      line-height: 1.1;
-      margin-bottom: 1rem;
-      color: #fff;
-      text-shadow: 2px 2px 0 var(--spider-red), -2px -2px 0 var(--spider-blue);
-      transform: skew(-2deg);
-    }
-
-    .hero-name {
-      font-size: clamp(1.6rem, 3vw + 0.5rem, 2rem);
-      color: #fff;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(1rem, 2vw + 1rem, 1.5rem);
-      color: var(--arcane-hex);
-      font-family: 'Courier New', Courier, monospace;
-      margin-bottom: 2rem;
-      letter-spacing: 1px;
-      font-weight: 700;
-    }
-
-    /* Terminal Console Cursor Effect no subtítulo */
-    .hero-subtitle::before {
-      content: '>_ ';
-      color: var(--su-pink);
-      font-weight: 900;
-      animation: blink-cursor 1s step-end infinite;
     }
 
     @keyframes blink-cursor {
@@ -251,21 +210,220 @@
       50% { opacity: 0; }
     }
 
+    /* Editorial Composition & Continuity */
+    .hero-master-wrapper {
+      position: relative;
+      background: #02040a;
+      overflow: clip; /* Melhora performance e evita scrollbars indesejadas */
+    }
+
+    #hero {
+      height: 95vh; 
+      min-height: 800px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 150px 0 0 0;
+      position: relative;
+      z-index: 10; 
+      background: transparent !important;
+      perspective: 1000px; /* For 3D feeling */
+    }
+
+    #hero-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.8;
+      transition: transform 0.2s ease-out;
+    }
+
+    .hero-split-visual {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5vw; /* Added gap to ensure separation between title and photo */
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 5%;
+      z-index: 2;
+    }
+
+    .glitch-title {
+      font-size: clamp(2.5rem, 7.5vw, 7.5rem); /* Slightly smaller max size */
+      line-height: 1.1;
+      margin: 0;
+      color: #fff;
+      text-shadow: 3px 3px 0 var(--spider-red), -3px -3px 0 var(--spider-blue);
+      transform: skew(-1deg) translateZ(50px);
+      position: relative;
+      z-index: 50; 
+      text-align: left;
+      width: auto;
+      margin-right: 0; /* Reset margin as gap handles separation */
+      margin-left: 0;
+      pointer-events: none;
+      letter-spacing: 0.5px;
+      mix-blend-mode: hard-light;
+      transition: transform 0.1s ease-out;
+    }
+
+    .hero-magazine-visual {
+      position: relative;
+      width: clamp(320px, 45vw, 650px); /* Slightly reduced max width for better editorial balance */
+      flex-shrink: 0; /* Prevent the image from being squashed */
+      height: 90%;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateZ(20px);
+      transition: transform 0.15s ease-out;
+      /* Soft Fade Mask Integration */
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), 
+                          linear-gradient(to bottom, transparent 0%, black 15%, black 80%, transparent 100%);
+      -webkit-mask-composite: source-in;
+      mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), 
+                  linear-gradient(to bottom, transparent 0%, black 15%, black 80%, transparent 100%);
+      mask-composite: intersect;
+    }
+
+    .magazine-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+
+    /* Removed hard geometric pseudo-element to achieve organic integration */
+    .hero-magazine-visual::before {
+      display: none;
+    }
+
+    .magazine-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 5%;
+      /* Cool Steel Blue Toning: Grayscale + Sepia + Hue Rotate */
+      filter: grayscale(100%) sepia(25%) hue-rotate(185deg) brightness(85%) contrast(115%);
+      transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: scale(1.05);
+    }
+
+    .hero-magazine-visual:hover .magazine-frame {
+      filter: none;
+    }
+
+    .hero-magazine-visual:hover .magazine-frame img {
+      filter: grayscale(0%) contrast(105%) brightness(100%);
+      transform: scale(1);
+    }
+
+    /* PART 2: THE INTRODUCTION */
+    #hero-intro {
+      background: transparent !important;
+      padding: 80px 5%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .intro-content {
+      max-width: 950px;
+      width: 100%;
+      backdrop-filter: blur(8px);
+      background: rgba(8, 11, 18, 0.4);
+      padding: 4rem 3rem;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+
+    .hero-name {
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 0.9;
+      margin-bottom: 1rem;
+      color: #ffffff;
+      text-transform: uppercase;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.75rem, 1.8vw, 1rem);
+      color: var(--arcane-hex);
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      line-height: 1.8;
+      text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+    }
+
     .hero-text {
-      font-size: clamp(1rem, 2vw + 0.5rem, 1.2rem);
-      color: #d1d5db;
-      width: 95%;
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
+      font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+      line-height: 1.8;
+      color: #cbd5e1;
+      margin-bottom: 4rem;
       font-style: italic;
-      border-left: 4px solid var(--su-pink);
-      padding-left: 1rem;
-      text-align: left; /* Left aligned for readability */
+      text-wrap: balance;
+    }
+
+    @media (max-width: 991px) {
+      #hero {
+        height: auto;
+        padding-top: 150px;
+        min-height: auto;
+      }
+      .hero-split-visual {
+        flex-direction: column;
+        gap: 4rem;
+      }
+      .glitch-title {
+        text-align: center;
+        margin-right: 0;
+        width: 100%;
+        margin-bottom: 0;
+        z-index: 21; /* Over image on mobile */
+        letter-spacing: 0.5px;
+      }
+      .hero-magazine-visual {
+        width: 100%;
+        max-width: 400px;
+        height: 520px;
+        transform: none !important;
+      }
+      .hero-subtitle {
+        white-space: normal;
+        letter-spacing: 3px;
+        line-height: 1.5;
+      }
+      .glitch-title {
+        mix-blend-mode: normal;
+        text-shadow: 2px 2px 0 var(--spider-red), -2px -2px 0 var(--spider-blue);
+      }
     }
 
     .btn-spider {
-      display: inline-block;
-      padding: 1rem 2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem 2.5rem;
       background: var(--spider-yellow);
       color: #000;
       font-family: 'Space Grotesk', sans-serif;
@@ -273,33 +431,62 @@
       text-decoration: none;
       text-transform: uppercase;
       border: 3px solid #000;
-      box-shadow: 4px 4px 0 var(--spider-red);
-      transform: skew(-5deg);
-      transition: all 0.2s ease;
+      box-shadow: 6px 6px 0 var(--spider-red);
+      transform: skew(-6deg);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-spider::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -110%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: all 0.6s ease;
+    }
+
+    .btn-spider:hover {
+      transform: skew(-6deg) translateY(-8px) scale(1.05);
+      box-shadow: 12px 12px 0 var(--spider-red);
+      background: #fff;
+    }
+
+    .btn-spider:hover::after {
+      left: 110%;
     }
 
     /* ABOUT: Anne with an E / Perks of Being a Wallflower */
-    #about {
-      background: linear-gradient(to bottom, var(--arcane-bg), #1a1525);
+    #sobre {
+      background: linear-gradient(to bottom, var(--arcane-bg), #080b12);
     }
 
     .narrative-box {
       width: 100%;
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
       background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 2rem 1.5rem;
-      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 3rem;
+      border-radius: 20px;
       backdrop-filter: blur(10px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .narrative-box:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
 
     .narrative-content {
       display: flex;
-      flex-direction: column; /* Stacked on mobile */
-      gap: 2rem;
+      flex-direction: row; 
+      gap: 3rem;
       align-items: center;
+      justify-content: center; /* Centraliza o conteúdo horizontalmente */
     }
 
     .profile-frame {
@@ -317,7 +504,94 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: contrast(1.1);
+      object-position: 50% 10%; /* Foca na cabeça/rosto */
+      display: block;
+    }
+
+    #live-github-card {
+      display: block !important;
+      margin: 2rem auto 0 !important;
+      width: fit-content;
+      text-align: center;
+      border-radius: 12px;
+    }
+
+    /* Standardizing background colors for seamless flow */
+    #hero, #tech-stack, #soft-skills, #sobre, #projetos-design, #cta-final, #suporte-gestao, #tech-trends-2030, #faq {
+      background: var(--page-bg) !important;
+      border-top: none !important;
+      border-bottom: none !important;
+    }
+
+    body.light-mode .narrative-box,
+    body.light-mode .contact-panel,
+    body.light-mode .design-card,
+    body.light-mode .testimonial-card,
+    body.light-mode .ut-card {
+      background: #ffffff !important;
+      border: 1px solid rgba(15, 23, 42, 0.15) !important; /* Borda mais definida */
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
+      color: #0f172a !important;
+    }
+
+    body.light-mode #sobre {
+      padding-bottom: 80px !important; 
+    }
+
+    body.light-mode #hero, 
+    body.light-mode #hero-intro,
+    body.light-mode #tech-stack, 
+    body.light-mode #soft-skills, 
+    body.light-mode #sobre, 
+    body.light-mode #projetos-design, 
+    body.light-mode #cta-final, 
+    body.light-mode #suporte-gestao, 
+    body.light-mode #tech-trends-2030, 
+    body.light-mode #faq {
+      background-color: #f8fafc !important; 
+      background-image: none !important;
+      border: none !important;
+    }
+
+    body.light-mode .intro-content {
+      background: rgba(255, 255, 255, 0.8) !important;
+      border-color: rgba(0, 0, 0, 0.1) !important;
+    }
+
+    body.light-mode .hero-name {
+      color: #0f172a !important;
+    }
+
+    body.light-mode .hero-text {
+      color: #475569 !important;
+    }
+
+    body.light-mode .hero-subtitle {
+      color: #64748b !important;
+    }
+
+    body.light-mode #hero-intro {
+      background-color: transparent !important;
+    }
+
+    body.light-mode .hero-master-wrapper {
+      background: #f8fafc !important;
+    }
+
+    body.light-mode .narrative-text p,
+    body.light-mode .contact-panel p,
+    body.light-mode .design-header p {
+      color: #475569 !important;
+    }
+
+    #projetos {
+      background: #000 !important;
+      border-top: 2px solid #fff !important;
+      border-bottom: 2px solid #fff !important;
+      padding: 80px 5% !important;
+    }
+    @media (max-width: 768px) {
+      /* Redundant media query removed to let the main one at 1217 handle navigation */
     }
 
     .narrative-text {
@@ -351,19 +625,44 @@
 
     .testimonial-card {
       background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08); /* Adicionado borda sutil */
       border-left: 4px solid var(--su-pink);
       padding: 1.5rem;
       border-radius: 0 12px 12px 0;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 10px;
+      font-size: 10rem;
+      font-family: 'Playfair Display', serif;
+      color: #fff;
+      opacity: 0.08;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     }
 
     .testimonial-text {
       font-style: italic;
       color: #d1d5db;
-      font-size: 1rem;
+      font-size: clamp(1.1rem, 2.5vw, 1.25rem);
       line-height: 1.6;
       margin-bottom: 1rem;
       text-align: left;
+      position: relative;
+      z-index: 1;
     }
 
     .testimonial-author {
@@ -376,26 +675,32 @@
     }
 
     /* SKILLS: Kurzgesagt (Flat, Vibrant, Clear) */
-    #skills {
-      background: #1a1525;
+    #tech-stack {
+      background: #080b12;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+
+    #soft-skills {
+      background: #0a0d14;
     }
 
     .skills-header {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 4rem;
     }
 
     .skills-header h2 {
-      font-size: clamp(2rem, 5vw + 1rem, 3rem);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
       color: var(--arcane-hex);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
 
     .skills-header p {
       color: #a0aec0;
-      font-size: 1.1rem;
-      width: 95%;
+      font-size: 1.15rem;
+      max-width: 650px;
       margin: 0 auto;
+      text-wrap: balance;
     }
 
     .kurz-grid {
@@ -414,11 +719,22 @@
       text-align: center;
       box-shadow: 0 6px 0 #7a62a3;
       width: 100%;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .kurz-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 0 #7a62a3, 0 15px 30px rgba(0,0,0,0.3);
     }
 
     .kurz-card.learning {
       background: var(--su-sky);
       box-shadow: 0 6px 0 #6baaa4;
+    }
+
+    .kurz-card.learning:hover {
+      box-shadow: 0 12px 0 #6baaa4, 0 15px 30px rgba(0,0,0,0.3);
     }
 
     .kurz-card h3 {
@@ -485,10 +801,11 @@
     }
 
     /* PROJECTS: Undertale */
-    #projects {
+    #projetos {
       background: #000;
-      border-top: 4px solid #fff;
-      border-bottom: 4px solid #fff;
+      border-top: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      padding: 100px 5%;
     }
 
     .undertale-container {
@@ -521,6 +838,41 @@
       border: 3px solid #fff;
       padding: 1.5rem;
       background: #000;
+      transition: all 0.3s ease;
+    }
+
+    .ut-card {
+      border: 4px solid #fff !important; 
+      padding: 2rem;
+      background: #000 !important; 
+      transition: all 0.2s steps(4);
+      border-radius: 0 !important; 
+      color: #fff !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    .ut-card:hover {
+      background: #000 !important;
+      transform: scale(1.01) !important;
+      border-color: var(--spider-yellow) !important;
+      box-shadow: 0 0 0 4px #000, 0 0 0 8px #fff !important;
+    }
+
+    .ut-card h3 {
+      font-family: 'VT323', monospace !important;
+      font-size: 1.8rem !important;
+      color: #fff !important;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .ut-card p {
+      font-family: 'VT323', monospace !important;
+      font-size: 1.3rem !important;
+      color: #fff !important;
+      line-height: 1.4;
     }
 
     .ut-card h3 {
@@ -550,6 +902,12 @@
       font-family: 'VT323', monospace;
       text-decoration: none;
       text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+
+    .ut-btn:hover {
+      background: #fff;
+      color: #000;
     }
 
     .ut-btn.act {
@@ -557,23 +915,29 @@
       color: var(--spider-yellow);
     }
 
-    /* CONTACT */
-    #contact {
-      background: linear-gradient(to bottom, #000, #1a1525);
-      border-top: none;
+    .ut-btn.act:hover {
+      background: var(--spider-yellow);
+      color: #000;
+    }
+
+    /* CONTACT: CTA FINAL */
+    #cta-final {
+      background: #02040a;
+      padding: 120px 5%;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .contact-panel {
       width: 100%;
-      max-width: 800px;
+      max-width: 750px;
       margin: 0 auto;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 2rem 1.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 24px;
+      padding: 4rem 2rem;
       text-align: center;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
     }
 
     .contact-panel h2 {
@@ -608,6 +972,13 @@
       display: inline-flex;
       align-items: center;
       gap: 16px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .contact-link:hover {
+      transform: translateY(-5px);
+      filter: brightness(1.1);
     }
 
     .contact-link.email { background: var(--su-purple); box-shadow: 0 4px 0 #7a62a3; }
@@ -628,20 +999,23 @@
     /* Pixel Toggle */
     .pixel-toggle {
       position: fixed;
-      bottom: 16px;
-      right: 16px;
-      width: 48px;
-      height: 48px;
-      background: var(--su-purple);
-      border: 2px solid #fff;
+      bottom: 20px;
+      right: 20px;
+      width: 52px;
+      height: 52px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: #fff;
-      border-radius: 50%;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 1000;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      z-index: 10010;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     /* Animations */
@@ -661,101 +1035,200 @@
     @media (max-width: 767px) {
       /* Fix Navigation & CV Button Overlap */
       nav {
-        position: static; /* Remove fixed position on mobile to prevent overlapping content */
-        padding: 2rem 5%;
-        background: transparent;
-        border-bottom: none;
+        display: flex;
+        position: fixed; /* Keep it fixed to ensure access to menu */
+        top: 0;
+        width: 100%;
+        padding: 0.6rem 5%;
+        background: rgba(8, 11, 18, 0.95);
+        backdrop-filter: blur(15px);
+        border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+        z-index: 10000;
+        justify-content: space-between;
+        align-items: center;
       }
       
       .nav-links {
-        margin-top: 1rem;
-        margin-bottom: 2rem; /* Substantial gap below CV button */
-        flex-direction: column; /* Stacked clearly */
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 80%;
+        max-width: 300px;
+        background: rgba(8, 11, 18, 0.98);
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        gap: 1.5rem;
+        gap: 2rem;
+        transition: right 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        z-index: 10000;
+        margin: 0;
       }
 
       .btn-cv {
-        width: 100%; /* Full width for easier tapping */
+        width: 90%;
         justify-content: center;
-        padding: 1rem;
+        padding: 1.2rem;
+        font-size: 0.9rem;
+      }
+
+      .hamburger {
+        display: flex !important;
+      }
+
+      .nav-links.active {
+        right: 0 !important;
+        box-shadow: 0 0 0 100vw rgba(0,0,0,0.7) !important;
+      }
+
+      /* Hamburger Animation */
+      .hamburger.active .hamburger-line:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+      }
+      .hamburger.active .hamburger-line:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active .hamburger-line:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
       }
 
       /* Fix Hero Section Spacing */
       #hero {
-        padding-top: 2rem; /* Adjust padding since nav is no longer fixed */
+        padding-top: 120px; /* Space for the fixed nav */
+        min-height: auto;
+        height: auto;
       }
 
       .glitch-title {
-        margin-bottom: 1.5rem; /* Minimum 1.5rem gap below main header */
+        font-size: clamp(2rem, 8vw, 3.5rem); /* Reduzido e fluido para evitar quebras bizarras */
+        margin-bottom: 2rem;
+        line-height: 1.2;
+        text-align: center;
+        width: 100%;
+        word-break: normal; 
+        overflow-wrap: break-word; 
+        padding-inline: 1rem;
+      }
+
+      .hero-magazine-visual {
+        width: 100%;
+        max-width: 340px;
+        height: 480px;
+        margin: 0 auto;
+        transform: none !important;
+        box-shadow: 12px 12px 0 var(--arcane-hex);
       }
 
       .hero-name {
-        margin-bottom: 1.5rem; /* Gap between name and subtitle/skills */
+        font-size: clamp(2rem, 10vw, 3.5rem);
+        margin-bottom: 1.5rem;
+        text-align: center;
       }
 
       .hero-subtitle {
-        margin-bottom: 2.5rem; /* Substantial gap before the text */
-        line-height: 1.5;
+        margin-bottom: 2rem;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        line-height: 1.6;
+        text-align: center;
       }
 
       .hero-text {
-        margin-bottom: 3rem; /* Substantial gap before the 'Iniciar Jornada' button */
+        margin-bottom: 3rem;
+        font-size: 1.1rem;
+        text-align: center;
+        padding: 0 10px;
       }
 
-      .btn-spider {
-        width: 100%; /* Full width for easier tapping */
+      /*.btn-spider {
+        width: 100%;
         text-align: center;
-      }
+      }*/
 
       /* =========================================
          FIXES DE GRID & EXCESSO DE PADDING (MOBILE)
          ========================================= */
       section {
-        padding: 5rem 5% 3rem !important; /* Mais respiro e menos exagero em dispositivos móveis */
+        padding: 50px 6% !important;
+        width: 100%;
+        overflow-x: hidden;
       }
       
+      .narrative-box {
+        padding: 2rem 1.5rem;
+        width: 100%;
+      }
+
+      .narrative-content {
+        flex-direction: column !important;
+        gap: 2.5rem;
+        text-align: center;
+      }
+      
+      .profile-frame {
+        width: 160px !important;
+        height: 160px !important;
+        margin: 0 auto;
+      }
+
+      .testimonials-grid {
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
       #tech-trends-2030 .design-card {
-        width: 95% !important;
+        width: 100% !important;
         padding: 1.5rem !important;
+        margin: 0 !important;
       }
       
       #tech-trends-2030 .design-card > div[style*="display: grid"] {
         grid-template-columns: 1fr !important;
-        gap: 2rem !important;
+        gap: 2.5rem !important;
+      }
+
+      .kurz-grid {
+        gap: 2rem;
       }
       
-      .narrative-content {
-        gap: 1.5rem;
+      .kurz-card {
+        padding: 2rem 1rem !important;
       }
       
+      .project-battle-grid {
+        gap: 2.5rem;
+      }
+
       /* Toggle e Toast Notification Fixes */
       .theme-toggle-btn {
         width: 48px !important;
         height: 48px !important;
-        bottom: 16px !important;
-        left: 16px !important;
-        font-size: 1.2rem !important;
+        bottom: 20px !important;
+        left: 20px !important;
+      }
+
+      .pixel-toggle {
+        width: 48px !important;
+        height: 48px !important;
+        bottom: 20px !important;
+        right: 20px !important;
       }
 
       #toast-notificacao {
-        bottom: 80px !important;
-        right: auto !important;
+        bottom: 90px !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
-        width: 80% !important;
+        width: 85% !important;
         text-align: center;
+        font-size: 0.9rem;
       }
 
       footer {
-        padding-bottom: 80px !important; /* Libera espaço para os botões fixos */
+        padding-bottom: 100px !important;
       }
       
-      /* Prevents Tech Labels from displacing the percentage numbers */
       .tech-label {
-        flex: 1;
-        padding-right: 15px;
-        line-height: 1.3;
+        font-size: 0.9rem;
       }
     }
 
@@ -791,14 +1264,14 @@
        ========================================= */
     @media (min-width: 768px) {
       /* Nav */
-      nav { position: fixed; flex-direction: row; justify-content: space-between; padding: 1.5rem 5%; background: rgba(10, 15, 29, 0.95); border-bottom: 1px solid rgba(0, 229, 255, 0.2); }
+      nav { position: fixed; flex-direction: row; justify-content: space-between; padding: 1.5rem 5%; background: rgba(8, 11, 18, 0.95); border-bottom: 1px solid rgba(0, 229, 255, 0.2); }
       .nav-links { width: auto; gap: 2rem; }
       .nav-links a:not(.btn-cv) { font-size: 1rem; }
       .nav-links a:not(.btn-cv):hover { color: var(--su-pink); transform: translateY(-2px); }
       .btn-cv { font-size: 0.9rem; padding: 0.5rem 1.2rem; }
       .btn-cv:hover { background: var(--arcane-hex); color: #000; box-shadow: 0 0 20px rgba(0, 229, 255, 0.6); transform: translateY(-2px); }
       
-      section { padding: 10rem 5% 6rem; }
+      section { padding: 80px 5%; }
       
       /* Hero */
       .hero-content { align-items: flex-start; text-align: left; }
@@ -955,6 +1428,28 @@
       display: block;
     }
 
+    /* Efeito VHS Sutil */
+    body.vhs-mode::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: repeating-linear-gradient(
+        transparent, 
+        transparent 3px, 
+        rgba(0,0,0,0.05) 3px, 
+        rgba(0,0,0,0.05) 6px
+      );
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    .vhs-mode h1, .vhs-mode h2 {
+      text-shadow: 1px 0 0 rgba(255,0,0,0.4), -1px 0 0 rgba(0,255,255,0.4);
+    }
+
     /* Retro Overlay (BIOS / Mosaic Boot) */
     #retro-overlay {
       position: fixed;
@@ -997,22 +1492,31 @@
     .contact-panel,
     #game-wrapper,
     .design-card {
-      background: rgba(15, 20, 35, 0.4) !important; /* Fundo escuro semi-transparente */
-      backdrop-filter: blur(16px) !important; /* Efeito de vidro fosco */
-      -webkit-backdrop-filter: blur(16px) !important; /* Suporte para Safari */
-      border: 1px solid rgba(255, 255, 255, 0.08) !important; /* Borda de vidro sutil */
-      border-radius: 24px !important; /* Arredondamento generoso estilo Bento Box */
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important; /* Profundidade 3D com brilho interno */
+      background: rgba(10, 14, 20, 0.8) !important; /* Fundo mais sólido e consistente */
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important; /* Borda levemente mais visível */
+      border-radius: 24px !important; 
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important; 
       transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease !important;
-      overflow: hidden !important; /* Garante que o conteúdo respeite as bordas arredondadas */
+      overflow: hidden !important; 
+    }
+
+    /* Restaurar detalhe de borda esquerda dos depoimentos que é marca registrada da seção */
+    .testimonial-card {
+      border-left: 4px solid var(--su-pink) !important;
+      border-radius: 0 24px 24px 0 !important;
     }
 
     /* 2. Hover Effects para Cards (Profundidade Dinâmica) */
     .testimonial-card:hover,
-    .kurz-card:hover {
+    .kurz-card:hover,
+    .ut-card:hover,
+    .narrative-box:hover,
+    .design-card:hover {
       transform: translateY(-8px) !important; /* Levanta o card suavemente */
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 229, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important; /* Sombra expandida com brilho neon */
-      border-color: rgba(0, 229, 255, 0.3) !important; /* Borda acende levemente com a cor Arcane */
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 229, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important; 
+      border-color: rgba(0, 229, 255, 0.4) !important; /* Borda acende levemente */
     }
 
     /* 3. Hover Effects para Botões e Links */
@@ -1052,9 +1556,11 @@
       .close-search:hover,
       .theme-toggle-btn:hover,
       .pixel-toggle:hover,
-      .contact-link:hover {
-        transform: translateY(-4px) scale(1.02) !important; /* Levanta e expande levemente */
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4) !important;
+      .contact-link:hover,
+      .faq-question:hover {
+        transform: translateY(-5px) scale(1.02) !important; /* Levanta e expande levemente */
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5) !important;
+        filter: brightness(1.2);
       }
       
       /* Ajuste específico para o botão do Spider-Verse não perder sua identidade */
@@ -1063,18 +1569,31 @@
       }
     }
 
-    /* 4. Classes de Animação para o futuro JS */
-    .hidden-scroll {
+    /* 4. Classes de Animação (Scroll Reveal) */
+    .reveal-item {
       opacity: 0 !important;
       transform: translateY(30px) !important;
-      pointer-events: none !important; /* Evita cliques enquanto invisível */
+      transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+      will-change: opacity, transform;
+      pointer-events: none !important;
     }
 
-    .show-scroll {
+    .reveal-item.revealed {
       opacity: 1 !important;
       transform: translateY(0) !important;
       pointer-events: auto !important;
-      transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+    }
+
+    /* Staggered Delays */
+    .stagger-1 { transition-delay: 0.1s !important; }
+    .stagger-2 { transition-delay: 0.2s !important; }
+    .stagger-3 { transition-delay: 0.3s !important; }
+    .stagger-4 { transition-delay: 0.4s !important; }
+    .stagger-5 { transition-delay: 0.5s !important; }
+
+    /* Prevent horizontal overflow during animation */
+    body {
+      overflow-x: hidden;
     }
 
     /* ==========================================================================
@@ -1094,7 +1613,7 @@
       padding: 14px 24px;
       border-radius: 24px;
       border: 1px solid rgba(0, 229, 255, 0.3);
-      background: rgba(15, 20, 35, 0.6);
+      background: rgba(8, 11, 18, 0.6);
       color: #fff;
       font-family: 'Space Grotesk', sans-serif;
       font-size: 1rem;
@@ -1119,11 +1638,16 @@
       display: none;
       flex-direction: column;
       gap: 6px;
-      background: none;
-      border: none;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
       cursor: pointer;
       padding: 10px;
-      z-index: 10001; /* Z-INDEX ALTÍSSIMO GARANTE NÃO SOBREPOR OUTROS BOTÕES */
+      z-index: 10011; 
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .hamburger-line {
@@ -1134,54 +1658,43 @@
       transition: all 0.3s ease;
     }
 
-    @media (max-width: 767px) {
-      .hamburger {
-        display: flex;
+    /* Mobile handling for split hero */
+    @media (max-width: 991px) {
+      #hero {
+        height: auto;
+        min-height: 80vh;
+        padding-top: 5rem;
       }
-
-      nav {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 5%;
-        position: fixed;
-        background: rgba(10, 15, 29, 0.95);
-        border-bottom: 1px solid rgba(0, 229, 255, 0.2);
-      }
-
-      .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        height: 100vh;
-        width: 80%;
-        max-width: 300px;
-        background: rgba(10, 15, 29, 0.98);
+      .hero-split-visual {
         flex-direction: column;
         justify-content: center;
-        align-items: center;
-        transition: right 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-        backdrop-filter: blur(16px);
-        border-left: 1px solid rgba(0, 229, 255, 0.2);
-        box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-        z-index: 10000; /* Sidebar acima de tudo, exceto hamburger */
-        margin: 0;
+        gap: 2rem;
       }
-
-      .nav-links.active {
+      .glitch-title {
+        text-align: center;
+        margin-bottom: 2rem;
+        z-index: 120;
+        text-shadow: 2px 2px 0 var(--spider-red), -2px -2px 0 var(--spider-blue);
+      }
+      .hero-magazine-visual {
+        position: relative;
         right: 0;
-        box-shadow: 0 0 0 100vw rgba(0,0,0,0.7); /* Cria um falso overlay perfeitamente escalável escuro atrás da sidebar */
+        top: 0;
+        transform: none;
+        width: 100%;
+        max-width: 320px;
+        height: 450px;
+        margin: 0 auto;
       }
+      .magazine-frame {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        box-shadow: 15px 15px 0px var(--arcane-hex);
+      }
+    }
 
-      /* Hamburger Animation */
-      .hamburger.active .hamburger-line:nth-child(1) {
-        transform: translateY(9px) rotate(45deg);
-      }
-      .hamburger.active .hamburger-line:nth-child(2) {
-        opacity: 0;
-      }
-      .hamburger.active .hamburger-line:nth-child(3) {
-        transform: translateY(-9px) rotate(-45deg);
+    @media (min-width: 992px) {
+      .glitch-title {
+        margin-right: -15%; /* Sobreposição sutil com a foto */
       }
     }
 
@@ -1189,8 +1702,8 @@
        PROJETOS DESIGN (GALERIA)
        ========================================================================== */
     #projetos-design {
-      padding: 6rem 2rem;
-      background: linear-gradient(to bottom, #0a0f1a, #05080f);
+      padding: 80px 5%;
+      background: linear-gradient(to bottom, #080b12, #02040a);
     }
     
     .design-header {
@@ -1311,8 +1824,6 @@
       }
     }
 
-    /* =========================================
-       AJUSTES MOBILE ESTRITOS - GALERIA
     ========================================= */
     @media screen and (max-width: 768px) {
         #projetos-design .design-grid {
@@ -1342,7 +1853,7 @@
        FAQ SECTION (HYBRID ACCORDION)
        ========================================================================== */
     #faq {
-      padding: 64px 0;
+      padding: 80px 0;
       position: relative;
     }
     
@@ -1383,7 +1894,7 @@
       text-align: left;
       cursor: pointer;
       outline: none;
-      transition: color 0.3s ease;
+      transition: all 0.3s ease;
     }
     
     .faq-question:active {
@@ -1436,10 +1947,15 @@
       outline-color: #2563eb !important; /* Azul royal vibrante da Vercel/Stripe */
     }
 
-    body.light-mode header nav {
-      background: rgba(255, 255, 255, 0.8) !important;
+    body.light-mode .logo {
+      color: #0f172a !important;
+      text-shadow: none !important;
+    }
+
+    body.light-mode nav {
+      background: #ffffff !important;
       backdrop-filter: blur(12px) !important;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
     }
 
     body.light-mode .nav-links a:not(.btn-cv) {
@@ -1521,9 +2037,9 @@
     body.light-mode .kurz-card,
     body.light-mode .narrative-box,
     body.light-mode .contact-panel {
-      background: #ffffff !important; /* Cards brancos puros contrastando com o fundo fafafa */
-      border: 1px solid rgba(0, 0, 0, 0.05) !important;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03) !important; /* Sombras bem maiores mas transparentes */
+      background: #ffffff !important;
+      border: 1px solid rgba(15, 23, 42, 0.15) !important; /* Contraste de borda refinado */
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04) !important;
     }
 
     body.light-mode .tech-label {
@@ -1538,9 +2054,20 @@
     }
 
     body.light-mode .contact-link {
-      background: #f1f5f9 !important;
-      border: 1px solid #e2e8f0 !important;
+      background: #ffffff !important;
+      border: 1px solid rgba(15, 23, 42, 0.1) !important;
       color: #0f172a !important;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    body.light-mode .contact-link:hover {
+      border-color: var(--arcane-hex) !important;
+      color: var(--arcane-hex) !important;
+      background: rgba(255, 255, 255, 0.6) !important;
+      backdrop-filter: blur(15px) !important;
+      -webkit-backdrop-filter: blur(15px) !important;
+      transform: translateY(-8px) scale(1.02) !important;
+      box-shadow: 0 15px 35px rgba(0, 229, 255, 0.15), inset 0 0 15px rgba(0, 229, 255, 0.05) !important;
     }
 
     body.light-mode .tech-bar-container {
@@ -1558,23 +2085,24 @@
     }
 
     body.light-mode .tech-color-magenta {
-      color: #e11d48 !important; /* Rose 600 */
+      color: #df2c3e !important; /* Ajustado para vermelho glitch no light mode */
       text-shadow: none !important;
     }
     body.light-mode .tech-bg-magenta {
-      background: linear-gradient(90deg, rgba(225,29,72,0.15), #e11d48) !important;
+      background: linear-gradient(90deg, rgba(223,44,62,0.15), #df2c3e) !important;
       box-shadow: none !important;
     }
 
     /* === CORREÇÃO FORÇADA DE FUNDOS: EVITAR SOBREPOSIÇÃO BRUTAL EM CERTAS SEÇÕES === */
     body.light-mode #hero,
-    body.light-mode #about,
-    body.light-mode #skills,
+    body.light-mode #sobre,
+    body.light-mode #tech-stack,
+    body.light-mode #soft-skills,
     body.light-mode #projetos-design,
     body.light-mode #suporte-gestao,
     body.light-mode #tech-trends-2030,
     body.light-mode #faq,
-    body.light-mode #contact {
+    body.light-mode #cta-final {
       background: none !important;
       background-color: transparent !important;
       background-image: none !important;
@@ -1629,20 +2157,27 @@
     }
 
     .tech-color-magenta {
-      color: #ff00ff;
-      text-shadow: 0 0 5px rgba(255,0,255,0.5);
+      color: #ff4a5a;
+      text-shadow: 0 0 5px rgba(255,74,90,0.5);
     }
     .tech-bg-magenta {
-      background: linear-gradient(90deg, transparent, #ff00ff); 
-      box-shadow: 0 0 10px #ff00ff;
+      background: linear-gradient(90deg, transparent, #ff4a5a); 
+      box-shadow: 0 0 10px #ff4a5a;
     }
 
     /* =========================================
        FIXES FINAIS DE LIGHT MODE (MOBILE + OVERLAY + SEARCH)
     ========================================= */
     body.light-mode .nav-links {
-      background: #f8fafc !important; /* Branco / Off-white sólido */
-      border-left: 1px solid #e2e8f0 !important;
+      background: transparent !important;
+      border: none !important;
+    }
+    
+    @media (max-width: 767px) {
+      body.light-mode .nav-links {
+        background: #ffffff !important;
+        border-left: 1px solid #e2e8f0 !important;
+      }
     }
     
     body.light-mode .nav-links.active {
@@ -1655,6 +2190,32 @@
 
     body.light-mode .hamburger-line {
       background-color: #0f172a !important; /* Linhas em escuro */
+    }
+
+    /* Suavização dos botões flutuantes e hamburger no modo claro */
+    @media (max-width: 767px) {
+      body.light-mode .hamburger {
+        background-color: rgba(255, 255, 255, 0.4) !important;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.05) !important;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+      }
+    }
+
+    body.light-mode #pixelToggle {
+      background: rgba(255, 255, 255, 0.4) !important;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 0, 0, 0.05) !important;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+      color: #0f172a !important;
+      border-radius: 16px;
+    }
+
+    body.light-mode #pixelToggle svg {
+      color: #0f172a !important;
     }
 
     body.light-mode #searchInput {
@@ -1672,32 +2233,34 @@
       background: #fff !important;
     }
 
-    /* === PROTEÇÃO ABSOLUTA DA SEÇÃO UNDERTALE (#projects) === */
-    body.light-mode #projects {
+    /* === PROTEÇÃO ABSOLUTA DA SEÇÃO UNDERTALE (#projetos) === */
+    body.light-mode #projetos {
       background: #000 !important;
       background-color: #000 !important;
       background-image: none !important;
       color: #fff !important;
+      border-top: 2px solid #fff !important;
+      border-bottom: 2px solid #fff !important;
     }
-    body.light-mode #projects h2, 
-    body.light-mode #projects h3,
-    body.light-mode #projects p,
-    body.light-mode #projects span {
+    body.light-mode #projetos h2, 
+    body.light-mode #projetos h3,
+    body.light-mode #projetos p,
+    body.light-mode #projetos span {
       color: #fff !important;
       text-shadow: none !important;
     }
-    body.light-mode #projects .dialogue-box span {
+    body.light-mode #projetos .dialogue-box span {
       color: var(--spider-yellow) !important;
     }
-    body.light-mode #projects .ut-card,
-    body.light-mode #projects .dialogue-box {
+    body.light-mode #projetos .ut-card,
+    body.light-mode #projetos .dialogue-box {
       background: transparent !important;
       background-color: transparent !important;
       border: 4px solid #fff !important;
       color: #fff !important;
       box-shadow: none !important;
     }
-    body.light-mode #projects .ut-btn {
+    body.light-mode #projetos .ut-btn {
       color: #fff !important;
     }
 
@@ -1962,11 +2525,11 @@
     }
 
     /* =========================================
-       PERFORMANCE: CONTENT VISIBILITY (PONTO 6)
+       PERFORMANCE: CONTENT VISIBILITY
        ========================================= */
-    #skills, #projects, #game-dev, #projetos-design, #suporte-gestao, #tech-trends-2030, #faq, #contact {
+    #tech-stack, #soft-skills, #projetos, #game-dev, #sobre, #cta-final {
       content-visibility: auto;
-      contain-intrinsic-size: 0 500px;
+      contain-intrinsic-size: 0 400px;
     }
 
     /* =========================================
@@ -2037,7 +2600,7 @@
       transition: all 0.3s ease;
       z-index: 99;
       background: var(--arcane-hex);
-      color: #0a0f1d;
+      color: #02040a;
       border: none;
       border-radius: 50px;
       width: 50px;
@@ -2097,11 +2660,13 @@
       </button>
 
       <div class="nav-links">
-        <a href="#about">Origem</a>
-        <a href="#skills">Inventário</a>
-        <a href="#projects">Jornada</a>
-        <a href="#projetos-design">Projetos & Design</a>
-        <a href="#contact">Conectar</a>
+        <a href="#hero">Início</a>
+        <a href="#tech-stack">Tech Stack</a>
+        <a href="#soft-skills">Didática</a>
+        <a href="#projetos">Projetos</a>
+        <a href="#game-dev">Game Dev</a>
+        <a href="#sobre">Bio</a>
+        <a href="#cta-final">Contato</a>
         <a href="curriculo.pdf" download="Leonilson_Souza_CV.pdf" target="_blank" rel="noopener noreferrer" class="btn-cv" aria-label="Baixar Currículo em PDF">
           <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           Download CV
@@ -2111,82 +2676,59 @@
   </header>
 
   <main role="main">
-  <section id="hero">
-    <div class="hero-content hidden-scroll">
-      <h1 class="glitch-title typewriter-text">Criatividade<br>em Código.</h1>
-      <div class="hero-name" style="color: #fff; font-family: 'Space Grotesk', sans-serif; margin-bottom: 0.5rem;">
-        <span id="saudacao-visitante" style="display: block; font-size: clamp(0.9rem, 2vw + 0.5rem, 1.1rem); font-weight: 400; opacity: 0.8; margin-bottom: 0.3rem;">Olá, seja muito bem-vindo!</span>
-        <span style="font-size: clamp(1.8rem, 5vw + 1rem, 2.8rem); font-weight: 700; line-height: 1.1;">Leonilson Souza</span>
-      </div>
-      <div class="hero-subtitle" style="font-size: 1.2rem; margin-bottom: 2rem;">Atendimento ao Cliente | Rotinas Administrativas | Apoio Técnico</div>
-      <p class="hero-text">
-        "Sempre fui movido pela curiosidade de entender as engrenagens do mundo. Descobri na tecnologia a ferramenta ideal para unir lógica, design e empatia na construção de soluções reais."
-      </p>
-      <a href="#projects" class="btn-spider" aria-label="Ir para a seção de projetos">Iniciar Jornada</a>
-    </div>
-  </section>
-
-  <section id="about">
-    <div class="narrative-box hidden-scroll">
-      <div class="narrative-content">
-        <div class="profile-frame">
-          <img src="profile.jpg" alt="Retrato em preto e branco de Leonilson Souza" loading="lazy" />
-        </div>
-        <div class="narrative-text">
-          <h2>A Perspectiva Humana</h2>
-          <p>
-            Minha jornada técnica começou na sala de aula. Como <strong>Professor</strong> de Informática e Web Design, aprendi que dominar as ferramentas é apenas metade do trabalho; a outra metade é saber traduzir conceitos complexos para pessoas reais, de forma simples e direta.
-          </p>
-          <p>
-            Tradução de Dificuldades em Soluções: Reduzo o tempo de integração técnica em projetos, atuando como um facilitador entre os requisitos de negócio e a área técnica. Aplico essa mesma visão na criação de interfaces visuais e na análise de dados (Power BI).
-          </p>
-          <p>
-            Acredito profundamente que código bom não é apenas o que funciona no servidor. Trago a <strong>Didática</strong> da sala de aula para meus projetos, construindo soluções que se transformam em <strong>Experiências Acessíveis</strong> e intuitivas para o usuário final.
-          </p>
-
-          <div id="live-github-card" aria-live="polite" style="margin-top: 24px; padding: 16px; border-radius: 12px; background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2); display: inline-block;">
-            <strong style="color: #00ffff; display: inline-flex; align-items: center; gap: 6px;">
-              <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-              </svg>
-              Status ao Vivo (GitHub)
-            </strong><br>
-            <span style="font-size: 14px; margin-bottom: 5px; display: block;">Repositórios Públicos: <b id="gh-repos">⏳</b> | Seguidores: <b id="gh-followers">⏳</b></span>
-            <span style="font-size: 11px; opacity: 0.6; display: block; font-style: italic;">Dados consumidos via API com política de Cache Local Automático (Zero Rate Limit).</span>
+  <div class="hero-master-wrapper">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    
+    <section id="hero">
+      <div class="hero-split-visual reveal-item">
+        <h1 class="glitch-title typewriter-text">Criatividade<br>em Código.</h1>
+        
+        <div class="hero-magazine-visual">
+          <div class="magazine-frame">
+            <img src="profile.jpg" alt="Leonilson Souza - Editorial Visual" loading="eager">
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="testimonials-grid">
-      <article class="testimonial-card hidden-scroll">
-        <p class="testimonial-text">"O Professor Leo tem uma paciência incrível para explicar conceitos difíceis. Graças à sua didática, consegui entender a lógica por trás do código sem me sentir frustrado."</p>
-        <p class="testimonial-author">— Ex-Aluno de Web Design</p>
-      </article>
-      <article class="testimonial-card hidden-scroll">
-        <p class="testimonial-text">"Trabalhar com ele é ter a certeza de que os processos técnicos estarão sempre organizados e acessíveis. Ele consegue simplificar o uso de sistemas para qualquer pessoa da equipe."</p>
-        <p class="testimonial-author">— Colega de Administração</p>
-      </article>
-      <article class="testimonial-card hidden-scroll">
-        <p class="testimonial-text">"As aulas de informática eram muito visuais e fáceis de acompanhar. Ele realmente se importa em garantir que o aluno não apenas decore, mas entenda a ferramenta."</p>
-        <p class="testimonial-author">— Ex-Aluno de Informática</p>
-      </article>
-    </div>
-  </section>
+    <section id="hero-intro">
+      <div class="intro-content reveal-item">
+        <!-- saudacao-visitante: Elemento dinâmico de boas-vindas com espaçamento aumentado -->
+        <span id="saudacao-visitante" style="display: block; font-size: clamp(0.85rem, 1.3vw, 1.1rem); font-weight: 400; opacity: 0.9; letter-spacing: 2px; color: var(--arcane-hex); margin-bottom: 3rem;">Olá, seja muito bem-vindo!</span>
+        
+        <!-- Texto de Ponte: Define o contexto do portfólio -->
+        <p style="font-size: 0.9rem; color: #94a3b8; font-style: italic; opacity: 0.8; margin-bottom: 0.6rem; letter-spacing: 1px; text-transform: none; font-family: 'Space Grotesk', sans-serif;">
+          Você está explorando o inventário digital de:
+        </p>
 
- <section id="skills">
-    <div class="skills-header hidden-scroll">
+        <div class="hero-name">
+          LEONILSON SOUZA
+        </div>
+        <div class="hero-subtitle">
+          Atendimento ao Cliente | Rotinas Administrativas<br>
+          Apoio Técnico | Web Design
+        </div>
+        <p class="hero-text">
+          "Sempre fui movido pela curiosidade de entender as engrenagens do mundo. Unindo lógica e design para construir soluções digitais que realmente importam."
+        </p>
+        <a href="#tech-stack" class="btn-spider" aria-label="Ver minhas habilidades técnicas">Explorar Inventário</a>
+      </div>
+    </section>
+  </div>
+
+  <section id="tech-stack">
+    <div class="skills-header reveal-item">
       <h2>Meu Inventário</h2>
       <p style="color: #a0aec0; font-size: 1.2rem;">Ferramentas e habilidades que uso para entender, construir e explicar soluções.</p>
     </div>
 
     <!-- Search Bar -->
-    <div class="search-container hidden-scroll">
+    <div class="search-container reveal-item">
       <input type="text" id="searchInput" placeholder="Pesquisar habilidades ou projetos..." aria-label="Pesquisar portfólio">
     </div>
 
     <div class="kurz-grid">
-      <article class="kurz-card hidden-scroll">
+      <article class="kurz-card reveal-item stagger-1">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
           Fundamentos & Lógica
@@ -2200,7 +2742,7 @@
           <span class="kurz-tag">Pensamento Lógico</span>
         </div>
       </article>
-      <article class="kurz-card hidden-scroll" style="background: var(--su-pink); box-shadow: 0 8px 0 #d85a7f;">
+      <article class="kurz-card reveal-item stagger-2" style="background: var(--su-pink); box-shadow: 0 8px 0 #d85a7f;">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
           Soft Skills
@@ -2213,7 +2755,7 @@
           <span class="kurz-tag">Simplificar o Complexo</span>
         </div>
       </article>
-      <article class="kurz-card hidden-scroll" style="background: #f59e0b; box-shadow: 0 8px 0 #d97706;">
+      <article class="kurz-card reveal-item stagger-3" style="background: #f59e0b; box-shadow: 0 8px 0 #d97706;">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg>
           Criatividade & Abordagem
@@ -2225,7 +2767,7 @@
           <span class="kurz-tag">Adaptabilidade</span>
         </div>
       </article>
-      <article class="kurz-card hidden-scroll" style="background: #008b99; box-shadow: 0 8px 0 #006670;">
+      <article class="kurz-card reveal-item stagger-4" style="background: #008b99; box-shadow: 0 8px 0 #006670;">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
           Ferramentas
@@ -2236,7 +2778,7 @@
           <span class="kurz-tag">Navegadores (DevTools)</span>
         </div>
       </article>
-      <article class="kurz-card learning hidden-scroll">
+      <article class="kurz-card learning reveal-item stagger-1">
         <h3>
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
           Em Expansão
@@ -2258,14 +2800,48 @@
     </div>
   </section>
 
- <section id="projects">
+  <section id="soft-skills">
+    <div class="narrative-box reveal-item">
+      <div class="narrative-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; text-align: center;">
+        <div class="narrative-text" style="text-align: center; width: 100%; max-width: 800px; margin-inline: auto;">
+          <h2 style="text-align: center; width: 100%; margin-bottom: 1.5rem; font-size: clamp(2rem, 4vw, 3rem);">O Diferencial Didático</h2>
+          <p>
+            Minha jornada técnica começou na sala de aula. Como <strong>Professor</strong> de Informática e Web Design, aprendi que dominar as ferramentas é apenas metade do trabalho; a outra metade é saber traduzir conceitos complexos para pessoas reais, de forma simples e direta.
+          </p>
+          <p>
+            Aplico essa mesma visão na criação de interfaces visuais e na análise de dados (Power BI). Atuo como um facilitador entre os requisitos de negócio e a área técnica, reduzindo fricções através da comunicação clara.
+          </p>
+          <p>
+            Acredito profundamente que código bom não é apenas o que funciona no servidor. Trago a <strong>Didática</strong> da sala de aula para meus projetos, construindo soluções que se transformam em <strong>Experiências Acessíveis</strong> e intuitivas para o usuário final.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonials-grid">
+      <article class="testimonial-card reveal-item stagger-1">
+        <p class="testimonial-text">"O Professor Leo tem uma paciência incrível para explicar conceitos difíceis. Graças à sua didática, consegui entender a lógica por trás do código sem me sentir frustrado."</p>
+        <p class="testimonial-author">— Ex-Aluno de Web Design</p>
+      </article>
+      <article class="testimonial-card reveal-item stagger-2">
+        <p class="testimonial-text">"Trabalhar com ele é ter a certeza de que os processos técnicos estarão sempre organizados e acessíveis. Ele consegue simplificar o uso de sistemas para qualquer pessoa da equipe."</p>
+        <p class="testimonial-author">— Colega de Administração</p>
+      </article>
+      <article class="testimonial-card reveal-item stagger-3">
+        <p class="testimonial-text">"As aulas de informática eram muito visuais e fáceis de acompanhar. Ele realmente se importa em garantir que o aluno não apenas decore, mas entenda a ferramenta."</p>
+        <p class="testimonial-author">— Ex-Aluno de Informática</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="projetos">
     <div class="undertale-container">
-      <div class="dialogue-box hidden-scroll">
+      <div class="dialogue-box reveal-item">
         * Um novo desafio aparece! <br>
         * O que você vai fazer? <span>[Analisar]</span>
       </div>
       <div class="project-battle-grid">
-        <article class="ut-card hidden-scroll">
+        <article class="ut-card reveal-item stagger-1">
           <h3>Projetos em andamento</h3>
           <p>* Acompanhe meu GitHub para espiar os códigos que estou construindo no momento.</p>
           <div class="ut-actions">
@@ -2273,7 +2849,7 @@
             <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="ut-btn" aria-label="Ver código do projeto Dashboard de Vendas">Código</a>
           </div>
         </article>
-        <article class="ut-card hidden-scroll">
+        <article class="ut-card reveal-item stagger-2">
           <h3>Para Meus Alunos</h3>
           <p>* Aqui guardo com carinho apostilas, slides e materiais para vocês sempre consultarem.</p>
           <div class="ut-actions">
@@ -2286,7 +2862,7 @@
   </section>
 
   <section id="game-dev">
-    <article class="sketchbook-wrapper hidden-scroll">
+    <article class="sketchbook-wrapper reveal-item">
       <span style="display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; color: #555; text-transform: uppercase; margin-bottom: 0.5rem;">
         ✦ Indie Game Dev ✦
       </span>
@@ -2298,8 +2874,30 @@
     </article>
   </section>
 
-  <section id="projetos-design">
-    <div class="design-header hidden-scroll">
+  <section id="sobre">
+    <div class="narrative-box reveal-item">
+      <div class="narrative-content">
+        <div class="narrative-text">
+          <h2 style="text-align: center; color: var(--su-pink);">Bastidores do Código</h2>
+          <p>
+            Trabalhar com tecnologia é, para mim, um ato de tradução. Minha base em <strong>Administração</strong> e <strong>Atendimento</strong> me deu a resiliência necessária para lidar com prazos e conferências mercantis, enquanto meu coração de <strong>Professor</strong> me mantém focado no que realmente importa: as pessoas.
+          </p>
+          <div id="live-github-card" aria-live="polite" style="padding: 24px; border-radius: 24px; background: rgba(8, 11, 18, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);">
+            <strong style="color: #00ffff; display: inline-flex; align-items: center; gap: 6px;">
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+              </svg>
+              Status ao Vivo (GitHub)
+            </strong><br>
+            <span style="font-size: 14px; margin-bottom: 5px; display: block;">Repositórios Públicos: <b id="gh-repos">⏳</b> | Seguidores: <b id="gh-followers">⏳</b></span>
+            <span style="font-size: 11px; opacity: 0.6; display: block; font-style: italic;">Dados consumidos via API com política de Cache Local Automático (Zero Rate Limit).</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="projetos-design">
+    <div class="design-header reveal-item">
       <h2>Galeria de Projetos & Design</h2>
       <p style="text-align: center; color: #a0aab2; max-width: 800px; margin: 0 auto 40px auto; font-size: 16px; line-height: 1.6;">Uma seleção de artes, protótipos e estudos desenvolvidos durante minha jornada. Aqui aplico fundamentos de UI/UX, branding e design visual para transformar conceitos em interfaces reais e centradas nas pessoas.</p>
       <div style="margin-top: -16px; display: inline-block; padding: 8px 16px; background: rgba(255, 255, 255, 0.05); color: #bbb; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.5px;">
@@ -2307,7 +2905,7 @@
       </div>
     </div>
     <div class="design-grid">
-      <article class="design-card hidden-scroll">
+      <article class="design-card reveal-item stagger-1">
         <img src="mockup-convite.png" alt="Mockup UI/UX Convite Mobile" class="imagem-card-projeto">
         <div class="design-content">
           <h3>Convite Digital Interativo (UI/UX)</h3>
@@ -2319,7 +2917,7 @@
           <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
         </div>
       </article>
-      <article class="design-card hidden-scroll">
+      <article class="design-card reveal-item stagger-2">
         <img src="mockup-hamburgueria.png" alt="Mockup Menu Digital Chefe Fast" class="imagem-card-projeto">
         <div class="design-content">
           <h3>Identidade Visual & Menu Digital</h3>
@@ -2331,7 +2929,7 @@
           <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
         </div>
       </article>
-      <article class="design-card hidden-scroll">
+      <article class="design-card reveal-item stagger-3">
         <img src="mockup-psicologia.png" alt="Mockup Estudo Psicologia das Cores" class="imagem-card-projeto">
         <div class="design-content">
           <h3>Estudo: Psicologia das Cores</h3>
@@ -2343,7 +2941,7 @@
           <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
         </div>
       </article>
-      <article class="design-card hidden-scroll">
+      <article class="design-card reveal-item stagger-1">
         <img src="mockup-logo.png" alt="Mockup Branding LDS Magazine" class="imagem-card-projeto">
         <div class="design-content">
           <h3>Branding: LDS Magazine</h3>
@@ -2355,7 +2953,7 @@
           <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
         </div>
       </article>
-      <article class="design-card hidden-scroll">
+      <article class="design-card reveal-item stagger-2">
         <img src="mockup-editorial.png" alt="Mockup Editorial LDS Magazine" class="imagem-card-projeto">
         <div class="design-content">
           <h3>Design Editorial: LDS Magazine</h3>
@@ -2367,7 +2965,7 @@
           <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
         </div>
       </article>
-      <article class="design-card hidden-scroll">
+      <article class="design-card reveal-item stagger-3">
         <img src="mockup-pixelart.jpg" alt="Mockup Game Design Pixel Art Leo" class="imagem-card-projeto">
         <div class="design-content">
           <h3>Creative Coding & Pixel Art</h3>
@@ -2382,39 +2980,39 @@
     </div>
   </section>
 
-  <section id="suporte-gestao" style="padding: 48px 0;">
-    <div class="design-header hidden-scroll">
+  <section id="suporte-gestao">
+    <div class="design-header reveal-item">
       <h2 style="font-size: clamp(2rem, 5vw + 1rem, 2.5rem); color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 2rem;">Além do Código: Suporte & Atendimento</h2>
     </div>
     <div class="design-grid container">
-      <article class="design-card hidden-scroll">
-        <div class="design-content">
-          <h3>Suporte e Resolução de Problemas</h3>
-          <p>Comunicação empática focada em resultados. Busco ouvir ativamente os usuários, compreender suas dificuldades e oferecer um suporte técnico que vai direto à raiz do problema, mantendo a satisfação e confiança.</p>
+      <article class="design-card reveal-item stagger-1" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div class="design-content" style="text-align: center;">
+          <h3 style="font-size: 1.05rem; margin-bottom: 0.8rem; text-align: center; width: 100%;">Suporte e Resolução de Problemas</h3>
+          <p style="font-size: 0.9rem; line-height: 1.6; text-align: center;">Comunicação empática focada em resultados. Busco ouvir ativamente os usuários, compreender suas dificuldades e oferecer um suporte técnico que vai direto à raiz do problema, mantendo a satisfação e confiança.</p>
         </div>
       </article>
-      <article class="design-card hidden-scroll">
-        <div class="design-content">
-          <h3>Treinamento e Documentação</h3>
-          <p>Com a experiência em sala de aula, facilito a comunicação entre as equipes técnicas e os usuários. Reduzo o retrabalho ao transformar fluxos complexos em tutoriais e manuais visuais simples e compreensíveis.</p>
+      <article class="design-card reveal-item stagger-2" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div class="design-content" style="text-align: center;">
+          <h3 style="font-size: 1.05rem; margin-bottom: 0.8rem; text-align: center; width: 100%;">Treinamento e Documentação</h3>
+          <p style="font-size: 0.9rem; line-height: 1.6; text-align: center;">Com a experiência em sala de aula, facilito a comunicação entre as equipes técnicas e os usuários. Reduzo o retrabalho ao transformar fluxos complexos em tutoriais e manuais visuais simples e compreensíveis.</p>
         </div>
       </article>
-      <article class="design-card hidden-scroll">
-        <div class="design-content">
-          <h3>Organização e Processos Ágeis</h3>
-          <p>Habilidade na utilização de esteiras de dados, softwares de gestão e dashboards de Power BI. Meu foco é organizar informações para gerar visibilidade e relatórios que ajudem a equipe a tomar decisões mais assertivas.</p>
+      <article class="design-card reveal-item stagger-3" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div class="design-content" style="text-align: center;">
+          <h3 style="font-size: 1.05rem; margin-bottom: 0.8rem; text-align: center; width: 100%;">Organização e Processos Ágeis</h3>
+          <p style="font-size: 0.9rem; line-height: 1.6; text-align: center;">Habilidade na utilização de esteiras de dados, softwares de gestão e dashboards de Power BI. Meu foco é organizar informações para gerar visibilidade e relatórios que ajudem a equipe a tomar decisões mais assertivas.</p>
         </div>
       </article>
     </div>
   </section>
 
-  <section id="tech-trends-2030" style="padding: 48px 0;">
-    <div class="hidden-scroll">
+  <section id="tech-trends-2030">
+    <div class="reveal-item">
       <h2 style="font-size: clamp(2rem, 5vw + 1rem, 2.5rem); color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 0.5rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);">Radar de Mercado: Tech Trends 2030</h2>
       <p style="text-align: center; color: #a0aab2; max-width: 800px; margin: 0 auto 3rem auto; font-size: 1.1rem; padding: 0 1rem;">Projeções baseadas no Fórum Econômico Mundial, estruturadas com UI Design nativo.</p>
     </div>
     
-    <article class="design-card hidden-scroll" style="max-width: 1000px; margin: 0 auto; width: 90%; padding: 2.5rem;">
+    <article class="design-card reveal-item" style="max-width: 1000px; margin: 0 auto; width: 90%; padding: 2.5rem;">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
         
         <!-- Coluna 1 -->
@@ -2495,9 +3093,9 @@
 
   <section id="faq">
     <div class="faq-container">
-      <h2 style="font-size: clamp(2rem, 5vw + 1rem, 2.5rem); color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 2.5rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);" class="hidden-scroll">Perguntas Frequentes</h2>
+      <h2 style="font-size: clamp(2rem, 5vw + 1rem, 2.5rem); color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 2.5rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);" class="reveal-item">Perguntas Frequentes</h2>
       
-      <div class="faq-item hidden-scroll">
+      <div class="faq-item reveal-item stagger-1">
         <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
           Você trabalha apenas com Design ou também programa?
           <span class="faq-icon" aria-hidden="true">+</span>
@@ -2509,7 +3107,7 @@
         </div>
       </div>
 
-      <div class="faq-item hidden-scroll">
+      <div class="faq-item reveal-item stagger-2">
         <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
           Como você atua no Atendimento e Suporte ao Cliente?
           <span class="faq-icon" aria-hidden="true">+</span>
@@ -2521,7 +3119,7 @@
         </div>
       </div>
 
-      <div class="faq-item hidden-scroll">
+      <div class="faq-item reveal-item stagger-3">
         <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
           Você possui experiência com rotinas administrativas?
           <span class="faq-icon" aria-hidden="true">+</span>
@@ -2533,7 +3131,7 @@
         </div>
       </div>
 
-      <div class="faq-item hidden-scroll">
+      <div class="faq-item reveal-item stagger-4">
         <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
           Como funciona o seu processo de organização de trabalho?
           <span class="faq-icon" aria-hidden="true">+</span>
@@ -2545,7 +3143,7 @@
         </div>
       </div>
 
-      <div class="faq-item hidden-scroll">
+      <div class="faq-item reveal-item stagger-5">
         <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
           Você busca atuar em qual área prioritariamente?
           <span class="faq-icon" aria-hidden="true">+</span>
@@ -2560,8 +3158,8 @@
     </div>
   </section>
 
-  <section id="contact">
-    <div class="contact-panel hidden-scroll">
+  <section id="cta-final">
+    <div class="contact-panel reveal-item">
       <h2>Vamos Conectar?</h2>
       <p>Estou sempre aberto a novas oportunidades, projetos desafiadores ou apenas uma boa conversa sobre tecnologia e design.</p>
       
@@ -2633,6 +3231,162 @@
     );
 
     // --------------------------------------------------------
+    // 0. Hero Generative Art (Node-Link reactive web)
+    // --------------------------------------------------------
+    function initHeroParticles() {
+      const canvas = document.getElementById('hero-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      
+      let particles = [];
+      const particleCount = window.innerWidth < 768 ? 100 : 220;
+      const colors = ['#00e5ff', '#ff7b9c', '#ffeb3b', '#ffffff'];
+      const mouse = { x: null, y: null, radius: 200 };
+
+      window.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+
+      window.addEventListener('mouseout', () => {
+        mouse.x = null;
+        mouse.y = null;
+      });
+      
+      function resize() {
+        if (!canvas) return;
+        canvas.width = canvas.parentElement.offsetWidth;
+        canvas.height = canvas.parentElement.offsetHeight;
+      }
+      
+      window.addEventListener('resize', resize);
+      resize();
+      
+      class Particle {
+        constructor() {
+          this.init();
+        }
+        
+        init() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.baseX = this.x;
+          this.baseY = this.y;
+          this.vx = (Math.random() - 0.5) * 1.2;
+          this.vy = (Math.random() - 0.5) * 1.2;
+          this.size = Math.random() * 2 + 1;
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+          this.alpha = Math.random() * 0.5 + 0.2;
+          this.density = (Math.random() * 30) + 1;
+        }
+        
+        update() {
+          // Normal floating movement
+          this.x += this.vx;
+          this.y += this.vy;
+          
+          if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+          if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+          // Mouse interaction (Magnetic Effect)
+          if (mouse.x !== null) {
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            let forceDirectionX = dx / distance;
+            let forceDirectionY = dy / distance;
+            let maxDistance = mouse.radius;
+            let force = (maxDistance - distance) / maxDistance;
+            let directionX = forceDirectionX * force * this.density;
+            let directionY = forceDirectionY * force * this.density;
+
+            if (distance < mouse.radius) {
+              this.x -= directionX;
+              this.y -= directionY;
+            }
+          }
+        }
+        
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.globalAlpha = this.alpha;
+          ctx.fill();
+        }
+      }
+      
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+      
+      function drawLines() {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 180) {
+              ctx.beginPath();
+              ctx.strokeStyle = particles[i].color;
+              // Fade line based on distance with a slightly higher baseline alpha
+              ctx.globalAlpha = (1 - distance / 180) * 0.25;
+              ctx.lineWidth = distance < 100 ? 1 : 0.6;
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+      }
+      
+      function animate() {
+        if (!ctx || !canvas) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        
+        drawLines();
+        requestAnimationFrame(animate);
+      }
+      
+      animate();
+    }
+
+    // --------------------------------------------------------
+    // 0.1 Hero Micro-Parallax Effect
+    // --------------------------------------------------------
+    function initHeroParallax() {
+      const hero = document.getElementById('hero');
+      const title = document.querySelector('.glitch-title');
+      const visual = document.querySelector('.hero-magazine-visual');
+      const canvas = document.getElementById('hero-canvas');
+
+      if (!hero) return;
+
+      window.addEventListener('mousemove', (e) => {
+        // Amortecimento: Aumentado divisor de 30 para 100 para movimento mais sutil
+        const dampening = 300;
+        let x = (window.innerWidth / 2 - e.pageX) / dampening;
+        let y = (window.innerHeight / 2 - e.pageY) / dampening;
+
+        // Limites (Clamp): Restringe o deslocamento máximo para evitar colisões
+        const limit = 10;
+        x = Math.max(-limit, Math.min(limit, x));
+        y = Math.max(-limit, Math.min(limit, y));
+
+        if (title) title.style.transform = `skew(-1deg) translateZ(50px) translate(${x * 1.2}px, ${y * 1.2}px)`;
+        if (visual) visual.style.transform = `translateZ(20px) translate(${-x}px, ${-y}px)`;
+        if (canvas) canvas.style.transform = `scale(1.1) translate(${x * 0.5}px, ${y * 0.5}px)`;
+      });
+    }
+
+    // --------------------------------------------------------
     // 1. The Storyteller Effect (Typewriter)
     // --------------------------------------------------------
     function initTypewriter() {
@@ -2677,33 +3431,17 @@
     // 2. The Cinematic Scroll (Intersection Observer)
     // --------------------------------------------------------
     function initCinematicScroll() {
-      // Seleciona todos os elementos que devem ser animados ao rolar a página
-      const elementsToAnimate = document.querySelectorAll('.hidden-scroll');
-
-      // Configurações do nosso "olheiro" (Observer)
-      const observerOptions = {
-        root: null, // null significa que estamos observando a janela principal (viewport)
-        rootMargin: '0px', // Sem margem extra
-        threshold: 0.15 // A animação dispara quando 15% do elemento aparece na tela
-      };
-
-      // Cria o Observer
-      const observer = new IntersectionObserver((entries, observer) => {
+      const elementsToAnimate = document.querySelectorAll('.reveal-item');
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          // Se o elemento entrou na área visível...
           if (entry.isIntersecting) {
-            // Adiciona a classe '.show-scroll' que engatilha a transição CSS (opacity e transform)
-            entry.target.classList.add('show-scroll');
-            // Para de observar este elemento (a animação acontece apenas uma vez)
+            entry.target.classList.add('revealed');
             observer.unobserve(entry.target);
           }
         });
-      }, observerOptions);
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-      // Instrui o Observer a vigiar cada um dos elementos selecionados
-      elementsToAnimate.forEach(element => {
-        observer.observe(element);
-      });
+      elementsToAnimate.forEach(element => observer.observe(element));
     }
 
     // --------------------------------------------------------
@@ -2717,6 +3455,7 @@
       // Check saved preference
       if (localStorage.getItem('retroMode') === 'enabled') {
         body.classList.add('modo-retro');
+        body.classList.add('vhs-mode');
       }
 
       if (pixelToggleBtn) {
@@ -2730,6 +3469,7 @@
             
             setTimeout(() => {
               body.classList.toggle('modo-retro');
+              body.classList.toggle('vhs-mode');
               
               // Save preference
               if (body.classList.contains('modo-retro')) {
@@ -2747,6 +3487,7 @@
           } else {
             // Fallback
             body.classList.toggle('modo-retro');
+            body.classList.toggle('vhs-mode');
             if (body.classList.contains('modo-retro')) {
               localStorage.setItem('retroMode', 'enabled');
             } else {
@@ -2759,6 +3500,8 @@
 
     // Inicializa todas as funções quando o DOM estiver pronto
     document.addEventListener('DOMContentLoaded', () => {
+      initHeroParticles();
+      initHeroParallax();
       initTypewriter();
       initCinematicScroll();
       initPixelMode();
@@ -2803,10 +3546,7 @@
             const text = card.innerText.toLowerCase();
             if (text.includes(term)) {
               card.style.display = '';
-              // Re-trigger animation if it was hidden
-              if (card.classList.contains('hidden-scroll')) {
-                card.classList.add('show-scroll');
-              }
+              card.classList.add('revealed'); // Force showing if searched
             } else {
               card.style.display = 'none';
             }
@@ -3204,7 +3944,7 @@
     }
 
     // Easter Egg: PokeAPI
-    console.log("%cOlá, Tech Recruiter! Vi que você gosta de olhar os bastidores. Digite a palavra pixel no teclado para uma surpresa. 😉", "color: #00e5ff; font-size: 14px; font-weight: bold; background: #0a0f1d; padding: 10px; border-radius: 5px;");
+    console.log("%cOlá, Tech Recruiter! Vi que você gosta de olhar os bastidores. Digite a palavra pixel no teclado para uma surpresa. 😉", "color: #00e5ff; font-size: 14px; font-weight: bold; background: #02040a; padding: 10px; border-radius: 5px;");
     
     let secretCode = 'pixel';
     let inputCode = '';
