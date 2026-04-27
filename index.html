@@ -94,7 +94,7 @@
     p {
       font-weight: 400;
       line-height: 1.6;
-      text-wrap: balance; /* Previne palavras sozinhas em linhas novas */
+      /* text-wrap balance removido para evitar quebras estranhas em parágrafos no mobile */
     }
 
     /* Spider-Verse Typography */
@@ -308,15 +308,6 @@
       mask-composite: intersect;
     }
 
-    #hero .hero-magazine-visual.reveal-item {
-      opacity: 0;
-      transform: translateZ(20px) translateY(20px) scale(1.02) !important;
-    }
-    #hero .hero-magazine-visual.reveal-item.revealed {
-      opacity: 1;
-      transform: translateZ(20px) translateY(0) scale(1) !important;
-    }
-
     .magazine-frame {
       position: relative;
       width: 100%;
@@ -390,11 +381,23 @@
       color: var(--arcane-hex);
       font-weight: 700;
       margin-bottom: 2.5rem;
-      letter-spacing: 5px;
+      letter-spacing: 3px; /* Reduzido de 5px */
       text-transform: uppercase;
       opacity: 0.9;
       line-height: 1.8;
       text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.25rem 0.75rem;
+    }
+    
+    .hero-subtitle span {
+      white-space: nowrap;
+    }
+    
+    .hero-subtitle span.sep {
+      opacity: 0.5;
     }
 
     .hero-text {
@@ -403,18 +406,20 @@
       color: #cbd5e1;
       margin-bottom: 4rem;
       font-style: italic;
-      text-wrap: balance;
+      /* Removemos text-wrap balance para evitar cortes estranhos */
     }
 
     @media (max-width: 991px) {
       #hero {
         height: auto;
-        padding-top: 150px;
+        padding-top: 160px; /* Enhanced space for nav */
         min-height: auto;
+        align-items: flex-start; /* Prevent vertical centering from pushing content up */
       }
       .hero-split-visual {
         flex-direction: column;
         gap: 4rem;
+        justify-content: flex-start;
       }
       .glitch-title {
         text-align: center;
@@ -1114,12 +1119,7 @@
         transform: translateY(-9px) rotate(-45deg);
       }
 
-      /* Fix Hero Section Spacing */
-      #hero {
-        padding-top: 120px; /* Space for the fixed nav */
-        min-height: auto;
-        height: auto;
-      }
+      /* Custom Hero fixes moved manually */
 
       .glitch-title {
         font-size: clamp(2rem, 8vw, 3.5rem); /* Reduzido e fluido para evitar quebras bizarras */
@@ -1177,9 +1177,14 @@
       }
       
       #hero {
-        padding: 150px 6% 50px 6% !important;
+        padding: 160px 6% 50px 6% !important;
         width: 100%;
         overflow-x: hidden;
+        align-items: flex-start !important;
+      }
+      
+      .hero-split-visual {
+        justify-content: flex-start !important;
       }
       
       .narrative-box {
@@ -1691,11 +1696,12 @@
       #hero {
         height: auto;
         min-height: 80vh;
-        padding-top: 150px; /* Increased padding to prevent overlap with fixed nav */
+        padding-top: 160px; /* Increased padding to prevent overlap with fixed nav */
+        align-items: flex-start;
       }
       .hero-split-visual {
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         gap: 2rem;
       }
       .glitch-title {
@@ -2711,7 +2717,7 @@
       <div class="hero-split-visual">
         <h1 class="glitch-title typewriter-text reveal-item stagger-1">Criatividade<br>em Código.</h1>
         
-        <div class="hero-magazine-visual reveal-item stagger-2">
+        <div class="hero-magazine-visual">
           <div class="magazine-frame">
             <img src="profile.jpg" alt="Leonilson Souza - Editorial Visual" loading="eager">
           </div>
@@ -2733,8 +2739,10 @@
           LEONILSON SOUZA
         </div>
         <div class="hero-subtitle">
-          Atendimento ao Cliente | Rotinas Administrativas<br>
-          Apoio Técnico | Web Design
+          <span>Atendimento ao Cliente</span> <span class="sep">|</span> 
+          <span>Rotinas Administrativas</span> <span class="sep">|</span> 
+          <span>Apoio Técnico</span> <span class="sep">|</span> 
+          <span>Web Design</span>
         </div>
         <p class="hero-text">
           "Sempre fui movido pela curiosidade de entender as engrenagens do mundo. Unindo lógica e design para construir soluções digitais que realmente importam."
@@ -3273,9 +3281,9 @@
       const ctx = canvas.getContext('2d');
       
       let particles = [];
-      const particleCount = window.innerWidth < 768 ? 100 : 220;
+      const particleCount = window.innerWidth < 768 ? 60 : 120; // Reduced count for better performance
       const colors = ['#00e5ff', '#ff7b9c', '#ffeb3b', '#ffffff'];
-      const mouse = { x: null, y: null, radius: 200 };
+      const mouse = { x: null, y: null, radius: 150 }; // Reduced radius slightly
 
       window.addEventListener('mousemove', (e) => {
         const rect = canvas.getBoundingClientRect();
@@ -3356,20 +3364,29 @@
       }
       
       function drawLines() {
+        // Line distance threshold reduced for performance (O(n^2) optimization)
+        const maxDist = window.innerWidth < 768 ? 80 : 120; 
+        
         for (let i = 0; i < particles.length; i++) {
           for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
+            const p1 = particles[i];
+            const p2 = particles[j];
+            const dx = p1.x - p2.x;
+            const dy = p1.y - p2.y;
+            
+            // Fast distance check before Math.sqrt
+            if (Math.abs(dx) > maxDist || Math.abs(dy) > maxDist) continue;
+            
             const distance = Math.sqrt(dx * dx + dy * dy);
             
-            if (distance < 180) {
+            if (distance < maxDist) {
+              const alpha = (1 - distance / maxDist) * 0.2;
               ctx.beginPath();
-              ctx.strokeStyle = particles[i].color;
-              // Fade line based on distance with a slightly higher baseline alpha
-              ctx.globalAlpha = (1 - distance / 180) * 0.25;
-              ctx.lineWidth = distance < 100 ? 1 : 0.6;
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = p1.color;
+              ctx.globalAlpha = alpha;
+              ctx.lineWidth = 0.5;
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(p2.x, p2.y);
               ctx.stroke();
             }
           }
@@ -3393,31 +3410,44 @@
     }
 
     // --------------------------------------------------------
-    // 0.1 Hero Micro-Parallax Effect
+    // 0.1 Hero Micro-Parallax Effect (Optimized with RequestAnimationFrame)
     // --------------------------------------------------------
     function initHeroParallax() {
-      const hero = document.getElementById('hero');
       const title = document.querySelector('.glitch-title');
-      const visual = document.querySelector('.hero-magazine-visual');
       const canvas = document.getElementById('hero-canvas');
+      if (!title && !canvas) return;
 
-      if (!hero) return;
+      let mouseX = 0;
+      let mouseY = 0;
+      let targetX = 0;
+      let targetY = 0;
+      const easing = 0.08; // Smooth interpolation
 
       window.addEventListener('mousemove', (e) => {
-        // Amortecimento: Aumentado divisor de 30 para 100 para movimento mais sutil
         const dampening = 300;
-        let x = (window.innerWidth / 2 - e.pageX) / dampening;
-        let y = (window.innerHeight / 2 - e.pageY) / dampening;
-
-        // Limites (Clamp): Restringe o deslocamento máximo para evitar colisões
+        targetX = (window.innerWidth / 2 - e.pageX) / dampening;
+        targetY = (window.innerHeight / 2 - e.pageY) / dampening;
+        
         const limit = 10;
-        x = Math.max(-limit, Math.min(limit, x));
-        y = Math.max(-limit, Math.min(limit, y));
-
-        if (title) title.style.transform = `skew(-1deg) translateZ(50px) translate(${x * 1.2}px, ${y * 1.2}px)`;
-        if (visual) visual.style.transform = `translateZ(20px) translate(${-x}px, ${-y}px)`;
-        if (canvas) canvas.style.transform = `scale(1.1) translate(${x * 0.5}px, ${y * 0.5}px)`;
+        targetX = Math.max(-limit, Math.min(limit, targetX));
+        targetY = Math.max(-limit, Math.min(limit, targetY));
       });
+
+      function updateParallax() {
+        // Linear interpolation for buttery smoothness
+        mouseX += (targetX - mouseX) * easing;
+        mouseY += (targetY - mouseY) * easing;
+
+        if (title) {
+          title.style.transform = `skew(-1deg) translateZ(50px) translate(${mouseX * 1.2}px, ${mouseY * 1.2}px)`;
+        }
+        if (canvas) {
+          canvas.style.transform = `scale(1.1) translate(${mouseX * 0.5}px, ${mouseY * 0.5}px)`;
+        }
+        requestAnimationFrame(updateParallax);
+      }
+
+      requestAnimationFrame(updateParallax);
     }
 
     // --------------------------------------------------------
