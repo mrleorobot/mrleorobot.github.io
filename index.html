@@ -306,6 +306,20 @@
       mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), 
                   linear-gradient(to bottom, transparent 0%, black 15%, black 80%, transparent 100%);
       mask-composite: intersect;
+
+      /* Elegant entry animation for the image (Pure CSS) */
+      animation: heroImageFadeIn 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes heroImageFadeIn {
+      0% { 
+        opacity: 0; 
+        transform: translateZ(20px) translateY(8px) scale(0.99); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateZ(20px) translateY(0) scale(1); 
+      }
     }
 
     .magazine-frame {
@@ -1606,7 +1620,7 @@
     .reveal-item {
       opacity: 0 !important;
       transform: translateY(30px) !important;
-      transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+      transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1) !important;
       will-change: opacity, transform;
       pointer-events: none !important;
     }
@@ -3281,9 +3295,9 @@
       const ctx = canvas.getContext('2d');
       
       let particles = [];
-      const particleCount = window.innerWidth < 768 ? 60 : 120; // Reduced count for better performance
+      const particleCount = window.innerWidth < 768 ? 40 : 100; // Even fewer for performance on mobile
       const colors = ['#00e5ff', '#ff7b9c', '#ffeb3b', '#ffffff'];
-      const mouse = { x: null, y: null, radius: 150 }; // Reduced radius slightly
+      const mouse = { x: null, y: null, radius: 100 }; // Constrain interaction area for speed
 
       window.addEventListener('mousemove', (e) => {
         const rect = canvas.getBoundingClientRect();
@@ -3364,8 +3378,8 @@
       }
       
       function drawLines() {
-        // Line distance threshold reduced for performance (O(n^2) optimization)
-        const maxDist = window.innerWidth < 768 ? 80 : 120; 
+        const maxDist = window.innerWidth < 768 ? 55 : 95; 
+        const maxDistSq = maxDist * maxDist; // Pre-calculate square distance
         
         for (let i = 0; i < particles.length; i++) {
           for (let j = i + 1; j < particles.length; j++) {
@@ -3374,13 +3388,12 @@
             const dx = p1.x - p2.x;
             const dy = p1.y - p2.y;
             
-            // Fast distance check before Math.sqrt
-            if (Math.abs(dx) > maxDist || Math.abs(dy) > maxDist) continue;
+            // Fast distance check using square distance (avoids expensive Math.sqrt)
+            const distSq = dx * dx + dy * dy;
             
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            
-            if (distance < maxDist) {
-              const alpha = (1 - distance / maxDist) * 0.2;
+            if (distSq < maxDistSq) {
+              const distance = Math.sqrt(distSq); // Only calc sqrt if we actually need to draw
+              const alpha = (1 - distance / maxDist) * 0.12;
               ctx.beginPath();
               ctx.strokeStyle = p1.color;
               ctx.globalAlpha = alpha;
