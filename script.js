@@ -14,7 +14,7 @@
 
     // Easter Egg para Recrutadores Técnicos
     console.log(
-      "%c🚀 Olá, Tech Recruiter ou Tech Lead! %c\n\nVejo que você gosta de olhar debaixo do capô. Este portfólio é 100% Vanilla JS, com Tipografia Fluida, Acessibilidade Sensorial, Busca Fuzzy e Cache de API no LocalStorage.\n\nSe gostou da organização e da atenção aos detalhes, vamos conversar sobre a próxima vaga da sua equipe!",
+      "%c Olá, Tech Recruiter ou Tech Lead! %c\n\nVejo que você gosta de olhar debaixo do capô. Este portfólio é 100% Vanilla JS, com Tipografia Fluida, Acessibilidade Sensorial, Busca Fuzzy e Cache de API no LocalStorage.\n\nSe gostou da organização e da atenção aos detalhes, vamos conversar sobre a próxima vaga da sua equipe!",
       "color: #00e5ff; font-size: 20px; font-weight: bold; text-shadow: 1px 1px 0 #ff00ff;",
       "color: #a0aec0; font-size: 14px; line-height: 1.5;"
     );
@@ -480,12 +480,12 @@
           if (navigator.vibrate) { navigator.vibrate(50); }
 
           // Feedback Visual: Atualiza botão
-          btnCopiarEmail.innerHTML = '✨ E-mail copiado!';
+          btnCopiarEmail.innerHTML = ' E-mail copiado!';
           btnCopiarEmail.style.background = '#00a0b3'; // Transição de cor
 
           // Opcional: Atualiza o Toast também
           if (toastNotificacao) {
-            toastNotificacao.innerHTML = '✨ E-mail copiado!';
+            toastNotificacao.innerHTML = ' E-mail copiado!';
             toastNotificacao.classList.remove('toast-escondido');
             toastNotificacao.classList.add('toast-visivel');
           }
@@ -761,7 +761,7 @@
     }
 
     // Easter Egg: PokeAPI
-    console.log("%cOlá, Tech Recruiter! Vi que você gosta de olhar os bastidores. Digite a palavra pixel no teclado para uma surpresa. 😉", "color: #00e5ff; font-size: 14px; font-weight: bold; background: #02040a; padding: 10px; border-radius: 5px;");
+    console.log("%cOlá, Tech Recruiter! Vi que você gosta de olhar os bastidores. Digite a palavra pixel no teclado para uma surpresa. ", "color: #00e5ff; font-size: 14px; font-weight: bold; background: #030712; padding: 10px; border-radius: 5px;");
     
     let secretCode = 'pixel';
     let inputCode = '';
