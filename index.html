@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Leonilson Souza | Desenvolvedor Front-end, UX/UI Design & Power BI | Natal/RN</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23030712%22/><circle cx=%2250%22 cy=%2250%22 r=%2220%22 fill=%22%2300e5ff%22/></svg>">
+  
+  <!-- SEO Primary Meta Tags -->
+  <meta name="description" content="Portfólio de Leonilson Souza, Desenvolvedor Front-end Sênior, UX/UI Designer e especialista em Power BI (DAX/M) sediado em Natal/RN. Tecnologias: React, Tailwind, Next.js e Acessibilidade." />
+  <meta name="keywords" content="Leonilson Souza, Desenvolvedor Front-end, UX/UI Design, Power BI, DAX, TDAH acessibilidade, React, Web Design, Natal RN, Suporte Técnico, Consultoria em Tecnologia" />
+  <meta name="author" content="Leonilson Souza" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#030712" />
+  <link rel="canonical" href="https://leonilsonsouza.com.br/" /> <!-- Ajuste o domínio depois -->
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://leonilsonsouza.com.br/" />
+  <meta property="og:title" content="Leonilson Souza | Desenvolvedor Front-end & UX/UI Designer" />
+  <meta property="og:description" content="Especialista em React, UX/UI Design para neurodiversidade (TDAH) e Power BI. Transformando problemas complexos em interfaces excepcionais e acessíveis." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?auto=format&fit=crop&w=1200&q=80" /> 
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://leonilsonsouza.com.br/" />
+  <meta property="twitter:title" content="Leonilson Souza | Front-end & UX/UI" />
+  <meta property="twitter:description" content="Desenvolvedor Front-end Sênior, UX/UI Designer e especialista em Power BI em Natal/RN." />
+  <meta property="twitter:image" content="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?auto=format&fit=crop&w=1200&q=80" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Space+Grotesk:wght@700;900&family=VT323&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Additional critical styles could go here if needed, but omitted for now */
+  </style>
+</head>
+<body>
+  <div id="stardust-bg" aria-hidden="true">
+    <div id="stardust-layer1"></div>
+    <div id="stardust-layer2"></div>
+  </div>
+
+  
+  <div id="glitch-overlay" aria-hidden="true"></div>
+
+  <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Alternar Modo Claro/Escuro">
+    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+  </button>
+  
+  <div id="toast-notificacao" class="toast-escondido" role="alert" aria-live="assertive">E-mail copiado com sucesso!</div>
+
+  <header>
+    <nav aria-label="Navegação principal">
+      <a href="#hero" class="logo" aria-label="Voltar ao topo">LEONILSON_</a>
+      
+      
+      
+      <button class="hamburger" aria-label="Abrir menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <div class="nav-links">
+        <a href="#hero">Início</a>
+        <a href="#tech-stack">Inventário</a>
+        <a href="#soft-skills">Didática</a>
+        <a href="#projetos">Projetos</a>
+        <a href="#game-dev">Game Dev</a>
+        <a href="#sobre">Indo Além</a>
+        <a href="#cta-final">Contato</a>
+        <a href="curriculo.pdf" download="Leonilson_Souza_CV.pdf" target="_blank" rel="noopener noreferrer" class="btn-cv" aria-label="Baixar Currículo em PDF">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download CV
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main role="main">
+  <div class="hero-master-wrapper">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    
+    <section id="hero">
+      <div class="hero-split-visual">
+        <h1 class="glitch-title reveal-item">
+          <span class="sr-only">Leonilson Souza - Desenvolvedor Front-end, UX/UI Design & Power BI</span>
+          Criatividade<br>em Código.
+        </h1>
+        
+        <div class="hero-magazine-visual reveal-item">
+          <div class="magazine-frame">
+            <img src="profile.jpg" alt="Leonilson Souza - Editorial Visual" loading="eager">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="hero-intro">
+      <div class="intro-content reveal-item">
+        
+        <span id="saudacao-visitante" class="reveal-item stagger-1" style="display: block; font-size: clamp(0.85rem, 1.3vw, 1.1rem); font-weight: 400; opacity: 0.9; letter-spacing: 2px; color: var(--arcane-hex); margin-bottom: 3rem;">Olá, seja muito bem-vindo!</span>
+        
+        
+        <p class="reveal-item stagger-1" style="font-size: 0.9rem; color: #94a3b8; font-style: italic; opacity: 0.8; margin-bottom: 0.6rem; letter-spacing: 1px; text-transform: none; font-family: 'Space Grotesk', sans-serif;">
+          Você está explorando o inventário digital de:
+        </p>
+
+        <div class="hero-name reveal-item stagger-2">
+          LEONILSON SOUZA
+        </div>
+        <div class="hero-subtitle reveal-item stagger-2">
+          <span>Atendimento ao Cliente</span> <span class="sep">|</span> 
+          <span>Rotinas Administrativas</span> <span class="sep">|</span> 
+          <span>Apoio Técnico</span> <span class="sep">|</span> 
+          <span>Web Design</span>
+        </div>
+        <p class="hero-text reveal-item stagger-3">
+          "Sempre fui movido pela curiosidade de entender as engrenagens do mundo. Unindo lógica e design para construir soluções digitais que realmente importam."
+        </p>
+        <a href="#tech-stack" class="btn-spider reveal-item stagger-4" aria-label="Ver minhas habilidades técnicas">Explorar Inventário</a>
+      </div>
+    </section>
+  </div>
+
+  <section id="tech-stack">
+    <div class="skills-header reveal-item">
+      <h2>Habilidades e Tecnologias</h2>
+      <p style="color: #a0aec0; font-size: 1.2rem;">Ferramentas e habilidades que uso para entender, construir e explicar soluções.</p>
+    </div>
+
+    
+    <div class="search-container reveal-item">
+      <input type="text" id="searchInput" placeholder="Pesquisar habilidades ou projetos..." aria-label="Pesquisar portfólio">
+    </div>
+
+    <div class="kurz-grid">
+      <article class="kurz-card reveal-item stagger-1">
+        <h3>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+          Fundamentos & Lógica
+        </h3>
+        <div class="kurz-tags">
+          <span class="kurz-tag" data-tooltip="Linux"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux" loading="lazy" width="20" height="20"> Linux</span>
+          <span class="kurz-tag" data-tooltip="Redes">Redes</span>
+          <span class="kurz-tag" data-tooltip="Hardware">Hardware</span>
+          <span class="kurz-tag" data-tooltip="Suporte Técnico">Suporte Técnico</span>
+          <span class="kurz-tag" data-tooltip="Resolução de Problemas">Resolução de Problemas</span>
+          <span class="kurz-tag" data-tooltip="Pensamento Lógico">Pensamento Lógico</span>
+        </div>
+      </article>
+      <article class="kurz-card reveal-item stagger-2" style="background: var(--su-pink); box-shadow: 0 8px 0 #d85a7f;">
+        <h3>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          Soft Skills
+        </h3>
+        <div class="kurz-tags">
+          <span class="kurz-tag" data-tooltip="Empatia">Empatia</span>
+          <span class="kurz-tag" data-tooltip="Comunicação Clara">Comunicação Clara</span>
+          <span class="kurz-tag" data-tooltip="Didática">Didática</span>
+          <span class="kurz-tag" data-tooltip="Organização de Ideias">Organização de Ideias</span>
+          <span class="kurz-tag" data-tooltip="Simplificar o Complexo">Simplificar o Complexo</span>
+        </div>
+      </article>
+      <article class="kurz-card reveal-item stagger-3" style="background: #f59e0b; box-shadow: 0 8px 0 #d97706;">
+        <h3>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg>
+          Criatividade & Abordagem
+        </h3>
+        <div class="kurz-tags">
+          <span class="kurz-tag" data-tooltip="Criatividade">Criatividade</span>
+          <span class="kurz-tag" data-tooltip="Pensamento Visual">Pensamento Visual</span>
+          <span class="kurz-tag" data-tooltip="Storytelling">Storytelling</span>
+          <span class="kurz-tag" data-tooltip="Adaptabilidade">Adaptabilidade</span>
+        </div>
+      </article>
+      <article class="kurz-card reveal-item stagger-4" style="background: #008b99; box-shadow: 0 8px 0 #006670;">
+        <h3>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+          Ferramentas
+        </h3>
+        <div class="kurz-tags">
+          <span class="kurz-tag" data-tooltip="Git & GitHub"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git & GitHub" loading="lazy" width="20" height="20"> Git & GitHub</span>
+          <span class="kurz-tag" data-tooltip="VS Code"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" loading="lazy" width="20" height="20"> VS Code</span>
+          <span class="kurz-tag" data-tooltip="Navegadores (DevTools)">Navegadores (DevTools)</span>
+        </div>
+      </article>
+      <article class="kurz-card learning reveal-item stagger-1">
+        <h3>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
+          Em Expansão
+        </h3>
+        <div class="kurz-tags">
+          <span class="kurz-tag" data-tooltip="HTML5 & CSS3"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5" loading="lazy" width="20" height="20"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS3" loading="lazy" width="20" height="20"> HTML5 & CSS3</span>
+          <span class="kurz-tag" data-tooltip="JavaScript"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy" width="20" height="20"> JavaScript</span>
+          <span class="kurz-tag" data-tooltip="Java"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java" loading="lazy" width="20" height="20"> Java</span>
+          <span class="kurz-tag" data-tooltip="Python"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" loading="lazy" width="20" height="20"> Python</span>
+          <span class="kurz-tag" data-tooltip="PHP"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt="PHP" loading="lazy" width="20" height="20"> PHP</span>
+          <span class="kurz-tag" data-tooltip="Firebase"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg" alt="Firebase" loading="lazy" width="20" height="20"> Firebase</span>
+          <span class="kurz-tag" data-tooltip="Canva"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg" alt="Canva" loading="lazy" width="20" height="20"> Canva</span>
+          <span class="kurz-tag" data-tooltip="Inteligência Artificial">Inteligência Artificial</span>
+          <span class="kurz-tag" data-tooltip="Segurança da Informação">Segurança da Informação</span>
+          <span class="kurz-tag" data-tooltip="SEO">SEO</span>
+          <span class="kurz-tag" data-tooltip="Power BI">Power BI</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="soft-skills">
+    <div class="narrative-box reveal-item">
+      <div class="narrative-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; text-align: center;">
+        <div class="narrative-text" style="text-align: center; width: 100%; max-width: 800px; margin-inline: auto;">
+          <h2 style="text-align: center; width: 100%; margin-bottom: 1.5rem; font-size: clamp(2rem, 4vw, 3rem);">Diferencial Didático: Simplificando a Tecnologia</h2>
+          <p>
+            Minha jornada técnica começou na sala de aula. Como <strong>Professor</strong> de Informática e Web Design, aprendi que dominar as ferramentas é apenas metade do trabalho; a outra metade é saber traduzir conceitos complexos para pessoas reais, de forma simples e direta.
+          </p>
+          <p>
+            Aplico essa mesma visão na criação de interfaces visuais e na análise de dados (Power BI). Atuo como um facilitador entre os requisitos de negócio e a área técnica, reduzindo fricções através da comunicação clara.
+          </p>
+          <p>
+            Acredito profundamente que código bom não é apenas o que funciona no servidor. Trago a <strong>Didática</strong> da sala de aula para meus projetos, construindo soluções que se transformam em <strong>Experiências Acessíveis</strong> e intuitivas para o usuário final.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonials-grid">
+      <article class="testimonial-card reveal-item stagger-1">
+        <p class="testimonial-text">"O Professor Leo tem uma paciência incrível para explicar conceitos difíceis. Graças à sua didática, consegui entender a lógica por trás do código sem me sentir frustrado."</p>
+        <p class="testimonial-author">— Ex-Aluno de Web Design</p>
+      </article>
+      <article class="testimonial-card reveal-item stagger-2">
+        <p class="testimonial-text">"Trabalhar com ele é ter a certeza de que os processos técnicos estarão sempre organizados e acessíveis. Ele consegue simplificar o uso de sistemas para qualquer pessoa da equipe."</p>
+        <p class="testimonial-author">— Colega de Administração</p>
+      </article>
+      <article class="testimonial-card reveal-item stagger-3">
+        <p class="testimonial-text">"As aulas de informática eram muito visuais e fáceis de acompanhar. Ele realmente se importa em garantir que o aluno não apenas decore, mas entenda a ferramenta."</p>
+        <p class="testimonial-author">— Ex-Aluno de Informática</p>
+      </article>
+    </div>
+  </section>
+
+
+  <section id="suporte-gestao">
+    <div class="design-header reveal-item">
+      <h2 style="font-size: clamp(2rem, 5vw + 1rem, 2.5rem); color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 2rem;">Além do Código: Suporte & Atendimento</h2>
+    </div>
+    <div class="design-grid container">
+      <article class="design-card reveal-item stagger-1" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div class="design-content" style="text-align: center;">
+          <h3 style="font-size: 1.05rem; margin-bottom: 0.8rem; text-align: center; width: 100%;">Suporte e Resolução de Problemas</h3>
+          <p style="font-size: 0.9rem; line-height: 1.6; text-align: center;">Comunicação empática focada em resultados. Busco ouvir ativamente os usuários, compreender suas dificuldades e oferecer um suporte técnico que vai direto à raiz do problema, mantendo a satisfação e confiança.</p>
+        </div>
+      </article>
+      <article class="design-card reveal-item stagger-2" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div class="design-content" style="text-align: center;">
+          <h3 style="font-size: 1.05rem; margin-bottom: 0.8rem; text-align: center; width: 100%;">Treinamento e Documentação</h3>
+          <p style="font-size: 0.9rem; line-height: 1.6; text-align: center;">Com a experiência em sala de aula, facilito a comunicação entre as equipes técnicas e os usuários. Reduzo o retrabalho ao transformar fluxos complexos em tutoriais e manuais visuais simples e compreensíveis.</p>
+        </div>
+      </article>
+      <article class="design-card reveal-item stagger-3" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div class="design-content" style="text-align: center;">
+          <h3 style="font-size: 1.05rem; margin-bottom: 0.8rem; text-align: center; width: 100%;">Organização e Processos Ágeis</h3>
+          <p style="font-size: 0.9rem; line-height: 1.6; text-align: center;">Habilidade na utilização de esteiras de dados, softwares de gestão e dashboards de Power BI. Meu foco é organizar informações para gerar visibilidade e relatórios que ajudem a equipe a tomar decisões mais assertivas.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="projetos">
+    <div class="design-header reveal-item" style="margin-bottom: 3rem;">
+      <span style="display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; color: var(--arcane-hex); text-transform: uppercase; margin-bottom: 0.5rem;">
+        Laboratório Aberto
+      </span>
+      <h2>Projetos de Front-end e Web Design</h2>
+    </div>
+
+    <div class="project-battle-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 800px; margin: 0 auto; width: 100%; padding: 0 5%;">
+      
+      <article class="design-card reveal-item stagger-1">
+        <div class="design-content">
+          <h3>Projetos em andamento</h3>
+          <p>Acompanhe meu GitHub para espiar os códigos que estou construindo no momento.</p>
+          <div class="btn-group" style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="btn-spider" aria-label="Ver detalhes do projeto Dashboard de Vendas">Ver Detalhes</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="design-card reveal-item stagger-2">
+        <div class="design-content">
+          <h3>Para Ex-Alunos</h3>
+          <p>Aqui guardo com carinho apostilas, slides e materiais para vocês sempre consultarem.</p>
+          <div class="btn-group" style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="btn-spider" aria-label="Ver detalhes do projeto Landing Page">Ver Detalhes</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="game-dev">
+    <div class="design-header reveal-item" style="margin-bottom: 3rem;">
+      <span style="display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; color: var(--arcane-hex); text-transform: uppercase; margin-bottom: 0.5rem;">
+         Indie Game Dev 
+      </span>
+      <h2>Game Development: Entre Pixels e Silêncios</h2>
+    </div>
+
+    <div class="project-battle-grid" style="display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 800px; margin: 0 auto; width: 100%; padding: 0 5%;">
+      <article class="design-card reveal-item stagger-1">
+        <div class="design-content" style="align-items: center; text-align: center;">
+          <h3>Meu futuro projeto de RPG Psicológico 2D.</h3>
+          <p>Mais que uma narrativa visual, um verdadeiro laboratório de engenharia: construção de um <strong>Motor 2D</strong> do zero em <strong>Vanilla JS</strong>, operando <strong>lógica complexa de colisão</strong>, manipulação de <strong>State Machines</strong> (gerenciamento de estados) e design autoral de <strong>sprites</strong>.</p>
+          <div class="status-dev-tag">
+            [ Em Desenvolvimento ]
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="narrative-box reveal-item">
+      <div class="narrative-content">
+        <div class="narrative-text">
+          <h2 style="text-align: center; color: var(--su-pink);">Bastidores do Código</h2>
+          <p>
+            Trabalhar com tecnologia é, para mim, um ato de tradução. Minha base em <strong>Administração</strong> e <strong>Atendimento</strong> me deu a resiliência necessária para lidar com prazos e conferências mercantis, enquanto meu coração de <strong>Professor</strong> me mantém focado no que realmente importa: as pessoas.
+          </p>
+          <div id="live-github-card" aria-live="polite" style="padding: 24px; border-radius: 24px; background: rgba(8, 11, 18, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);">
+            <strong style="color: #00ffff; display: inline-flex; align-items: center; gap: 6px;">
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+              </svg>
+              Status ao Vivo (GitHub)
+            </strong><br>
+            <span style="font-size: 14px; margin-bottom: 5px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; flex-wrap: wrap;">Repositórios Públicos: <b id="gh-repos" class="skeleton-text"></b> <span style="margin: 0 4px;">|</span> Seguidores: <b id="gh-followers" class="skeleton-text"></b></span>
+            <span style="font-size: 11px; opacity: 0.6; display: block; font-style: italic;">Dados consumidos via API com política de Cache Local Automático (Zero Rate Limit).</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="projetos-design">
+    <div class="design-header reveal-item">
+      <h2>Galeria de Projetos de UX/UI Design</h2>
+      <p style="text-align: center; color: #a0aab2; max-width: 800px; margin: 0 auto 40px auto; font-size: 16px; line-height: 1.6;">Uma seleção de artes, protótipos e estudos desenvolvidos durante minha jornada. Aqui aplico fundamentos de UI/UX, branding e design visual para transformar conceitos em interfaces reais e centradas nas pessoas.</p>
+      <div style="margin-top: -16px; display: inline-block; padding: 8px 16px; background: rgba(255, 255, 255, 0.05); color: #bbb; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.5px;">
+        Em breve, uma nova guia no site com os projetos detalhados!
+      </div>
+    </div>
+    <div class="design-grid">
+      <article class="design-card reveal-item stagger-1">
+        <img src="mockup-convite.png" alt="Mockup UI/UX Convite Mobile" class="imagem-card-projeto">
+        <div class="design-content">
+          <h3>Convite Digital Interativo (UI/UX)</h3>
+          <p>
+            <strong>Desafio:</strong> Modernizar o formato tradicional de convites de eventos.<br>
+            <strong>Solução:</strong> Interface mobile interativa focada na experiência do usuário com CTAs claros.<br>
+            <strong>Tech:</strong> Figma, Componentização, Prototipagem
+          </p>
+          <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
+        </div>
+      </article>
+      <article class="design-card reveal-item stagger-2">
+        <img src="mockup-hamburgueria.png" alt="Mockup Menu Digital Chefe Fast" class="imagem-card-projeto">
+        <div class="design-content">
+          <h3>Identidade Visual & Menu Digital</h3>
+          <p>
+            <strong>Desafio:</strong> Otimizar cardápios para leitura dinâmica com foco no cliente.<br>
+            <strong>Solução:</strong> Layout acessível embasado em psicologia das cores e arquitetura da informação.<br>
+            <strong>Tech:</strong> Photoshop, Illustrator, UI Design
+          </p>
+          <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
+        </div>
+      </article>
+      <article class="design-card reveal-item stagger-3">
+        <img src="mockup-psicologia.png" alt="Mockup Estudo Psicologia das Cores" class="imagem-card-projeto">
+        <div class="design-content">
+          <h3>Estudo: Psicologia das Cores</h3>
+          <p>
+            <strong>Desafio:</strong> Entender como as cores influenciam a experiência em aplicativos e sites.<br>
+            <strong>Solução:</strong> Material editorial que traduz a teoria das cores para decisões práticas de design.<br>
+            <strong>Tech:</strong> UX Research, Estudo de Comportamento
+          </p>
+          <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
+        </div>
+      </article>
+      <article class="design-card reveal-item stagger-1">
+        <img src="mockup-logo.png" alt="Mockup Branding LDS Magazine" class="imagem-card-projeto">
+        <div class="design-content">
+          <h3>Branding: LDS Magazine</h3>
+          <p>
+            <strong>Desafio:</strong> Projetar uma identidade visual minimalista e de alto padrão.<br>
+            <strong>Solução:</strong> Logotipo guiado por tipografia geométrica, peso visual e grids sólidos.<br>
+            <strong>Tech:</strong> Illustrator, Teoria Modular, Branding
+          </p>
+          <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
+        </div>
+      </article>
+      <article class="design-card reveal-item stagger-2">
+        <img src="mockup-editorial.png" alt="Mockup Editorial LDS Magazine" class="imagem-card-projeto">
+        <div class="design-content">
+          <h3>Design Editorial: LDS Magazine</h3>
+          <p>
+            <strong>Desafio:</strong> Estruturar uma leitura fluida para materiais textuais densos.<br>
+            <strong>Solução:</strong> Direção de arte editorial pautada em respiros visuais e hierarquia clara.<br>
+            <strong>Tech:</strong> InDesign, Diagramação, Layout Gráfico
+          </p>
+          <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
+        </div>
+      </article>
+      <article class="design-card reveal-item stagger-3">
+        <img src="mockup-pixelart.jpg" alt="Mockup Game Design Pixel Art Leo" class="imagem-card-projeto">
+        <div class="design-content">
+          <h3>Creative Coding & Pixel Art</h3>
+          <p>
+            <strong>Desafio:</strong> Trazer a nostalgia dos jogos retrô para o ambiente de portfólio web.<br>
+            <strong>Solução:</strong> Assets em pixel art, onboarding amigável e UX lúdica em ambientes 2D.<br>
+            <strong>Tech:</strong> Aseprite, Game Design, UX Retrô
+          </p>
+          <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="tech-trends-2030">
+    <div class="reveal-item">
+      <h2 style="font-size: clamp(2rem, 5vw + 1rem, 2.5rem); color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 0.5rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);">Radar de Mercado: Tech Trends 2030</h2>
+      <p style="text-align: center; color: #a0aab2; max-width: 800px; margin: 0 auto 3rem auto; font-size: 1.1rem; padding: 0 1rem;">Projeções baseadas no Fórum Econômico Mundial, estruturadas com UI Design nativo.</p>
+    </div>
+    
+    <article class="design-card reveal-item" style="max-width: 1000px; margin: 0 auto; width: 90%; padding: 2.5rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+        
+        
+        <div>
+          <h3 style="color: #fff; font-family: 'Space Grotesk', sans-serif; margin-bottom: 0.5rem; font-size: clamp(1.1rem, 2vw + 1rem, 1.3rem);">Em Alta (Oportunidades)</h3>
+          <p style="color: #a0aab2; font-size: 0.95rem; line-height: 1.5; margin-bottom: 2rem;"><strong>Como nos adaptamos?</strong> O aprendizado contínuo é a chave. Ao invés de temer as IAs, devemos dominá-las como extensões das nossas próprias habilidades criativas e analíticas, multiplicando assim a nossa eficiência.</p>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
+              <span class="tech-label">IA & Machine Learning</span>
+              <span class="tech-color-cyan"><span class="contador" data-alvo="95">0</span>%</span>
+            </div>
+            <div class="tech-bar-container">
+              <div class="tech-bar tech-bg-cyan" data-alvo-largura="95" style="width: 0%;"></div>
+            </div>
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
+              <span class="tech-label">Cibersegurança & Cloud</span>
+              <span class="tech-color-cyan"><span class="contador" data-alvo="85">0</span>%</span>
+            </div>
+            <div class="tech-bar-container">
+              <div class="tech-bar tech-bg-cyan" data-alvo-largura="85" style="width: 0%;"></div>
+            </div>
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
+              <span class="tech-label">Energias Renováveis</span>
+              <span class="tech-color-cyan"><span class="contador" data-alvo="80">0</span>%</span>
+            </div>
+            <div class="tech-bar-container">
+              <div class="tech-bar tech-bg-cyan" data-alvo-largura="80" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+        
+        
+        <div>
+          <h3 style="color: #fff; font-family: 'Space Grotesk', sans-serif; margin-bottom: 0.5rem; font-size: clamp(1.1rem, 2vw + 1rem, 1.3rem);">Em Declínio (Automação)</h3>
+          <p style="color: #a0aab2; font-size: 0.95rem; line-height: 1.5; margin-bottom: 2rem;"><strong>O contra-movimento:</strong> Com as tarefas repetitivas automatizadas, o verdadeiro valor de mercado volta para as conexões genuínas. Empatia, escuta ativa e inteligência emocional não são codificáveis. A máquina cuida do processo, nós cuidamos das pessoas.</p>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
+              <span class="tech-label">Operadores de Dados/Telemarketing</span>
+              <span class="tech-color-magenta"><span class="contador" data-alvo="90">0</span>%</span>
+            </div>
+            <div class="tech-bar-container">
+              <div class="tech-bar tech-bg-magenta" data-alvo-largura="90" style="width: 0%;"></div>
+            </div>
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
+              <span class="tech-label">Caixas e Atendimento Físico</span>
+              <span class="tech-color-magenta"><span class="contador" data-alvo="75">0</span>%</span>
+            </div>
+            <div class="tech-bar-container">
+              <div class="tech-bar tech-bg-magenta" data-alvo-largura="75" style="width: 0%;"></div>
+            </div>
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #f8fafc;">
+              <span class="tech-label">Tarefas Administrativas/Papel</span>
+              <span class="tech-color-magenta"><span class="contador" data-alvo="70">0</span>%</span>
+            </div>
+            <div class="tech-bar-container">
+              <div class="tech-bar tech-bg-magenta" data-alvo-largura="70" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </article>
+  </section>
+
+  <section id="faq">
+    <div class="faq-container">
+      <h2 style="font-size: clamp(2rem, 5vw + 1rem, 2.5rem); color: var(--arcane-hex); font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 2.5rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);" class="reveal-item">Perguntas Frequentes</h2>
+      
+      <div class="faq-item reveal-item stagger-1">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
+          Você trabalha apenas com Design ou também programa?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div id="faq-answer-1" class="faq-answer-wrapper">
+          <div class="faq-answer-content">
+            Tenho um perfil bem híbrido! Comecei com uma base forte em Design Gráfico e Web Design, e hoje dedico bastante tempo ao código. Gosto de unir meu olhar para estética com a lógica de programação (HTML, CSS, JavaScript) para construir interfaces bonitas e muito confortáveis de usar.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal-item stagger-2">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
+          Como você atua no Atendimento e Suporte ao Cliente?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div id="faq-answer-2" class="faq-answer-wrapper">
+          <div class="faq-answer-content">
+            A sala de aula me ensinou muito sobre ter paciência e empatia. Quando um usuário traz uma dúvida, gosto de escutar com atenção e pegar aquele problema técnico que parece assustador, traduzindo ele para uma conversa tranquila, acolhedora e direta, garantindo que o cliente se sinta bem atendido.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal-item stagger-3">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
+          Você possui experiência com rotinas administrativas?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div id="faq-answer-3" class="faq-answer-wrapper">
+          <div class="faq-answer-content">
+            Com certeza! Tenho uma vivência prática muito enriquecedora. Já operei e fechei caixa e conferi mercadorias em dias de alta demanda, mantendo sempre a calma. Gosto muito de usar o meu conhecimento em tecnologia (Pacote Office, sistemas, etc) para organizar a rotina administrativa, facilitar processos e ajudar a equipe a ganhar tempo.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal-item stagger-4">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
+          Como funciona o seu processo de organização de trabalho?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div id="faq-answer-4" class="faq-answer-wrapper">
+          <div class="faq-answer-content">
+            Levo muito o planejamento das minhas aulas para o meu dia a dia. Gosto de pegar tarefas grandes ou projetos difíceis e dividi-los em passos menores e mais tranquilos de resolver. O meu foco principal é manter as coisas organizadas, manter a serenidade nos momentos de correria, e sempre me comunicar de forma clara para que ninguém fique com dúvidas.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal-item stagger-5">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
+          Você busca atuar em qual área prioritariamente?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div id="faq-answer-5" class="faq-answer-wrapper">
+          <div class="faq-answer-content">
+            Procuro oportunidades que celebrem o equilíbrio entre a habilidade técnica e o contato humano. Por ser muito adaptável, sinto que posso somar bastante tanto mergulhando no código (Desenvolvimento Web e Design) quanto atuando direto com as pessoas (Suporte Técnico, Atendimento e Assistência Administrativa).
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="cta-final">
+    <div class="contact-panel reveal-item">
+      <h2>Vamos Conectar?</h2>
+      <p>Estou sempre aberto a novas oportunidades, projetos desafiadores ou apenas uma boa conversa sobre tecnologia e design.</p>
+      
+      <div style="display: flex; gap: 8px; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 24px;">
+        <div id="status-disponibilidade" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); font-size: 14px; transition: all 0.3s ease;">
+          <span id="bolinha-status" style="width: 10px; height: 10px; border-radius: 50%; display: inline-block;"></span>
+          <span id="texto-status" style="color: #d1d5db; font-weight: 500; font-family: 'Space Grotesk', sans-serif;">Verificando status...</span>
+        </div>
+
+        <div id="widget-clima" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2); font-size: 14px; transition: all 0.3s ease;">
+          <span id="clima-icone" style="display: inline-flex; align-items: center; justify-content: center; color: #00ffff;">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </span> 
+          <span id="clima-texto" style="color: #d1d5db; font-weight: 500; font-family: 'Space Grotesk', sans-serif;">Buscando clima em Natal, RN...</span>
+        </div>
+      </div>
+
+      <div class="contact-links">
+        <a href="#" id="btn-copiar-email" role="button" class="contact-link email" aria-label="Copiar email de Leonilson">
+          <span class="icon-holder">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </span>
+          <span class="link-text">Email</span>
+        </a>
+        <a href="https://wa.me/5584992238449" target="_blank" rel="noopener noreferrer" class="contact-link whatsapp" aria-label="Entrar em contato via WhatsApp">
+          <span class="icon-holder">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          </span>
+          <span class="link-text">WhatsApp</span>
+        </a>
+        <a href="https://www.linkedin.com/in/leonilsonsouza/" target="_blank" rel="noopener noreferrer" class="contact-link linkedin" aria-label="Visitar perfil no LinkedIn">
+          <span class="icon-holder">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </span>
+          <span class="link-text">LinkedIn</span>
+        </a>
+        <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="contact-link github" aria-label="Visitar perfil no GitHub">
+          <span class="icon-holder">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          </span>
+          <span class="link-text">GitHub</span>
+        </a>
+        <a href="curriculo.pdf" download="Leonilson_Souza_CV.pdf" target="_blank" rel="noopener noreferrer" class="btn-cv" aria-label="Baixar Currículo em PDF" style="grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; margin-top: 10px;">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download CV Completo
+        </a>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <footer role="contentinfo" style="text-align: center; padding: 2rem; background: #000; color: #666; font-family: 'Space Grotesk', sans-serif;">
+    <p>&copy; 2026 Leonilson Souza</p>
+    <p>Construído com lógica e empatia.</p>
+  </footer>
+
+  <script type="module" src="/script.js" defer></script>
+  <button aria-label="Voltar ao topo" id="btn-topo" class="btn-flutuante">↑</button>
+</body>
+</html>
