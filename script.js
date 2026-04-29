@@ -28,15 +28,17 @@
       const ctx = canvas.getContext('2d');
       
       let particles = [];
-      const particleCount = window.innerWidth < 768 ? 40 : 100; // Even fewer for performance on mobile
+      const particleCount = window.innerWidth < 768 ? 25 : 60; // Even fewer for performance on mobile
       const colors = ['#00e5ff', '#ff7b9c', '#ffeb3b', '#ffffff'];
       const mouse = { x: null, y: null, radius: 100 }; // Constrain interaction area for speed
 
+      let heroRect = canvas.getBoundingClientRect();
+      window.addEventListener('resize', () => { heroRect = canvas.getBoundingClientRect(); });
+      window.addEventListener('scroll', () => { heroRect = canvas.getBoundingClientRect(); }, { passive: true });
       window.addEventListener('mousemove', (e) => {
-        const rect = canvas.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
-      });
+        mouse.x = e.clientX - heroRect.left;
+        mouse.y = e.clientY - heroRect.top;
+      }, { passive: true });
 
       window.addEventListener('mouseout', () => {
         mouse.x = null;
@@ -82,26 +84,26 @@
           if (mouse.x !== null) {
             let dx = mouse.x - this.x;
             let dy = mouse.y - this.y;
-            let distance = Math.sqrt(dx * dx + dy * dy);
-            let forceDirectionX = dx / distance;
-            let forceDirectionY = dy / distance;
-            let maxDistance = mouse.radius;
-            let force = (maxDistance - distance) / maxDistance;
-            let directionX = forceDirectionX * force * this.density;
-            let directionY = forceDirectionY * force * this.density;
-
-            if (distance < mouse.radius) {
+            let distSq = dx * dx + dy * dy;
+            let maxRadiusSq = mouse.radius * mouse.radius;
+            if (distSq < maxRadiusSq) {
+              let distance = Math.sqrt(distSq);
+              let forceDirectionX = dx / distance;
+              let forceDirectionY = dy / distance;
+              let force = (mouse.radius - distance) / mouse.radius;
+              let directionX = forceDirectionX * force * this.density;
+              let directionY = forceDirectionY * force * this.density;
               this.x -= directionX;
               this.y -= directionY;
             }
           }
         }
         
-        draw() {
+        draw(introAlpha = 1) {
           ctx.beginPath();
           ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
           ctx.fillStyle = this.color;
-          ctx.globalAlpha = this.alpha;
+          ctx.globalAlpha = this.alpha * introAlpha;
           ctx.fill();
         }
       }
@@ -110,7 +112,7 @@
         particles.push(new Particle());
       }
       
-      function drawLines() {
+      function drawLines(introAlpha = 1) {
         const maxDist = window.innerWidth < 768 ? 55 : 95; 
         const maxDistSq = maxDist * maxDist; // Pre-calculate square distance
         
@@ -126,7 +128,7 @@
             
             if (distSq < maxDistSq) {
               const distance = Math.sqrt(distSq); // Only calc sqrt if we actually need to draw
-              const alpha = (1 - distance / maxDist) * 0.12;
+              const alpha = (1 - distance / maxDist) * 0.12 * introAlpha;
               ctx.beginPath();
               ctx.strokeStyle = p1.color;
               ctx.globalAlpha = alpha;
@@ -139,17 +141,31 @@
         }
       }
       
+      let introAlpha = 0;
+      let isHeroVisible = true;
+      const heroSection = document.getElementById('hero');
+      if (heroSection) {
+        new IntersectionObserver((entries) => {
+          isHeroVisible = entries[0].isIntersecting;
+        }, { threshold: 0 }).observe(heroSection);
+      }
       function animate() {
-        if (!ctx || !canvas) return;
+        requestAnimationFrame(animate);
+        if (!isHeroVisible) return;
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
+        if (introAlpha < 1) {
+            introAlpha += 0.04;
+            if(introAlpha > 1) introAlpha = 1;
+        }
+
         particles.forEach(p => {
           p.update();
-          p.draw();
+          p.draw(introAlpha);
         });
         
-        drawLines();
-        requestAnimationFrame(animate);
+        drawLines(introAlpha);
       }
       
       animate();
@@ -169,30 +185,45 @@
       let targetY = 0;
       const easing = 0.08; // Smooth interpolation
 
-      window.addEventListener('mousemove', (e) => {
-        const dampening = 300;
+      window.addEventListener('mousemove', (e) => { const dampening = 300;
         targetX = (window.innerWidth / 2 - e.pageX) / dampening;
         targetY = (window.innerHeight / 2 - e.pageY) / dampening;
         
         const limit = 10;
         targetX = Math.max(-limit, Math.min(limit, targetX));
-        targetY = Math.max(-limit, Math.min(limit, targetY));
-      });
+        targetY = Math.max(-limit, Math.min(limit, targetY)); }, { passive: true });
 
+      let lastMouseX = -999;
+      let lastMouseY = -999;
+      
+      let isParallaxVisible = true;
+      const heroParallaxSection = document.getElementById('hero');
+      if (heroParallaxSection) {
+        new IntersectionObserver((entries) => {
+          isParallaxVisible = entries[0].isIntersecting;
+        }, { threshold: 0 }).observe(heroParallaxSection);
+      }
       function updateParallax() {
-        // Linear interpolation for buttery smoothness
+        requestAnimationFrame(updateParallax);
+        if (!isParallaxVisible) return;
         mouseX += (targetX - mouseX) * easing;
         mouseY += (targetY - mouseY) * easing;
 
-        if (title) {
-          title.style.transform = `skew(-1deg) translateZ(50px) translate(${mouseX * 1.2}px, ${mouseY * 1.2}px)`;
-        }
-        if (canvas) {
-          canvas.style.transform = `scale(1.1) translate(${mouseX * 0.5}px, ${mouseY * 0.5}px)`;
-        }
-        requestAnimationFrame(updateParallax);
-      }
+        // Limita a precisão para evitar escritas desnecessárias no repouso
+        let roundedX = Math.round(mouseX * 100) / 100;
+        let roundedY = Math.round(mouseY * 100) / 100;
 
+        if (roundedX !== lastMouseX || roundedY !== lastMouseY) {
+          if (title) {
+            title.style.transform = `skew(-1deg) translateZ(50px) translate(${roundedX * 1.2}px, ${roundedY * 1.2}px)`;
+          }
+          if (canvas) {
+            canvas.style.transform = `scale(1.1) translate(${roundedX * 0.5}px, ${roundedY * 0.5}px)`;
+          }
+          lastMouseX = roundedX;
+          lastMouseY = roundedY;
+        }
+      }
       requestAnimationFrame(updateParallax);
     }
 
@@ -254,75 +285,20 @@
       elementsToAnimate.forEach(element => observer.observe(element));
 
       // Immediate reveal for Hero to improve F5 fluidity
-      const heroItems = document.querySelectorAll('#hero .reveal-item');
+      const heroItems = document.querySelectorAll('#hero .reveal-item, #hero-intro .reveal-item');
       heroItems.forEach(item => {
         // We use a tiny delay to ensure the browser registers the base styles first
         setTimeout(() => item.classList.add('revealed'), 100);
       });
     }
-
-    // --------------------------------------------------------
-    // 3. Technical Easter Egg: Retro Mode (Evoluído)
-    // --------------------------------------------------------
-    function initPixelMode() {
-      const pixelToggleBtn = document.getElementById('pixelToggle');
-      const retroOverlay = document.getElementById('retro-overlay');
-      const body = document.body;
-
-      // Check saved preference
-      if (localStorage.getItem('retroMode') === 'enabled') {
-        body.classList.add('modo-retro');
-        body.classList.add('vhs-mode');
-      }
-
-      if (pixelToggleBtn) {
-        pixelToggleBtn.addEventListener('click', () => {
-          // PONTO 8: Haptic Feedback (Modo Retro)
-          if (navigator.vibrate) { navigator.vibrate([100, 50, 100]); }
-
-          // Ativa o Overlay Retro (Estilo BIOS)
-          if (retroOverlay) {
-            retroOverlay.classList.add('ativar-retro');
-            
-            setTimeout(() => {
-              body.classList.toggle('modo-retro');
-              body.classList.toggle('vhs-mode');
-              
-              // Save preference
-              if (body.classList.contains('modo-retro')) {
-                localStorage.setItem('retroMode', 'enabled');
-              } else {
-                localStorage.setItem('retroMode', 'disabled');
-              }
-              
-              // Aguarda o fim da animação
-              setTimeout(() => {
-                retroOverlay.classList.remove('ativar-retro');
-              }, 500);
-
-            }, 300); // 300ms = Pico do boot (clip-path abrindo)
-          } else {
-            // Fallback
-            body.classList.toggle('modo-retro');
-            body.classList.toggle('vhs-mode');
-            if (body.classList.contains('modo-retro')) {
-              localStorage.setItem('retroMode', 'enabled');
-            } else {
-              localStorage.setItem('retroMode', 'disabled');
-            }
-          }
-        });
-      }
-    }
-
     // Inicializa todas as funções quando o DOM estiver pronto
     document.addEventListener('DOMContentLoaded', () => {
       initHeroParticles();
       initHeroParallax();
       initTypewriter();
       initCinematicScroll();
-      initPixelMode();
       initSearchAndMenu();
+      initLogoParallax();
     });
 
     // --------------------------------------------------------
@@ -334,7 +310,8 @@
       const navLinks = document.querySelector('.nav-links');
       
       if (hamburger && navLinks) {
-        hamburger.addEventListener('click', () => {
+        hamburger.addEventListener('click', (e) => {
+          e.stopPropagation();
           const isActive = hamburger.classList.contains('active');
           hamburger.classList.toggle('active');
           navLinks.classList.toggle('active');
@@ -348,6 +325,17 @@
             navLinks.classList.remove('active');
             hamburger.setAttribute('aria-expanded', 'false');
           });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+          if (navLinks.classList.contains('active')) {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+              hamburger.classList.remove('active');
+              navLinks.classList.remove('active');
+              hamburger.setAttribute('aria-expanded', 'false');
+            }
+          }
         });
       }
 
@@ -396,11 +384,19 @@
         // PONTO 8: Haptic Feedback (Modo Glitch)
         if (navigator.vibrate) { navigator.vibrate([100, 50, 100]); }
         
+        // Add subtle glitch to the button itself
+        themeBtn.classList.remove('theme-btn-glitch'); // reset if clicked rapidly
+        void themeBtn.offsetWidth; // trigger reflow
+        themeBtn.classList.add('theme-btn-glitch');
+        setTimeout(() => {
+          themeBtn.classList.remove('theme-btn-glitch');
+        }, 1000);
+        
         // Ativa o Overlay Glitch
         if (glitchOverlay) {
           glitchOverlay.classList.add('ativar-glitch');
           
-          // Aguarda o pico do Glitch (200ms) para trocar a classe do Body e do Ícone
+          // Aguarda o pico da transição (350ms) para trocar a classe do Body e do Ícone
           setTimeout(() => {
             body.classList.toggle('light-mode');
             
@@ -415,12 +411,10 @@
             // Atualiza os modais da sessão Undertale se precisarem recalcular cores
             if(window.writeUndertaleText) writeUndertaleText();
 
-            // Aguarda o final do pico (mais 250ms) para remover a tela do glitch
-            setTimeout(() => {
-              glitchOverlay.classList.remove('ativar-glitch');
-            }, 250);
+            // Aguarda o final da transição para remover a tela
+            setTimeout(() => { glitchOverlay.classList.remove('ativar-glitch'); }, 150);
 
-          }, 200);
+          }, 350);
         } else {
           // Fallback caso o overlay não exista na DOM
           body.classList.toggle('light-mode');
@@ -469,56 +463,81 @@
 
     if (btnCopiarEmail) {
       const conteudoOriginalBtn = btnCopiarEmail.innerHTML;
+      let isWorking = false;
 
       btnCopiarEmail.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevenção: Impede o mailto padrão de abrir
+        e.preventDefault();
         
-        const emailCopy = 'leosouza5555@gmail.com';
+        if (isWorking) return;
+        isWorking = true;
         
-        const dispararFeedback = () => {
-          // Feedback Tátil Se disponível
-          if (navigator.vibrate) { navigator.vibrate(50); }
-
-          // Feedback Visual: Atualiza botão
-          btnCopiarEmail.innerHTML = ' E-mail copiado!';
-          btnCopiarEmail.style.background = '#00a0b3'; // Transição de cor
-
-          // Opcional: Atualiza o Toast também
-          if (toastNotificacao) {
-            toastNotificacao.innerHTML = ' E-mail copiado!';
-            toastNotificacao.classList.remove('toast-escondido');
-            toastNotificacao.classList.add('toast-visivel');
-          }
-
-          // Restaura após 3 segundos
-          setTimeout(() => {
-            btnCopiarEmail.innerHTML = conteudoOriginalBtn;
-            btnCopiarEmail.style.background = ''; // Volta pro CSS padrão
-            if (toastNotificacao) {
-              toastNotificacao.classList.remove('toast-visivel');
-              toastNotificacao.classList.add('toast-escondido');
-            }
-          }, 3000);
-        };
-
-        // Lógica de Cópia
-        if (navigator.clipboard && window.isSecureContext) {
-          navigator.clipboard.writeText(emailCopy)
-            .then(dispararFeedback)
-            .catch(err => console.error('Erro ao copiar usando API Tátil', err));
-        } else {
-          // Fallback Clássico para iframes legados
-          const textArea = document.createElement("textarea");
-          textArea.value = emailCopy;
-          textArea.style.position = "fixed";
-          document.body.appendChild(textArea);
-          textArea.select();
-          try {
-            document.execCommand('copy');
-            dispararFeedback();
-          } catch (err) {}
-          textArea.remove();
+        // Setup ripple
+        const rect = btnCopiarEmail.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
+        if (e.clientX === 0 && e.clientY === 0) {
+            x = rect.width / 2;
+            y = rect.height / 2;
         }
+
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple-span');
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        btnCopiarEmail.appendChild(ripple);
+        
+        setTimeout(() => {
+          const emailCopy = 'leosouza5555@gmail.com';
+          
+          const dispararFeedback = () => {
+            if (navigator.vibrate) { navigator.vibrate(50); }
+
+            const linkText = btnCopiarEmail.querySelector('.link-text');
+            if (linkText) {
+                linkText.innerText = 'Copiado!';
+            } else {
+                btnCopiarEmail.innerHTML = 'E-mail copiado!';
+            }
+            btnCopiarEmail.style.background = '#00a0b3'; // Arcane hex tint
+            
+            if (toastNotificacao) {
+              toastNotificacao.innerHTML = 'E-mail copiado! ✨';
+              toastNotificacao.classList.remove('toast-escondido');
+              toastNotificacao.classList.add('toast-visivel');
+            }
+
+            setTimeout(() => {
+              btnCopiarEmail.innerHTML = conteudoOriginalBtn;
+              btnCopiarEmail.style.background = '';
+              if (toastNotificacao) {
+                toastNotificacao.classList.remove('toast-visivel');
+                toastNotificacao.classList.add('toast-escondido');
+              }
+              const currentRipple = btnCopiarEmail.querySelector('.ripple-span');
+              if (currentRipple) currentRipple.remove();
+              isWorking = false;
+            }, 3000);
+          };
+
+          try {
+            if (navigator.clipboard && window.isSecureContext) {
+              navigator.clipboard.writeText(emailCopy).then(dispararFeedback);
+            } else {
+              const textArea = document.createElement('textarea');
+              textArea.value = emailCopy;
+              document.body.appendChild(textArea);
+              textArea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textArea);
+              dispararFeedback();
+            }
+          } catch (err) {
+            console.error('Falha ao copiar', err);
+            isWorking = false;
+            const currentRipple = btnCopiarEmail.querySelector('.ripple-span');
+            if (currentRipple) currentRipple.remove();
+          }
+        }, 350); // let ripple expand before changing text
       });
     }
 
@@ -595,8 +614,8 @@
         // Usa dados do cache se ainda estiverem válidos
         try {
           const data = JSON.parse(cachedData);
-          document.getElementById('gh-repos').innerText = data.public_repos;
-          document.getElementById('gh-followers').innerText = data.followers;
+          document.getElementById('gh-repos').classList.remove('skeleton-text'); document.getElementById('gh-repos').innerText = data.public_repos;
+          document.getElementById('gh-followers').classList.remove('skeleton-text'); document.getElementById('gh-followers').innerText = data.followers;
           return; // Para a execução, evitando o fetch
         } catch (e) {
           console.warn("Erro ao ler cache do Github", e);
@@ -609,8 +628,8 @@
         
         const data = await response.json();
         
-        document.getElementById('gh-repos').innerText = data.public_repos;
-        document.getElementById('gh-followers').innerText = data.followers;
+        document.getElementById('gh-repos').classList.remove('skeleton-text'); document.getElementById('gh-repos').innerText = data.public_repos;
+        document.getElementById('gh-followers').classList.remove('skeleton-text'); document.getElementById('gh-followers').innerText = data.followers;
 
         // Salva os dados e recria o timestamp no localStorage
         localStorage.setItem(cacheKey, JSON.stringify(data));
@@ -623,14 +642,14 @@
         if (cachedData) {
           try {
             const data = JSON.parse(cachedData);
-            document.getElementById('gh-repos').innerText = data.public_repos + ' (Offline)';
-            document.getElementById('gh-followers').innerText = data.followers + ' (Offline)';
+            document.getElementById('gh-repos').classList.remove('skeleton-text'); document.getElementById('gh-repos').innerText = data.public_repos + ' (Offline)';
+            document.getElementById('gh-followers').classList.remove('skeleton-text'); document.getElementById('gh-followers').innerText = data.followers + ' (Offline)';
             return;
           } catch(e){}
         }
 
-        document.getElementById('gh-repos').innerText = 'Indisponível';
-        document.getElementById('gh-followers').innerText = 'Indisponível';
+        document.getElementById('gh-repos').classList.remove('skeleton-text'); document.getElementById('gh-repos').innerText = 'Indisponível';
+        document.getElementById('gh-followers').classList.remove('skeleton-text'); document.getElementById('gh-followers').innerText = 'Indisponível';
       }
     }
     
@@ -748,13 +767,20 @@
     // Back to top button logic
     const btnTopo = document.getElementById('btn-topo');
     if (btnTopo) {
+      let isScrolling = false;
       window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-          btnTopo.classList.add('show');
-        } else {
-          btnTopo.classList.remove('show');
+        if (!isScrolling) {
+          window.requestAnimationFrame(() => {
+            if (window.scrollY > 300) {
+              btnTopo.classList.add('show');
+            } else {
+              btnTopo.classList.remove('show');
+            }
+            isScrolling = false;
+          });
+          isScrolling = true;
         }
-      });
+      }, { passive: true });
       btnTopo.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
@@ -817,4 +843,22 @@
       } catch (err) {
         // Fail silently
       }
+    }
+
+    function initLogoParallax() {
+      const logo = document.querySelector('.logo');
+      if (!logo) return;
+
+      logo.addEventListener('mousemove', (e) => {
+        const rect = logo.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        // Move in opposite direction
+        logo.style.transform = `translate(${-x * 0.15}px, ${-y * 0.15}px)`;
+      });
+
+      logo.addEventListener('mouseleave', () => {
+        logo.style.transform = 'translate(0, 0)';
+      });
     }
