@@ -32,12 +32,27 @@
       const colors = ['#00e5ff', '#ff7b9c', '#ffeb3b', '#ffffff'];
       const mouse = { x: null, y: null, radius: 100 }; // Constrain interaction area for speed
 
-      let heroRect = canvas.getBoundingClientRect();
-      window.addEventListener('resize', () => { heroRect = canvas.getBoundingClientRect(); });
-      window.addEventListener('scroll', () => { heroRect = canvas.getBoundingClientRect(); }, { passive: true });
+      let heroOffsetTop = 0;
+      let heroOffsetLeft = 0;
+      const updateHeroRect = () => { 
+        const rect = canvas.getBoundingClientRect();
+        heroOffsetTop = rect.top + window.scrollY;
+        heroOffsetLeft = rect.left + window.scrollX;
+      };
+      window.addEventListener('resize', updateHeroRect, { passive: true });
+      // Call once
+      updateHeroRect();
+
+      let mouseMoveScheduled = false;
       window.addEventListener('mousemove', (e) => {
-        mouse.x = e.clientX - heroRect.left;
-        mouse.y = e.clientY - heroRect.top;
+        if (!mouseMoveScheduled) {
+          mouseMoveScheduled = true;
+          window.requestAnimationFrame(() => {
+            mouse.x = e.pageX - heroOffsetLeft;
+            mouse.y = e.pageY - heroOffsetTop;
+            mouseMoveScheduled = false;
+          });
+        }
       }, { passive: true });
 
       window.addEventListener('mouseout', () => {
@@ -215,10 +230,10 @@
 
         if (roundedX !== lastMouseX || roundedY !== lastMouseY) {
           if (title) {
-            title.style.transform = `skew(-1deg) translateZ(50px) translate(${roundedX * 1.2}px, ${roundedY * 1.2}px)`;
+            title.style.transform = `skew(-1deg) translate3d(${roundedX * 1.2}px, ${roundedY * 1.2}px, 50px)`;
           }
           if (canvas) {
-            canvas.style.transform = `scale(1.1) translate(${roundedX * 0.5}px, ${roundedY * 0.5}px)`;
+            canvas.style.transform = `scale(1.1) translate3d(${roundedX * 0.5}px, ${roundedY * 0.5}px, 0)`;
           }
           lastMouseX = roundedX;
           lastMouseY = roundedY;
@@ -849,16 +864,124 @@
       const logo = document.querySelector('.logo');
       if (!logo) return;
 
-      logo.addEventListener('mousemove', (e) => {
+      let logoOffsetTop = 0;
+      let logoOffsetLeft = 0;
+      let logoWidth = 0;
+      let logoHeight = 0;
+      
+      const updateLogoRect = () => { 
         const rect = logo.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        // Move in opposite direction
-        logo.style.transform = `translate(${-x * 0.15}px, ${-y * 0.15}px)`;
-      });
+        logoOffsetTop = rect.top + window.scrollY;
+        logoOffsetLeft = rect.left + window.scrollX;
+        logoWidth = rect.width;
+        logoHeight = rect.height;
+      };
+      
+      window.addEventListener('resize', updateLogoRect, { passive: true });
+      updateLogoRect();
+
+      let rafId = null;
+      logo.addEventListener('mousemove', (e) => {
+        if (!rafId) {
+          rafId = window.requestAnimationFrame(() => {
+            const x = e.pageX - logoOffsetLeft - logoWidth / 2;
+            const y = e.pageY - logoOffsetTop - logoHeight / 2;
+            
+            // Move in opposite direction
+            logo.style.transform = `translate3d(${-x * 0.15}px, ${-y * 0.15}px, 0)`;
+            rafId = null;
+          });
+        }
+      }, { passive: true });
 
       logo.addEventListener('mouseleave', () => {
-        logo.style.transform = 'translate(0, 0)';
+        if(rafId) { window.cancelAnimationFrame(rafId); rafId = null; }
+        logo.style.transform = 'translate3d(0, 0, 0)';
       });
     }
+
+    // --------------------------------------------------------
+    // 13. Ghibli/Nature Inspired UI Sounds (Web Audio API)
+    // --------------------------------------------------------
+    const soundToggleBtn = document.getElementById('soundToggleBtn');
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    const iconVolumeOn = '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-volume-2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>';
+    const iconVolumeOff = '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-volume-x"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>';
+
+    function initAudio() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume().catch(() => {});
+        }
+      } catch(e) {}
+    }
+
+    function playHoverSound() {
+      if (!soundEnabled) return;
+      if (!audioCtx) initAudio();
+      if (audioCtx.state === 'suspended') return; // Don't play if still suspended
+      
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // Note A4
+      oscillator.frequency.exponentialRampToValueAtTime(660, audioCtx.currentTime + 0.1); // Slide up towards E5
+      
+      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.05);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      
+      oscillator.start();
+      oscillator.stop(audioCtx.currentTime + 0.2);
+    }
+
+    function playClickSound() {
+      if (!soundEnabled) return;
+      if (!audioCtx) initAudio();
+      
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      
+      oscillator.type = 'triangle';
+      oscillator.frequency.setValueAtTime(660, audioCtx.currentTime); // Note E5
+      oscillator.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + 0.15); // Slide down
+      
+      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.02);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      
+      oscillator.start();
+      oscillator.stop(audioCtx.currentTime + 0.3);
+    }
+
+    if (soundToggleBtn) {
+      soundToggleBtn.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        if (soundEnabled) {
+          initAudio();
+          soundToggleBtn.innerHTML = iconVolumeOn;
+          playClickSound(); // Play test sound
+        } else {
+          soundToggleBtn.innerHTML = iconVolumeOff;
+        }
+      });
+    }
+
+    // Attach sounds to elements
+    document.querySelectorAll('button, a, .kurz-card, .design-card, .ut-card').forEach(el => {
+      el.addEventListener('mouseenter', playHoverSound);
+      el.addEventListener('click', playClickSound);
+    });
+

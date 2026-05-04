@@ -50,6 +50,10 @@
     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
   </button>
   
+  <button id="soundToggleBtn" class="theme-toggle-btn" aria-label="Ghibli Sounds">
+    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-volume-2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+  </button>
+  
   <div id="toast-notificacao" class="toast-escondido" role="alert" aria-live="assertive">E-mail copiado com sucesso!</div>
 
   <header>
@@ -121,7 +125,7 @@
         <p class="hero-text reveal-item stagger-3">
           "Sempre fui movido pela curiosidade de entender as engrenagens do mundo. Unindo lógica e design para construir soluções digitais que realmente importam."
         </p>
-        <a href="#tech-stack" class="btn-spider reveal-item stagger-4" aria-label="Ver minhas habilidades técnicas">Explorar Inventário</a>
+        <a href="#tech-stack" class="btn-arcane reveal-item stagger-4" aria-label="Ver minhas habilidades técnicas">Explorar Inventário</a>
       </div>
     </section>
   </div>
@@ -286,7 +290,7 @@
           <h3>Projetos em andamento</h3>
           <p>Acompanhe meu GitHub para espiar os códigos que estou construindo no momento.</p>
           <div class="btn-group" style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-            <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="btn-spider" aria-label="Ver detalhes do projeto Dashboard de Vendas">Ver Detalhes</a>
+            <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="btn-arcane" aria-label="Ver detalhes do projeto Dashboard de Vendas">Ver Detalhes</a>
           </div>
         </div>
       </article>
@@ -296,7 +300,7 @@
           <h3>Para Ex-Alunos</h3>
           <p>Aqui guardo com carinho apostilas, slides e materiais para vocês sempre consultarem.</p>
           <div class="btn-group" style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-            <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="btn-spider" aria-label="Ver detalhes do projeto Landing Page">Ver Detalhes</a>
+            <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="btn-arcane" aria-label="Ver detalhes do projeto Landing Page">Ver Detalhes</a>
           </div>
         </div>
       </article>
@@ -357,79 +361,147 @@
         Em breve, uma nova guia no site com os projetos detalhados!
       </div>
     </div>
-    <div class="design-grid">
-      <article class="design-card reveal-item stagger-1">
-        <img src="mockup-convite.png" alt="Mockup UI/UX Convite Mobile" class="imagem-card-projeto">
-        <div class="design-content">
-          <h3>Convite Digital Interativo (UI/UX)</h3>
-          <p>
-            <strong>Desafio:</strong> Modernizar o formato tradicional de convites de eventos.<br>
-            <strong>Solução:</strong> Interface mobile interativa focada na experiência do usuário com CTAs claros.<br>
-            <strong>Tech:</strong> Figma, Componentização, Prototipagem
-          </p>
-          <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
+    <div class="gallery-app-container reveal-item">
+      <div class="app-slider">
+        <div class="cardList">
+          <button class="cardList__btn btn btn--left" aria-label="Projeto anterior">
+            <div class="icon">
+              <svg><use xlink:href="#arrow-left"></use></svg>
+            </div>
+          </button>
+          <div class="cards__wrapper">
+            <div class="card current--card">
+              <div class="card__image">
+                <img src="mockup-convite.png" alt="Mockup Convite Digital" />
+              </div>
+            </div>
+            <div class="card next--card">
+              <div class="card__image">
+                <img src="mockup-hamburgueria.png" alt="Mockup Menu Digital" />
+              </div>
+            </div>
+            <div class="card hidden--card">
+              <div class="card__image">
+                <img src="mockup-logo.png" alt="Mockup Branding" />
+              </div>
+            </div>
+            <div class="card hidden--card">
+              <div class="card__image">
+                <img src="mockup-editorial.png" alt="Mockup Editorial" />
+              </div>
+            </div>
+            <div class="card hidden--card">
+              <div class="card__image">
+                <img src="mockup-pixelart.jpg" alt="Mockup Pixel Art" />
+              </div>
+            </div>
+            <div class="card previous--card">
+              <div class="card__image">
+                <img src="mockup-psicologia.png" alt="Estudo Psicologia das Cores" />
+              </div>
+            </div>
+          </div>
+          <button class="cardList__btn btn btn--right" aria-label="Próximo projeto">
+            <div class="icon">
+              <svg><use xlink:href="#arrow-right"></use></svg>
+            </div>
+          </button>
         </div>
-      </article>
-      <article class="design-card reveal-item stagger-2">
-        <img src="mockup-hamburgueria.png" alt="Mockup Menu Digital Chefe Fast" class="imagem-card-projeto">
-        <div class="design-content">
-          <h3>Identidade Visual & Menu Digital</h3>
-          <p>
-            <strong>Desafio:</strong> Otimizar cardápios para leitura dinâmica com foco no cliente.<br>
-            <strong>Solução:</strong> Layout acessível embasado em psicologia das cores e arquitetura da informação.<br>
-            <strong>Tech:</strong> Photoshop, Illustrator, UI Design
-          </p>
-          <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
+
+        <div class="infoList">
+          <div class="info__wrapper">
+            <div class="info current--info">
+              <h1 class="text name">Convite Digital</h1>
+              <h4 class="text location">UI/UX Design</h4>
+              <div class="text description">
+                <strong>Desafio:</strong> Modernizar o formato tradicional de convites de eventos.<br>
+                <strong>Solução:</strong> Interface focada na UX com CTAs claros.<br>
+                <strong>Tech:</strong> Figma, Prototipagem
+              </div>
+            </div>
+            <div class="info next--info">
+              <h1 class="text name">Menu Digital</h1>
+              <h4 class="text location">Identidade</h4>
+              <div class="text description">
+                <strong>Desafio:</strong> Otimizar cardápios para leitura dinâmica com foco no cliente.<br>
+                <strong>Solução:</strong> Layout acessível embasado em psicologia das cores.<br>
+                <strong>Tech:</strong> Photoshop, UI Design
+              </div>
+            </div>
+            <div class="info hidden--info">
+              <h1 class="text name">LDS Magazine</h1>
+              <h4 class="text location">Branding</h4>
+              <div class="text description">
+                <strong>Desafio:</strong> Projetar uma identidade visual minimalista e de alto padrão.<br>
+                <strong>Solução:</strong> Logotipo guiado por tipografia geométrica e grids.<br>
+                <strong>Tech:</strong> Illustrator, Teoria Modular
+              </div>
+            </div>
+            <div class="info hidden--info">
+              <h1 class="text name">LDS Magazine</h1>
+              <h4 class="text location">Editorial</h4>
+              <div class="text description">
+                <strong>Desafio:</strong> Estruturar uma leitura fluida para materiais textuais densos.<br>
+                <strong>Solução:</strong> Direção de arte editorial pautada em respiros visuais.<br>
+                <strong>Tech:</strong> InDesign, Diagramação
+              </div>
+            </div>
+            <div class="info hidden--info">
+              <h1 class="text name">Creative C.</h1>
+              <h4 class="text location">Pixel Art</h4>
+              <div class="text description">
+                <strong>Desafio:</strong> Trazer energia retrô para o ambiente de web portfólio.<br>
+                <strong>Solução:</strong> Assets em pixel art, UX lúdica em ambientes 2D.<br>
+                <strong>Tech:</strong> Aseprite, Game Design
+              </div>
+            </div>
+            <div class="info previous--info">
+              <h1 class="text name">Cores & UX</h1>
+              <h4 class="text location">Pesquisa</h4>
+              <div class="text description">
+                <strong>Desafio:</strong> Entender como as cores influenciam a experiência do usuário.<br>
+                <strong>Solução:</strong> Material que traduz a teoria para decisões de design.<br>
+                <strong>Tech:</strong> Pesquisa, Comportamento
+              </div>
+            </div>
+          </div>
         </div>
-      </article>
-      <article class="design-card reveal-item stagger-3">
-        <img src="mockup-psicologia.png" alt="Mockup Estudo Psicologia das Cores" class="imagem-card-projeto">
-        <div class="design-content">
-          <h3>Estudo: Psicologia das Cores</h3>
-          <p>
-            <strong>Desafio:</strong> Entender como as cores influenciam a experiência em aplicativos e sites.<br>
-            <strong>Solução:</strong> Material editorial que traduz a teoria das cores para decisões práticas de design.<br>
-            <strong>Tech:</strong> UX Research, Estudo de Comportamento
-          </p>
-          <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
+
+        <div class="app__bg">
+          <div class="app__bg__image current--image">
+            <img src="mockup-convite.png" alt="" />
+          </div>
+          <div class="app__bg__image next--image">
+            <img src="mockup-hamburgueria.png" alt="" />
+          </div>
+          <div class="app__bg__image hidden--image">
+            <img src="mockup-logo.png" alt="" />
+          </div>
+          <div class="app__bg__image hidden--image">
+            <img src="mockup-editorial.png" alt="" />
+          </div>
+          <div class="app__bg__image hidden--image">
+            <img src="mockup-pixelart.jpg" alt="" />
+          </div>
+          <div class="app__bg__image previous--image">
+            <img src="mockup-psicologia.png" alt="" />
+          </div>
         </div>
-      </article>
-      <article class="design-card reveal-item stagger-1">
-        <img src="mockup-logo.png" alt="Mockup Branding LDS Magazine" class="imagem-card-projeto">
-        <div class="design-content">
-          <h3>Branding: LDS Magazine</h3>
-          <p>
-            <strong>Desafio:</strong> Projetar uma identidade visual minimalista e de alto padrão.<br>
-            <strong>Solução:</strong> Logotipo guiado por tipografia geométrica, peso visual e grids sólidos.<br>
-            <strong>Tech:</strong> Illustrator, Teoria Modular, Branding
-          </p>
-          <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
+
+        <div class="loading__wrapper">
+          <div class="loader--text">Carregando Galeria...</div>
+          <div class="loader"><span></span></div>
         </div>
-      </article>
-      <article class="design-card reveal-item stagger-2">
-        <img src="mockup-editorial.png" alt="Mockup Editorial LDS Magazine" class="imagem-card-projeto">
-        <div class="design-content">
-          <h3>Design Editorial: LDS Magazine</h3>
-          <p>
-            <strong>Desafio:</strong> Estruturar uma leitura fluida para materiais textuais densos.<br>
-            <strong>Solução:</strong> Direção de arte editorial pautada em respiros visuais e hierarquia clara.<br>
-            <strong>Tech:</strong> InDesign, Diagramação, Layout Gráfico
-          </p>
-          <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
-        </div>
-      </article>
-      <article class="design-card reveal-item stagger-3">
-        <img src="mockup-pixelart.jpg" alt="Mockup Game Design Pixel Art Leo" class="imagem-card-projeto">
-        <div class="design-content">
-          <h3>Creative Coding & Pixel Art</h3>
-          <p>
-            <strong>Desafio:</strong> Trazer a nostalgia dos jogos retrô para o ambiente de portfólio web.<br>
-            <strong>Solução:</strong> Assets em pixel art, onboarding amigável e UX lúdica em ambientes 2D.<br>
-            <strong>Tech:</strong> Aseprite, Game Design, UX Retrô
-          </p>
-          <a href="#projetos-design" class="btn-projeto" style="pointer-events: none; opacity: 0.8;">Em Breve</a>
-        </div>
-      </article>
+      </div>
+      
+      <svg class="icons" style="display: none;">
+        <symbol id="arrow-left" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <polyline points='328 112 184 256 328 400' style='fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' />
+        </symbol>
+        <symbol id="arrow-right" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <polyline points='184 112 328 256 184 400' style='fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' />
+        </symbol>
+      </svg>
     </div>
   </section>
 
@@ -643,7 +715,10 @@
     <p>Construído com lógica e empatia.</p>
   </footer>
 
+  <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.3/gsap.min.js" defer></script>
   <script type="module" src="./script.js" defer></script>
+  <script src="./gallery.js" defer></script>
   <button aria-label="Voltar ao topo" id="btn-topo" class="btn-flutuante">↑</button>
 </body>
 </html>
