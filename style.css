@@ -1823,7 +1823,8 @@ body.light-mode .contact-link.github svg {
 .close-search,
 .theme-toggle-btn,
 .contact-link {
-  white-space: nowrap !important;
+  white-space: normal !important;
+  text-align: center !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -3098,4 +3099,72 @@ body.light-mode .design-card strong {
 
 body.light-mode .design-card p {
   color: #475569 !important;
+}
+
+
+body.light-mode .btn-spider {
+  background: linear-gradient(135deg, #1d4ed8, #4f46e5) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-mode .btn-spider:hover {
+  background: linear-gradient(135deg, #1e40af, #3730a3) !important;
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) scale(1.02) !important;
+}
+
+body.light-mode .btn-spider::after {
+  display: none !important; /* Avoid the skew overflow overlay in light mode */
+}
+
+
+
+.status-dev-tag { max-width: 100%; box-sizing: border-box; }
+
+@media screen and (max-width: 768px) {
+  .btn-cv {
+    padding: 12px 16px !important;
+    font-size: 1rem !important;
+    white-space: normal !important;
+    text-align: center !important;
+    line-height: 1.4 !important;
+    height: auto !important;
+  }
+}
+
+body.light-mode #projetos p {
+  color: #475569 !important;
+}
+
+
+@media screen and (max-width: 768px) {
+  .theme-toggle-btn {
+    bottom: 24px !important;
+    left: 20px !important;
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1.2rem !important;
+  }
+  
+  #btn-topo {
+    bottom: 24px !important;
+    right: 20px !important;
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1.2rem !important;
+  }
+}
+
+@media screen and (max-width: 768px) { footer { padding-bottom: 100px !important; } }
+
+/* Added to satisfy user request for .kurz-card hover */
+.kurz-card:hover {
+  transform: translateY(-8px) scale(1.05) !important;
+  box-shadow: 0 12px 0 #7a62a3, 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+}
+.kurz-card.learning:hover {
+  box-shadow: 0 12px 0 #6baaa4, 0 20px 40px rgba(0, 0, 0, 0.4) !important;
 }
