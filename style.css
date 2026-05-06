@@ -51,9 +51,57 @@ body {
   letter-spacing: 0.02em;
   overflow-x: hidden;
   caret-color: transparent;
+  cursor: none;
   transition:
     background-color 0.4s ease,
     color 0.4s ease;
+}
+
+h1,
+h2,
+h3,
+.glitch-title,
+.hero-name,
+.kurz-card h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 900;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* VT323 for system elements */
+.status-dev-tag,
+#gh-repos,
+#gh-followers,
+.tech-label,
+.contador {
+  font-family: "VT323", monospace;
+}
+
+/* Copied Feedback */
+.copied-feedback {
+  background-color: #22c55e !important;
+  color: white !important;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #22c55e;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background-color: var(--arcane-hex);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease, background-color 0.3s ease;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor.active {
+  transform: scale(3);
+  background-color: var(--su-pink);
 }
 
 /* Modern Stardust & Tech Particles */
@@ -1282,7 +1330,7 @@ body.light-mode .contact-link {
 }
 
 body.light-mode .icon-holder {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(15, 23, 42, 0.05);
 }
 
 .contact-link:hover {
@@ -1327,12 +1375,6 @@ body.light-mode .contact-link svg {
 }
 
 /* Fix specific colors for dark button text in light mode */
-body.light-mode .contact-link.github {
-  color: #fff !important;
-}
-body.light-mode .contact-link.github svg {
-  stroke: #fff;
-}
 
 
 
@@ -2301,6 +2343,23 @@ body.light-mode .hero-subtitle {
 
   text-shadow: none !important;
   color: #0f172a !important; /* Títulos marcantes em Black/Slate-900 */
+}
+
+/* Maintain proper contrast for gallery titles since the gallery bg is always dark */
+body.light-mode .gallery-app-container h1,
+body.light-mode .gallery-app-container h4,
+body.light-mode .gallery-app-container .text,
+body.light-mode .gallery-app-container .description {
+  color: #ffffff !important;
+  text-shadow: 0px 2px 10px rgba(0,0,0,1) !important;
+}
+
+body.light-mode .gallery-app-container .location {
+  color: var(--arcane-hex) !important;
+}
+
+body.light-mode .gallery-app-container .description strong {
+  color: var(--arcane-hex) !important;
 }
 
 body.light-mode .btn-projeto,

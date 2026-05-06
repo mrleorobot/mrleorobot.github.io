@@ -34,8 +34,59 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Space+Grotesk:wght@700;900&family=VT323&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Additional critical styles could go here if needed, but omitted for now */
+    /* Accordion overrides */
+    .design-card-accordion {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      animation: pulse-glow 3s 3;
+    }
+    @keyframes pulse-glow {
+      0% { box-shadow: 0 0 0px rgba(0, 229, 255, 0); }
+      50% { box-shadow: 0 0 8px rgba(0, 229, 255, 0.3); }
+      100% { box-shadow: 0 0 0px rgba(0, 229, 255, 0); }
+    }
+    .design-card-accordion:hover {
+      background: rgba(0, 229, 255, 0.05);
+      border-color: rgba(0, 229, 255, 0.3);
+      transform: translateY(-2px);
+      animation: none;
+    }
+    .design-card-accordion .faq-question {
+      padding: 0.8rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--arcane-hex);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      background: none;
+      border: none;
+    }
+    .design-card-accordion .faq-answer-content {
+      padding: 0 1rem 1rem 1rem;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      border-top: none;
+      line-height: 1.5;
+    }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Person",
+    "name": "Leonilson Souza",
+    "jobTitle": "Desenvolvedor Front-end, UX/UI Designer e especialista em Power BI",
+    "url": "https://leonilsonsouza.com.br/",
+    "sameAs": [
+      "https://github.com/mrleorobot"
+    ]
+  }
+  </script>
 </head>
 <body>
   <div id="stardust-bg" aria-hidden="true">
@@ -222,12 +273,19 @@
           <p>
             Minha jornada técnica começou na sala de aula. Como <strong>Professor</strong> de Informática e Web Design, aprendi que dominar as ferramentas é apenas metade do trabalho; a outra metade é saber traduzir conceitos complexos para pessoas reais, de forma simples e direta.
           </p>
-          <p>
-            Aplico essa mesma visão na criação de interfaces visuais e na análise de dados (Power BI). Atuo como um facilitador entre os requisitos de negócio e a área técnica, reduzindo fricções através da comunicação clara.
-          </p>
-          <p>
-            Acredito profundamente que código bom não é apenas o que funciona no servidor. Trago a <strong>Didática</strong> da sala de aula para meus projetos, construindo soluções que se transformam em <strong>Experiências Acessíveis</strong> e intuitivas para o usuário final.
-          </p>
+          
+          <div class="faq-item design-card-accordion" style="margin-top: 1rem;">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-desc-didatica">
+              Ver mais detalhes
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-desc-didatica" class="faq-answer-wrapper">
+              <div class="faq-answer-content">
+                <p>Aplico essa mesma visão profissional na criação de interfaces visuais e na análise de dados (Power BI), atuando como facilitador para reduzir fricções através da comunicação clara.</p>
+                <p style="margin-top: 0.5rem;">Trago a <strong>Didática</strong> da sala de aula para meus projetos, focando sempre em construir soluções que se transformam em <strong>Experiências Acessíveis</strong> e intuitivas para o usuário final.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -257,19 +315,49 @@
       <article class="design-card reveal-item stagger-1" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <div class="design-content" style="text-align: center;">
           <h3 style="font-size: 1.05rem; margin-bottom: 0.8rem; text-align: center; width: 100%;">Suporte e Resolução de Problemas</h3>
-          <p style="font-size: 0.9rem; line-height: 1.6; text-align: center;">Comunicação empática focada em resultados. Busco ouvir ativamente os usuários, compreender suas dificuldades e oferecer um suporte técnico que vai direto à raiz do problema, mantendo a satisfação e confiança.</p>
+            <div class="faq-item design-card-accordion">
+              <button class="faq-question" aria-expanded="false" aria-controls="faq-suporte-1">
+                Ver Abordagem de Suporte
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div id="faq-suporte-1" class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  Comunicação empática focada em resultados. Busco ouvir ativamente os usuários, compreender suas dificuldades e oferecer um suporte técnico que vai direto à raiz do problema, mantendo a satisfação e confiança.
+                </div>
+              </div>
+            </div>
         </div>
       </article>
       <article class="design-card reveal-item stagger-2" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <div class="design-content" style="text-align: center;">
           <h3 style="font-size: 1.05rem; margin-bottom: 0.8rem; text-align: center; width: 100%;">Treinamento e Documentação</h3>
-          <p style="font-size: 0.9rem; line-height: 1.6; text-align: center;">Com a experiência em sala de aula, facilito a comunicação entre as equipes técnicas e os usuários. Reduzo o retrabalho ao transformar fluxos complexos em tutoriais e manuais visuais simples e compreensíveis.</p>
+            <div class="faq-item design-card-accordion">
+              <button class="faq-question" aria-expanded="false" aria-controls="faq-treinamento-1">
+                Ver Abordagem de Treinamento
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div id="faq-treinamento-1" class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  Com a experiência em sala de aula, facilito a comunicação entre as equipes técnicas e os usuários. Reduzo o retrabalho ao transformar fluxos complexos em tutoriais e manuais visuais simples e compreensíveis.
+                </div>
+              </div>
+            </div>
         </div>
       </article>
       <article class="design-card reveal-item stagger-3" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <div class="design-content" style="text-align: center;">
           <h3 style="font-size: 1.05rem; margin-bottom: 0.8rem; text-align: center; width: 100%;">Organização e Processos Ágeis</h3>
-          <p style="font-size: 0.9rem; line-height: 1.6; text-align: center;">Habilidade na utilização de esteiras de dados, softwares de gestão e dashboards de Power BI. Meu foco é organizar informações para gerar visibilidade e relatórios que ajudem a equipe a tomar decisões mais assertivas.</p>
+            <div class="faq-item design-card-accordion">
+              <button class="faq-question" aria-expanded="false" aria-controls="faq-organizacao-1">
+                Ver Abordagem de Processos
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div id="faq-organizacao-1" class="faq-answer-wrapper">
+                <div class="faq-answer-content">
+                  Habilidade na utilização de esteiras de dados, softwares de gestão e dashboards de Power BI. Meu foco é organizar informações para gerar visibilidade e relatórios que ajudem a equipe a tomar decisões mais assertivas.
+                </div>
+              </div>
+            </div>
         </div>
       </article>
     </div>
@@ -289,7 +377,17 @@
       <article class="design-card reveal-item stagger-2">
         <div class="design-content">
           <h3>DashBoard</h3>
-          <p>Dashboard interativo de gestão de estoque com forte foco em UI/UX. Traz gráficos dinâmicos, animações fluidas e design moderno. Desenvolvido com Next.js, Tailwind CSS e Framer Motion.</p>
+          <div class="faq-item design-card-accordion">
+  <button class="faq-question" aria-expanded="false" aria-controls="faq-desc-dashboard">
+    Resumo do Projeto
+    <span class="faq-icon" aria-hidden="true">+</span>
+  </button>
+  <div id="faq-desc-dashboard" class="faq-answer-wrapper">
+    <div class="faq-answer-content">
+      Dashboard interativo de gestão de estoque com forte foco em UI/UX. Traz gráficos dinâmicos, animações fluidas e design moderno. Desenvolvido com Next.js, Tailwind CSS e Framer Motion.
+    </div>
+  </div>
+</div>
           <div class="btn-group" style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
             <a href="https://dashboard-de-inventario.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-arcane" aria-label="Ver detalhes do projeto Landing Page">Ver Detalhes</a>
           </div>
@@ -298,8 +396,18 @@
 
       <article class="design-card reveal-item stagger-2">
         <div class="design-content">
-          <h3>Refúgio Sereno: Gerenciador de Foco e Acessibilidade Cognitiva</h3>
-          <p>Gerenciador de tarefas gamificado com foco em acessibilidade cognitiva. Um projeto gratuito em fase beta, desenvolvido no meu próprio ritmo e inspirado na estética acolhedora das minhas animações favoritas.</p>
+          <h3>Refúgio Sereno</h3>
+          <div class="faq-item design-card-accordion">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-desc-refugio">
+              Conhecer Acessibilidade
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-desc-refugio" class="faq-answer-wrapper">
+              <div class="faq-answer-content">
+                Gerenciador de tarefas gamificado com foco em acessibilidade cognitiva. Um projeto gratuito em fase beta, desenvolvido no meu próprio ritmo e inspirado na estética acolhedora das minhas animações favoritas.
+              </div>
+            </div>
+          </div>
           <div class="btn-group" style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
             <a href="https://refugiosereno.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-arcane" aria-label="Ver detalhes do projeto Landing Page">Ver Detalhes</a>
           </div>
@@ -308,8 +416,18 @@
 
       <article class="design-card reveal-item stagger-2">
         <div class="design-content">
-          <h3>Nexus Corp - Portal Corporativo</h3>
-          <p>Painel administrativo para suporte técnico e treinamentos, focado em performance e design minimalista.<br>Nota: Este projeto ainda não foi finalizado.</p>
+          <h3>Portal Corporativo</h3>
+          <div class="faq-item design-card-accordion">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-desc-nexus">
+              Ver Detalhes do Projeto
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-desc-nexus" class="faq-answer-wrapper">
+              <div class="faq-answer-content">
+                Painel administrativo para suporte técnico e treinamentos, focado em performance e design minimalista.<br>Nota: Este projeto ainda não foi finalizado.
+              </div>
+            </div>
+          </div>
           <div class="btn-group" style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
             <a href="https://portal-corporativo.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-arcane" aria-label="Ver detalhes do projeto Landing Page">Ver Detalhes</a>
           </div>
@@ -319,7 +437,17 @@
       <article class="design-card reveal-item stagger-2">
         <div class="design-content">
           <h3>Para Ex-Alunos</h3>
-          <p>Aqui guardo com carinho apostilas, slides e materiais para vocês sempre consultarem.</p>
+          <div class="faq-item design-card-accordion">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-desc-alunos">
+              Acessar Materiais
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-desc-alunos" class="faq-answer-wrapper">
+              <div class="faq-answer-content">
+                Aqui guardo com carinho apostilas, slides e materiais para vocês sempre consultarem.
+              </div>
+            </div>
+          </div>
           <div class="btn-group" style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
             <a href="https://github.com/mrleorobot/Aulas-Antigas-2024" target="_blank" rel="noopener noreferrer" class="btn-arcane" aria-label="Ver detalhes do projeto Landing Page">Ver Detalhes</a>
           </div>
@@ -356,8 +484,25 @@
         <div class="narrative-text">
           <h2 style="text-align: center; color: var(--su-pink);">Bastidores do Código</h2>
           <p>
-            Trabalhar com tecnologia é, para mim, um ato de tradução. Minha base em <strong>Administração</strong> e <strong>Atendimento</strong> me deu a resiliência necessária para lidar com prazos e conferências mercantis, enquanto meu coração de <strong>Professor</strong> me mantém focado no que realmente importa: as pessoas.
+            Trabalhar com tecnologia é, para mim, um ato de tradução. Minha base em <strong>Administração</strong> e <strong>Atendimento</strong> me prepara para desafios reais, enquanto meu coração de <strong>Professor</strong> mantém o foco nas pessoas.
           </p>
+          
+          <div class="faq-item" style="margin-top: 1.5rem;">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-bastidores">
+              Explorar Minha Filosofia
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-answer-bastidores" class="faq-answer-wrapper">
+              <div class="faq-answer-content" style="padding: 1rem;">
+                <p>
+                  A resiliência necessária para lidar com prazos e conferências mercantis, unida à capacidade técnica, me permitiu evoluir de um suporte técnico/administrativo para um desenvolvedor focado na experiência do usuário. 
+                </p>
+                <p style="margin-top: 0.5rem;">
+                  Acredito que o código é uma ferramenta, não um fim. Ao traduzir requisitos de negócio em soluções de design, garanto que a tecnologia seja acessível e impacte positivamente o dia a dia de quem utiliza.
+                </p>
+              </div>
+            </div>
+          </div>
           <div id="live-github-card" aria-live="polite" style="padding: 24px; border-radius: 24px; background: rgba(8, 11, 18, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);">
             <strong style="color: #00ffff; display: inline-flex; align-items: center; gap: 6px;">
               <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">

@@ -466,6 +466,8 @@
           item.classList.add('active');
           answer.style.maxHeight = answer.scrollHeight + "px";
           question.setAttribute('aria-expanded', 'true');
+          
+          item.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       });
     });
@@ -514,6 +516,7 @@
                 btnCopiarEmail.innerHTML = 'E-mail copiado!';
             }
             btnCopiarEmail.style.background = '#00a0b3'; // Arcane hex tint
+            btnCopiarEmail.classList.add('copied-feedback');
             
             if (toastNotificacao) {
               toastNotificacao.innerHTML = 'E-mail copiado! ✨';
@@ -524,6 +527,7 @@
             setTimeout(() => {
               btnCopiarEmail.innerHTML = conteudoOriginalBtn;
               btnCopiarEmail.style.background = '';
+              btnCopiarEmail.classList.remove('copied-feedback');
               if (toastNotificacao) {
                 toastNotificacao.classList.remove('toast-visivel');
                 toastNotificacao.classList.add('toast-escondido');
@@ -720,8 +724,21 @@
     setInterval(verificarDisponibilidade, 60000); // Atualiza a cada 1 minuto
 
     // --------------------------------------------------------
-    // 12. Weather Widget (Open-Meteo API - No Key Required)
+    // 13. Custom Cursor Logic
     // --------------------------------------------------------
+    const cursor = document.createElement('div');
+    cursor.classList.add('custom-cursor');
+    document.body.appendChild(cursor);
+
+    window.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('a, button, .design-card, .faq-question').forEach(el => {
+      el.addEventListener('mouseover', () => cursor.classList.add('active'));
+      el.addEventListener('mouseout', () => cursor.classList.remove('active'));
+    });
     async function buscarClima() {
       const lat = '-5.79';
       const lon = '-35.21';
