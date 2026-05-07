@@ -724,21 +724,9 @@
     setInterval(verificarDisponibilidade, 60000); // Atualiza a cada 1 minuto
 
     // --------------------------------------------------------
-    // 13. Custom Cursor Logic
     // --------------------------------------------------------
-    const cursor = document.createElement('div');
-    cursor.classList.add('custom-cursor');
-    document.body.appendChild(cursor);
-
-    window.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-
-    document.querySelectorAll('a, button, .design-card, .faq-question').forEach(el => {
-      el.addEventListener('mouseover', () => cursor.classList.add('active'));
-      el.addEventListener('mouseout', () => cursor.classList.remove('active'));
-    });
+    // 13. Weather Widget (Open-Meteo API - No Key Required)
+    // --------------------------------------------------------
     async function buscarClima() {
       const lat = '-5.79';
       const lon = '-35.21';
@@ -951,7 +939,7 @@
       oscillator.frequency.exponentialRampToValueAtTime(660, audioCtx.currentTime + 0.1); // Slide up towards E5
       
       gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.05);
+      gainNode.gain.linearRampToValueAtTime(0.02, audioCtx.currentTime + 0.05);
       gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
       
       oscillator.connect(gainNode);
@@ -973,7 +961,7 @@
       oscillator.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + 0.15); // Slide down
       
       gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.02);
+      gainNode.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.02);
       gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
       
       oscillator.connect(gainNode);
@@ -1002,3 +990,65 @@
       el.addEventListener('click', playClickSound);
     });
 
+    // --------------------------------------------------------
+    // 16. Modals Logic
+    // --------------------------------------------------------
+    const modalBehance = document.getElementById('modal-behance');
+    if (modalBehance) {
+      document.querySelectorAll('.contact-link.behance').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          modalBehance.showModal();
+        });
+      });
+    }
+
+    const modalDribbble = document.getElementById('modal-dribbble');
+    if (modalDribbble) {
+      document.querySelectorAll('.contact-link.dribbble').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          modalDribbble.showModal();
+        });
+      });
+    }
+
+    const modalWpp = document.getElementById('modal-whatsapp');
+    if (modalWpp) {
+      document.querySelectorAll('.contact-link.whatsapp').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          modalWpp.showModal();
+        });
+      });
+      document.querySelectorAll('.wpp-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const msg = encodeURIComponent(btn.getAttribute('data-msg'));
+          window.open(`https://wa.me/5584992238449?text=${msg}`, '_blank');
+          modalWpp.close();
+        });
+      });
+    }
+
+    const modalLightbox = document.getElementById('modal-lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    if (modalLightbox && lightboxImg) {
+      // Attach to all images inside gallery wrapper and project thumbnails
+      document.querySelectorAll('.cards__wrapper img, .project-lightbox-trigger').forEach(img => {
+        img.addEventListener('click', () => {
+          lightboxImg.src = img.src;
+          modalLightbox.showModal();
+        });
+        // Change cursor to indicate it's clickable (for desktop)
+        img.style.cursor = 'zoom-in';
+      });
+    }
+
+    // Close modals when clicking outside
+    document.querySelectorAll('.custom-modal').forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.close();
+        }
+      });
+    });
