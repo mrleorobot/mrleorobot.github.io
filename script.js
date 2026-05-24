@@ -848,7 +848,98 @@ async function buscarDadosGitHub() {
   }
 }
 
+async function fetchRecentRepos() {
+  const container = document.getElementById("github-repos-grid");
+  if (!container) return;
+
+  const username = "mrleorobot";
+  const numRepos = 6;
+  const cacheKey = "githubReposData";
+  const cacheTimestampKey = "githubReposTimestamp";
+  const cacheDuration = 3600000; // 1 hr
+  const now = Date.now();
+
+  const cachedData = localStorage.getItem(cacheKey);
+  const cachedTimestamp = localStorage.getItem(cacheTimestampKey);
+
+  const renderRepos = (reposData) => {
+    container.innerHTML = "";
+    const repos = reposData.filter((repo) => !repo.fork).slice(0, numRepos);
+
+    if (repos.length === 0) {
+      container.innerHTML = `<div style="text-align: center; width: 100%; color: #a0aec0; grid-column: 1 / -1;">Nenhum repositório recente encontrado.</div>`;
+      return;
+    }
+
+    repos.forEach((repo, i) => {
+      const article = document.createElement("article");
+      article.className = `design-card reveal-item stagger-${(i % 3) + 1} active`;
+      article.style.padding = "1.5rem";
+      article.style.borderRadius = "16px";
+      article.style.background = "rgba(40, 48, 64, 0.4)";
+      article.style.border = "1px solid rgba(255, 255, 255, 0.05)";
+      article.style.display = "flex";
+      article.style.flexDirection = "column";
+
+      const desc = repo.description
+        ? repo.description
+        : "Sem descrição fornecida.";
+      const lang = repo.language ? repo.language : "Markdown";
+      const date = new Date(repo.updated_at).toLocaleDateString("pt-BR");
+
+      article.innerHTML = `
+         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--arcane-hex);">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3-.3 6-1.5 6-6.5a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 5 3 6.2 6 6.5a4.8 4.8 0 0 0-1 3.2v4"></path>
+            </svg>
+            <span style="font-size: 0.85rem; color: #a0aec0; font-family: 'JetBrains Mono', monospace;">${date}</span>
+         </div>
+         <h3 style="font-size: 1.25rem; color: #fff; margin-bottom: 0.75rem;" class="notranslate" translate="no">${repo.name}</h3>
+         <p style="font-size: 0.95rem; color: #cbd5e1; margin-bottom: 1.5rem; flex: 1; line-height: 1.5;">${desc}</p>
+         <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05);">
+             <span class="notranslate" translate="no" style="font-size: 0.85rem; color: var(--arcane-hex); display: flex; align-items: center; gap: 0.5rem; font-weight: 600;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--arcane-hex); display: inline-block;"></span>
+                ${lang}
+             </span>
+             <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="color: #fff; text-decoration: none; font-size: 0.9rem; border-bottom: 1px dotted currentColor; transition: opacity 0.3s ease; font-family: 'Space Grotesk', sans-serif;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Ver Repositório ↗</a>
+         </div>
+       `;
+      container.appendChild(article);
+    });
+  };
+
+  if (cachedData && cachedTimestamp && now - cachedTimestamp < cacheDuration) {
+    try {
+      renderRepos(JSON.parse(cachedData));
+      return;
+    } catch (e) {
+      console.warn("Erro cache repos:", e);
+    }
+  }
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/users/${username}/repos?sort=pushed&per_page=15`,
+    );
+    if (!res.ok) throw new Error("Falha ao buscar repositórios");
+    const data = await res.json();
+    renderRepos(data);
+    localStorage.setItem(cacheKey, JSON.stringify(data));
+    localStorage.setItem(cacheTimestampKey, now.toString());
+  } catch (error) {
+    console.error("Erro na integração com GitHub Repos:", error);
+    if (cachedData) {
+      try {
+        renderRepos(JSON.parse(cachedData));
+      } catch (e) {}
+    } else {
+      container.innerHTML = `<div style="text-align: center; width: 100%; color: #ef4444; grid-column: 1 / -1;">Indisponível no momento. Tente novamente mais tarde.</div>`;
+    }
+  }
+}
+
 buscarDadosGitHub();
+fetchRecentRepos();
 
 // --------------------------------------------------------
 // 10. Memory / Returning Visitor Greeting
@@ -1387,5 +1478,45 @@ if (btnShare) {
     } else {
       fallbackCopy();
     }
+  });
+}
+
+// --------------------------------------------------------
+// X. Language Logic (Google Translate)
+// --------------------------------------------------------
+const langToggleBtn = document.getElementById("langToggleBtn");
+if (langToggleBtn) {
+  let isEnglish = localStorage.getItem("site_lang") === "en";
+
+  const updateLangButton = () => {
+    const span = langToggleBtn.querySelector(".lang-text");
+    if (span) {
+      span.innerText = isEnglish ? "PT" : "EN";
+    }
+  };
+
+  const triggerGoogleTranslate = (targetLang) => {
+    const select = document.querySelector(".goog-te-combo");
+    if (select) {
+      select.value = targetLang;
+      select.dispatchEvent(new Event("change"));
+    } else {
+      // Wait till it is available
+      setTimeout(() => triggerGoogleTranslate(targetLang), 500);
+    }
+  };
+
+  // Set initial state
+  if (isEnglish) {
+    updateLangButton();
+    // Wait slightly for Google script to load before applying if it's EN
+    setTimeout(() => triggerGoogleTranslate("en"), 1000);
+  }
+
+  langToggleBtn.addEventListener("click", () => {
+    isEnglish = !isEnglish;
+    localStorage.setItem("site_lang", isEnglish ? "en" : "pt");
+    updateLangButton();
+    triggerGoogleTranslate(isEnglish ? "en" : "pt");
   });
 }

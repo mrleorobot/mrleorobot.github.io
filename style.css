@@ -1576,8 +1576,16 @@ body.light-mode .contact-link svg {
   .theme-toggle-btn {
     width: 48px !important;
     height: 48px !important;
-    bottom: 20px !important;
     left: 20px !important;
+  }
+  #themeToggleBtn {
+    bottom: 20px !important;
+  }
+  #soundToggleBtn {
+    bottom: 84px !important; /* 20 + 48 + 16 */
+  }
+  #langToggleBtn {
+    bottom: 148px !important; /* 84 + 48 + 16 */
   }
 
   #toast-notificacao {
@@ -3439,15 +3447,18 @@ body.light-mode #projetos p {
 
 @media screen and (max-width: 768px) {
   .theme-toggle-btn {
-    bottom: 96px !important;
     left: 20px !important;
     width: 44px !important;
     height: 44px !important;
     font-size: 1.2rem !important;
   }
 
+  #themeToggleBtn {
+    bottom: 20px !important;
+  }
+
   #soundToggleBtn {
-    bottom: 80px !important; /* 24px + 44px + 12px gap */
+    bottom: 76px !important; /* 20 + 44 + 12 gap */
   }
 
   #btn-topo {
@@ -4546,4 +4557,74 @@ body.light-mode #btn-topo:hover {
 .whatsapp-float:hover {
   animation: none !important;
   box-shadow: 0 10px 25px rgba(37, 211, 102, 0.6) !important;
+}
+
+/* =========================================
+   LANGUAGE TOGGLE
+   ========================================= */
+#langToggleBtn {
+  bottom: 168px; /* 24 + 56 + 16 + 56 + 16 */
+  z-index: 9999;
+}
+@media screen and (max-width: 768px) {
+  #langToggleBtn {
+    bottom: 132px !important; /* 76 + 44 + 12 gap */
+    left: 20px !important;
+    width: 44px !important;
+    height: 44px !important;
+  }
+}
+/* Hide annoying Google Translate element completely */
+#google_translate_element {
+  display: none !important;
+}
+.goog-te-banner-frame.skiptranslate,
+.goog-te-gadget-icon,
+.goog-te-gadget-simple {
+  display: none !important;
+}
+body {
+  top: 0px !important;
+}
+/* Disable hover highlight from GTranslate */
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* =========================================
+   HIDE GOOGLE TRANSLATE WIDGET COMPLETELY
+   ========================================= */
+body {
+  top: 0 !important;
+}
+/* Banner frame */
+iframe.skiptranslate,
+.goog-te-banner-frame {
+  display: none !important;
+}
+/* Tooltip that appears on hover */
+#goog-gt-tt,
+.goog-te-balloon-frame {
+  display: none !important;
+}
+/* Highlighted text */
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+/* The new widget floating */
+.VIpgJd-ZVi9od-ORHb-OEVmcd {
+  display: none !important;
+}
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
+  display: none !important;
+}
+/* Gadget */
+.goog-te-gadget {
+  display: none !important;
+}
+/* Any other popups */
+.skiptranslate > iframe {
+  display: none !important;
 }

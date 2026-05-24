@@ -1,2 +1,1 @@
-# mrleorobot.github.io
-Portfólio 1.0
+This folder is for static assets like your PDF.
