@@ -864,6 +864,10 @@ async function fetchRecentRepos() {
 
   const renderRepos = (reposData) => {
     container.innerHTML = "";
+    if (!Array.isArray(reposData)) {
+      container.innerHTML = `<div style="text-align: center; width: 100%; color: #ef4444; grid-column: 1 / -1;">Indisponível no momento. Limite da API do GitHub atingido. Tente novamente mais tarde.</div>`;
+      return;
+    }
     const repos = reposData.filter((repo) => !repo.fork).slice(0, numRepos);
 
     if (repos.length === 0) {
