@@ -24,7 +24,7 @@
     />
     <meta name="author" content="Leonilson Souza" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#030712" />
+    <meta name="theme-color" content="#06040d" />
     <link rel="canonical" href="https://leonilsonsouza.com.br/" />
     <!-- Ajuste o domínio depois -->
 
@@ -63,57 +63,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&amp;family=Space+Grotesk:wght@700;900&amp;family=VT323&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@400;500;700;900&amp;display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* Accordion overrides */
-      .design-card-accordion {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        transition: all 0.3s ease;
-        overflow: hidden;
-        animation: pulse-glow 3s 3;
-      }
-      @keyframes pulse-glow {
-        0% {
-          box-shadow: 0 0 0px rgba(0, 229, 255, 0);
-        }
-        50% {
-          box-shadow: 0 0 8px rgba(0, 229, 255, 0.3);
-        }
-        100% {
-          box-shadow: 0 0 0px rgba(0, 229, 255, 0);
-        }
-      }
-      .design-card-accordion:hover {
-        background: rgba(0, 229, 255, 0.05);
-        border-color: rgba(0, 229, 255, 0.3);
-        transform: translateY(-2px);
-        animation: none;
-      }
-      .design-card-accordion .faq-question {
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--arcane-hex);
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        background: none;
-        border: none;
-      }
-      .design-card-accordion .faq-answer-content {
-        padding: 0 1rem 1rem 1rem;
-        font-size: 0.85rem;
-        color: #cbd5e1;
-        border-top: none;
-        line-height: 1.5;
-      }
-    </style>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org/",
@@ -124,9 +76,11 @@
         "sameAs": ["https://github.com/mrleorobot"]
       }
     </script>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="/style.css?v=4" />
   </head>
   <body>
+    <!-- Premium Features: Noise Overlay -->
+    <div class="noise-overlay" aria-hidden="true"></div>
     <div id="stardust-bg" aria-hidden="true">
       <div id="stardust-layer1"></div>
       <div id="stardust-layer2"></div>
@@ -137,7 +91,9 @@
     <button
       id="themeToggleBtn"
       class="theme-toggle-btn"
-      aria-label="Alternar Modo Claro/Escuro"
+      aria-label="Modo Claro em breve"
+      title="Modo Claro em manutenção"
+      disabled
     >
       <svg
         aria-hidden="true"
@@ -228,11 +184,19 @@
         </button>
 
         <div class="nav-links">
-          <a href="#hero">Início</a>
-          <a href="#status-atual">Trajetória</a>
-          <a href="#tech-stack">Habilidades</a>
-          <a href="#projetos">Portfólio</a>
-          <a href="#cta-final">Contato</a>
+          <a href="#hero" class="nav-tab-link active" data-section="hero"
+            >Início</a
+          >
+          <a href="#sobre" class="nav-tab-link" data-section="sobre">Sobre</a>
+          <a href="#tech-stack" class="nav-tab-link" data-section="tech-stack"
+            >Habilidades</a
+          >
+          <a href="#projetos" class="nav-tab-link" data-section="projetos"
+            >Portfólio</a
+          >
+          <a href="#cta-final" class="nav-tab-link" data-section="cta-final"
+            >Contato</a
+          >
           <a
             href="curriculo.pdf"
             download="Leonilson_Souza_CV.pdf"
@@ -259,6 +223,10 @@
             Download CV
           </a>
         </div>
+        <!-- Scroll progress bar with glow attached to bottom of fixed nav -->
+        <div class="scroll-progress-container" aria-hidden="true">
+          <div class="scroll-progress-bar" id="header-scroll-progress"></div>
+        </div>
       </nav>
     </header>
 
@@ -266,29 +234,7 @@
       <div class="hero-master-wrapper">
         <canvas id="hero-canvas" aria-hidden="true"></canvas>
 
-        <section id="hero">
-          <div class="hero-split-visual">
-            <h1 class="glitch-title reveal-item">
-              <span class="sr-only"
-                >Leonilson Souza - Desenvolvedor Front-end, UX/UI Design &amp;
-                Power BI</span
-              >
-              Criatividade<br />em Código.
-            </h1>
-
-            <div class="hero-magazine-visual reveal-item">
-              <div class="magazine-frame">
-                <img
-                  src="./profile.jpg"
-                  alt="Leonilson Souza - Editorial Visual"
-                  loading="eager"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="hero-intro">
+        <section id="hero" style="padding-top: 120px; padding-bottom: 80px;">
           <div class="intro-content reveal-item">
             <span
               id="saudacao-visitante"
@@ -299,11 +245,19 @@
                 font-weight: 400;
                 opacity: 0.9;
                 letter-spacing: 2px;
-                color: var(--arcane-hex);
-                margin-bottom: 3rem;
+                color: #ffffff;
+                margin-bottom: 1rem;
               "
               >Olá, seja muito bem-vindo!</span
             >
+
+            <h1 class="glitch-title reveal-item stagger-1" style="text-align: center; margin-bottom: 3rem; width: 100%;">
+              <span class="sr-only"
+                >Leonilson Souza - Desenvolvedor Front-end, UX/UI Design &amp;
+                Power BI</span
+              >
+              <span style="color: var(--primary-accent); font-family: 'JetBrains Mono', monospace; font-weight: 500;">&lt;</span>Front-end <span style="color: var(--primary-accent); font-family: 'JetBrains Mono', monospace; font-weight: 500;">/&gt;</span><br />&amp; Design.
+            </h1>
 
             <p
               class="reveal-item stagger-1"
@@ -342,7 +296,7 @@
           </div>
         </section>
 
-        <section id="status-atual" class="reveal-item">
+        <section id="sobre" class="reveal-item">
           <div class="skills-header reveal-item" style="margin-bottom: 2rem">
             <h2>Trajetória &amp; Momento Atual</h2>
             <p style="color: #a0aec0; font-size: 1.2rem">
@@ -433,90 +387,34 @@
                 </div>
                 <div class="status-info">
                   <h3>Estagiário</h3>
-                  <p>
-                    ESTEADEB (Escola de Teologia) <br />
-                    <span style="font-size: 0.85rem; opacity: 0.7"
-                      >Unidade Alecrim</span
-                    >
-                  </p>
+                  <p>ESTEADEB (Escola de Teologia)</p>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
 
-        <section id="sobre">
-          <div class="narrative-box reveal-item">
-            <div class="narrative-content">
-              <div class="narrative-text">
-                <h2 style="text-align: center; color: var(--su-pink)">
-                  Bastidores do Código
-                </h2>
-                <p>
-                  Trabalhar com tecnologia é, para mim, um ato de tradução.
-                  Minha base em <strong>Administração</strong> e
-                  <strong>Atendimento</strong> me prepara para desafios reais,
-                  enquanto meu coração de <strong>Professor</strong> mantém o
-                  foco nas pessoas.
-                </p>
-
-                <div class="faq-item" style="margin-top: 1.5rem">
-                  <button
-                    class="faq-question"
-                    aria-expanded="false"
-                    aria-controls="faq-answer-bastidores"
+            <div
+              class="status-card glass-glow reveal-item stagger-3"
+              id="live-github-card"
+              aria-live="polite"
+            >
+              <div class="status-badge">
+                <span class="live-dot"></span>Atividade Recente
+              </div>
+              <div class="status-main">
+                <div class="status-icon">
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="status-logo"
                   >
-                    Explorar Minha Filosofia
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                  </button>
-                  <div id="faq-answer-bastidores" class="faq-answer-wrapper">
-                    <div class="faq-answer-content" style="padding: 1rem">
-                      <p>
-                        A base em Administração aliada ao estudo técnico moldou
-                        um perfil ágil, analítico e focado na facilidade de uso
-                        para quem está na ponta.
-                      </p>
-                      <p style="margin-top: 0.5rem">
-                        Acredito que o código é o meio de traduzir desafios de
-                        negócio em soluções de design e aplicações acessíveis.
-                      </p>
-                    </div>
-                  </div>
+                    <path
+                      d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                    ></path>
+                  </svg>
                 </div>
-                <div
-                  id="live-github-card"
-                  aria-live="polite"
-                  style="
-                    padding: 24px;
-                    border-radius: 24px;
-                    background: rgba(8, 11, 18, 0.4);
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    backdrop-filter: blur(16px);
-                    -webkit-backdrop-filter: blur(16px);
-                    box-shadow:
-                      0 10px 30px rgba(0, 0, 0, 0.5),
-                      inset 0 1px 0 rgba(255, 255, 255, 0.05);
-                  "
-                >
-                  <strong
-                    style="
-                      color: #00ffff;
-                      display: inline-flex;
-                      align-items: center;
-                      gap: 6px;
-                    "
-                  >
-                    <svg
-                      aria-hidden="true"
-                      viewBox="0 0 24 24"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-                      ></path>
-                    </svg>
+                <div class="status-info">
+                  <h3>
                     <a
                       href="https://github.com/mrleorobot"
                       target="_blank"
@@ -529,94 +427,16 @@
                       "
                       onmouseover="this.style.opacity = '0.8'"
                       onmouseout="this.style.opacity = '1'"
-                      >Status ao Vivo (GitHub)</a
-                    > </strong
-                  ><br />
-                  <span
-                    style="
-                      font-size: 14px;
-                      margin-bottom: 5px;
-                      display: inline-flex;
-                      align-items: center;
-                      justify-content: center;
-                      gap: 4px;
-                      flex-wrap: wrap;
-                    "
-                    >Repositórios Públicos:
-                    <b id="gh-repos" class="skeleton-text"></b>
+                      >Status ao Vivo</a
+                    >
+                  </h3>
+                  <p>
+                    Repositórios: <b id="gh-repos" class="skeleton-text"></b>
                     <span style="margin: 0 4px">|</span> Seguidores:
-                    <b id="gh-followers" class="skeleton-text"></b
-                  ></span>
-                  <span
-                    style="
-                      font-size: 11px;
-                      opacity: 0.6;
-                      display: block;
-                      font-style: italic;
-                    "
-                    >Dados consumidos via API com política de Cache Local
-                    Automático (Zero Rate Limit).</span
-                  >
+                    <b id="gh-followers" class="skeleton-text"></b>
+                  </p>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="github-activity">
-          <div class="design-header reveal-item" style="margin-bottom: 3rem">
-            <span
-              style="
-                display: block;
-                font-family: &quot;Space Grotesk&quot;, sans-serif;
-                font-size: 1rem;
-                font-weight: 700;
-                letter-spacing: 2px;
-                color: var(--arcane-hex);
-                text-transform: uppercase;
-                margin-bottom: 0.5rem;
-              "
-            >
-              Atividade Contínua
-            </span>
-            <h2 class="notranslate" translate="no">
-              Projetos Recentes (GitHub)
-            </h2>
-            <p
-              style="
-                color: #a0aec0;
-                font-size: 1.1rem;
-                max-width: 600px;
-                margin: 1rem auto 0;
-              "
-            >
-              Linguagens e repositórios atualizados diretamente da API,
-              mostrando minha evolução em tempo real.
-            </p>
-          </div>
-
-          <div
-            id="github-repos-grid"
-            class="project-battle-grid reveal-item stagger-2"
-            style="
-              display: grid;
-              grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-              gap: 1.25rem;
-              max-width: 1000px;
-              margin: 0 auto;
-              width: 100%;
-            "
-          >
-            <!-- JS will inject repos here -->
-            <div
-              style="
-                text-align: center;
-                width: 100%;
-                color: #a0aec0;
-                grid-column: 1 / -1;
-              "
-            >
-              Carregando repositórios...
             </div>
           </div>
         </section>
@@ -630,69 +450,25 @@
             </p>
           </div>
 
-          <div class="search-container reveal-item">
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="Pesquisar habilidades ou projetos..."
-              aria-label="Pesquisar portfólio"
-            />
-          </div>
-
-          <div class="kurz-grid">
-            <article class="kurz-card reveal-item stagger-1">
-              <h3>
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
-                  <rect x="9" y="9" width="6" height="6"></rect>
-                  <line x1="9" y1="1" x2="9" y2="4"></line>
-                  <line x1="15" y1="1" x2="15" y2="4"></line>
-                  <line x1="9" y1="20" x2="9" y2="23"></line>
-                  <line x1="15" y1="20" x2="15" y2="23"></line>
-                  <line x1="20" y1="9" x2="23" y2="9"></line>
-                  <line x1="20" y1="14" x2="23" y2="14"></line>
-                  <line x1="1" y1="9" x2="4" y2="9"></line>
-                  <line x1="1" y1="14" x2="4" y2="14"></line>
-                </svg>
-                Infra &amp; Lógica
-              </h3>
-              <div class="kurz-tags">
-                <span class="kurz-tag" data-tooltip="Linux"
-                  ><img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg"
-                    alt="Linux"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                  />
-                  Linux</span
-                >
-                <span class="kurz-tag" data-tooltip="Redes">Redes</span>
-                <span class="kurz-tag" data-tooltip="Suporte Técnico"
-                  >Suporte Técnico</span
-                >
-                <span class="kurz-tag" data-tooltip="Pensamento Lógico"
-                  >Pensamento Lógico</span
-                >
-                <span class="kurz-tag" data-tooltip="Resolução de Problemas"
-                  >Resolução de Problemas</span
-                >
+          <div class="kurz-marquee-container" id="skills-marquee-container">
+            <!-- Row 1: Left to Right / Normal direction -->
+            <div class="kurz-grid" id="skills-marquee-grid">
+              <div
+                class="kurz-skill-card reveal-item stagger-1"
+                data-tooltip="Linux"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg"
+                  alt="Linux"
+                  loading="lazy"
+                />
+                <span>Linux</span>
               </div>
-            </article>
 
-            <article
-              class="kurz-card reveal-item stagger-2"
-              style="background: var(--su-pink); box-shadow: 0 8px 0 #d85a7f"
-            >
-              <h3>
+              <div
+                class="kurz-skill-card reveal-item stagger-2"
+                data-tooltip="Redes"
+              >
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 24 24"
@@ -701,34 +477,43 @@
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
+                  style="color: #ffffff"
                 >
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  <rect
+                    x="16"
+                    y="16"
+                    width="6"
+                    height="6"
+                    rx="1"
+                    fill="rgba(255,255,255,0.1)"
+                  ></rect>
+                  <rect
+                    x="2"
+                    y="16"
+                    width="6"
+                    height="6"
+                    rx="1"
+                    fill="rgba(255,255,255,0.1)"
+                  ></rect>
+                  <rect
+                    x="9"
+                    y="2"
+                    width="6"
+                    height="6"
+                    rx="1"
+                    fill="rgba(255,255,255,0.1)"
+                  ></rect>
+                  <path d="M12 8v4"></path>
+                  <path d="M12 12H5v4"></path>
+                  <path d="M12 12h7v4"></path>
                 </svg>
-                Comunicação &amp; Soft Skills
-              </h3>
-              <div class="kurz-tags">
-                <span class="kurz-tag" data-tooltip="Empatia">Empatia</span>
-                <span class="kurz-tag" data-tooltip="Comunicação Clara"
-                  >Comunicação Clara</span
-                >
-                <span class="kurz-tag" data-tooltip="Didática">Didática</span>
-                <span class="kurz-tag" data-tooltip="Storytelling"
-                  >Storytelling</span
-                >
-                <span class="kurz-tag" data-tooltip="Simplificar o Complexo"
-                  >Simplificar o Complexo</span
-                >
+                <span>Redes</span>
               </div>
-            </article>
 
-            <article
-              class="kurz-card reveal-item stagger-3"
-              style="background: #008b99; box-shadow: 0 8px 0 #006670"
-            >
-              <h3>
+              <div
+                class="kurz-skill-card reveal-item stagger-1"
+                data-tooltip="Inteligência Artificial"
+              >
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 24 24"
@@ -737,69 +522,27 @@
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
+                  style="color: #ffffff"
                 >
                   <path
-                    d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
-                  ></path>
+                    d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"
+                    fill="rgba(255,255,255,0.1)"
+                  />
+                  <path
+                    d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"
+                    fill="rgba(255,255,255,0.1)"
+                  />
+                  <path d="M12 5v14" />
+                  <path d="M12 9h4" />
+                  <path d="M12 14H8" />
                 </svg>
-                Ferramentas Essenciais
-              </h3>
-              <div class="kurz-tags">
-                <span class="kurz-tag" data-tooltip="Git &amp; GitHub"
-                  ><img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
-                    alt="Git &amp; GitHub"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                  />
-                  Git &amp; GitHub</span
-                >
-                <span class="kurz-tag" data-tooltip="VS Code"
-                  ><img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
-                    alt="VS Code"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                  />
-                  VS Code</span
-                >
-                <span class="kurz-tag" data-tooltip="Firebase"
-                  ><img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg"
-                    alt="Firebase"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                  />
-                  Firebase</span
-                >
-                <span class="kurz-tag" data-tooltip="Canva"
-                  ><img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg"
-                    alt="Canva"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                  />
-                  Canva</span
-                >
-                <span class="kurz-tag" data-tooltip="Figma"
-                  ><img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"
-                    alt="Figma"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                  />
-                  Figma</span
-                >
+                <span>IA</span>
               </div>
-            </article>
 
-            <article class="kurz-card learning reveal-item stagger-1">
-              <h3>
+              <div
+                class="kurz-skill-card reveal-item stagger-2"
+                data-tooltip="Segurança da Informação"
+              >
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 24 24"
@@ -808,236 +551,367 @@
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
+                  style="color: #ffffff"
                 >
                   <path
-                    d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"
+                    d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                    fill="rgba(255,255,255,0.1)"
                   ></path>
-                  <path
-                    d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"
-                  ></path>
-                  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
-                  <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+                  <path d="M12 11v4M10 13h4M9 10a3 3 0 0 1 6 0v1H9v-1z" />
                 </svg>
-                Em Expansão
-              </h3>
-              <div class="kurz-tags">
-                <span class="kurz-tag" data-tooltip="HTML5 &amp; CSS3"
-                  ><img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
-                    alt="HTML5"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                  />
-                  <img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"
-                    alt="CSS3"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                  />
-                  HTML/CSS</span
-                >
-                <span class="kurz-tag" data-tooltip="JavaScript"
-                  ><img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
-                    alt="JavaScript"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                  />
-                  JavaScript</span
-                >
-                <span class="kurz-tag" data-tooltip="Java"
-                  ><img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
-                    alt="Java"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                  />
-                  Java</span
-                >
-                <span class="kurz-tag" data-tooltip="Python"
-                  ><img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
-                    alt="Python"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                  />
-                  Python</span
-                >
-                <span class="kurz-tag" data-tooltip="PHP"
-                  ><img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg"
-                    alt="PHP"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                  />
-                  PHP</span
-                >
-                <span class="kurz-tag" data-tooltip="Inteligência Artificial">
-                  <svg
-                    aria-hidden="true"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="var(--su-cyan)"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    style="margin-right: 6px"
-                  >
-                    <path
-                      d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
-                    ></path>
-                  </svg>
-                  IA
-                </span>
-                <span class="kurz-tag" data-tooltip="Segurança da Informação">
-                  <svg
-                    aria-hidden="true"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    style="margin-right: 6px"
-                  >
-                    <path
-                      d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
-                    ></path>
-                  </svg>
-                  InfoSec
-                </span>
-                <span class="kurz-tag" data-tooltip="SEO">
-                  <svg
-                    aria-hidden="true"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    style="margin-right: 6px"
-                  >
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                  </svg>
-                  SEO
-                </span>
-                <span class="kurz-tag" data-tooltip="Power BI">
-                  <svg
-                    aria-hidden="true"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="rgb(242, 200, 17)"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    style="margin-right: 6px"
-                  >
-                    <rect x="3" y="14" width="4" height="7"></rect>
-                    <rect x="10" y="10" width="4" height="11"></rect>
-                    <rect x="17" y="3" width="4" height="18"></rect>
-                  </svg>
-                  Power BI
-                </span>
+                <span>InfoSec</span>
               </div>
-            </article>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-3"
+                data-tooltip="SEO"
+              >
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  style="color: #ffffff"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="8"
+                    fill="rgba(255,255,255,0.1)"
+                  ></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  <line x1="11" y1="8" x2="11" y2="14"></line>
+                  <line x1="8" y1="11" x2="14" y2="11"></line>
+                </svg>
+                <span>SEO</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-2"
+                data-tooltip="Power BI"
+              >
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  style="color: #ffffff"
+                >
+                  <rect
+                    x="3"
+                    y="14"
+                    width="4"
+                    height="7"
+                    rx="1"
+                    fill="#ffffff"
+                    fill-opacity="0.2"
+                  ></rect>
+                  <rect
+                    x="10"
+                    y="10"
+                    width="4"
+                    height="11"
+                    rx="1"
+                    fill="#ffffff"
+                    fill-opacity="0.4"
+                  ></rect>
+                  <rect
+                    x="17"
+                    y="3"
+                    width="4"
+                    height="18"
+                    rx="1"
+                    fill="#ffffff"
+                    fill-opacity="0.7"
+                  ></rect>
+                </svg>
+                <span>Power BI</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-3"
+                data-tooltip="Git &amp; GitHub"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+                  alt="Git &amp; GitHub"
+                  loading="lazy"
+                />
+                <span>Git &amp; GitHub</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-1"
+                data-tooltip="Claude AI"
+              >
+                <svg
+                  class="logo-filled"
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  style="color: #ffffff"
+                >
+                  <path
+                    d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"
+                  />
+                </svg>
+                <span>Claude AI</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-2"
+                data-tooltip="Vercel"
+              >
+                <svg
+                  class="logo-filled"
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  style="
+                    color: #ffffff;
+                    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.4));
+                  "
+                >
+                  <path d="M12 2L2 22h20L12 2z" />
+                </svg>
+                <span>Vercel</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-3"
+                data-tooltip="Photoshop"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg"
+                  alt="Photoshop"
+                  loading="lazy"
+                />
+                <span>Photoshop</span>
+              </div>
+            </div>
+
+            <!-- Row 2: Right to Left / Reverse direction -->
+            <div class="kurz-grid kurz-grid-reverse" id="skills-marquee-grid-2">
+              <div
+                class="kurz-skill-card reveal-item stagger-1"
+                data-tooltip="VS Code"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
+                  alt="VS Code"
+                  loading="lazy"
+                />
+                <span>VS Code</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-2"
+                data-tooltip="Firebase"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg"
+                  alt="Firebase"
+                  loading="lazy"
+                />
+                <span>Firebase</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-3"
+                data-tooltip="Canva"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg"
+                  alt="Canva"
+                  loading="lazy"
+                />
+                <span>Canva</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-1"
+                data-tooltip="Figma"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"
+                  alt="Figma"
+                  loading="lazy"
+                />
+                <span>Figma</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-2"
+                data-tooltip="HTML5 &amp; CSS3"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
+                  alt="HTML5"
+                  loading="lazy"
+                />
+                <span>HTML/CSS</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-3"
+                data-tooltip="JavaScript"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
+                  alt="JavaScript"
+                  loading="lazy"
+                />
+                <span>JavaScript</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-1"
+                data-tooltip="Java"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
+                  alt="Java"
+                  loading="lazy"
+                />
+                <span>Java</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-2"
+                data-tooltip="Python"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+                  alt="Python"
+                  loading="lazy"
+                />
+                <span>Python</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-3"
+                data-tooltip="PHP"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg"
+                  alt="PHP"
+                  loading="lazy"
+                />
+                <span>PHP</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-1"
+                data-tooltip="v0 by Vercel"
+              >
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  style="
+                    color: #ffffff;
+                    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+                  "
+                >
+                  <path d="M4 4.5l6 14 6-14" />
+                  <rect
+                    x="14"
+                    y="8"
+                    width="6"
+                    height="10"
+                    rx="3"
+                    fill="rgba(255,255,255,0.1)"
+                  />
+                </svg>
+                <span>v0 by Vercel</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-2"
+                data-tooltip="Illustrator"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-plain.svg"
+                  alt="Illustrator"
+                  loading="lazy"
+                />
+                <span>Illustrator</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-3"
+                data-tooltip="Premiere Pro"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg"
+                  alt="Premiere Pro"
+                  loading="lazy"
+                />
+                <span>Premiere Pro</span>
+              </div>
+
+              <div
+                class="kurz-skill-card reveal-item stagger-1"
+                data-tooltip="Corel Draw"
+              >
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  style="color: #ffffff"
+                >
+                  <path
+                    d="M12 2C8 2 5 5 5 9c0 3.5 3 6.5 7 11 4-4.5 7-7.5 7-11 0-4-3-7-7-7z"
+                    fill="rgba(255,255,255,0.1)"
+                  />
+                  <path
+                    d="M12 2c-1.8 2-3 4.5-3 7s1.2 5 3 11"
+                    stroke="#ffffff"
+                  />
+                  <path
+                    d="M12 2c1.8 2 3 4.5 3 7s-1.2 5-3 11"
+                    stroke="#cccccc"
+                  />
+                  <rect
+                    x="10.5"
+                    y="21"
+                    width="3"
+                    height="2"
+                    rx="0.5"
+                    fill="#ffffff"
+                    stroke="#ffffff"
+                    stroke-width="1"
+                  />
+                  <line x1="11" y1="20" x2="11" y2="21" />
+                  <line x1="13" y1="20" x2="13" y2="21" />
+                </svg>
+                <span>Corel Draw</span>
+              </div>
+            </div>
           </div>
         </section>
 
         <section id="soft-skills">
-          <div class="narrative-box reveal-item">
-            <div
-              class="narrative-content"
-              style="
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                text-align: center;
-              "
-            >
-              <div
-                class="narrative-text"
-                style="
-                  text-align: center;
-                  width: 100%;
-                  max-width: 800px;
-                  margin-inline: auto;
-                "
-              >
-                <h2
-                  style="
-                    text-align: center;
-                    width: 100%;
-                    margin-bottom: 1.5rem;
-                    font-size: clamp(2rem, 4vw, 3rem);
-                  "
-                >
-                  Diferencial Didático: Simplificando a Tecnologia
-                </h2>
-                <p>
-                  Minha jornada técnica começou na sala de aula. Como
-                  <strong>Professor</strong> de Informática e Web Design,
-                  aprendi que dominar as ferramentas é apenas metade do
-                  trabalho; a outra metade é saber traduzir conceitos complexos
-                  para pessoas reais, de forma simples e direta.
-                </p>
-
-                <div
-                  class="faq-item design-card-accordion"
-                  style="margin-top: 1rem"
-                >
-                  <button
-                    class="faq-question"
-                    aria-expanded="false"
-                    aria-controls="faq-desc-didatica"
-                  >
-                    Ver mais detalhes
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                  </button>
-                  <div id="faq-desc-didatica" class="faq-answer-wrapper">
-                    <div class="faq-answer-content">
-                      <p>
-                        Aplico essa mesma visão profissional na criação de
-                        interfaces visuais e na análise de dados (Power BI),
-                        atuando como facilitador para reduzir fricções através
-                        da comunicação clara.
-                      </p>
-                      <p style="margin-top: 0.5rem">
-                        Trago a <strong>Didática</strong> da sala de aula para
-                        meus projetos, focando sempre em construir soluções que
-                        se transformam em
-                        <strong>Experiências Acessíveis</strong> e intuitivas
-                        para o usuário final.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <div
             class="reveal-item"
             style="
               max-width: 800px;
               margin: 3rem auto 3rem;
-              background: rgba(15, 23, 42, 0.4);
+              background: rgba(10, 10, 10, 0.8);
               backdrop-filter: blur(10px);
               border: 1px solid rgba(255, 255, 255, 0.05);
               padding: 2.5rem;
@@ -1097,31 +971,679 @@
             >
           </div>
 
-          <div class="testimonials-grid">
-            <article class="testimonial-card reveal-item stagger-1">
-              <p class="testimonial-text">
-                "O Professor Leo tem uma paciência incrível para explicar
-                conceitos difíceis. Graças à sua didática, consegui entender a
-                lógica por trás do código sem me sentir frustrado."
-              </p>
-              <p class="testimonial-author">— Ex-Aluno de Web Design</p>
-            </article>
-            <article class="testimonial-card reveal-item stagger-2">
-              <p class="testimonial-text">
-                "Trabalhar com ele é ter a certeza de que os processos técnicos
-                estarão sempre organizados e acessíveis. Ele consegue
-                simplificar o uso de sistemas para qualquer pessoa da equipe."
-              </p>
-              <p class="testimonial-author">— Colega de Administração</p>
-            </article>
-            <article class="testimonial-card reveal-item stagger-3">
-              <p class="testimonial-text">
-                "As aulas de informática eram muito visuais e fáceis de
-                acompanhar. Ele realmente se importa em garantir que o aluno não
-                apenas decore, mas entenda a ferramenta."
-              </p>
-              <p class="testimonial-author">— Ex-Aluno de Informática</p>
-            </article>
+          <!-- MURAL DE DEPOIMENTOS E FEEDBACK HUB INTERATIVO -->
+          <div
+            class="design-header reveal-item"
+            style="
+              margin-top: 5.5rem;
+              margin-bottom: 2.5rem;
+              text-align: center;
+            "
+          >
+            <h2
+              style="
+                font-size: clamp(1.8rem, 4vw, 2.3rem);
+                color: #ffffff;
+                font-family: &quot;Space Grotesk&quot;, sans-serif;
+                text-align: center;
+                margin-bottom: 0.75rem;
+              "
+            >
+              <span
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 0.8rem;
+                  justify-content: center;
+                  vertical-align: middle;
+                "
+              >
+                <svg
+                  aria-hidden="true"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  style="
+                    color: var(--arcane-gold);
+                    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+                    display: inline-block;
+                    vertical-align: middle;
+                  "
+                >
+                  <path
+                    d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                  ></path>
+                </svg>
+                Mural de Depoimentos &amp; Feedback
+              </span>
+            </h2>
+            <p
+              style="
+                color: #a0aec0;
+                font-size: 1.05rem;
+                max-width: 650px;
+                margin: 0 auto;
+                line-height: 1.6;
+              "
+            >
+              Deixe um recado, feedback ou recomendação sobre minhas aulas,
+              suporte ou projetos de tecnologia! Seu comentário aparecerá
+              instantaneamente no mural.
+            </p>
+          </div>
+
+          <div
+            class="feedback-hub-container reveal-item"
+            style="max-width: 1000px; margin: 0 auto; padding: 0 1rem"
+          >
+            <!-- Barra de Controle: Filtros e Botão para Abrir Form -->
+            <div
+              class="feedback-controls"
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                margin-bottom: 2.5rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                padding-bottom: 1.5rem;
+              "
+            >
+              <div
+                class="feedback-filters"
+                role="tablist"
+                aria-label="Filtrar depoimentos"
+                style="display: flex; gap: 0.75rem; flex-wrap: wrap"
+              >
+                <button
+                  class="feedback-filter-btn active"
+                  data-filter="all"
+                  role="tab"
+                  aria-selected="true"
+                  style="
+                    background: rgba(255, 255, 255, 0.05);
+                    border: 1px solid rgba(255, 255, 255, 0.15);
+                    color: #ffffff;
+                    padding: 0.6rem 1.2rem;
+                    border-radius: 100px;
+                    font-family: &quot;Space Grotesk&quot;, sans-serif;
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                  "
+                >
+                  <span>Todos</span>
+                  <span
+                    class="count-badge"
+                    id="count-all"
+                    style="
+                      background: rgba(255, 255, 255, 0.15);
+                      color: #ffffff;
+                      padding: 1px 6px;
+                      border-radius: 20px;
+                      font-size: 0.75rem;
+                    "
+                    >3</span
+                  >
+                </button>
+                <button
+                  class="feedback-filter-btn"
+                  data-filter="aluno"
+                  role="tab"
+                  aria-selected="false"
+                  style="
+                    background: transparent;
+                    border: 1px solid rgba(255, 255, 255, 0.05);
+                    color: #888888;
+                    padding: 0.6rem 1.2rem;
+                    border-radius: 100px;
+                    font-family: &quot;Space Grotesk&quot;, sans-serif;
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                  "
+                >
+                  <span>Alunos</span>
+                  <span
+                    class="count-badge"
+                    id="count-aluno"
+                    style="
+                      background: rgba(255, 255, 255, 0.05);
+                      color: #888888;
+                      padding: 1px 6px;
+                      border-radius: 20px;
+                      font-size: 0.75rem;
+                    "
+                    >2</span
+                  >
+                </button>
+                <button
+                  class="feedback-filter-btn"
+                  data-filter="colega"
+                  role="tab"
+                  aria-selected="false"
+                  style="
+                    background: transparent;
+                    border: 1px solid rgba(255, 255, 255, 0.05);
+                    color: #888888;
+                    padding: 0.6rem 1.2rem;
+                    border-radius: 100px;
+                    font-family: &quot;Space Grotesk&quot;, sans-serif;
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                  "
+                >
+                  <span>Colegas</span>
+                  <span
+                    class="count-badge"
+                    id="count-colega"
+                    style="
+                      background: rgba(255, 255, 255, 0.05);
+                      color: #888888;
+                      padding: 1px 6px;
+                      border-radius: 20px;
+                      font-size: 0.75rem;
+                    "
+                    >1</span
+                  >
+                </button>
+                <button
+                  class="feedback-filter-btn"
+                  data-filter="recrutador"
+                  role="tab"
+                  aria-selected="false"
+                  style="
+                    background: transparent;
+                    border: 1px solid rgba(255, 255, 255, 0.05);
+                    color: #888888;
+                    padding: 0.6rem 1.2rem;
+                    border-radius: 100px;
+                    font-family: &quot;Space Grotesk&quot;, sans-serif;
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                  "
+                >
+                  <span>Recrutadores</span>
+                  <span
+                    class="count-badge"
+                    id="count-recrutador"
+                    style="
+                      background: rgba(255, 255, 255, 0.05);
+                      color: #888888;
+                      padding: 1px 6px;
+                      border-radius: 20px;
+                      font-size: 0.75rem;
+                    "
+                    >0</span
+                  >
+                </button>
+              </div>
+
+              <button
+                id="btn-abrir-mural-form"
+                class="btn-arcane"
+                disabled
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 8px;
+                  font-family: &quot;Space Grotesk&quot;, sans-serif;
+                  font-size: 0.85rem;
+                  padding: 0.7rem 1.4rem;
+                  border-radius: 100px;
+                  cursor: not-allowed;
+                  text-decoration: none;
+                  opacity: 0.5;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  style="vertical-align: middle"
+                >
+                  <path d="M12 20h9"></path>
+                  <path
+                    d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"
+                  ></path>
+                </svg>
+                Escrever Depoimento (Em Breve)
+              </button>
+            </div>
+
+            <!-- Painel do Formulário Expansível (Escondido por padrão) -->
+            <div
+              id="mural-form-wrapper"
+              class="mural-form-wrapper"
+              style="
+                max-height: 0;
+                opacity: 0;
+                overflow: hidden;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                margin-bottom: 2rem;
+              "
+            >
+              <div
+                style="
+                  background: rgba(15, 15, 15, 0.95);
+                  border: 1px solid rgba(255, 255, 255, 0.1);
+                  border-radius: 20px;
+                  padding: 2rem;
+                  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+                  position: relative;
+                "
+              >
+                <h4
+                  style="
+                    font-family: &quot;Space Grotesk&quot;, sans-serif;
+                    font-size: 1.2rem;
+                    color: #ffffff;
+                    margin-bottom: 1.5rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                  "
+                >
+                  <span style="color: var(--arcane-gold)">✨</span> Adicionar
+                  Depoimento ao Mural
+                </h4>
+
+                <form
+                  id="mural-form"
+                  style="display: flex; flex-direction: column; gap: 1.25rem"
+                >
+                  <div
+                    class="mural-form-grid"
+                    style="
+                      display: grid;
+                      grid-template-columns: repeat(
+                        auto-fit,
+                        minmax(220px, 1fr)
+                      );
+                      gap: 1.25rem;
+                    "
+                  >
+                    <div
+                      style="display: flex; flex-direction: column; gap: 0.5rem"
+                    >
+                      <label
+                        for="mural-nome"
+                        style="
+                          font-family: &quot;Space Grotesk&quot;, sans-serif;
+                          font-size: 0.8rem;
+                          font-weight: 500;
+                          color: #a0aec0;
+                          text-transform: uppercase;
+                          letter-spacing: 1px;
+                        "
+                        >Seu Nome / Empresa</label
+                      >
+                      <input
+                        type="text"
+                        id="mural-nome"
+                        required
+                        placeholder="Ex: Patrícia Alves (RH Tech)"
+                        maxlength="40"
+                        style="
+                          background: rgba(255, 255, 255, 0.03);
+                          border: 1px solid rgba(255, 255, 255, 0.08);
+                          border-radius: 8px;
+                          padding: 0.8rem 1rem;
+                          color: #ffffff;
+                          font-family: &quot;Inter&quot;, sans-serif;
+                          font-size: 0.9rem;
+                          transition: all 0.3s ease;
+                          outline: none;
+                        "
+                      />
+                    </div>
+
+                    <div
+                      style="display: flex; flex-direction: column; gap: 0.5rem"
+                    >
+                      <label
+                        for="mural-relacao"
+                        style="
+                          font-family: &quot;Space Grotesk&quot;, sans-serif;
+                          font-size: 0.8rem;
+                          font-weight: 500;
+                          color: #a0aec0;
+                          text-transform: uppercase;
+                          letter-spacing: 1px;
+                        "
+                        >Sua Relação</label
+                      >
+                      <select
+                        id="mural-relacao"
+                        required
+                        style="
+                          background: #111111;
+                          border: 1px solid rgba(255, 255, 255, 0.08);
+                          border-radius: 8px;
+                          padding: 0.8rem 1rem;
+                          color: #ffffff;
+                          font-family: &quot;Inter&quot;, sans-serif;
+                          font-size: 0.9rem;
+                          transition: all 0.3s ease;
+                          outline: none;
+                          cursor: pointer;
+                        "
+                      >
+                        <option
+                          value="aluno"
+                          style="background: #111; color: #fff"
+                        >
+                          Fui Aluno(a)
+                        </option>
+                        <option
+                          value="colega"
+                          style="background: #111; color: #fff"
+                        >
+                          Colega de Trabalho / Profissional
+                        </option>
+                        <option
+                          value="recrutador"
+                          style="background: #111; color: #fff"
+                        >
+                          Recrutador(a) / Visitante
+                        </option>
+                      </select>
+                    </div>
+
+                    <div
+                      style="display: flex; flex-direction: column; gap: 0.5rem"
+                    >
+                      <label
+                        for="mural-role"
+                        style="
+                          font-family: &quot;Space Grotesk&quot;, sans-serif;
+                          font-size: 0.8rem;
+                          font-weight: 500;
+                          color: #a0aec0;
+                          text-transform: uppercase;
+                          letter-spacing: 1px;
+                        "
+                        >Seu Cargo / Função</label
+                      >
+                      <input
+                        type="text"
+                        id="mural-role"
+                        required
+                        placeholder="Ex: Tech Recruiter, Dev Sênior..."
+                        maxlength="50"
+                        style="
+                          background: rgba(255, 255, 255, 0.03);
+                          border: 1px solid rgba(255, 255, 255, 0.08);
+                          border-radius: 8px;
+                          padding: 0.8rem 1rem;
+                          color: #ffffff;
+                          font-family: &quot;Inter&quot;, sans-serif;
+                          font-size: 0.9rem;
+                          transition: all 0.3s ease;
+                          outline: none;
+                        "
+                      />
+                    </div>
+
+                    <div
+                      style="display: flex; flex-direction: column; gap: 0.5rem"
+                    >
+                      <label
+                        style="
+                          font-family: &quot;Space Grotesk&quot;, sans-serif;
+                          font-size: 0.8rem;
+                          font-weight: 500;
+                          color: #a0aec0;
+                          text-transform: uppercase;
+                          letter-spacing: 1px;
+                        "
+                        >Sua Recomendação</label
+                      >
+                      <div
+                        class="rating-stars-input"
+                        id="mural-rating-container"
+                        style="
+                          display: flex;
+                          gap: 6px;
+                          align-items: center;
+                          height: 100%;
+                          min-height: 40px;
+                        "
+                      >
+                        <button
+                          type="button"
+                          class="star-btn active"
+                          data-value="1"
+                          style="
+                            background: none;
+                            border: none;
+                            color: #ffffff;
+                            font-size: 1.5rem;
+                            cursor: pointer;
+                            transition: transform 0.2s ease;
+                            outline: none;
+                            padding: 0;
+                          "
+                        >
+                          ★
+                        </button>
+                        <button
+                          type="button"
+                          class="star-btn active"
+                          data-value="2"
+                          style="
+                            background: none;
+                            border: none;
+                            color: #ffffff;
+                            font-size: 1.5rem;
+                            cursor: pointer;
+                            transition: transform 0.2s ease;
+                            outline: none;
+                            padding: 0;
+                          "
+                        >
+                          ★
+                        </button>
+                        <button
+                          type="button"
+                          class="star-btn active"
+                          data-value="3"
+                          style="
+                            background: none;
+                            border: none;
+                            color: #ffffff;
+                            font-size: 1.5rem;
+                            cursor: pointer;
+                            transition: transform 0.2s ease;
+                            outline: none;
+                            padding: 0;
+                          "
+                        >
+                          ★
+                        </button>
+                        <button
+                          type="button"
+                          class="star-btn active"
+                          data-value="4"
+                          style="
+                            background: none;
+                            border: none;
+                            color: #ffffff;
+                            font-size: 1.5rem;
+                            cursor: pointer;
+                            transition: transform 0.2s ease;
+                            outline: none;
+                            padding: 0;
+                          "
+                        >
+                          ★
+                        </button>
+                        <button
+                          type="button"
+                          class="star-btn active"
+                          data-value="5"
+                          style="
+                            background: none;
+                            border: none;
+                            color: #ffffff;
+                            font-size: 1.5rem;
+                            cursor: pointer;
+                            transition: transform 0.2s ease;
+                            outline: none;
+                            padding: 0;
+                          "
+                        >
+                          ★
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      gap: 0.5rem;
+                      width: 100%;
+                    "
+                  >
+                    <label
+                      for="mural-texto"
+                      style="
+                        font-family: &quot;Space Grotesk&quot;, sans-serif;
+                        font-size: 0.8rem;
+                        font-weight: 500;
+                        color: #a0aec0;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                      "
+                      >Sua Mensagem</label
+                    >
+                    <textarea
+                      id="mural-texto"
+                      required
+                      placeholder="Escreva aqui seu comentário sobre mim, meu trabalho, minhas aulas ou atendimento..."
+                      maxlength="350"
+                      rows="3"
+                      style="
+                        background: rgba(255, 255, 255, 0.03);
+                        border: 1px solid rgba(255, 255, 255, 0.08);
+                        border-radius: 8px;
+                        padding: 0.8rem 1rem;
+                        color: #ffffff;
+                        font-family: &quot;Inter&quot;, sans-serif;
+                        font-size: 0.9rem;
+                        line-height: 1.5;
+                        resize: none;
+                        transition: all 0.3s ease;
+                        outline: none;
+                      "
+                    ></textarea>
+                  </div>
+
+                  <div
+                    style="
+                      display: flex;
+                      justify-content: flex-end;
+                      gap: 1rem;
+                      margin-top: 0.5rem;
+                      flex-wrap: wrap;
+                    "
+                  >
+                    <button
+                      type="button"
+                      id="btn-cancelar-mural-form"
+                      style="
+                        background: transparent;
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                        color: #888888;
+                        font-family: &quot;Space Grotesk&quot;, sans-serif;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                        padding: 0.7rem 1.5rem;
+                        border-radius: 100px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                      "
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="submit"
+                      class="btn-arcane"
+                      style="
+                        font-family: &quot;Space Grotesk&quot;, sans-serif;
+                        font-size: 0.85rem;
+                        padding: 0.7rem 1.6rem;
+                        border-radius: 100px;
+                        cursor: pointer;
+                      "
+                    >
+                      Publicar no Mural ✨
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Marquee Container de Alta Tecnologia para Depoimentos -->
+            <div
+              class="kurz-marquee-container"
+              id="mural-marquee-container"
+              style="
+                margin-top: 3rem;
+                margin-bottom: 2rem;
+                overflow: hidden;
+                width: 100%;
+                border-radius: 24px;
+                padding: 24px 0;
+              "
+            >
+              <div
+                class="kurz-grid"
+                id="mural-depoimentos-grid"
+                style="
+                  animation-duration: 45s;
+                  display: flex !important;
+                  flex-direction: row !important;
+                  flex-wrap: nowrap !important;
+                  gap: 2rem !important;
+                  width: max-content !important;
+                "
+              >
+                <!-- Renderizado dinamicamente pelo JavaScript -->
+              </div>
+            </div>
           </div>
         </section>
 
@@ -1130,7 +1652,7 @@
             <h2
               style="
                 font-size: clamp(2rem, 5vw + 1rem, 2.5rem);
-                color: var(--arcane-hex);
+                color: #ffffff;
                 font-family: &quot;Space Grotesk&quot;, sans-serif;
                 text-align: center;
                 margin-bottom: 2rem;
@@ -1140,36 +1662,8 @@
             </h2>
           </div>
           <div class="design-grid container">
-            <article
-              class="reveal-item stagger-1"
-              style="
-                background: rgba(15, 23, 42, 0.4);
-                backdrop-filter: blur(10px);
-                border: 1px solid rgba(255, 255, 255, 0.05);
-                padding: 2.5rem;
-                text-align: left;
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-                border-radius: 24px;
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s ease;
-              "
-              onmouseover="this.style.transform = 'translateY(-5px)'"
-              onmouseout="this.style.transform = 'translateY(0)'"
-            >
-              <div
-                style="
-                  width: 56px;
-                  height: 56px;
-                  background: rgba(0, 229, 255, 0.1);
-                  border-radius: 16px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  color: var(--arcane-hex);
-                "
-              >
+            <article class="support-card reveal-item stagger-1">
+              <div class="support-icon-wrapper">
                 <svg
                   aria-hidden="true"
                   width="28"
@@ -1188,17 +1682,10 @@
                   <path d="m9 15 2 2 4-4"></path>
                 </svg>
               </div>
-              <h3 style="font-size: 1.3rem; margin: 0; color: #fff">
+              <h3>
                 Suporte e Resolução
               </h3>
-              <p
-                style="
-                  color: #a0aec0;
-                  line-height: 1.6;
-                  font-size: 1.05rem;
-                  margin: 0;
-                "
-              >
+              <p>
                 Comunicação empática focada em resultados. Busco ouvir
                 ativamente os usuários, compreender suas dificuldades e oferecer
                 um suporte técnico que vai direto à raiz do problema, mantendo a
@@ -1206,36 +1693,8 @@
               </p>
             </article>
 
-            <article
-              class="reveal-item stagger-2"
-              style="
-                background: rgba(15, 23, 42, 0.4);
-                backdrop-filter: blur(10px);
-                border: 1px solid rgba(255, 255, 255, 0.05);
-                padding: 2.5rem;
-                text-align: left;
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-                border-radius: 24px;
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s ease;
-              "
-              onmouseover="this.style.transform = 'translateY(-5px)'"
-              onmouseout="this.style.transform = 'translateY(0)'"
-            >
-              <div
-                style="
-                  width: 56px;
-                  height: 56px;
-                  background: rgba(216, 90, 127, 0.1);
-                  border-radius: 16px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  color: var(--su-pink);
-                "
-              >
+            <article class="support-card reveal-item stagger-2">
+              <div class="support-icon-wrapper">
                 <svg
                   aria-hidden="true"
                   width="28"
@@ -1253,17 +1712,10 @@
                   <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                 </svg>
               </div>
-              <h3 style="font-size: 1.3rem; margin: 0; color: #fff">
+              <h3>
                 Treinamento &amp; Doc
               </h3>
-              <p
-                style="
-                  color: #a0aec0;
-                  line-height: 1.6;
-                  font-size: 1.05rem;
-                  margin: 0;
-                "
-              >
+              <p>
                 Com a experiência em sala de aula, facilito a comunicação entre
                 as equipes técnicas e os usuários. Reduzo o retrabalho ao
                 transformar fluxos complexos em tutoriais e manuais visuais
@@ -1271,36 +1723,8 @@
               </p>
             </article>
 
-            <article
-              class="reveal-item stagger-3"
-              style="
-                background: rgba(15, 23, 42, 0.4);
-                backdrop-filter: blur(10px);
-                border: 1px solid rgba(255, 255, 255, 0.05);
-                padding: 2.5rem;
-                text-align: left;
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-                border-radius: 24px;
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s ease;
-              "
-              onmouseover="this.style.transform = 'translateY(-5px)'"
-              onmouseout="this.style.transform = 'translateY(0)'"
-            >
-              <div
-                style="
-                  width: 56px;
-                  height: 56px;
-                  background: rgba(245, 158, 11, 0.1);
-                  border-radius: 16px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  color: #f59e0b;
-                "
-              >
+            <article class="support-card reveal-item stagger-3">
+              <div class="support-icon-wrapper">
                 <svg
                   aria-hidden="true"
                   width="28"
@@ -1317,17 +1741,10 @@
                   <polyline points="2 12 12 17 22 12"></polyline>
                 </svg>
               </div>
-              <h3 style="font-size: 1.3rem; margin: 0; color: #fff">
+              <h3>
                 Processos Ágeis
               </h3>
-              <p
-                style="
-                  color: #a0aec0;
-                  line-height: 1.6;
-                  font-size: 1.05rem;
-                  margin: 0;
-                "
-              >
+              <p>
                 Habilidade na utilização de esteiras de dados, softwares de
                 gestão e dashboards de Power BI. Meu foco é organizar
                 informações para gerar visibilidade e relatórios que ajudem a
@@ -1346,7 +1763,7 @@
                 font-size: 1rem;
                 font-weight: 700;
                 letter-spacing: 2px;
-                color: var(--arcane-hex);
+                color: #ffffff;
                 text-transform: uppercase;
                 margin-bottom: 0.5rem;
               "
@@ -1370,48 +1787,13 @@
           >
             <article class="design-card reveal-item stagger-2">
               <div class="design-content">
-                <div
-                  style="
-                    width: 100%;
-                    height: 180px;
-                    border-radius: 12px;
-                    margin-bottom: 1.5rem;
-                    overflow: hidden;
-                    position: relative;
-                    cursor: zoom-in;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    background: rgba(0, 0, 0, 0.2);
-                  "
-                  class="hover-zoom"
-                  title="Ampliar Imagem"
-                >
+                <div class="project-thumbnail-wrapper" title="Ampliar Imagem">
                   <img
                     src="./placeholder-dashboard.jpg"
                     alt="Miniatura do Dashboard"
-                    class="project-lightbox-trigger"
-                    style="
-                      width: 100%;
-                      height: 100%;
-                      object-fit: cover;
-                      transition: transform 0.4s ease;
-                    "
-                    onmouseover="this.style.transform = 'scale(1.05)'"
-                    onmouseout="this.style.transform = 'scale(1)'"
+                    class="project-lightbox-trigger project-thumbnail-image"
                   />
-                  <div
-                    style="
-                      position: absolute;
-                      inset: 0;
-                      background: rgba(0, 0, 0, 0.4);
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      pointer-events: none;
-                      opacity: 0;
-                      transition: opacity 0.3s ease;
-                    "
-                    class="hover-overlay"
-                  >
+                  <div class="project-thumbnail-overlay">
                     <svg
                       aria-hidden="true"
                       width="24"
@@ -1429,36 +1811,12 @@
                       <line x1="8" y1="11" x2="14" y2="11"></line>
                     </svg>
                   </div>
+                  <div class="project-scroll-indicator">Preview ↕</div>
                 </div>
-                <style>
-                  .hover-zoom:hover .hover-overlay {
-                    opacity: 1 !important;
-                  }
-                  .hover-zoom:hover .project-lightbox-trigger {
-                    transform: scale(1.05) !important;
-                  }
-                </style>
                 <h3>
                   <span translate="no" class="notranslate">DashBoard</span>
                 </h3>
-                <div class="faq-item design-card-accordion">
-                  <button
-                    class="faq-question"
-                    aria-expanded="false"
-                    aria-controls="faq-desc-dashboard"
-                  >
-                    Resumo do Projeto
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                  </button>
-                  <div id="faq-desc-dashboard" class="faq-answer-wrapper">
-                    <div class="faq-answer-content">
-                      Dashboard interativo de gestão de estoque com forte foco
-                      em UI/UX. Traz gráficos dinâmicos, animações fluidas e
-                      design moderno. Desenvolvido com Next.js, Tailwind CSS e
-                      Framer Motion.
-                    </div>
-                  </div>
-                </div>
+
                 <div
                   class="btn-group"
                   style="
@@ -1474,7 +1832,7 @@
                     rel="noopener noreferrer"
                     class="btn-arcane"
                     aria-label="Ver detalhes do projeto Landing Page"
-                    >Ver Detalhes</a
+                    >Visitar Projeto</a
                   >
                 </div>
               </div>
@@ -1482,46 +1840,13 @@
 
             <article class="design-card reveal-item stagger-2">
               <div class="design-content">
-                <div
-                  style="
-                    width: 100%;
-                    height: 180px;
-                    border-radius: 12px;
-                    margin-bottom: 1.5rem;
-                    overflow: hidden;
-                    position: relative;
-                    cursor: zoom-in;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    background: rgba(0, 0, 0, 0.2);
-                  "
-                  class="hover-zoom"
-                  title="Ampliar Imagem"
-                >
+                <div class="project-thumbnail-wrapper" title="Ampliar Imagem">
                   <img
                     src="./placeholder-refugio.jpg"
                     alt="Miniatura do Refúgio Sereno"
-                    class="project-lightbox-trigger"
-                    style="
-                      width: 100%;
-                      height: 100%;
-                      object-fit: cover;
-                      transition: transform 0.4s ease;
-                    "
+                    class="project-lightbox-trigger project-thumbnail-image"
                   />
-                  <div
-                    style="
-                      position: absolute;
-                      inset: 0;
-                      background: rgba(0, 0, 0, 0.4);
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      pointer-events: none;
-                      opacity: 0;
-                      transition: opacity 0.3s ease;
-                    "
-                    class="hover-overlay"
-                  >
+                  <div class="project-thumbnail-overlay">
                     <svg
                       aria-hidden="true"
                       width="24"
@@ -1539,26 +1864,10 @@
                       <line x1="8" y1="11" x2="14" y2="11"></line>
                     </svg>
                   </div>
+                  <div class="project-scroll-indicator">Preview ↕</div>
                 </div>
                 <h3>Refúgio Sereno</h3>
-                <div class="faq-item design-card-accordion">
-                  <button
-                    class="faq-question"
-                    aria-expanded="false"
-                    aria-controls="faq-desc-refugio"
-                  >
-                    Conhecer Acessibilidade
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                  </button>
-                  <div id="faq-desc-refugio" class="faq-answer-wrapper">
-                    <div class="faq-answer-content">
-                      Gerenciador de tarefas gamificado com foco em
-                      acessibilidade cognitiva. Um projeto gratuito em fase
-                      beta, desenvolvido no meu próprio ritmo e inspirado na
-                      estética acolhedora das minhas animações favoritas.
-                    </div>
-                  </div>
-                </div>
+
                 <div
                   class="btn-group"
                   style="
@@ -1574,7 +1883,7 @@
                     rel="noopener noreferrer"
                     class="btn-arcane"
                     aria-label="Ver detalhes do projeto Landing Page"
-                    >Ver Detalhes</a
+                    >Visitar Projeto</a
                   >
                 </div>
               </div>
@@ -1582,46 +1891,13 @@
 
             <article class="design-card reveal-item stagger-2">
               <div class="design-content">
-                <div
-                  style="
-                    width: 100%;
-                    height: 180px;
-                    border-radius: 12px;
-                    margin-bottom: 1.5rem;
-                    overflow: hidden;
-                    position: relative;
-                    cursor: zoom-in;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    background: rgba(0, 0, 0, 0.2);
-                  "
-                  class="hover-zoom"
-                  title="Ampliar Imagem"
-                >
+                <div class="project-thumbnail-wrapper" title="Ampliar Imagem">
                   <img
                     src="./placeholder-portal.jpg"
                     alt="Miniatura do Portal Corporativo"
-                    class="project-lightbox-trigger"
-                    style="
-                      width: 100%;
-                      height: 100%;
-                      object-fit: cover;
-                      transition: transform 0.4s ease;
-                    "
+                    class="project-lightbox-trigger project-thumbnail-image"
                   />
-                  <div
-                    style="
-                      position: absolute;
-                      inset: 0;
-                      background: rgba(0, 0, 0, 0.4);
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      pointer-events: none;
-                      opacity: 0;
-                      transition: opacity 0.3s ease;
-                    "
-                    class="hover-overlay"
-                  >
+                  <div class="project-thumbnail-overlay">
                     <svg
                       aria-hidden="true"
                       width="24"
@@ -1639,25 +1915,10 @@
                       <line x1="8" y1="11" x2="14" y2="11"></line>
                     </svg>
                   </div>
+                  <div class="project-scroll-indicator">Preview ↕</div>
                 </div>
                 <h3>Portal Corporativo</h3>
-                <div class="faq-item design-card-accordion">
-                  <button
-                    class="faq-question"
-                    aria-expanded="false"
-                    aria-controls="faq-desc-nexus"
-                  >
-                    Ver Detalhes do Projeto
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                  </button>
-                  <div id="faq-desc-nexus" class="faq-answer-wrapper">
-                    <div class="faq-answer-content">
-                      Painel administrativo para suporte técnico e treinamentos,
-                      focado em performance e design minimalista.<br />Nota:
-                      Este projeto ainda não foi finalizado.
-                    </div>
-                  </div>
-                </div>
+
                 <div
                   class="btn-group"
                   style="
@@ -1673,7 +1934,7 @@
                     rel="noopener noreferrer"
                     class="btn-arcane"
                     aria-label="Ver detalhes do projeto Landing Page"
-                    >Ver Detalhes</a
+                    >Visitar Projeto</a
                   >
                 </div>
               </div>
@@ -1681,48 +1942,13 @@
 
             <article class="design-card reveal-item stagger-3">
               <div class="design-content">
-                <div
-                  style="
-                    width: 100%;
-                    height: 180px;
-                    border-radius: 12px;
-                    margin-bottom: 1.5rem;
-                    overflow: hidden;
-                    position: relative;
-                    cursor: zoom-in;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    background: rgba(0, 0, 0, 0.2);
-                  "
-                  class="hover-zoom"
-                  title="Ampliar Imagem"
-                >
+                <div class="project-thumbnail-wrapper" title="Ampliar Imagem">
                   <img
                     src="./placeholder-chat-ia.jpg"
                     alt="Miniatura do Chat IA"
-                    class="project-lightbox-trigger"
-                    style="
-                      width: 100%;
-                      height: 100%;
-                      object-fit: cover;
-                      transition: transform 0.4s ease;
-                    "
-                    onmouseover="this.style.transform = 'scale(1.05)'"
-                    onmouseout="this.style.transform = 'scale(1)'"
+                    class="project-lightbox-trigger project-thumbnail-image"
                   />
-                  <div
-                    style="
-                      position: absolute;
-                      inset: 0;
-                      background: rgba(0, 0, 0, 0.4);
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      pointer-events: none;
-                      opacity: 0;
-                      transition: opacity 0.3s ease;
-                    "
-                    class="hover-overlay"
-                  >
+                  <div class="project-thumbnail-overlay">
                     <svg
                       aria-hidden="true"
                       width="24"
@@ -1740,25 +1966,10 @@
                       <line x1="8" y1="11" x2="14" y2="11"></line>
                     </svg>
                   </div>
+                  <div class="project-scroll-indicator">Preview ↕</div>
                 </div>
                 <h3>Tutor IA</h3>
-                <div class="faq-item design-card-accordion">
-                  <button
-                    class="faq-question"
-                    aria-expanded="false"
-                    aria-controls="faq-desc-tutor"
-                  >
-                    Ver Detalhes do Projeto
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                  </button>
-                  <div id="faq-desc-tutor" class="faq-answer-wrapper">
-                    <div class="faq-answer-content">
-                      Chat com IA (Inteligência Artificial) focado em auxiliar
-                      nos estudos de Administração, TI e Design. Desenvolvido
-                      para oferecer um aprendizado interativo e personalizado.
-                    </div>
-                  </div>
-                </div>
+
                 <div
                   class="btn-group"
                   style="
@@ -1774,7 +1985,7 @@
                     rel="noopener noreferrer"
                     class="btn-arcane"
                     aria-label="Ver detalhes do projeto Chat IA"
-                    >Ver Detalhes</a
+                    >Visitar Projeto</a
                   >
                 </div>
               </div>
@@ -1800,22 +2011,6 @@
               visual para transformar conceitos em interfaces reais e centradas
               nas pessoas.
             </p>
-            <div
-              style="
-                margin-top: -16px;
-                display: inline-block;
-                padding: 8px 16px;
-                background: rgba(255, 255, 255, 0.05);
-                color: #bbb;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                border-radius: 20px;
-                font-size: 0.9rem;
-                font-weight: 500;
-                letter-spacing: 0.5px;
-              "
-            >
-              Em breve, uma nova guia no site com os projetos detalhados!
-            </div>
           </div>
           <div class="gallery-app-container reveal-item">
             <div class="app-slider">
@@ -2026,7 +2221,7 @@
                 font-size: 1rem;
                 font-weight: 700;
                 letter-spacing: 2px;
-                color: var(--arcane-hex);
+                color: #ffffff;
                 text-transform: uppercase;
                 margin-bottom: 0.5rem;
               "
@@ -2077,11 +2272,11 @@
             <h2
               style="
                 font-size: clamp(2rem, 5vw + 1rem, 2.5rem);
-                color: var(--arcane-hex);
+                color: #ffffff;
                 font-family: &quot;Space Grotesk&quot;, sans-serif;
                 text-align: center;
                 margin-bottom: 2.5rem;
-                text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+                text-shadow: none;
               "
               class="reveal-item"
             >
@@ -2253,8 +2448,8 @@
                   gap: 8px;
                   padding: 8px 16px;
                   border-radius: 20px;
-                  background: rgba(0, 255, 255, 0.05);
-                  border: 1px solid rgba(0, 255, 255, 0.2);
+                  background: var(--bg-contact);
+                  border: 1px solid var(--border-contact);
                   font-size: 14px;
                   transition: all 0.3s ease;
                 "
@@ -2265,7 +2460,7 @@
                     display: inline-flex;
                     align-items: center;
                     justify-content: center;
-                    color: #00ffff;
+                    color: var(--primary-accent);
                   "
                 >
                   <svg
@@ -2500,8 +2695,8 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.3/gsap.min.js"
       defer=""
     ></script>
-    <script src="./script.js" defer=""></script>
-    <script src="./gallery.js" defer=""></script>
+    <script type="module" src="./script.js"></script>
+    <script type="module" src="./gallery.js"></script>
 
     <!-- BOTÃO COMPARTILHAR -->
     <button
@@ -2551,7 +2746,7 @@
         >
           ×
         </button>
-        <div style="font-size: 3rem; margin-bottom: 1rem; color: #1769ff">
+        <div style="font-size: 3rem; margin-bottom: 1rem; color: #ffffff">
           <svg
             aria-hidden="true"
             viewBox="0 0 24 24"
@@ -2591,7 +2786,7 @@
         >
           ×
         </button>
-        <div style="font-size: 3rem; margin-bottom: 1rem; color: #ea4c89">
+        <div style="font-size: 3rem; margin-bottom: 1rem; color: #ffffff">
           <svg
             aria-hidden="true"
             viewBox="0 0 24 24"
@@ -2634,7 +2829,7 @@
         <h3
           style="
             margin-bottom: 1rem;
-            color: #25d366;
+            color: #ffffff;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -2692,6 +2887,20 @@
       </div>
     </dialog>
 
+    <dialog id="modal-fullscreen-image" class="custom-modal fullscreen-image">
+      <button
+        class="fechar-modal"
+        aria-label="Fechar Tela Cheia"
+        onclick="document.getElementById('modal-fullscreen-image').close()"
+        style="top: 20px; right: 20px; z-index: 10;"
+      >
+        ×
+      </button>
+      <div class="fullscreen-img-container" onclick="document.getElementById('modal-fullscreen-image').close()">
+        <img id="fullscreen-img" src="" alt="Tela Cheia" />
+      </div>
+    </dialog>
+
     <dialog id="modal-lightbox" class="custom-modal lightbox">
       <div class="modal-content lightbox-content">
         <button
@@ -2701,7 +2910,79 @@
         >
           ×
         </button>
-        <img id="lightbox-img" src="" alt="Imagem Ampliada" />
+        <div class="lightbox-wrapper" id="lightbox-wrapper">
+          <div class="lightbox-image-side">
+            <img id="lightbox-img" src="" alt="Imagem Ampliada" />
+          </div>
+          <div class="lightbox-info-side" id="lightbox-info-side">
+            <span id="lightbox-category" class="lightbox-category"
+              >UX/UI Design</span
+            >
+            <h2 id="lightbox-title" class="lightbox-title">Projeto</h2>
+
+            <div class="lightbox-section">
+              <h3>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  style="
+                    display: inline;
+                    margin-right: 6px;
+                    vertical-align: middle;
+                    color: #ffffff;
+                  "
+                >
+                  <polygon
+                    points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
+                  ></polygon>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                O Desafio
+              </h3>
+              <p id="lightbox-challenge">Descrição do desafio...</p>
+            </div>
+
+            <div class="lightbox-section">
+              <h3>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  style="
+                    display: inline;
+                    margin-right: 6px;
+                    vertical-align: middle;
+                    color: #ffffff;
+                  "
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                A Solução
+              </h3>
+              <p id="lightbox-solution">Descrição da solução...</p>
+            </div>
+
+            <div class="lightbox-section">
+              <h3>Tecnologias</h3>
+              <div id="lightbox-tech" class="lightbox-tech-tags">
+                <span>Figma</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </dialog>
 

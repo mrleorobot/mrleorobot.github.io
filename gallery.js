@@ -73,7 +73,7 @@ if (cardsContainerEl) {
         {
           duration: 0.4,
           stagger: 0.1,
-          translateY: "-120px",
+          translateY: "-40px",
           opacity: 0,
         },
         "-="
@@ -94,7 +94,7 @@ if (cardsContainerEl) {
         currentInfoEl.querySelectorAll(".text"),
         {
           opacity: 0,
-          translateY: "40px",
+          translateY: "20px",
         },
         {
           duration: 0.4,
@@ -182,7 +182,7 @@ if (cardsContainerEl) {
       "--card-translateY-offset": "100vh",
     });
     
-    infos.forEach(i => gsap.set(i.querySelectorAll(".text"), { translateY: "40px", opacity: 0 }));
+    infos.forEach(i => gsap.set(i.querySelectorAll(".text"), { translateY: "20px", opacity: 0 }));
     
     gsap.set([buttons.prev, buttons.next], {
       pointerEvents: "none",

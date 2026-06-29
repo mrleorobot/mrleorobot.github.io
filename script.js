@@ -15,7 +15,7 @@ window.scrollTo(0, 0);
 // Easter Egg para Recrutadores Técnicos
 console.log(
   "%c Olá, Tech Recruiter ou Tech Lead! %c\n\nVejo que você gosta de olhar debaixo do capô. Este portfólio é 100% Vanilla JS, com Tipografia Fluida, Acessibilidade Sensorial, Busca Fuzzy e Cache de API no LocalStorage.\n\nSe gostou da organização e da atenção aos detalhes, vamos conversar sobre a próxima vaga da sua equipe!",
-  "color: #00e5ff; font-size: 20px; font-weight: bold; text-shadow: 1px 1px 0 #ff00ff;",
+  "color: #ffffff; font-size: 20px; font-weight: bold; text-shadow: 1px 1px 0 #ffffff;",
   "color: #a0aec0; font-size: 14px; line-height: 1.5;",
 );
 
@@ -29,7 +29,7 @@ function initHeroParticles() {
 
   let particles = [];
   const particleCount = window.innerWidth < 768 ? 25 : 60; // Even fewer for performance on mobile
-  const colors = ["#00e5ff", "#ff7b9c", "#ffeb3b", "#ffffff"];
+  const colors = ["#ffffff", "#e5e5e5", "#a3a3a3", "#525252"];
   const mouse = { x: null, y: null, radius: 100 }; // Constrain interaction area for speed
 
   let heroOffsetTop = 0;
@@ -245,9 +245,6 @@ function initHeroParallax() {
     let roundedY = Math.round(mouseY * 100) / 100;
 
     if (roundedX !== lastMouseX || roundedY !== lastMouseY) {
-      if (title) {
-        title.style.transform = `skew(-1deg) translate3d(${roundedX * 1.2}px, ${roundedY * 1.2}px, 50px)`;
-      }
       if (canvas) {
         canvas.style.transform = `scale(1.1) translate3d(${roundedX * 0.5}px, ${roundedY * 0.5}px, 0)`;
       }
@@ -393,18 +390,30 @@ function initTimelineScroll() {
   );
 }
 
-// Inicializa todas as funções quando o DOM estiver pronto
+// Inicializa todas as funções quando o DOM estiver pronto com proteção robusta de try-catch individual
 document.addEventListener("DOMContentLoaded", () => {
-  initHeroParticles();
-  initHeroParallax();
-  initTypewriter();
-  initCinematicScroll();
-  initSearchAndMenu();
-  initLogoParallax();
-  initStatusParallax();
-  initInteractiveRipples();
-  initTimelineScroll();
-  initSpotlight();
+  const initSafe = (fn, name) => {
+    try {
+      fn();
+    } catch (e) {
+      console.error(`Erro ao inicializar ${name}:`, e);
+    }
+  };
+
+  initSafe(setupDynamicTabs, "setupDynamicTabs");
+  initSafe(initHeroParticles, "initHeroParticles");
+  initSafe(initHeroParallax, "initHeroParallax");
+  initSafe(initTypewriter, "initTypewriter");
+  initSafe(initCinematicScroll, "initCinematicScroll");
+  initSafe(initSearchAndMenu, "initSearchAndMenu");
+  initSafe(initLogoParallax, "initLogoParallax");
+  initSafe(initInteractiveRipples, "initInteractiveRipples");
+  initSafe(initTimelineScroll, "initTimelineScroll");
+  initSafe(initSpotlight, "initSpotlight");
+  initSafe(initTabSystem, "initTabSystem");
+  initSafe(initScrollProgressBar, "initScrollProgressBar");
+  initSafe(initMuralDepoimentos, "initMuralDepoimentos");
+  initSafe(initPremiumCursor, "initPremiumCursor");
 });
 
 // --------------------------------------------------------
@@ -495,23 +504,70 @@ function initSearchAndMenu() {
     };
   }
 
+  // --------------------------------------------------------
+  // Skills Infinite Scrolling (Vertical Marquee Cloning)
+  // --------------------------------------------------------
+  const marqueeGrids = [
+    document.getElementById("skills-marquee-grid"),
+    document.getElementById("skills-marquee-grid-2"),
+  ];
+
+  marqueeGrids.forEach((grid) => {
+    if (grid) {
+      const originalCards = Array.from(grid.children);
+      originalCards.forEach((card) => {
+        const clone = card.cloneNode(true);
+        clone.classList.add("clone");
+        clone.setAttribute("aria-hidden", "true");
+        clone.setAttribute("tabindex", "-1");
+        // Remove scroll reveal animation classes from clones to prevent conflict
+        clone.classList.remove(
+          "reveal-item",
+          "stagger-1",
+          "stagger-2",
+          "stagger-3",
+        );
+        grid.appendChild(clone);
+      });
+    }
+  });
+
   // Search Filter
   const searchInput = document.getElementById("searchInput");
+  const marqueeContainer = document.getElementById("skills-marquee-container");
   if (searchInput) {
     const handleSearch = debounce((e) => {
-      const term = e.target.value.toLowerCase();
-      // Select both inventory cards and project cards
-      const cards = document.querySelectorAll(".kurz-card, .ut-card");
+      const term = e.target.value.toLowerCase().trim();
+      // Select both inventory cards, project cards, and skills cards
+      const cards = document.querySelectorAll(
+        ".kurz-card, .ut-card, .kurz-skill-card",
+      );
 
-      cards.forEach((card) => {
-        const text = card.innerText.toLowerCase();
-        if (text.includes(term)) {
-          card.style.display = "";
-          card.classList.add("revealed"); // Force showing if searched
-        } else {
-          card.style.display = "none";
+      if (term) {
+        if (marqueeContainer) {
+          marqueeContainer.classList.add("searching");
         }
-      });
+        cards.forEach((card) => {
+          if (card.classList.contains("clone")) {
+            card.style.display = "none";
+            return;
+          }
+          const text = card.innerText.toLowerCase();
+          if (text.includes(term)) {
+            card.style.display = "";
+            card.classList.add("revealed"); // Force showing if searched
+          } else {
+            card.style.display = "none";
+          }
+        });
+      } else {
+        if (marqueeContainer) {
+          marqueeContainer.classList.remove("searching");
+        }
+        cards.forEach((card) => {
+          card.style.display = "";
+        });
+      }
     }, 300);
 
     searchInput.addEventListener("input", handleSearch);
@@ -531,7 +587,9 @@ const iconMoon =
   '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
 
 // Check local storage for preference
-const savedTheme = localStorage.getItem("portfolioTheme");
+// Force dark mode for Velvet Violet Obsidian theme showcase
+localStorage.removeItem("portfolioTheme");
+const savedTheme = "dark";
 if (savedTheme === "light") {
   body.classList.add("light-mode");
   // Força a atualização do design no Undertale se foi carregado inicialmente claro
@@ -677,7 +735,7 @@ if (btnCopiarEmail) {
         } else {
           btnCopiarEmail.innerHTML = "E-mail copiado!";
         }
-        btnCopiarEmail.style.background = "#00a0b3"; // Arcane hex tint
+        btnCopiarEmail.style.background = "#ffffff"; // Arcane hex tint
         btnCopiarEmail.classList.add("copied-feedback");
 
         if (toastNotificacao) {
@@ -719,6 +777,47 @@ if (btnCopiarEmail) {
         if (currentRipple) currentRipple.remove();
       }
     }, 350); // let ripple expand before changing text
+  });
+}
+
+// --------------------------------------------------------
+// 7.1. Vertical Ticker Card Interaction Logic
+// --------------------------------------------------------
+const tickerItems = document.querySelectorAll(".ticker-item");
+if (tickerItems.length > 0 && toastNotificacao) {
+  let tickerTimeout;
+  tickerItems.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      const title = item.getAttribute("data-title");
+      const desc = item.getAttribute("data-desc");
+
+      // Setup micro-interaction ripple
+      const rect = item.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const ripple = document.createElement("span");
+      ripple.classList.add("ripple-span");
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      item.appendChild(ripple);
+
+      if (navigator.vibrate) {
+        navigator.vibrate(30);
+      }
+
+      // Display high-fidelity detailed notification toast
+      clearTimeout(tickerTimeout);
+      toastNotificacao.innerHTML = `<strong>${title}:</strong> ${desc}`;
+      toastNotificacao.classList.remove("toast-escondido");
+      toastNotificacao.classList.add("toast-visivel");
+
+      tickerTimeout = setTimeout(() => {
+        toastNotificacao.classList.remove("toast-visivel");
+        toastNotificacao.classList.add("toast-escondido");
+        ripple.remove();
+      }, 5000);
+    });
   });
 }
 
@@ -922,12 +1021,24 @@ async function fetchRecentRepos() {
       return;
     }
 
+    const localObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            localObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+    );
+
     repos.forEach((repo, i) => {
       const article = document.createElement("article");
       article.className = `design-card reveal-item stagger-${(i % 3) + 1} active`;
       article.style.padding = "1.25rem";
       article.style.borderRadius = "16px";
-      article.style.background = "rgba(40, 48, 64, 0.4)";
+      article.style.background = "rgba(10, 10, 10, 0.6)";
       article.style.border = "1px solid rgba(255, 255, 255, 0.05)";
       article.style.display = "flex";
       article.style.flexDirection = "column";
@@ -956,6 +1067,7 @@ async function fetchRecentRepos() {
          </div>
        `;
       container.appendChild(article);
+      localObserver.observe(article);
     });
   };
 
@@ -1031,12 +1143,12 @@ function verificarDisponibilidade() {
   const isSabado = diaDaSemana === 6 && hora >= 8 && hora < 17;
 
   if (isDiaDeSemana || isSabado) {
-    bolinhaElement.style.backgroundColor = "#00ff00";
-    bolinhaElement.style.boxShadow = "0 0 10px rgba(0, 255, 0, 0.8)";
+    bolinhaElement.style.backgroundColor = "#ffffff";
+    bolinhaElement.style.boxShadow = "0 0 10px rgba(255, 255, 255, 0.8)";
     textoElement.innerText = "Online - Disponível para contato";
   } else {
-    bolinhaElement.style.backgroundColor = "#ffb703";
-    bolinhaElement.style.boxShadow = "0 0 10px rgba(255, 183, 3, 0.8)";
+    bolinhaElement.style.backgroundColor = "#ffffff";
+    bolinhaElement.style.boxShadow = "0 0 10px rgba(255, 255, 255, 0.8)";
     textoElement.innerText = "Offline - Recarregando as baterias";
   }
 }
@@ -1139,7 +1251,7 @@ if (btnTopo) {
 // Easter Egg: PokeAPI
 console.log(
   "%cOlá, Tech Recruiter! Vi que você gosta de olhar os bastidores. Digite a palavra pixel no teclado para uma surpresa. ",
-  "color: #00e5ff; font-size: 14px; font-weight: bold; background: #030712; padding: 10px; border-radius: 5px;",
+  "color: #ffffff; font-size: 14px; font-weight: bold; background: #06040d; padding: 10px; border-radius: 5px;",
 );
 
 let secretCode = "pixel";
@@ -1201,50 +1313,7 @@ async function activateEasterEgg() {
 }
 
 function initLogoParallax() {
-  const logo = document.querySelector(".logo");
-  if (!logo) return;
-
-  let logoOffsetTop = 0;
-  let logoOffsetLeft = 0;
-  let logoWidth = 0;
-  let logoHeight = 0;
-
-  const updateLogoRect = () => {
-    const rect = logo.getBoundingClientRect();
-    logoOffsetTop = rect.top + window.scrollY;
-    logoOffsetLeft = rect.left + window.scrollX;
-    logoWidth = rect.width;
-    logoHeight = rect.height;
-  };
-
-  window.addEventListener("resize", updateLogoRect, { passive: true });
-  updateLogoRect();
-
-  let rafId = null;
-  logo.addEventListener(
-    "mousemove",
-    (e) => {
-      if (!rafId) {
-        rafId = window.requestAnimationFrame(() => {
-          const x = e.pageX - logoOffsetLeft - logoWidth / 2;
-          const y = e.pageY - logoOffsetTop - logoHeight / 2;
-
-          // Move in opposite direction
-          logo.style.transform = `translate3d(${-x * 0.15}px, ${-y * 0.15}px, 0)`;
-          rafId = null;
-        });
-      }
-    },
-    { passive: true },
-  );
-
-  logo.addEventListener("mouseleave", () => {
-    if (rafId) {
-      window.cancelAnimationFrame(rafId);
-      rafId = null;
-    }
-    logo.style.transform = "translate3d(0, 0, 0)";
-  });
+  // Efeito removido a pedido do usuário
 }
 
 function initInteractiveRipples() {
@@ -1277,57 +1346,11 @@ function initInteractiveRipples() {
 }
 
 function initStatusParallax() {
-  const cards = document.querySelectorAll(".status-card");
-
-  cards.forEach((card) => {
-    const logo = card.querySelector(".status-logo");
-    if (!logo) return;
-
-    let rafId = null;
-    let rect = null;
-
-    card.addEventListener("mouseenter", () => {
-      rect = card.getBoundingClientRect();
-    });
-
-    card.addEventListener(
-      "mousemove",
-      (e) => {
-        if (!rafId && rect) {
-          rafId = window.requestAnimationFrame(() => {
-            // Recalculate if scrolled
-            rect = card.getBoundingClientRect();
-
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-
-            const isEtep = logo.classList.contains("status-logo-etep");
-            const isEsteadeb = logo.classList.contains("status-logo-esteadeb");
-
-            let baseScale = 1.3;
-            if (isEtep) baseScale = 1.6;
-            if (isEsteadeb) baseScale = 1.4;
-
-            logo.style.transform = `scale(${baseScale}) translate3d(${-x * 0.05}px, ${-y * 0.05 - 4}px, 0)`;
-            rafId = null;
-          });
-        }
-      },
-      { passive: true },
-    );
-
-    card.addEventListener("mouseleave", () => {
-      if (rafId) {
-        window.cancelAnimationFrame(rafId);
-        rafId = null;
-      }
-      logo.style.transform = "";
-    });
-  });
+  // Desativado a pedido do usuário para remover efeito grosseiro de ampliação
 }
 
 // --------------------------------------------------------
-// 13. Ghibli/Nature Inspired UI Sounds (Web Audio API)
+// 13. Premium UI Sounds (Minimalist, Dark & Crisp)
 // --------------------------------------------------------
 const soundToggleBtn = document.getElementById("soundToggleBtn");
 let soundEnabled = true;
@@ -1359,27 +1382,28 @@ function initAudio() {
 function playHoverSound() {
   if (!soundEnabled) return;
   if (!audioCtx) initAudio();
-  if (audioCtx.state === "suspended") return; // Don't play if still suspended
+  if (audioCtx.state === "suspended") return;
 
   const oscillator = audioCtx.createOscillator();
   const gainNode = audioCtx.createGain();
 
+  // Subtle low thump for hover
   oscillator.type = "sine";
-  oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // Note A4
+  oscillator.frequency.setValueAtTime(100, audioCtx.currentTime);
   oscillator.frequency.exponentialRampToValueAtTime(
-    660,
-    audioCtx.currentTime + 0.1,
-  ); // Slide up towards E5
+    40,
+    audioCtx.currentTime + 0.05
+  );
 
   gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-  gainNode.gain.linearRampToValueAtTime(0.02, audioCtx.currentTime + 0.05);
-  gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+  gainNode.gain.linearRampToValueAtTime(0.015, audioCtx.currentTime + 0.01);
+  gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
 
   oscillator.connect(gainNode);
   gainNode.connect(audioCtx.destination);
 
   oscillator.start();
-  oscillator.stop(audioCtx.currentTime + 0.2);
+  oscillator.stop(audioCtx.currentTime + 0.05);
 }
 
 function playClickSound() {
@@ -1389,22 +1413,23 @@ function playClickSound() {
   const oscillator = audioCtx.createOscillator();
   const gainNode = audioCtx.createGain();
 
-  oscillator.type = "triangle";
-  oscillator.frequency.setValueAtTime(660, audioCtx.currentTime); // Note E5
+  // Crisp modern tap for click
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
   oscillator.frequency.exponentialRampToValueAtTime(
-    440,
-    audioCtx.currentTime + 0.15,
-  ); // Slide down
+    150,
+    audioCtx.currentTime + 0.05
+  );
 
   gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-  gainNode.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.02);
-  gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+  gainNode.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.01);
+  gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
 
   oscillator.connect(gainNode);
   gainNode.connect(audioCtx.destination);
 
   oscillator.start();
-  oscillator.stop(audioCtx.currentTime + 0.3);
+  oscillator.stop(audioCtx.currentTime + 0.1);
 }
 
 if (soundToggleBtn) {
@@ -1472,18 +1497,173 @@ if (modalWpp) {
 
 const modalLightbox = document.getElementById("modal-lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
+const lightboxTitle = document.getElementById("lightbox-title");
+const lightboxCategory = document.getElementById("lightbox-category");
+const lightboxChallenge = document.getElementById("lightbox-challenge");
+const lightboxSolution = document.getElementById("lightbox-solution");
+const lightboxTech = document.getElementById("lightbox-tech");
+const lightboxWrapper = document.getElementById("lightbox-wrapper");
+const lightboxInfoSide = document.getElementById("lightbox-info-side");
+
+const projectDetails = {
+  "placeholder-dashboard": {
+    title: "Dashboard de Gestão",
+    category: "Web & Front-end Development",
+    challenge:
+      "Organizar e resumir dados densos de inventário de forma legível, fluida e esteticamente agradável para tomadores de decisão.",
+    solution:
+      "Criação de um painel interativo utilizando Next.js, Tailwind CSS e Framer Motion. Traz gráficos dinâmicos, animações fluidas e filtragem instantânea de métricas.",
+    tech: ["Next.js", "Tailwind CSS", "Framer Motion", "Recharts"],
+  },
+  "placeholder-refugio": {
+    title: "Refúgio Sereno",
+    category: "UX/UI Design & Acessibilidade",
+    challenge:
+      "Facilitar a rotina diária de pessoas com TDAH e autismo leve, as quais frequentemente sofrem com sobrecarga cognitiva em interfaces convencionais.",
+    solution:
+      "Gerenciador de tarefas gamificado e acolhedor, utilizando contrastes suaves baseados na psicologia das cores, fontes altamente legíveis e feedbacks calmos.",
+    tech: ["HTML5", "Sass", "JavaScript (ES6)", "Vanilla Motion"],
+  },
+  "placeholder-portal": {
+    title: "Portal Corporativo",
+    category: "Full-stack & Enterprise Design",
+    challenge:
+      "Criar uma interface administrativa unificada para suporte técnico interno e gestão de treinamentos operacionais de forma otimizada.",
+    solution:
+      "Painel administrativo minimalista com fendas laterais flutuantes, tabelas responsivas otimizadas e gerenciamento ágil de relatórios de auditoria.",
+    tech: ["React", "CSS Modules", "ChartJS", "Node.js"],
+  },
+  "placeholder-chat-ia": {
+    title: "Tutor IA",
+    category: "Artificial Intelligence UI",
+    challenge:
+      "Prover um tutor personalizado e sempre disponível para tirar dúvidas sobre Administração, TI e Design para estudantes.",
+    solution:
+      "Interface de chat conversacional fluida com renderização em Markdown, respostas de streaming, e categorização rápida de matérias estudadas.",
+    tech: ["Next.js", "Gemini API", "Tailwind CSS", "LocalCache API"],
+  },
+  "mockup-convite": {
+    title: "Convite Digital",
+    category: "UX/UI Design",
+    challenge:
+      "Modernizar o formato tradicional de convites físicos de eventos para um formato dinâmico, interativo e compartilhável.",
+    solution:
+      "Desenvolvimento de um convite digital de alta fidelidade com micro-interações elegantes de RSVP, integração direta com mapas de rotas e animações sutis de constelações.",
+    tech: ["Figma", "Design de Interação", "Prototipagem de Fluxos"],
+  },
+  "mockup-hamburgueria": {
+    title: "Menu Digital",
+    category: "Visual Identity & Front-end Layout",
+    challenge:
+      "Criar um cardápio digital otimizado para celulares, que reduza a fricção de compra e evite a dispersão visual.",
+    solution:
+      "Estruturação em bento grid focado em usabilidade, com cores quentes baseadas em psicologia alimentar para destacar itens em alta, com adição de barra de busca instantânea.",
+    tech: ["Photoshop", "Illustrator", "Grid System Design"],
+  },
+  "mockup-logo": {
+    title: "LDS Magazine Branding",
+    category: "Corporate Identity",
+    challenge:
+      "Projetar uma marca memorável de luxo e alto padrão que comunique sofisticação, precisão e minimalismo.",
+    solution:
+      "Logotipo desenhado a partir de grids geométricos perfeitos, com tipografia personalizada em serifado clássico e paleta baseada em tons de terra e champanhe.",
+    tech: ["Illustrator", "Teoria de Grid", "Manual de Identidade"],
+  },
+  "mockup-editorial": {
+    title: "LDS Magazine Editorial",
+    category: "Editorial Design",
+    challenge:
+      "Diagramar um artigo longo e complexo de forma a convidar a uma leitura tranquila e absorção aprofundada.",
+    solution:
+      "Direção de arte editorial aplicando grids assimétricos de colunas, tipografia com alto contraste e respiros generosos no layout, evitando fadiga de leitura.",
+    tech: ["InDesign", "Diagramação", "Tipografia Avançada"],
+  },
+  "mockup-pixelart": {
+    title: "Creative C. Pixel Art",
+    category: "Retro Visual Assets",
+    challenge:
+      "Criar um ambiente imersivo, nostálgico e autêntico de RPG retrô para projetos pessoais e marcas criativas.",
+    solution:
+      "Criação de sprites e paleta de cores reduzida de 16-bits. O design busca guiar as interações de forma lúdica através de elementos clássicos de jogos pixelados.",
+    tech: ["Aseprite", "Pixel Art Theory", "Nostalgic UX"],
+  },
+  "mockup-psicologia": {
+    title: "Estudo: Cores & UX",
+    category: "Design Research",
+    challenge:
+      "Sistematizar o impacto das decisões cromáticas no comportamento dos usuários em produtos de saúde digital.",
+    solution:
+      "Um artigo científico prático que compila paletas testadas, métricas de conversão e acessibilidade para interfaces de bem-estar social.",
+    tech: [
+      "Análise Qualitativa",
+      "Heurísticas de Jakob",
+      "Acessibilidade WCAG",
+    ],
+  },
+};
+
 if (modalLightbox && lightboxImg) {
   // Attach to all images inside gallery wrapper and project thumbnails
   document
     .querySelectorAll(".cards__wrapper img, .project-lightbox-trigger")
     .forEach((img) => {
       img.addEventListener("click", () => {
-        lightboxImg.src = img.src;
+        let targetImg = img;
+        if (!img.src && img.querySelector("img")) {
+          targetImg = img.querySelector("img");
+        }
+
+        const srcAttr = targetImg.getAttribute("src") || "";
+        const srcFile = srcAttr.split("/").pop() || "";
+        const key = srcFile.split(".")[0] || "";
+
+        lightboxImg.src = targetImg.src || srcAttr;
+
+        const details = projectDetails[key];
+        if (
+          details &&
+          lightboxTitle &&
+          lightboxCategory &&
+          lightboxChallenge &&
+          lightboxSolution &&
+          lightboxTech
+        ) {
+          lightboxTitle.textContent = details.title;
+          lightboxCategory.textContent = details.category;
+          lightboxChallenge.textContent = details.challenge;
+          lightboxSolution.textContent = details.solution;
+
+          lightboxTech.innerHTML = "";
+          details.tech.forEach((t) => {
+            const span = document.createElement("span");
+            span.textContent = t;
+            lightboxTech.appendChild(span);
+          });
+
+          if (lightboxInfoSide) lightboxInfoSide.style.display = "flex";
+          if (lightboxWrapper)
+            lightboxWrapper.style.gridTemplateColumns = "1.1fr 0.9fr";
+        } else {
+          if (lightboxInfoSide) lightboxInfoSide.style.display = "none";
+          if (lightboxWrapper)
+            lightboxWrapper.style.gridTemplateColumns = "1fr";
+        }
+
         modalLightbox.showModal();
       });
-      // Change cursor to indicate it's clickable (for desktop)
       img.style.cursor = "zoom-in";
     });
+}
+
+const modalFullscreen = document.getElementById("modal-fullscreen-image");
+const fullscreenImg = document.getElementById("fullscreen-img");
+
+if (lightboxImg && modalFullscreen && fullscreenImg) {
+  lightboxImg.addEventListener("click", () => {
+    fullscreenImg.src = lightboxImg.src;
+    fullscreenImg.alt = lightboxImg.alt;
+    modalFullscreen.showModal();
+  });
 }
 
 // Close modals when clicking outside
@@ -1572,4 +1752,626 @@ if (langToggleBtn) {
     updateLangButton();
     triggerGoogleTranslate(isEnglish ? "en" : "pt");
   });
+}
+
+// --------------------------------------------------------
+// Scroll Spy & Navigation Links Handling (No-tab Continuous Landing Page)
+// --------------------------------------------------------
+function setupDynamicTabs() {
+  // Discarded because user requested a complete continuous landing page on a single screen scroll.
+  // We keep the method defined so it doesn't cause script errors, but do not execute any DOM manipulation.
+}
+
+function initTabSystem() {
+  const navLinks = document.querySelectorAll(".nav-links a, .logo");
+
+  // Intercept all navigation links and add smooth scroll
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href");
+      if (href && href.startsWith("#") && href !== "#") {
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          // Close mobile menu if open
+          const navLinksContainer = document.querySelector(".nav-links");
+          const hamburger = document.querySelector(".hamburger");
+          if (
+            navLinksContainer &&
+            navLinksContainer.classList.contains("active")
+          ) {
+            navLinksContainer.classList.remove("active");
+            if (hamburger) hamburger.setAttribute("aria-expanded", "false");
+          }
+
+          // Smooth scroll to target element
+          const offset = 80; // height of fixed header to prevent overlapping
+          const bodyRect = document.body.getBoundingClientRect().top;
+          const elementRect = targetElement.getBoundingClientRect().top;
+          const elementPosition = elementRect - bodyRect;
+          const offsetPosition = elementPosition - offset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+
+          // Update hash in URL
+          history.pushState(null, null, href);
+        }
+      }
+    });
+  });
+
+  // Scroll Spy using IntersectionObserver to update active state of navbar links dynamically!
+  const spySections = ["hero", "sobre", "tech-stack", "projetos", "cta-final"];
+  const options = {
+    root: null,
+    rootMargin: "-20% 0px -60% 0px", // triggers when section enters the viewport nicely
+    threshold: 0,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute("id");
+
+        // Find corresponding link
+        document.querySelectorAll(".nav-tab-link").forEach((link) => {
+          const href = link.getAttribute("href");
+          if (href === `#${id}`) {
+            link.classList.add("active");
+          } else {
+            link.classList.remove("active");
+          }
+        });
+      }
+    });
+  }, options);
+
+  spySections.forEach((sectionId) => {
+    const el = document.getElementById(sectionId);
+    if (el) observer.observe(el);
+  });
+}
+
+function initScrollProgressBar() {
+  const progressBar = document.getElementById("header-scroll-progress");
+  if (!progressBar) return;
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight <= 0) {
+        progressBar.style.width = "0%";
+        return;
+      }
+      let scrollPercent = (scrollTop / docHeight) * 100;
+      if (scrollPercent < 0) scrollPercent = 0;
+      if (scrollPercent > 100) scrollPercent = 100;
+      progressBar.style.width = `${scrollPercent}%`;
+    },
+    { passive: true },
+  );
+}
+
+// Cursor glow logic removed
+
+// --------------------------------------------------------
+// 12. Mural de Depoimentos & Feedback Hub Interativo
+// --------------------------------------------------------
+function initMuralDepoimentos() {
+  const gridElement = document.getElementById("mural-depoimentos-grid");
+  const formWrapper = document.getElementById("mural-form-wrapper");
+  const formElement = document.getElementById("mural-form");
+  const btnAbrirForm = document.getElementById("btn-abrir-mural-form");
+  const btnCancelarForm = document.getElementById("btn-cancelar-mural-form");
+  const filterButtons = document.querySelectorAll(".feedback-filter-btn");
+  const starsContainer = document.getElementById("mural-rating-container");
+
+  if (!gridElement) return;
+
+  // Comentários Padrão
+  const defaultComments = [
+    {
+      id: "c1",
+      name: "Arthur Medeiros",
+      type: "aluno",
+      text: "O Professor Leo tem uma paciência incrível para explicar conceitos difíceis. Graças à sua didática, consegui entender a lógica por trás do código sem me sentir frustrado.",
+      role: "Ex-Aluno de Web Design",
+      date: "Dez/2025",
+      rating: 5,
+      avatar: "AM",
+      color: "linear-gradient(135deg, #111111, #333333)",
+    },
+    {
+      id: "c2",
+      name: "Jennyfer",
+      type: "colega",
+      text: "Trabalhar com ele é ter a certeza de que os processos técnicos estarão sempre organizados e acessíveis. Ele consegue simplificar o uso de sistemas para qualquer pessoa da equipe.",
+      role: "Colega de Administração",
+      date: "Out/2025",
+      rating: 5,
+      avatar: "JE",
+      color: "linear-gradient(135deg, #222222, #444444)",
+    },
+    {
+      id: "c3",
+      name: "Julio Nogueira",
+      type: "aluno",
+      text: "As aulas de informática eram muito visuais e fáceis de acompanhar. Ele realmente se importa em garantir que o aluno não apenas decore, mas entenda a ferramenta.",
+      role: "Ex-Aluno de Informática",
+      date: "Nov/2025",
+      rating: 5,
+      avatar: "JN",
+      color: "linear-gradient(135deg, #333333, #555555)",
+    },
+  ];
+
+  // Cores de gradiente exclusivas para novos avatares
+  const avatarGradients = [
+    "linear-gradient(135deg, #111111, #333333)", // Mono 1
+    "linear-gradient(135deg, #222222, #444444)", // Mono 2
+    "linear-gradient(135deg, #333333, #555555)", // Mono 3
+    "linear-gradient(135deg, #1a1a1a, #2a2a2a)", // Mono 4
+    "linear-gradient(135deg, #444444, #666666)", // Mono 5
+    "linear-gradient(135deg, #0a0a0a, #1a1a1a)", // Charcoal/Slate
+  ];
+
+  let comments = [];
+  try {
+    const saved = localStorage.getItem("mural_comments");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        // Filtra os comentários salvos para remover duplicatas dos padrões pelo id ou nome
+        const savedNonDefault = parsed.filter(
+          (c) =>
+            !defaultComments.some(
+              (dc) =>
+                dc.id === c.id ||
+                dc.name.toLowerCase() === c.name.toLowerCase(),
+            ),
+        );
+        comments = [...defaultComments, ...savedNonDefault];
+      } else {
+        comments = [...defaultComments];
+      }
+    } else {
+      comments = [...defaultComments];
+    }
+    localStorage.setItem("mural_comments", JSON.stringify(comments));
+  } catch (e) {
+    console.error("Erro ao carregar comentários do localStorage", e);
+    comments = [...defaultComments];
+  }
+
+  let activeFilter = "all";
+  let ratingValue = 5;
+
+  // Inicializa cliques nas estrelas do formulário
+  if (starsContainer) {
+    const starButtons = starsContainer.querySelectorAll(".star-btn");
+    starButtons.forEach((starBtn) => {
+      starBtn.addEventListener("click", () => {
+        const val = parseInt(starBtn.getAttribute("data-value"));
+        ratingValue = val;
+
+        // Atualiza estilo visual das estrelas
+        starButtons.forEach((btn) => {
+          const btnVal = parseInt(btn.getAttribute("data-value"));
+          if (btnVal <= val) {
+            btn.classList.add("active");
+            btn.style.color = "#ffffff";
+            btn.style.transform = "scale(1.15)";
+          } else {
+            btn.classList.remove("active");
+            btn.style.color = "rgba(255,255,255,0.15)";
+            btn.style.transform = "scale(1)";
+          }
+        });
+      });
+
+      // Efeito hover simples
+      starBtn.addEventListener("mouseover", () => {
+        starBtn.style.transform = "scale(1.3)";
+      });
+      starBtn.addEventListener("mouseout", () => {
+        const val = parseInt(starBtn.getAttribute("data-value"));
+        if (val <= ratingValue) {
+          starBtn.style.transform = "scale(1.15)";
+        } else {
+          starBtn.style.transform = "scale(1)";
+        }
+      });
+    });
+  }
+
+  // Abre e fecha o formulário
+  if (btnAbrirForm && formWrapper) {
+    btnAbrirForm.addEventListener("click", () => {
+      // Toca som de clique se useSound estiver disponível
+      if (window.soundEnabled && typeof AudioContext !== "undefined") {
+        // Toca feedback sonoro sutil
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.setValueAtTime(520, ctx.currentTime);
+        gain.gain.setValueAtTime(0.04, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.15);
+      }
+
+      if (
+        formWrapper.style.maxHeight === "0px" ||
+        !formWrapper.style.maxHeight
+      ) {
+        formWrapper.style.maxHeight = formWrapper.scrollHeight + "px";
+        formWrapper.style.opacity = "1";
+        btnAbrirForm.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+          Fechar Formulário
+        `;
+        // Scroll suave até o formulário
+        setTimeout(() => {
+          formWrapper.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }, 150);
+      } else {
+        fecharFormulario();
+      }
+    });
+  }
+
+  if (btnCancelarForm) {
+    btnCancelarForm.addEventListener("click", () => {
+      fecharFormulario();
+    });
+  }
+
+  function fecharFormulario() {
+    if (!formWrapper) return;
+    formWrapper.style.maxHeight = "0";
+    formWrapper.style.opacity = "0";
+    if (btnAbrirForm) {
+      btnAbrirForm.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
+          <path d="M12 20h9"></path>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+        </svg>
+        Escrever Depoimento
+      `;
+    }
+    if (formElement) {
+      formElement.reset();
+      ratingValue = 5;
+      const stars = starsContainer
+        ? starsContainer.querySelectorAll(".star-btn")
+        : [];
+      stars.forEach((s) => {
+        s.classList.add("active");
+        s.style.color = "#ffffff";
+        s.style.transform = "scale(1.15)";
+      });
+    }
+  }
+
+  // Filtragem dos depoimentos
+  filterButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterButtons.forEach((b) => {
+        b.classList.remove("active");
+        b.style.background = "transparent";
+        b.style.borderColor = "rgba(255, 255, 255, 0.05)";
+        b.style.color = "#888888";
+        const badge = b.querySelector(".count-badge");
+        if (badge) {
+          badge.style.background = "rgba(255, 255, 255, 0.05)";
+          badge.style.color = "#888888";
+        }
+        b.setAttribute("aria-selected", "false");
+      });
+
+      btn.classList.add("active");
+      btn.style.background = "rgba(255, 255, 255, 0.05)";
+      btn.style.borderColor = "rgba(255, 255, 255, 0.15)";
+      btn.style.color = "#ffffff";
+      const badge = btn.querySelector(".count-badge");
+      if (badge) {
+        badge.style.background = "rgba(255, 255, 255, 0.15)";
+        badge.style.color = "#ffffff";
+      }
+      btn.setAttribute("aria-selected", "true");
+
+      activeFilter = btn.getAttribute("data-filter");
+      renderComments();
+    });
+  });
+
+  // Atualiza as contagens numéricas nos botões de filtro
+  function updateCounters() {
+    const allCount = comments.length;
+    const alunoCount = comments.filter((c) => c.type === "aluno").length;
+    const colegaCount = comments.filter((c) => c.type === "colega").length;
+    const recrutadorCount = comments.filter(
+      (c) => c.type === "recrutador",
+    ).length;
+
+    const lblAll = document.getElementById("count-all");
+    const lblAluno = document.getElementById("count-aluno");
+    const lblColega = document.getElementById("count-colega");
+    const lblRecrutador = document.getElementById("count-recrutador");
+
+    if (lblAll) lblAll.textContent = allCount;
+    if (lblAluno) lblAluno.textContent = alunoCount;
+    if (lblColega) lblColega.textContent = colegaCount;
+    if (lblRecrutador) lblRecrutador.textContent = recrutadorCount;
+  }
+
+  // Renderiza a lista de comentários filtrados com belos efeitos em formato de carrossel infinito (Marquee)
+  function renderComments() {
+    if (!gridElement) return;
+    gridElement.innerHTML = "";
+
+    const filtered = comments.filter((c) => {
+      if (activeFilter === "all") return true;
+      return c.type === activeFilter;
+    });
+
+    if (filtered.length === 0) {
+      gridElement.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 2rem; background: rgba(255,255,255,0.01); border: 1px dashed rgba(255,255,255,0.05); border-radius: 16px; width: 100%; min-width: 280px; max-width: 600px; margin: 0 auto;">
+          <p style="color: #666666; font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin-bottom: 0.5rem;">Ainda não há depoimentos nesta categoria.</p>
+          <p style="color: #444444; font-size: 0.9rem;">Seja o primeiro a publicar um recado escrevendo um depoimento acima! ✨</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Função interna para criar elemento do card de comentário de alta qualidade
+    function createCardElement(comment) {
+      const card = document.createElement("article");
+      card.className = "mural-card spotlight-card";
+      card.setAttribute("data-type", comment.type);
+
+      // Estilos iniciais de animação de entrada
+      card.style.opacity = "0";
+      card.style.transform = "translateY(15px) scale(0.97)";
+      card.style.filter = "blur(2px)";
+      card.style.transition =
+        "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease";
+
+      // Estilo de relacionamento (badge)
+      let typeText = "Visitante";
+      let typeBg = "rgba(255, 255, 255, 0.05)";
+      let typeColor = "#888888";
+
+      if (comment.type === "aluno") {
+        typeText = "Aluno";
+        typeBg = "rgba(255, 255, 255, 0.08)";
+        typeColor = "#cccccc";
+      } else if (comment.type === "colega") {
+        typeText = "Colega";
+        typeBg = "rgba(255, 255, 255, 0.08)";
+        typeColor = "#cccccc";
+      } else if (comment.type === "recrutador") {
+        typeText = "Recrutador";
+        typeBg = "rgba(255, 255, 255, 0.08)";
+        typeColor = "#cccccc";
+      }
+
+      // Detalhe de borda esquerda monocromática por categoria
+      card.style.borderLeft = `4px solid ${typeColor}`;
+
+      // Estrelas de Avaliação
+      let starsHtml = "";
+      for (let i = 0; i < 5; i++) {
+        if (i < comment.rating) {
+          starsHtml += `<span style="color: #ffffff; margin-right: 2px;">★</span>`;
+        } else {
+          starsHtml += `<span style="color: rgba(255,255,255,0.1); margin-right: 2px;">★</span>`;
+        }
+      }
+
+      card.innerHTML = `
+        <div style="position: absolute; top: -10px; right: 15px; font-size: 7rem; font-family: Georgia, serif; color: rgba(255,255,255,0.03); pointer-events: none; user-select: none;">“</div>
+        
+        <!-- Cabeçalho do Card: Informações do Autor e Avatar -->
+        <div style="display: flex; gap: 1rem; align-items: center; z-index: 2;">
+          <div class="testimonial-avatar" style="transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); width: 44px; height: 44px; border-radius: 50%; background: ${comment.color || "linear-gradient(135deg, #333, #666)"}; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #ffffff; font-size: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0;">
+            ${comment.avatar || comment.name.substring(0, 2).toUpperCase()}
+          </div>
+          <div style="display: flex; flex-direction: column; min-width: 0;">
+            <h5 style="font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: #ffffff; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              ${comment.name}
+            </h5>
+            <span class="mural-sub" style="font-size: 0.8rem; color: #666666; margin-top: 1px; display: flex; align-items: center; gap: 6px;">
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${comment.role}</span>
+              <span style="width: 3px; height: 3px; border-radius: 50%; background: #444; flex-shrink: 0;"></span>
+              <span style="flex-shrink: 0;">${comment.date}</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Conteúdo de Texto -->
+        <p class="testimonial-text" style="font-style: italic; color: #d1d5db; font-size: 0.95rem; line-height: 1.6; margin: 0; text-align: left; z-index: 1; min-height: 72px;">
+          "${comment.text}"
+        </p>
+
+        <!-- Rodapé do Card: Badge e Estrelas de Avaliação -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 0.75rem; z-index: 2;">
+          <span class="testimonial-type-badge" style="background: ${typeBg}; color: ${typeColor}; padding: 3px 10px; border-radius: 100px; font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+            ${typeText}
+          </span>
+          <div style="font-size: 0.85rem; display: flex; align-items: center;">
+            ${starsHtml}
+          </div>
+        </div>
+      `;
+
+      return card;
+    }
+
+    // 1. Determina a lista base de comentários (garante o mínimo de 6 itens para preencher telas largas sem buracos)
+    let baseItems = [...filtered];
+    if (baseItems.length > 0) {
+      while (baseItems.length < 6) {
+        baseItems = [...baseItems, ...filtered];
+      }
+    }
+
+    // 2. Renderiza a primeira metade do carrossel (Itens originais)
+    baseItems.forEach((comment) => {
+      const card = createCardElement(comment);
+      gridElement.appendChild(card);
+    });
+
+    // 3. Renderiza a segunda metade idêntica do carrossel (Clones perfeitos) para rolagem infinita contínua
+    baseItems.forEach((comment) => {
+      const cloneCard = createCardElement(comment);
+      cloneCard.classList.add("clone");
+      cloneCard.setAttribute("aria-hidden", "true");
+      cloneCard.setAttribute("tabindex", "-1");
+      gridElement.appendChild(cloneCard);
+    });
+
+    // 4. Adiciona listeners de interação modernos a todos os cards (originais e clonados)
+    const allCards = gridElement.querySelectorAll(".mural-card");
+    allCards.forEach((card, index) => {
+      // Spotlight follow-mouse glow tracking
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty("--mouse-x", `${x}px`);
+        card.style.setProperty("--mouse-y", `${y}px`);
+      });
+
+      // Efeito sutil de delay stagger de entrada maravilhosa
+      setTimeout(
+        () => {
+          card.style.opacity = "1";
+          card.style.transform = "translateY(0) scale(1)";
+          card.style.filter = "blur(0)";
+        },
+        index * 80 + 50,
+      );
+    });
+
+    updateCounters();
+  }
+
+  // Lida com o envio do formulário
+  if (formElement) {
+    formElement.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const nameInput = document.getElementById("mural-nome");
+      const relationSelect = document.getElementById("mural-relacao");
+      const roleInput = document.getElementById("mural-role");
+      const textInput = document.getElementById("mural-texto");
+
+      if (!nameInput || !relationSelect || !roleInput || !textInput) return;
+
+      const name = nameInput.value.trim();
+      const type = relationSelect.value;
+      const role = roleInput.value.trim();
+      const text = textInput.value.trim();
+
+      // Monta as iniciais do avatar
+      const nameParts = name.split(" ");
+      let avatar = "";
+      if (nameParts.length >= 2) {
+        avatar = (
+          nameParts[0].charAt(0) + nameParts[1].charAt(0)
+        ).toUpperCase();
+      } else {
+        avatar = name.substring(0, 2).toUpperCase();
+      }
+
+      // Sorteia um gradiente de colunas para o avatar
+      const randomColor =
+        avatarGradients[Math.floor(Math.random() * avatarGradients.length)];
+
+      // Cria a data atual formatada (Ex: "Fev/2026")
+      const meses = [
+        "Jan",
+        "Fev",
+        "Mar",
+        "Abr",
+        "Mai",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Set",
+        "Out",
+        "Nov",
+        "Dez",
+      ];
+      const dateObj = new Date();
+      const currentMonthStr = meses[dateObj.getMonth()];
+      const currentYearStr = dateObj.getFullYear();
+      const dateFormatted = `${currentMonthStr}/${currentYearStr}`;
+
+      const newComment = {
+        id: "c_" + Date.now(),
+        name: name,
+        type: type,
+        text: text,
+        role: role,
+        date: dateFormatted,
+        rating: ratingValue,
+        avatar: avatar,
+        color: randomColor,
+      };
+
+      // Adiciona o comentário no início do array
+      comments.unshift(newComment);
+
+      // Salva no localStorage
+      try {
+        localStorage.setItem("mural_comments", JSON.stringify(comments));
+      } catch (err) {
+        console.error("Erro ao salvar comentário no localStorage", err);
+      }
+
+      // Fecha o formulário
+      fecharFormulario();
+
+      // Dispara Toast de sucesso
+      const toast = document.getElementById("toast-notificacao");
+      if (toast) {
+        toast.innerHTML =
+          "✨ Seu depoimento foi publicado com sucesso no mural!";
+        toast.classList.remove("toast-escondido");
+        toast.classList.add("toast-visivel");
+        setTimeout(() => {
+          toast.classList.remove("toast-visivel");
+          toast.classList.add("toast-escondido");
+        }, 4000);
+      }
+
+      // Recarrega e renderiza comentários
+      renderComments();
+    });
+  }
+
+  // Renderização Inicial
+  renderComments();
+}
+
+// --------------------------------------------------------
+// 17. Premium Custom Cursor & Magnetic Effects (Removed)
+// --------------------------------------------------------
+function initPremiumCursor() {
+  // Efeito de cursor customizado removido a pedido do usuário
 }
