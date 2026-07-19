@@ -1452,10 +1452,12 @@ section {
 
 @media (prefers-reduced-motion: reduce) {
   .status-dev-tag,
-    animation: none !important;animation
+  .status-dev-tag * {
+    animation: none !important;
     transform: none !important;
     opacity: 1 !important;
   }
+}
 
 /* =========================================
    CONTACT / CTA PANEL (REFINED)
