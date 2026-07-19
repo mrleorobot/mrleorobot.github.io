@@ -5246,9 +5246,6 @@ nav {
     transform: translate3d(0, 0, 0) !important;
     will-change: auto !important;
   }
-    background: rgba(245, 245, 245, 0.95) !important; /* solid, elegant light color */
-    border: 1px solid rgba(0, 0, 0, 0.08) !important;
-  }
 
   /* Compact skill badges for fluid mobile fit */
   .kurz-skill-card {
@@ -5329,6 +5326,8 @@ nav {
   .feedback-filter-btn {
     display: none !important;
   }
+}
+
 @media (min-width: 769px) {
   .btn-cv {
     background: var(--primary-accent) !important;
@@ -5387,12 +5386,6 @@ nav {
     0 20px 45px rgba(0, 0, 0, 0.7),
     0 0 15px rgba(255, 255, 255, 0.12) !important;
 }
-
-/* 13. Light Mode Clean Editorial Concept (Physical Printed Ivory Look) */ /* Premium Matte Ivory paper */ /* Soft stone charcoal */ /* Soft paper-ink gray */
-
-@media (min-width: 769px) {
-    color: #57534e !important;
-  }
 
 /* ==========================================================================
    MURAL DE DEPOIMENTOS: CUSTOM HIGH-TECH CARDS (DARK & LIGHT THEMES)
@@ -5660,4 +5653,145 @@ body.loading-locked {
 h2.revealed-mask .text-mask-inner {
   transform: translateY(0);
   opacity: 1;
+}
+
+/* =========================================================================
+   REDESIGN LAYER — Minimalist / Editorial (inspired by harryportugal.com)
+   Monochrome, floating pill nav, oversized hero type, pill buttons.
+   Appended last so it wins the cascade. No HTML/JS changes required.
+   ========================================================================= */
+
+/* --- Floating transparent top bar --- */
+header {
+  background: transparent !important;
+}
+
+nav,
+nav.scrolled {
+  background: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  padding: 1.6rem 4% !important;
+  justify-content: flex-start !important;
+}
+
+/* Logo stays top-left, clean */
+.logo {
+  position: relative;
+  z-index: 1002;
+}
+
+/* --- Centered glass "pill" holding the nav links (desktop only) --- */
+@media (min-width: 769px) {
+  .nav-links {
+    position: absolute !important;
+    left: 50% !important;
+    top: 1.05rem !important;
+    transform: translateX(-50%) !important;
+    gap: 0.15rem !important;
+    padding: 0.45rem 0.6rem 0.45rem 1.1rem !important;
+    background: rgba(18, 18, 18, 0.55) !important;
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+    border-radius: 999px !important;
+    -webkit-backdrop-filter: blur(22px) !important;
+    backdrop-filter: blur(22px) !important;
+    box-shadow:
+      0 10px 35px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  }
+
+  .nav-links a:not(.btn-cv) {
+    border-radius: 999px !important;
+    padding: 0.5rem 1rem !important;
+  }
+
+  .nav-links a:not(.btn-cv):hover {
+    transform: none !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: #fff !important;
+  }
+
+  /* Active pill uses a soft filled chip instead of the underline */
+  .nav-links a.active:not(.btn-cv) {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+  }
+  .nav-links a.active:not(.btn-cv)::after {
+    display: none !important;
+  }
+
+  /* CV becomes a filled pill sitting inside the bar */
+  .btn-cv {
+    border-radius: 999px !important;
+    padding: 0.5rem 1.1rem !important;
+    margin-left: 0.35rem !important;
+  }
+}
+
+/* --- Oversized editorial hero headline --- */
+.glitch-title {
+  font-size: clamp(3rem, 9vw, 7.5rem) !important;
+  font-weight: 300 !important;
+  line-height: 1.02 !important;
+  letter-spacing: -0.04em !important;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #9a9a9a 100%
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+#hero .hero-name {
+  font-size: clamp(1.6rem, 3.4vw, 2.6rem) !important;
+  letter-spacing: 0.02em !important;
+  color: #f5f5f5 !important;
+}
+
+/* Give the hero more breathing room, harry-style */
+@media (min-width: 769px) {
+  #hero {
+    min-height: 92vh !important;
+    justify-content: center !important;
+  }
+}
+
+/* --- Pill-shaped buttons everywhere --- */
+.btn-arcane,
+.btn-projeto,
+.btn-escrever-mural,
+.btn-cv {
+  border-radius: 999px !important;
+}
+
+.btn-arcane {
+  padding: 0.85rem 2rem !important;
+  font-size: 0.75rem !important;
+}
+
+/* --- Softer, rounder cards for a premium editorial feel --- */
+.kurz-card,
+.design-card,
+.testimonial-card,
+.spotlight-card,
+.status-card,
+.contact-panel,
+#live-github-card,
+.narrative-box,
+.card {
+  border-radius: 18px !important;
+}
+
+.project-thumbnail-wrapper,
+.project-thumbnail-image {
+  border-radius: 14px !important;
+}
+
+/* Keep imagery monochrome like the reference, warm up slightly on hover */
+.project-thumbnail-image,
+.magazine-frame img {
+  filter: grayscale(100%) contrast(105%) brightness(92%);
 }
