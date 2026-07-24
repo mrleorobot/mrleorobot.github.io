@@ -411,8 +411,7 @@ section {
 }
 
 #hero {
-  height: 95vh;
-  min-height: 800px;
+  min-height: max(95vh, 800px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -493,11 +492,15 @@ section {
   opacity: 0;
   filter: blur(10px) !important;
   transform: translateZ(50px) translateY(20px) !important;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 #hero .glitch-title.reveal-item.revealed {
   opacity: 1;
   filter: blur(0) !important;
   transform: translateZ(50px) translateY(0) !important;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 #hero .hero-magazine-visual.reveal-item {
