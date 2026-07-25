@@ -5523,9 +5523,9 @@ nav {
 
 
 /* =========================================
-   CINEMATIC FULLSCREEN INTRO (redesign: sem cortina, sem contador)
-   Overlay único que some com fade; o nome usa o mesmo efeito de
-   máscara/reveal de texto já usado nos títulos das seções (.text-mask-*)
+   CINEMATIC FULLSCREEN INTRO
+   Cortina abrindo (elegante/cinematografica), sem contador de %.
+   Toca em todo carregamento/refresh.
    ========================================= */
 body.loading-locked {
   overflow: hidden !important;
@@ -5542,16 +5542,44 @@ body.loading-locked {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: #030303;
-  transition:
-    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0.8s;
+  background: transparent;
+  pointer-events: all;
 }
 
+/* Cortina em duas partes */
+.cinematic-curtain {
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 50.1vh; /* .1 para evitar frincha */
+  background-color: #030303;
+  z-index: 1;
+  transition: transform 1.4s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.cinematic-curtain.top {
+  top: 0;
+  transform-origin: top;
+}
+.cinematic-curtain.bottom {
+  bottom: 0;
+  transform-origin: bottom;
+}
+
+/* Nome / marca */
 .cinematic-brand {
   position: relative;
   z-index: 3;
   text-align: center;
+  opacity: 0;
+  transform: scale(0.95);
+  transition:
+    opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cinematic-brand.show {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .cinematic-brand h1 {
@@ -5575,21 +5603,22 @@ body.loading-locked {
   margin: 0.6rem 0 0 0;
 }
 
-/* Dispara o reveal da máscara de texto quando .show é adicionado (JS) */
-.cinematic-brand.show h1 .text-mask-inner,
-.cinematic-brand.show p .text-mask-inner {
-  transform: translateY(0);
-  opacity: 1;
-}
-.cinematic-brand.show p .text-mask-inner {
-  transition-delay: 0.35s; /* subtítulo entra logo depois do título */
-}
-
-/* Saída: o overlay inteiro some com fade (sem cortina) */
+/* Saida: cortina abre e a marca some junto */
 #cinematic-loader.reveal {
-  opacity: 0;
-  visibility: hidden;
   pointer-events: none;
+}
+#cinematic-loader.reveal .cinematic-curtain.top {
+  transform: translateY(-100%);
+}
+#cinematic-loader.reveal .cinematic-curtain.bottom {
+  transform: translateY(100%);
+}
+#cinematic-loader.reveal .cinematic-brand {
+  opacity: 0;
+  transform: scale(1.05);
+  transition:
+    opacity 1.2s ease,
+    transform 1.2s ease;
 }
 
 /* Responsive fixes */
@@ -5601,6 +5630,8 @@ body.loading-locked {
     font-size: 0.65rem;
   }
 }
+
+
 
 
 /* =========================================
@@ -5790,5 +5821,71 @@ nav.scrolled {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+/* ==========================================================================
+   BOTÕES FLUTUANTES — POSICIONAMENTO CONSOLIDADO (idioma, áudio, share, topo)
+   Havia 3 blocos de media query conflitantes espalhados pelo arquivo mexendo
+   nesses mesmos botões com valores diferentes. Este bloco final consolida
+   a posição/tamanho de todos, deixando cor/sombra/hover como já estavam.
+   ========================================================================== */
+
+/* Pilha esquerda: som embaixo, idioma empilhado acima */
+#soundToggleBtn {
+  left: 24px !important;
+  right: auto !important;
+  bottom: 24px !important;
+  width: 56px !important;
+  height: 56px !important;
+}
+#langToggleBtn {
+  left: 24px !important;
+  right: auto !important;
+  bottom: 96px !important; /* 24 + 56 + 16 de respiro */
+  width: 56px !important;
+  height: 56px !important;
+}
+
+/* Pilha direita: share embaixo, topo empilhado acima (só aparece com scroll) */
+#btn-share {
+  right: 24px !important;
+  left: auto !important;
+  bottom: 24px !important;
+  width: 56px !important;
+  height: 56px !important;
+}
+#btn-topo {
+  right: 24px !important;
+  left: auto !important;
+  bottom: 96px !important;
+  width: 56px !important;
+  height: 56px !important;
+}
+
+@media screen and (max-width: 768px) {
+  #soundToggleBtn {
+    left: 16px !important;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+    width: 46px !important;
+    height: 46px !important;
+  }
+  #langToggleBtn {
+    left: 16px !important;
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important; /* 16 + 46 + 14 */
+    width: 46px !important;
+    height: 46px !important;
+  }
+  #btn-share {
+    right: 16px !important;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+    width: 46px !important;
+    height: 46px !important;
+  }
+  #btn-topo {
+    right: 16px !important;
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+    width: 46px !important;
+    height: 46px !important;
   }
 }
