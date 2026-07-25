@@ -73,34 +73,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const brandEl = document.getElementById("cinematic-brand");
   const body = document.body;
 
-  // Não repete a intro em navegações/recarregamentos subsequentes na mesma aba
-  let alreadyShown = false;
-  try {
-    alreadyShown = sessionStorage.getItem("leo-cinematic-loader-shown") === "1";
-  } catch (err) {
-    // sessionStorage indisponível (modo privado/restrito); trata como não mostrado
-  }
-
-  if (!loader || !brandEl || alreadyShown) {
+  if (!loader || !brandEl) {
     if (loader) loader.remove();
     body.classList.remove("loading-locked");
     return;
   }
-
-  const markAsShown = () => {
-    try {
-      sessionStorage.setItem("leo-cinematic-loader-shown", "1");
-    } catch (err) {
-      // sessionStorage indisponível; segue sem salvar
-    }
-  };
 
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
 
   if (prefersReducedMotion) {
-    markAsShown();
     body.classList.remove("loading-locked");
     loader.remove();
     return;
@@ -117,7 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       setTimeout(() => {
         body.classList.remove("loading-locked");
-        markAsShown();
         loader.remove();
       }, 800); // Tempo do fade do overlay (bate com o CSS)
     }, 900); // Tempo pra ler o nome depois da máscara revelar
@@ -127,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     if (document.getElementById("cinematic-loader")) {
       body.classList.remove("loading-locked");
-      markAsShown();
       loader.remove();
     }
   }, 3200);
