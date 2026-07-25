@@ -2446,21 +2446,25 @@ body {
 .hamburger {
   display: none;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.08);
+  width: 48px;
+  height: 48px;
+  background: rgba(10, 10, 10, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
   cursor: pointer;
-  padding: 10px;
+  padding: 0;
   z-index: 10011;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hamburger-line {
-  width: 30px;
+  width: 22px;
   height: 3px;
   background-color: var(--arcane-hex);
   border-radius: 3px;
