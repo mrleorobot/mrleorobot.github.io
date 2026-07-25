@@ -5554,7 +5554,7 @@ body.loading-locked {
   height: 50.1vh; /* .1 para evitar frincha */
   background-color: #030303;
   z-index: 1;
-  transition: transform 1.4s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
 }
 .cinematic-curtain.top {
   top: 0;
@@ -5573,8 +5573,8 @@ body.loading-locked {
   opacity: 0;
   transform: scale(0.95);
   transition:
-    opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1),
-    transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .cinematic-brand.show {
