@@ -81,16 +81,21 @@
   <body>
     <!-- CINEMATIC LOADER -->
     <div id="cinematic-loader">
-      <div class="cinematic-curtain top"></div>
-      <div class="cinematic-curtain bottom"></div>
-      
       <div class="cinematic-brand" id="cinematic-brand">
-        <h1>Leonilson</h1>
-        <p>Portfolio</p>
+        <h1><span class="text-mask-wrapper"><span class="text-mask-inner">Leonilson</span></span></h1>
+        <p><span class="text-mask-wrapper"><span class="text-mask-inner">Portfolio</span></span></p>
       </div>
-
-      <div class="cinematic-counter" id="cinematic-counter">0%</div>
     </div>
+    <noscript>
+      <style>
+        #cinematic-loader {
+          display: none !important;
+        }
+        body.loading-locked {
+          overflow: visible !important;
+        }
+      </style>
+    </noscript>
 
 
     <!-- Premium Features: Noise Overlay -->
@@ -404,7 +409,7 @@
           </div>
         </section>
 
-        <section id="tech-stack">
+        <section id="tech-stack" class="section-reveal">
           <div class="skills-header reveal-item">
             <h2>Habilidades e Tecnologias</h2>
             <p style="color: #a0aec0; font-size: 1.2rem">
@@ -868,7 +873,7 @@
           </div>
         </section>
 
-        <section id="soft-skills">
+        <section id="soft-skills" class="section-reveal">
           <div
             class="reveal-item"
             style="
@@ -1210,7 +1215,7 @@
           </div>
         </section>
 
-        <section id="suporte-gestao">
+        <section id="suporte-gestao" class="section-reveal">
           <div class="design-header reveal-item">
             <h2
               style="
@@ -1317,7 +1322,7 @@
           </div>
         </section>
 
-        <section id="projetos">
+        <section id="projetos" class="section-reveal">
           <div class="design-header reveal-item" style="margin-bottom: 3rem">
             <span
               style="
@@ -1556,7 +1561,7 @@
           </div>
         </section>
 
-        <section id="projetos-design">
+        <section id="projetos-design" class="section-reveal">
           <div class="design-header reveal-item">
             <h2>Galeria de Projetos de UX/UI Design</h2>
             <p
@@ -1775,7 +1780,7 @@
           </div>
         </section>
 
-        <section id="game-dev">
+        <section id="game-dev" class="section-reveal">
           <div class="design-header reveal-item" style="margin-bottom: 3rem">
             <span
               style="
@@ -1830,7 +1835,7 @@
           </div>
         </section>
 
-        <section id="faq">
+        <section id="faq" class="section-reveal">
           <div class="faq-container">
             <h2
               style="
@@ -1951,7 +1956,7 @@
           </div>
         </section>
 
-        <section id="cta-final">
+        <section id="cta-final" class="section-reveal">
           <div class="contact-panel reveal-item">
             <h2>Vamos Conectar?</h2>
             <p>
