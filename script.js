@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   body.classList.add("loading-locked");
 
-  // Sequência: cortina fechada -> nome aparece -> lê -> cortina abre
+  // Sequência calibrada para ~5s no total: cortina fechada -> nome aparece -> lê -> cortina abre
   setTimeout(() => {
     brandEl.classList.add("show");
 
@@ -101,9 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         body.classList.remove("loading-locked");
         loader.remove();
-      }, 1400); // Tempo da cortina deslizar (bate com o CSS)
-    }, 900); // Tempo pra ler a marca
-  }, 300); // Pequena pausa inicial antes do nome aparecer
+      }, 2000); // Tempo da cortina deslizar (bate com o CSS: 1.8s + folga)
+    }, 2500); // Tempo pra ler a marca
+  }, 500); // Pequena pausa inicial antes do nome aparecer
 
   // Segurança: nunca deixa a tela travada se algo der errado
   setTimeout(() => {
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
       body.classList.remove("loading-locked");
       loader.remove();
     }
-  }, 4000);
+  }, 6000);
 });
 
 // Garantir que a página recomece no topo ao recarregar (Melhora a percepção das animações de entrada)
