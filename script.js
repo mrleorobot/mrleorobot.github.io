@@ -70,58 +70,67 @@ document.addEventListener("DOMContentLoaded", initImageParallax);
 // =========================================
 document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("cinematic-loader");
-  const counterEl = document.getElementById("cinematic-counter");
   const brandEl = document.getElementById("cinematic-brand");
   const body = document.body;
-  
-  if (loader && counterEl && brandEl) {
-    body.classList.add("loading-locked");
-    let counter = 0;
-    
-    // Simulate smart loading progression
-    const interval = setInterval(() => {
-      // Slow down towards the end to feel more real
-      const increment = counter > 80 ? 1 : Math.floor(Math.random() * 3) + 1;
-      counter += increment;
-      
-      if (counter >= 100) {
-        counter = 100;
-        clearInterval(interval);
-        
-        counterEl.innerText = counter + "%";
-        
-        // Sequence:
-        // 1. Fade out counter
-        setTimeout(() => {
-          counterEl.style.opacity = "0";
-          counterEl.style.transform = "translate(-50%, calc(-50% - 20px))";
-          
-          // 2. Show Brand text
-          setTimeout(() => {
-            brandEl.classList.add("show");
-            
-            // 3. Open Curtains and reveal site
-            setTimeout(() => {
-              loader.classList.add("reveal");
-              
-              // 4. Unlock body scrolling & remove loader from DOM
-              setTimeout(() => {
-                body.classList.remove("loading-locked");
-                loader.remove();
-              }, 1800); // Wait for curtains to slide out
-              
-            }, 3500); // Time to read brand text
-            
-          }, 800); // wait after counter fades out
-          
-        }, 600);
-      } else {
-        counterEl.innerText = counter + "%";
-      }
-    }, 70);
-  } else {
-    body.classList.remove("loading-locked");
+
+  // Não repete a intro em navegações/recarregamentos subsequentes na mesma aba
+  let alreadyShown = false;
+  try {
+    alreadyShown = sessionStorage.getItem("leo-cinematic-loader-shown") === "1";
+  } catch (err) {
+    // sessionStorage indisponível (modo privado/restrito); trata como não mostrado
   }
+
+  if (!loader || !brandEl || alreadyShown) {
+    if (loader) loader.remove();
+    body.classList.remove("loading-locked");
+    return;
+  }
+
+  const markAsShown = () => {
+    try {
+      sessionStorage.setItem("leo-cinematic-loader-shown", "1");
+    } catch (err) {
+      // sessionStorage indisponível; segue sem salvar
+    }
+  };
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (prefersReducedMotion) {
+    markAsShown();
+    body.classList.remove("loading-locked");
+    loader.remove();
+    return;
+  }
+
+  body.classList.add("loading-locked");
+
+  // Sequência: pausa breve -> texto revela por máscara -> pausa curta -> overlay some em fade
+  setTimeout(() => {
+    brandEl.classList.add("show");
+
+    setTimeout(() => {
+      loader.classList.add("reveal");
+
+      setTimeout(() => {
+        body.classList.remove("loading-locked");
+        markAsShown();
+        loader.remove();
+      }, 800); // Tempo do fade do overlay (bate com o CSS)
+    }, 900); // Tempo pra ler o nome depois da máscara revelar
+  }, 200); // Pequena pausa inicial antes do nome aparecer
+
+  // Segurança: nunca deixa a tela travada se algo der errado
+  setTimeout(() => {
+    if (document.getElementById("cinematic-loader")) {
+      body.classList.remove("loading-locked");
+      markAsShown();
+      loader.remove();
+    }
+  }, 3200);
 });
 
 // Garantir que a página recomece no topo ao recarregar (Melhora a percepção das animações de entrada)
@@ -427,7 +436,9 @@ function initTypewriter() {
 // 2. The Cinematic Scroll (Intersection Observer)
 // --------------------------------------------------------
 function initCinematicScroll() {
-  const elementsToAnimate = document.querySelectorAll(".reveal-item");
+  const elementsToAnimate = document.querySelectorAll(
+    ".reveal-item, .section-reveal",
+  );
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
