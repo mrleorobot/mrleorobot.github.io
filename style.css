@@ -1825,10 +1825,7 @@ section {
     padding: 1.5rem 15px !important;
   }
 
-  /* Logo top padding fix */
-  .logo {
-    padding-top: 10px;
-  }
+  /* Logo top padding fix removido — estava desalinhando o logo do botão hambúrguer verticalmente */
 }
 
 /* =========================================
