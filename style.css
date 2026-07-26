@@ -2439,9 +2439,10 @@ body {
   color: rgba(255, 255, 255, 0.5);
 }
 
-/* Hamburger Menu */
+/* Hamburger Menu — agora é um botão flutuante junto com som/idioma, não faz mais parte do nav */
 .hamburger {
   display: none;
+  position: fixed;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -5832,7 +5833,7 @@ nav.scrolled {
    a posição/tamanho de todos, deixando cor/sombra/hover como já estavam.
    ========================================================================== */
 
-/* Pilha esquerda: som embaixo, idioma empilhado acima */
+/* Pilha esquerda: som embaixo, idioma no meio, menu (hambúrguer) em cima */
 #soundToggleBtn {
   left: 24px !important;
   right: auto !important;
@@ -5844,6 +5845,13 @@ nav.scrolled {
   left: 24px !important;
   right: auto !important;
   bottom: 96px !important; /* 24 + 56 + 16 de respiro */
+  width: 56px !important;
+  height: 56px !important;
+}
+.hamburger {
+  left: 24px !important;
+  right: auto !important;
+  bottom: 168px !important; /* 96 + 56 + 16 de respiro */
   width: 56px !important;
   height: 56px !important;
 }
@@ -5874,6 +5882,12 @@ nav.scrolled {
   #langToggleBtn {
     left: 16px !important;
     bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important; /* 16 + 46 + 14 */
+    width: 46px !important;
+    height: 46px !important;
+  }
+  .hamburger {
+    left: 16px !important;
+    bottom: calc(136px + env(safe-area-inset-bottom, 0px)) !important; /* 76 + 46 + 14 */
     width: 46px !important;
     height: 46px !important;
   }
