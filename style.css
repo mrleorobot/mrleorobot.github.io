@@ -1018,13 +1018,25 @@ section {
   animation: scroll-horizontal-reverse 48s linear infinite;
 }
 
-/* Pause when the container or any element inside is hovered or focused */
-.kurz-marquee-container:hover .kurz-grid {
-  animation-play-state: paused;
+/* Pause when the container or any element inside is hovered or focused —
+   só em dispositivos com mouse de verdade. Em touch, :hover pode "grudar"
+   depois de um toque e nunca soltar, travando o carrossel pra sempre. */
+@media (hover: hover) and (pointer: fine) {
+  .kurz-marquee-container:hover .kurz-grid {
+    animation-play-state: paused;
+  }
+
+  .kurz-marquee-container:focus-within .kurz-grid {
+    animation-play-state: paused;
+  }
 }
 
-.kurz-marquee-container:focus-within .kurz-grid {
-  animation-play-state: paused;
+/* Em touch, ainda pausa ao focar via teclado/leitor de tela (acessibilidade),
+   mas nunca por :hover */
+@media (hover: none) {
+  .kurz-marquee-container:focus-within .kurz-grid {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes scroll-horizontal {
