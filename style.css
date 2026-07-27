@@ -5238,21 +5238,36 @@ nav {
 }
 
 @media (max-width: 768px) {
-  /* Restore the incredible auto-scrolling marquee experience, optimized with high performance styling */
+  /* Trocado de animação automática pra scroll nativo por toque — mais
+     confiável em mobile do que brigar com CSS animation + hover em touch */
   .kurz-marquee-container {
-    overflow: hidden !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-snap-type: x proximity;
     mask-image: none !important;
     -webkit-mask-image: none !important;
     padding: 16px 0 !important;
   }
   .kurz-grid {
-    animation: scroll-horizontal 35s linear infinite !important;
+    animation: none !important;
     width: max-content !important;
-    will-change: transform !important;
-    transform: translate3d(0, 0, 0) !important;
+    will-change: auto !important;
+    transform: none !important;
   }
   .kurz-grid.kurz-grid-reverse {
-    animation: scroll-horizontal-reverse 35s linear infinite !important;
+    animation: none !important;
+  }
+  .kurz-card,
+  .kurz-skill-card,
+  .mural-card {
+    scroll-snap-align: start;
+  }
+  /* Os clones só existiam pra disfarçar o loop da animação; sem animação,
+     eles só duplicariam o conteúdo no scroll manual */
+  .kurz-grid .clone,
+  #mural-depoimentos-grid .clone {
+    display: none !important;
   }
   /* Disable expensive backdrop-blur filters that cause huge paint lag during animations on mobile */
   .kurz-card, .kurz-skill-card, .mural-card {
@@ -5277,31 +5292,32 @@ nav {
     height: 24px !important;
   }
 
-  /* Perfectly proportioned mobile testimonial cards */
+  /* Cards de depoimento mais compactos no mobile */
   .mural-card {
-    width: 290px !important;
-    min-width: 290px !important;
-    max-width: 290px !important;
-    padding: 1.25rem !important;
-    gap: 1rem !important;
+    width: 250px !important;
+    min-width: 250px !important;
+    max-width: 250px !important;
+    padding: 1rem !important;
+    gap: 0.75rem !important;
   }
   .mural-card h5 {
-    font-size: 0.9rem !important;
+    font-size: 0.85rem !important;
   }
   .mural-card .mural-sub {
-    font-size: 0.72rem !important;
+    font-size: 0.68rem !important;
   }
   .mural-card .testimonial-text {
-    font-size: 0.85rem !important;
+    font-size: 0.8rem !important;
     min-height: auto !important;
+    line-height: 1.4 !important;
   }
   .mural-card .testimonial-avatar {
-    width: 36px !important;
-    height: 36px !important;
-    font-size: 0.85rem !important;
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 0.8rem !important;
   }
   .mural-card div[style*="font-size: 7rem"] {
-    font-size: 3.5rem !important;
+    font-size: 3rem !important;
     top: -5px !important;
     right: 10px !important;
   }
