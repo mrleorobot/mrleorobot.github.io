@@ -5932,3 +5932,96 @@ nav.scrolled {
     height: 46px !important;
   }
 }
+
+/* ==========================================================================
+   HERO — vida extra inspirada no vanceportal (github.com/harryportugal/vanceportal)
+   ========================================================================== */
+
+/* Cascata de entrada mais crisp: sem blur, mesma curva premium que já usamos,
+   igual ao padrão "vanceCascadeUp" do repositório de referência */
+#hero .reveal-item {
+  filter: none !important;
+  transform: translateY(24px) scale(0.98) !important;
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+#hero .reveal-item.revealed {
+  transform: translateY(0) scale(1) !important;
+}
+
+/* O título mantém o leve efeito 3D (translateZ), só tira o blur pra ficar
+   consistente com o resto do hero e evitar o bug de renderização que já
+   corrigimos antes */
+#hero .glitch-title.reveal-item {
+  filter: none !important;
+}
+#hero .glitch-title.reveal-item.revealed {
+  filter: none !important;
+}
+
+/* Botão "Explorar Inventário": texto some e desliza, badge circular expande
+   e preenche — mesma lógica do vance-getstarted-btn do repositório */
+#hero .hero-cta-btn {
+  position: relative;
+  padding: 14px 56px 14px 26px;
+  overflow: hidden;
+}
+
+#hero .hero-cta-btn::before,
+#hero .hero-cta-btn::after {
+  display: none !important; /* desliga o brilho antigo só nesse botão específico */
+}
+
+#hero .hero-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: none;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+#hero .hero-cta-btn:active {
+  transform: scale(0.97);
+}
+
+#hero .cta-text {
+  display: inline-block;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+#hero .hero-cta-btn:hover .cta-text {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+#hero .cta-badge {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  bottom: 5px;
+  width: 36px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 2;
+}
+
+#hero .hero-cta-btn:hover .cta-badge {
+  width: calc(100% - 10px);
+  background: #ffffff;
+  color: #000000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #hero .hero-cta-btn:hover .cta-text {
+    opacity: 1;
+    transform: none;
+  }
+  #hero .hero-cta-btn:hover .cta-badge {
+    width: 36px;
+  }
+}
