@@ -6076,3 +6076,49 @@ nav.scrolled {
   color: rgba(255, 255, 255, 0.55);
   pointer-events: none;
 }
+
+/* ==========================================================================
+   BOTÃO DOWNLOAD CV — versão final e definitiva pra dentro da pill do menu
+   desktop. Havia várias regras antigas brigando entre si (uma dizia
+   border-radius: 4px, outra 999px, outra mudava a cor de fundo) — esta
+   aqui substitui todas dentro do contexto da pill.
+   ========================================================================== */
+@media (min-width: 769px) {
+  .btn-cv {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: none !important;
+    border-radius: 999px !important;
+    padding: 0.55rem 1.2rem !important;
+    margin-left: 0.4rem !important;
+    font-family: "Space Grotesk", sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    text-shadow: none !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    box-shadow: none !important;
+    transition:
+      transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.3s ease !important;
+  }
+
+  .btn-cv svg {
+    width: 14px !important;
+    height: 14px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .btn-cv:hover {
+    background: #ffffff !important;
+    color: #000000 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.25) !important;
+  }
+}
