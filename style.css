@@ -6039,3 +6039,25 @@ nav.scrolled {
     font-weight: 600;
   }
 }
+
+/* ==========================================================================
+   PROJETOS (Front-end) — imagem sangrando até a borda do card no mobile
+   Inspirado no harryportugal.com mobile (a foto ocupa o card de ponta a
+   ponta, sem respiro lateral); o texto abaixo continua com padding normal.
+   Nota: a galeria de UX/UI (#projetos-design) usa um carrossel com estrutura
+   diferente (.cardList/.card), não dá pra aplicar o mesmo seletor nela —
+   fica pra uma próxima rodada, com mais cuidado por causa do JS do carrossel.
+   ========================================================================== */
+@media (max-width: 768px) {
+  #projetos .design-card {
+    padding: 1.5rem !important;
+  }
+  #projetos .project-thumbnail-wrapper {
+    margin: -1.5rem -1.5rem 1.25rem -1.5rem !important;
+    width: calc(100% + 3rem) !important;
+    height: 220px !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
