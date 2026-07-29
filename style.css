@@ -6084,16 +6084,21 @@ nav.scrolled {
    aqui substitui todas dentro do contexto da pill.
    ========================================================================== */
 @media (min-width: 769px) {
+  .nav-links {
+    overflow: hidden !important;
+  }
+
   .btn-cv {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 6px !important;
+    height: 2.2rem !important;
     background: #ffffff !important;
     color: #000000 !important;
     border: none !important;
     border-radius: 999px !important;
-    padding: 0.55rem 1.2rem !important;
+    padding: 0 1.2rem !important;
     margin-left: 0.4rem !important;
     font-family: "Space Grotesk", sans-serif !important;
     font-weight: 700 !important;
