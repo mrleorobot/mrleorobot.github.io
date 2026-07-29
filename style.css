@@ -6027,3 +6027,15 @@ nav.scrolled {
     width: 36px;
   }
 }
+
+/* ==========================================================================
+   ÊNFASE MISTA (texto branco + cinza no mesmo parágrafo)
+   Inspirado no harryportugal.com mobile — só ativa no mobile; no desktop o
+   parágrafo segue com a cor única que já tinha.
+   ========================================================================== */
+@media (max-width: 768px) {
+  .mix-emphasis {
+    color: #ffffff;
+    font-weight: 600;
+  }
+}
