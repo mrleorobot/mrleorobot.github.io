@@ -6149,3 +6149,58 @@ nav.scrolled {
     transition: opacity 0.15s ease !important;
   }
 }
+
+/* ==========================================================================
+   SENSAÇÃO DE APP NO MOBILE — rolagem com encaixe suave + profundidade
+   entre seções (a seção anterior recua/escurece enquanto a próxima assume).
+   Só ativa no mobile; no desktop o scroll continua exatamente como estava.
+   ========================================================================== */
+@media (max-width: 768px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+
+  #sobre,
+  #tech-stack,
+  #soft-skills,
+  #suporte-gestao,
+  #projetos,
+  #projetos-design,
+  #game-dev,
+  #faq,
+  #cta-final {
+    scroll-snap-align: start;
+  }
+
+  .app-depth {
+    transition:
+      transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center top;
+  }
+
+  /* Só entra em ação depois que a seção já foi revelada uma vez (.revealed) —
+     assim não briga com a animação de entrada (fade + subida) que já existe */
+  .app-depth.revealed:not(.is-active) {
+    transform: scale(0.95);
+    opacity: 0.65;
+    filter: brightness(0.7);
+  }
+
+  .app-depth.revealed.is-active {
+    transform: none;
+    opacity: 1;
+    filter: none;
+  }
+}
+
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .app-depth,
+  .app-depth:not(.is-active) {
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
