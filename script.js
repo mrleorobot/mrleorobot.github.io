@@ -1,5 +1,40 @@
 
 // =========================================
+// APP DEPTH SCROLL (mobile) — a seção que domina a tela fica em primeiro
+// plano; as outras recuam/escurecem. Mede pela área visível na TELA (não
+// pelo tamanho da própria seção), então funciona igual numa seção curta
+// (Game Dev) e numa bem longa (Projetos, FAQ).
+// =========================================
+function initAppDepthScroll() {
+  if (window.innerWidth > 768) return;
+
+  const sections = document.querySelectorAll(".app-depth");
+  if (!sections.length || !("IntersectionObserver" in window)) return;
+
+  const thresholds = [];
+  for (let i = 0; i <= 20; i++) thresholds.push(i / 20);
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const vh = window.innerHeight;
+      entries.forEach((entry) => {
+        const visiblePx = entry.intersectionRect.height;
+        const visibleFraction = vh > 0 ? visiblePx / vh : 0;
+        if (visibleFraction > 0.5) {
+          entry.target.classList.add("is-active");
+        } else {
+          entry.target.classList.remove("is-active");
+        }
+      });
+    },
+    { threshold: thresholds },
+  );
+
+  sections.forEach((s) => observer.observe(s));
+}
+document.addEventListener("DOMContentLoaded", initAppDepthScroll);
+
+// =========================================
 // TEXT MASK REVEAL (TITLES)
 // =========================================
 function initTextMaskReveal() {
