@@ -6120,3 +6120,32 @@ nav.scrolled {
     box-shadow: none !important;
   }
 }
+
+/* ==========================================================================
+   FEEDBACK DE TOQUE (mobile) — cards e botões flutuantes que ainda não
+   respondiam ao toque. Só ativa em dispositivos sem mouse (hover: none),
+   não interfere em nada do desktop nem nas animações que já existem.
+   ========================================================================== */
+@media (hover: none) {
+  .design-card:active,
+  .kurz-card:active,
+  .kurz-skill-card:active,
+  .mural-card:active {
+    transform: scale(0.97) !important;
+    transition: transform 0.15s ease !important;
+  }
+
+  #soundToggleBtn:active,
+  #langToggleBtn:active,
+  .hamburger:active,
+  #btn-share:active,
+  #btn-topo:active {
+    transform: scale(0.88) !important;
+    transition: transform 0.15s ease !important;
+  }
+
+  .nav-links a:not(.btn-cv):active {
+    opacity: 0.6 !important;
+    transition: opacity 0.15s ease !important;
+  }
+}
