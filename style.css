@@ -6225,3 +6225,20 @@ nav.scrolled {
     transition: none !important;
   }
 }
+
+/* ==========================================================================
+   CARDS DOS CARROSSÉIS — entram deslizando da direita ao rolar (mobile)
+   Em vez de vir de baixo, os cards de Skills e Projetos entram na direção
+   horizontal, combinando com o carrossel que eles formam depois. O gatilho
+   continua sendo o mesmo observer de scroll que já existia no site.
+   ========================================================================== */
+@media (max-width: 768px) {
+  #projetos .design-card.reveal-item,
+  #tech-stack .kurz-skill-card.reveal-item {
+    transform: translateX(50px) scale(0.98) !important;
+  }
+  #projetos .design-card.reveal-item.revealed,
+  #tech-stack .kurz-skill-card.reveal-item.revealed {
+    transform: translateX(0) scale(1) !important;
+  }
+}
