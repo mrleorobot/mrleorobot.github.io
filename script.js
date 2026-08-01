@@ -2124,9 +2124,13 @@ function initMuralDepoimentos() {
       card.className = "mural-card spotlight-card";
       card.setAttribute("data-type", comment.type);
 
-      // Estilos iniciais de animação de entrada
+      // Estilos iniciais de animação de entrada (horizontal no mobile, pra
+      // combinar com a direção do carrossel; vertical no desktop)
+      const isMobileMural = window.innerWidth <= 768;
       card.style.opacity = "0";
-      card.style.transform = "translateY(15px) scale(0.97)";
+      card.style.transform = isMobileMural
+        ? "translateX(50px) scale(0.97)"
+        : "translateY(15px) scale(0.97)";
       card.style.filter = "blur(2px)";
       card.style.transition =
         "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease";
@@ -2227,7 +2231,7 @@ function initMuralDepoimentos() {
 
     // 4. Adiciona listeners de interação modernos a todos os cards (originais e clonados)
     const allCards = gridElement.querySelectorAll(".mural-card");
-    allCards.forEach((card, index) => {
+    allCards.forEach((card) => {
       // Spotlight follow-mouse glow tracking
       card.addEventListener("mousemove", (e) => {
         const rect = card.getBoundingClientRect();
@@ -2236,17 +2240,46 @@ function initMuralDepoimentos() {
         card.style.setProperty("--mouse-x", `${x}px`);
         card.style.setProperty("--mouse-y", `${y}px`);
       });
-
-      // Efeito sutil de delay stagger de entrada maravilhosa
-      setTimeout(
-        () => {
-          card.style.opacity = "1";
-          card.style.transform = "translateY(0) scale(1)";
-          card.style.filter = "blur(0)";
-        },
-        index * 80 + 50,
-      );
     });
+
+    // Revela os cards em cascata só quando a seção realmente aparece na
+    // tela ao rolar — antes disparava num timer fixo desde a criação, o
+    // que "gastava" a animação antes do usuário chegar lá.
+    const revealMuralCards = () => {
+      allCards.forEach((card, index) => {
+        setTimeout(
+          () => {
+            card.style.opacity = "1";
+            card.style.transform = "translateX(0) translateY(0) scale(1)";
+            card.style.filter = "blur(0)";
+          },
+          index * 80 + 50,
+        );
+      });
+    };
+
+    const muralContainer = document.getElementById("mural-marquee-container");
+    if (muralContainer && "IntersectionObserver" in window) {
+      const rect = muralContainer.getBoundingClientRect();
+      const alreadyVisible =
+        rect.top < window.innerHeight * 0.85 && rect.bottom > 0;
+      if (alreadyVisible) {
+        revealMuralCards();
+      } else {
+        const muralObserver = new IntersectionObserver(
+          (entries) => {
+            if (entries[0].isIntersecting) {
+              revealMuralCards();
+              muralObserver.disconnect();
+            }
+          },
+          { threshold: 0.15 },
+        );
+        muralObserver.observe(muralContainer);
+      }
+    } else {
+      revealMuralCards();
+    }
 
     updateCounters();
   }
