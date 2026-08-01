@@ -1786,6 +1786,27 @@ section {
     gap: 2.5rem;
   }
 
+  /* Projetos Front-end viram scroll horizontal no mobile — reduz o quanto a
+     página rola pra baixo, igual ao padrão de "Serviços" do harryportugal.com.
+     Escopado só em #projetos pra não afetar o Game Dev, que usa a mesma classe. */
+  #projetos .project-battle-grid {
+    display: flex !important;
+    grid-template-columns: none !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem !important;
+    max-width: none !important;
+    margin: 0 -5% !important;
+    padding: 0.5rem 5% 1.5rem 5% !important;
+  }
+
+  #projetos .project-battle-grid .design-card {
+    flex: 0 0 82% !important;
+    scroll-snap-align: start;
+  }
+
   /* Toggle e Toast Notification Fixes */
   .theme-toggle-btn {
     width: 48px !important;
