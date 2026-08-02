@@ -3527,6 +3527,8 @@ html {
 }
 
 .cardList .cards__wrapper {
+  touch-action: pan-y;
+
   position: relative;
   width: 100%;
   height: 100%;
