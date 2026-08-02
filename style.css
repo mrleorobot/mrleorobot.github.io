@@ -1240,6 +1240,12 @@ section {
   transform: translateX(-50%) translateY(0);
 }
 
+/* Rótulos "Principais" / "Também trabalho com" — só existem no mobile,
+   onde os cards viram uma nuvem só e precisam de um divisor claro */
+.skills-group-label {
+  display: none;
+}
+
 /* Light Mode Overrides for Large Skill Badges */
 
 .kurz-tags {
@@ -5235,25 +5241,71 @@ nav {
 }
 
 @media (max-width: 768px) {
-  /* Skills: em vez de carrossel horizontal, os cards quebram linha
-     naturalmente — nada de arrastar pro lado, só rolagem vertical normal */
+  /* Skills: as duas linhas do marquee (que iam em direções opostas no
+     desktop) viram uma nuvem só de tags no mobile. As duas .kurz-grid
+     passam a "display:contents" pra que os cards virem filhos diretos do
+     container — isso permite reordenar via CSS "order" mesmo que uma
+     habilidade "principal" esteja originalmente na linha 1 ou na linha 2. */
   #tech-stack .kurz-marquee-container {
     overflow: visible !important;
     mask-image: none !important;
     -webkit-mask-image: none !important;
     padding: 8px 0 !important;
-  }
-  #tech-stack .kurz-grid {
     display: flex !important;
+    flex-direction: row !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
-    width: 100% !important;
-    animation: none !important;
-    will-change: auto !important;
-    transform: none !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
   }
-  #tech-stack .kurz-grid.kurz-grid-reverse {
-    animation: none !important;
+  #tech-stack .kurz-grid {
+    display: contents !important;
+  }
+
+  /* Principais (front-end + UX/UI, o que mais importa pra vaga que busco):
+     vêm primeiro, maiores, com borda de destaque e ícone colorido */
+  #tech-stack .skill-core {
+    order: -2;
+    padding: 0.75rem 1.4rem !important;
+    border-color: var(--primary-accent) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+  }
+  #tech-stack .skill-core span {
+    font-size: 1rem !important;
+  }
+  #tech-stack .skill-core img,
+  #tech-stack .skill-core svg {
+    width: 26px !important;
+    height: 26px !important;
+    filter: none !important;
+  }
+
+  /* Complementares: mesma info, só que mais discretas visualmente */
+  #tech-stack .kurz-skill-card:not(.skill-core) {
+    opacity: 0.62;
+  }
+
+  /* Rótulos que separam os dois grupos visualmente */
+  #tech-stack .skills-group-label {
+    display: block;
+    flex-basis: 100%;
+    width: 100%;
+    text-align: center;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #a0aab2;
+  }
+  #tech-stack .skills-group-label--core {
+    order: -3;
+    color: var(--primary-accent);
+    margin-bottom: 0.2rem;
+  }
+  #tech-stack .skills-group-label--secondary {
+    order: -1;
+    margin: 1rem 0 0.2rem;
   }
 
   /* Depoimentos: lista empilhada vertical, um card por linha */
