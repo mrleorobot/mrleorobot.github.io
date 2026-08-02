@@ -1061,6 +1061,29 @@ section {
   }
 }
 
+/* Vida sutil e contínua nos ícones de Skills e nos avatares de Depoimentos
+   (mobile) — respeita prefers-reduced-motion, ver mais abaixo onde são
+   aplicadas */
+@keyframes skill-icon-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(calc(-1 * var(--float-amp, 3px)));
+  }
+}
+
+@keyframes avatar-wobble {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
 /* De-activate animation during search */
 .kurz-marquee-container.searching {
   height: auto;
@@ -5422,6 +5445,47 @@ nav {
   }
   .feedback-filter-btn {
     display: none !important;
+  }
+}
+
+/* Vida sutil nos ícones (Skills) e avatares (Depoimentos) — só no mobile,
+   e só pra quem não pediu menos movimento no sistema (prefers-reduced-motion) */
+@media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
+  #tech-stack .kurz-skill-card img,
+  #tech-stack .kurz-skill-card svg {
+    animation: skill-icon-float 3.2s ease-in-out infinite;
+  }
+  #tech-stack .skill-core img,
+  #tech-stack .skill-core svg {
+    --float-amp: 5px;
+  }
+  /* Reaproveita as classes stagger-1/2/3 (já usadas na entrada) pra
+     dessincronizar a flutuação — sem isso, todos os ícones subiriam e
+     desceriam ao mesmo tempo, o que parece mecânico em vez de orgânico */
+  #tech-stack .kurz-skill-card.stagger-1 img,
+  #tech-stack .kurz-skill-card.stagger-1 svg {
+    animation-delay: 0s;
+  }
+  #tech-stack .kurz-skill-card.stagger-2 img,
+  #tech-stack .kurz-skill-card.stagger-2 svg {
+    animation-delay: 0.4s;
+  }
+  #tech-stack .kurz-skill-card.stagger-3 img,
+  #tech-stack .kurz-skill-card.stagger-3 svg {
+    animation-delay: 0.8s;
+  }
+
+  #soft-skills .testimonial-avatar {
+    animation: avatar-wobble 4s ease-in-out infinite;
+  }
+  #soft-skills .mural-card:nth-child(3n + 1) .testimonial-avatar {
+    animation-delay: 0s;
+  }
+  #soft-skills .mural-card:nth-child(3n + 2) .testimonial-avatar {
+    animation-delay: 0.5s;
+  }
+  #soft-skills .mural-card:nth-child(3n) .testimonial-avatar {
+    animation-delay: 1s;
   }
 }
 
