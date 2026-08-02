@@ -1786,27 +1786,6 @@ section {
     gap: 2.5rem;
   }
 
-  /* Projetos Front-end viram scroll horizontal no mobile — reduz o quanto a
-     página rola pra baixo, igual ao padrão de "Serviços" do harryportugal.com.
-     Escopado só em #projetos pra não afetar o Game Dev, que usa a mesma classe. */
-  #projetos .project-battle-grid {
-    display: flex !important;
-    grid-template-columns: none !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch;
-    gap: 1rem !important;
-    max-width: none !important;
-    margin: 0 -5% !important;
-    padding: 0.5rem 5% 1.5rem 5% !important;
-  }
-
-  #projetos .project-battle-grid .design-card {
-    flex: 0 0 82% !important;
-    scroll-snap-align: start;
-  }
-
   /* Toggle e Toast Notification Fixes */
   .theme-toggle-btn {
     width: 48px !important;
@@ -5254,38 +5233,52 @@ nav {
 }
 
 @media (max-width: 768px) {
-  /* Trocado de animação automática pra scroll nativo por toque — mais
-     confiável em mobile do que brigar com CSS animation + hover em touch */
-  .kurz-marquee-container {
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-    scroll-snap-type: x proximity;
+  /* Skills: em vez de carrossel horizontal, os cards quebram linha
+     naturalmente — nada de arrastar pro lado, só rolagem vertical normal */
+  #tech-stack .kurz-marquee-container {
+    overflow: visible !important;
     mask-image: none !important;
     -webkit-mask-image: none !important;
-    padding: 16px 0 !important;
+    padding: 8px 0 !important;
   }
-  .kurz-grid {
+  #tech-stack .kurz-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    width: 100% !important;
     animation: none !important;
-    width: max-content !important;
     will-change: auto !important;
     transform: none !important;
   }
-  .kurz-grid.kurz-grid-reverse {
+  #tech-stack .kurz-grid.kurz-grid-reverse {
     animation: none !important;
   }
-  .kurz-card,
-  .kurz-skill-card,
-  .mural-card {
-    scroll-snap-align: start;
+
+  /* Depoimentos: lista empilhada vertical, um card por linha */
+  #soft-skills .kurz-marquee-container {
+    overflow: visible !important;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    padding: 8px 0 !important;
   }
-  /* Os clones só existiam pra disfarçar o loop da animação; sem animação,
-     eles só duplicariam o conteúdo no scroll manual */
+  #soft-skills .kurz-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+    animation: none !important;
+    will-change: auto !important;
+    transform: none !important;
+  }
+
+  /* Os clones só existiam pra disfarçar o loop da animação horizontal —
+     sem carrossel, eles só duplicariam o conteúdo */
   .kurz-grid .clone,
   #mural-depoimentos-grid .clone {
     display: none !important;
   }
-  /* Disable expensive backdrop-blur filters that cause huge paint lag during animations on mobile */
+
+  /* Disable expensive backdrop-blur filters that cause paint lag on mobile */
   .kurz-card, .kurz-skill-card, .mural-card {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -5308,32 +5301,33 @@ nav {
     height: 24px !important;
   }
 
-  /* Cards de depoimento mais compactos no mobile */
+  /* Cards de depoimento ocupando a largura disponível, empilhados */
   .mural-card {
-    width: 250px !important;
-    min-width: 250px !important;
-    max-width: 250px !important;
-    padding: 1rem !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    min-width: 0 !important;
+    padding: 1.25rem !important;
     gap: 0.75rem !important;
+    margin-bottom: 1rem !important;
   }
   .mural-card h5 {
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
   }
   .mural-card .mural-sub {
-    font-size: 0.68rem !important;
+    font-size: 0.7rem !important;
   }
   .mural-card .testimonial-text {
-    font-size: 0.8rem !important;
+    font-size: 0.85rem !important;
     min-height: auto !important;
-    line-height: 1.4 !important;
+    line-height: 1.5 !important;
   }
   .mural-card .testimonial-avatar {
-    width: 32px !important;
-    height: 32px !important;
-    font-size: 0.8rem !important;
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 0.85rem !important;
   }
   .mural-card div[style*="font-size: 7rem"] {
-    font-size: 3rem !important;
+    font-size: 3.5rem !important;
     top: -5px !important;
     right: 10px !important;
   }
@@ -6226,19 +6220,3 @@ nav.scrolled {
   }
 }
 
-/* ==========================================================================
-   CARDS DOS CARROSSÉIS — entram deslizando da direita ao rolar (mobile)
-   Em vez de vir de baixo, os cards de Skills e Projetos entram na direção
-   horizontal, combinando com o carrossel que eles formam depois. O gatilho
-   continua sendo o mesmo observer de scroll que já existia no site.
-   ========================================================================== */
-@media (max-width: 768px) {
-  #projetos .design-card.reveal-item,
-  #tech-stack .kurz-skill-card.reveal-item {
-    transform: translateX(50px) scale(0.98) !important;
-  }
-  #projetos .design-card.reveal-item.revealed,
-  #tech-stack .kurz-skill-card.reveal-item.revealed {
-    transform: translateX(0) scale(1) !important;
-  }
-}
