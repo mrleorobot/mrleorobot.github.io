@@ -18,6 +18,60 @@ if (cardsContainerEl) {
   buttons.next.addEventListener("click", () => swapCards("right"));
   buttons.prev.addEventListener("click", () => swapCards("left"));
 
+  // --- Swipe: arrastar o dedo pra navegar, além dos botões de seta ---
+  // Só trava o gesto como "horizontal" depois de um deslocamento mínimo,
+  // então o scroll vertical da página continua funcionando normalmente
+  // se a pessoa começar a arrastar de cima pra baixo em cima da galeria.
+  (function enableSwipe() {
+    const SWIPE_LOCK_PX = 10; // deslocamento mínimo pra decidir a direção do gesto
+    const SWIPE_TRIGGER_PX = 40; // deslocamento horizontal mínimo pra trocar de card
+
+    let startX = 0;
+    let startY = 0;
+    let axisLock = null; // "x" ou "y"
+    let dragging = false;
+
+    cardsContainerEl.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      startX = e.clientX;
+      startY = e.clientY;
+      axisLock = null;
+      dragging = true;
+    });
+
+    cardsContainerEl.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      if (!axisLock && (Math.abs(dx) > SWIPE_LOCK_PX || Math.abs(dy) > SWIPE_LOCK_PX)) {
+        axisLock = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+      }
+
+      // Só bloqueia o scroll da página quando o gesto é claramente horizontal
+      if (axisLock === "x" && e.cancelable) e.preventDefault();
+    });
+
+    function endSwipe(e) {
+      if (!dragging) return;
+      dragging = false;
+
+      if (axisLock === "x") {
+        const dx = e.clientX - startX;
+        if (Math.abs(dx) > SWIPE_TRIGGER_PX) {
+          swapCards(dx < 0 ? "right" : "left");
+        }
+      }
+      axisLock = null;
+    }
+
+    cardsContainerEl.addEventListener("pointerup", endSwipe);
+    cardsContainerEl.addEventListener("pointercancel", () => {
+      dragging = false;
+      axisLock = null;
+    });
+  })();
+
   function updateClasses() {
     const prevIndex = (currentIndex - 1 + totalItems) % totalItems;
     const nextIndex = (currentIndex + 1) % totalItems;
