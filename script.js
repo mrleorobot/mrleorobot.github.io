@@ -2124,13 +2124,9 @@ function initMuralDepoimentos() {
       card.className = "mural-card spotlight-card";
       card.setAttribute("data-type", comment.type);
 
-      // Estilos iniciais de animação de entrada (horizontal no mobile, pra
-      // combinar com a direção do carrossel; vertical no desktop)
-      const isMobileMural = window.innerWidth <= 768;
+      // Estilos iniciais de animação de entrada
       card.style.opacity = "0";
-      card.style.transform = isMobileMural
-        ? "translateX(50px) scale(0.97)"
-        : "translateY(15px) scale(0.97)";
+      card.style.transform = "translateY(15px) scale(0.97)";
       card.style.filter = "blur(2px)";
       card.style.transition =
         "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease";
