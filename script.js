@@ -626,11 +626,19 @@ function initSearchAndMenu() {
       hamburger.setAttribute("aria-expanded", !isActive);
 
       if (!isActive) {
+        // Stop scroll when menu is open
+        if (window.__lenis) window.__lenis.stop();
+        document.body.style.overflow = 'hidden';
+        
         // Wait for display transition then focus first item
         setTimeout(() => {
           const firstLink = navLinks.querySelector("a");
           if (firstLink) firstLink.focus();
         }, 100);
+      } else {
+        // Resume scroll when menu is closed
+        if (window.__lenis) window.__lenis.start();
+        document.body.style.overflow = '';
       }
     });
 
@@ -659,6 +667,8 @@ function initSearchAndMenu() {
         hamburger.classList.remove("active");
         navLinks.classList.remove("active");
         hamburger.setAttribute("aria-expanded", "false");
+        if (window.__lenis) window.__lenis.start();
+        document.body.style.overflow = '';
         hamburger.focus();
       }
     });
@@ -669,6 +679,8 @@ function initSearchAndMenu() {
         hamburger.classList.remove("active");
         navLinks.classList.remove("active");
         hamburger.setAttribute("aria-expanded", "false");
+        if (window.__lenis) window.__lenis.start();
+        document.body.style.overflow = '';
       });
     });
 
@@ -679,6 +691,8 @@ function initSearchAndMenu() {
           hamburger.classList.remove("active");
           navLinks.classList.remove("active");
           hamburger.setAttribute("aria-expanded", "false");
+          if (window.__lenis) window.__lenis.start();
+          document.body.style.overflow = '';
         }
       }
     });

@@ -6478,6 +6478,73 @@ html.lenis, html.lenis body {
     filter: blur(0px);
     transform: translate3d(0, 0, 0);
   }
+
+  /* ======== Mobile Premium Upgrades (Inspiração Vance) ======== */
+  
+  /* 1. Tipografia de Alto Impacto */
+  .glitch-title, .hero-name {
+    font-size: clamp(3rem, 12vw, 4.5rem) !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.04em !important;
+  }
+  
+  h2, .line-reveal .line-inner, .design-header h2, .skills-header h2, .narrative-text h2 {
+    font-size: clamp(2.5rem, 10vw, 3.5rem) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.03em !important;
+  }
+  
+  /* 2. Cores: Forçar Branco/Preto no destaque */
+  .mix-emphasis {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+  }
+  
+  .btn-arcane, .btn-cv, .btn-escrever-mural, .btn-primary {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* 3. Bleeding Edges (Bordas vazando na tela para galerias) */
+  #projetos .project-thumbnail-wrapper, 
+  #projetos-design .design-card,
+  #projetos-indie .indie-image-wrapper {
+    margin-left: -1.5rem !important;
+    margin-right: -1.5rem !important;
+    width: calc(100% + 3rem) !important;
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+  
+  /* 4. Respiro Vertical Maior */
+  section {
+    padding-top: 6rem !important;
+    padding-bottom: 6rem !important;
+  }
+  #hero {
+    padding-top: 10rem !important; /* Mais espaço pra navbar */
+  }
+  
+  /* 5. Menu Mobile Tela Cheia Centrado */
+  .nav-links {
+    justify-content: center !important;
+    align-items: center !important;
+    background: rgba(0, 0, 0, 0.98) !important;
+    backdrop-filter: blur(20px) !important;
+    padding: 2rem !important;
+  }
+  .nav-links a:not(.btn-cv) {
+    text-align: center !important;
+    font-size: clamp(2.5rem, 12vw, 4rem) !important;
+    margin-bottom: 1rem !important;
+  }
+  .nav-links .btn-cv {
+    align-self: center !important;
+    margin-top: 1rem !important;
+  }
 }
 
 @media (max-width: 768px) and (prefers-reduced-motion: reduce) {
