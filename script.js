@@ -595,7 +595,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   initSafe(setupDynamicTabs, "setupDynamicTabs");
-  initSafe(initHeroParticles, "initHeroParticles");
   initSafe(initHeroParallax, "initHeroParallax");
   initSafe(initTypewriter, "initTypewriter");
   initSafe(initCinematicScroll, "initCinematicScroll");
@@ -605,7 +604,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initSafe(initSpotlight, "initSpotlight");
   initSafe(initTabSystem, "initTabSystem");
   initSafe(initScrollProgressBar, "initScrollProgressBar");
-  initSafe(initMuralDepoimentos, "initMuralDepoimentos");
   initSafe(initPremiumCursor, "initPremiumCursor");
 });
 
