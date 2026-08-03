@@ -217,8 +217,10 @@ function initHeroParticles() {
 
   function resize() {
     if (!canvas) return;
-    canvas.width = canvas.parentElement.offsetWidth;
-    canvas.height = canvas.parentElement.offsetHeight;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = canvas.parentElement.offsetWidth * dpr;
+    canvas.height = canvas.parentElement.offsetHeight * dpr;
+    ctx.scale(dpr, dpr);
   }
 
   window.addEventListener("resize", resize);
@@ -460,6 +462,8 @@ function initCinematicScroll() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("revealed");
+          // Trigger line-reveal children
+          entry.target.querySelectorAll('.line-reveal').forEach(el => el.classList.add('revealed'));
           observer.unobserve(entry.target);
         }
       });
@@ -518,27 +522,25 @@ function initTimelineScroll() {
     observerTimeline.observe(item);
   });
 
+  let timelineTicking = false;
   window.addEventListener(
     "scroll",
     () => {
-      const topViewport = window.scrollY || document.documentElement.scrollTop;
-      const rect = timelineContainer.getBoundingClientRect();
-
-      // Posição no documento da timeline (início)
-      const timelineTop = rect.top + topViewport;
-      const timelineHeight = rect.height;
-
-      // Calcula a altura da viewport
-      const viewportHeight = window.innerHeight;
-      // Queremos que a linha de "progresso" acompanhe o meio da tela, ou o fim, vamos usar viewportHeight / 2
-      let scrolled = topViewport + viewportHeight / 1.5 - timelineTop;
-
-      let percentage = (scrolled / timelineHeight) * 100;
-
-      if (percentage < 0) percentage = 0;
-      if (percentage > 100) percentage = 100;
-
-      timelineGlow.style.height = `${percentage}%`;
+      if (timelineTicking) return;
+      timelineTicking = true;
+      requestAnimationFrame(() => {
+        const topViewport = window.scrollY || document.documentElement.scrollTop;
+        const rect = timelineContainer.getBoundingClientRect();
+        const timelineTop = rect.top + topViewport;
+        const timelineHeight = rect.height;
+        const viewportHeight = window.innerHeight;
+        let scrolled = topViewport + viewportHeight / 1.5 - timelineTop;
+        let percentage = (scrolled / timelineHeight) * 100;
+        if (percentage < 0) percentage = 0;
+        if (percentage > 100) percentage = 100;
+        timelineGlow.style.height = `${percentage}%`;
+        timelineTicking = false;
+      });
     },
     { passive: true },
   );
@@ -553,6 +555,44 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(`Erro ao inicializar ${name}:`, e);
     }
   };
+
+  // ---- Lenis Smooth Scroll ----
+  if (typeof Lenis !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    try {
+      const lenis = new Lenis({
+        duration: 1.4,
+        easing: (t) => 1 - Math.pow(1 - t, 4),
+        smoothWheel: true,
+        wheelMultiplier: 0.85,
+        touchMultiplier: 1.4,
+        infinite: false,
+      });
+
+      // Sync Lenis with GSAP ticker if GSAP is available
+      if (typeof gsap !== 'undefined') {
+        const onTick = (time) => lenis.raf(time * 1000);
+        gsap.ticker.add(onTick);
+        gsap.ticker.lagSmoothing(0);
+
+        // Sync with ScrollTrigger if available
+        if (typeof ScrollTrigger !== 'undefined') {
+          lenis.on('scroll', ScrollTrigger.update);
+        }
+      } else {
+        // Fallback: use requestAnimationFrame
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+      }
+
+      window.__lenis = lenis;
+      console.log('✅ Lenis smooth scroll ativado');
+    } catch (e) {
+      console.warn('Lenis não pôde ser inicializado:', e);
+    }
+  }
 
   initSafe(setupDynamicTabs, "setupDynamicTabs");
   initSafe(initHeroParticles, "initHeroParticles");

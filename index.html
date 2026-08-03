@@ -76,7 +76,7 @@
         "sameAs": ["https://github.com/mrleorobot"]
       }
     </script>
-    <link rel="stylesheet" href="/style.css?v=5" />
+    <link rel="stylesheet" href="/style.css?v=6" />
   </head>
   <body>
     <!-- CINEMATIC LOADER -->
@@ -232,7 +232,7 @@
         <section id="hero" style="padding-top: 120px; padding-bottom: 80px;">
           <div class="intro-content reveal-item">
 
-            <h1 class="glitch-title reveal-item stagger-1" style="text-align: center; margin-bottom: 3rem; width: 100%;">
+            <h1 class="glitch-title reveal-item stagger-1 blur-in-1" style="text-align: center; margin-bottom: 3rem; width: 100%;">
               <span class="sr-only"
                 >Leonilson Souza - Desenvolvedor Front-end, UX/UI Design &amp;
                 Power BI</span
@@ -256,16 +256,16 @@
               Você está explorando o inventário digital de:
             </p>
 
-            <div class="hero-name reveal-item stagger-2">LEONILSON SOUZA</div>
+            <div class="hero-name reveal-item stagger-2 blur-in-2">LEONILSON SOUZA</div>
 
-            <p class="hero-text reveal-item stagger-3">
+            <p class="hero-text reveal-item stagger-3 blur-in-3">
               "Front-end e UX/UI Design com um pé em dados: construo
               interfaces acessíveis e dashboards em Power BI que resolvem
               problema de verdade."
             </p>
             <a
               href="#tech-stack"
-              class="btn-arcane hero-cta-btn reveal-item stagger-4"
+              class="btn-arcane hero-cta-btn reveal-item stagger-4 blur-in-4"
               aria-label="Ver minhas habilidades técnicas"
               ><span class="cta-text">Explorar Inventário</span
               ><span class="cta-badge" aria-hidden="true"
@@ -286,7 +286,7 @@
 
         <section id="sobre" class="reveal-item app-depth">
           <div class="skills-header reveal-item" style="margin-bottom: 2rem">
-            <h2>Trajetória &amp; Momento Atual</h2>
+            <h2 class="line-reveal"><span class="line-inner">Trajetória &amp; Momento Atual</span></h2>
             <p style="color: #a0aec0; font-size: 1.2rem">
               De onde vim e <span class="mix-emphasis">as fundações que estou
               construindo no presente</span>.
@@ -432,7 +432,7 @@
 
         <section id="tech-stack" class="section-reveal app-depth">
           <div class="skills-header reveal-item">
-            <h2>Habilidades e Tecnologias</h2>
+            <h2 class="line-reveal"><span class="line-inner">Habilidades e Tecnologias</span></h2>
             <p style="color: #a0aec0; font-size: 1.2rem">
               Ferramentas e habilidades que uso para entender, construir e
               explicar soluções.
@@ -1361,7 +1361,7 @@
             >
               Laboratório Aberto
             </span>
-            <h2>Projetos de Front-end e Web Design</h2>
+            <h2 class="line-reveal"><span class="line-inner">Projetos de Front-end e Web Design</span></h2>
           </div>
 
           <div
@@ -1638,7 +1638,7 @@
 
         <section id="projetos-design" class="section-reveal app-depth">
           <div class="design-header reveal-item">
-            <h2>Galeria de Projetos de UX/UI Design</h2>
+            <h2 class="line-reveal"><span class="line-inner">Galeria de Projetos de UX/UI Design</span></h2>
             <p
               style="
                 text-align: center;
@@ -1871,7 +1871,7 @@
             >
               Indie Game Dev
             </span>
-            <h2>Game Development: Entre Pixels e Silêncios</h2>
+            <h2 class="line-reveal"><span class="line-inner">Game Development: Entre Pixels e Silêncios</span></h2>
           </div>
 
           <div
@@ -2033,7 +2033,7 @@
 
         <section id="cta-final" class="section-reveal app-depth">
           <div class="contact-panel reveal-item">
-            <h2>Vamos Conectar?</h2>
+            <h2 class="line-reveal"><span class="line-inner">Vamos Conectar?</span></h2>
             <p>
               <span class="mix-emphasis">Estou sempre aberto a novas
               oportunidades</span>, projetos desafiadores ou apenas uma boa
@@ -2288,7 +2288,15 @@
       defer=""
     ></script>
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.3/gsap.min.js"
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"
+      defer=""
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/ScrollTrigger.min.js"
+      defer=""
+    ></script>
+    <script
+      src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"
       defer=""
     ></script>
     <script type="module" src="./script.js"></script>

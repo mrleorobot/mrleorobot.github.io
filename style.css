@@ -54,6 +54,15 @@ body {
   position: relative;
 }
 
+/* Hidden scrollbar — premium feel (like mentodovance) */
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+
 * {
   border-radius: inherit; /* Helps with some rounding issues in nested elements */
 }
@@ -221,8 +230,68 @@ h3,
   }
 }
 
+/* ======== Blur-In Cascade (Inspired by mentodovance) ======== */
+@keyframes blurInUp {
+  0% {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translate3d(0, 28px, 0);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.blur-in-1 {
+  animation: blurInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+.blur-in-2 {
+  animation: blurInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+.blur-in-3 {
+  animation: blurInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+.blur-in-4 {
+  animation: blurInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+}
+.blur-in-5 {
+  animation: blurInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+}
+
+/* ======== Line Mask Text Reveal ======== */
+.line-reveal {
+  overflow: hidden;
+  padding: 0.1em 0;
+}
+.line-reveal .line-inner {
+  display: block;
+  transform: translate3d(0, 110%, 0);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.line-reveal.revealed .line-inner {
+  transform: translate3d(0, 0, 0);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  body {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .blur-in-1, .blur-in-2, .blur-in-3, .blur-in-4, .blur-in-5 {
+    animation: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+  .line-reveal .line-inner {
+    transform: none !important;
     transition: none !important;
   }
 }
@@ -6353,3 +6422,69 @@ nav.scrolled {
   }
 }
 
+/* ======== Enhanced Card Depth (Inspired by mentodovance) ======== */
+.design-card,
+.status-card,
+.timeline-content {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .design-card:hover,
+  .status-card:hover {
+    box-shadow: 0 24px 56px rgba(0, 0, 0, 0.7), 0 4px 12px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.12);
+    transition: box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+  }
+}
+
+/* ======== GPU Compositing Hints ======== */
+.hero-master-wrapper {
+  contain: layout paint;
+}
+#hero-canvas {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ======== Smooth Scroll Container (Lenis) ======== */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ======== Mobile: Blur-in for reveal items ======== */
+@media (max-width: 768px) {
+  .reveal-item {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate3d(0, 20px, 0);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-item.revealed {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .reveal-item {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
