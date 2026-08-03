@@ -4262,69 +4262,63 @@ html {
 }
 
 @media (max-width: 768px) {
-  /* Trajetória: reformulada pra um visual mais limpo e editorial — linha
-     fina + bolinha + tipografia, sem caixa/borda em volta de cada item
-     (a versão anterior empilhava linha + bolinha + card com fundo/borda,
-     tudo competindo no mesmo espaço estreito) */
+  /* Trajetória: redesenho completo pro mobile — sem linha vertical, sem
+     bolinha, sem caixa. A data grande vira o elemento gráfico principal
+     (tipografia grande no lugar de ícone/decoração), e um traço fino
+     separa cada momento, no mesmo espírito editorial do resto do site */
   #sobre .timeline-container {
-    margin: 2.2rem auto 1.5rem !important;
+    max-width: none !important;
+    margin: 2rem 0 1.5rem !important;
     padding: 0 !important;
   }
 
-  #sobre .timeline-line {
-    left: 7px;
-    width: 2px;
+  #sobre .timeline-line,
+  #sobre .timeline-item .timeline-dot {
+    display: none !important;
   }
 
   #sobre .timeline-item {
     width: 100% !important;
     left: 0 !important;
     text-align: left !important;
-    padding: 0 0 0 2.6rem !important;
-    margin-bottom: 2.2rem !important;
-    /* Desfaz o visual "card" (fundo/borda) da regra global — aqui a
-       separação entre itens vem do espaçamento, não de uma caixa */
+    padding: 1.8rem 0 !important;
+    margin: 0 !important;
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
   }
-  #sobre .timeline-item:last-child {
-    margin-bottom: 0 !important;
-  }
-
-  #sobre .timeline-item .timeline-dot {
-    width: 14px !important;
-    height: 14px !important;
-    left: 0 !important;
-    right: auto !important;
-    top: 0.3rem !important;
-    transform: translateX(0) !important;
-    z-index: 1 !important;
+  /* Traço fino separando os itens — só entre um .timeline-item e o
+     próximo, então o primeiro item (que vem logo após a linha escondida)
+     não ganha borda no topo */
+  #sobre .timeline-item + .timeline-item {
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
 
   #sobre .timeline-content {
     padding: 0 !important;
-    position: relative !important;
-    z-index: 2 !important;
   }
 
   #sobre .timeline-date {
-    font-size: 0.78rem !important;
-    letter-spacing: 0.06em !important;
-    text-transform: uppercase !important;
-    margin-bottom: 0.4rem !important;
+    display: block;
+    font-family: "Space Grotesk", sans-serif !important;
+    font-size: 2.4rem !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    letter-spacing: -0.01em !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin-bottom: 0.8rem !important;
   }
 
   #sobre .timeline-title {
     font-size: 1.05rem !important;
     font-weight: 600 !important;
-    line-height: 1.3 !important;
-    margin-bottom: 0.5rem !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.6rem !important;
   }
 
   #sobre .timeline-desc {
-    font-size: 0.85rem !important;
-    line-height: 1.6 !important;
+    font-size: 0.88rem !important;
+    line-height: 1.65 !important;
   }
 
   /* Ícones de status (Cursando/Cargo Atual/Atividade Recente) — menores e
@@ -5153,20 +5147,25 @@ p,
   box-shadow: none !important; /* Glow removed for refined matte look */
 }
 
-/* 7. Interactive Timeline Refinement - Clean Matte Line & Dots */
-.timeline-item {
-  background: rgba(6, 6, 6, 0.5) !important;
-  border: 1px solid rgba(255, 255, 255, 0.03) !important;
-  border-radius: 6px !important;
-  padding: 1.6rem !important;
-  margin-bottom: 1.5rem !important;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+/* 7. Interactive Timeline Refinement - Clean Matte Line & Dots
+   (Só no desktop — no mobile a Trajetória agora usa um visual mais
+   editorial, sem caixa, ver bloco #sobre mais abaixo) */
+@media (min-width: 769px) {
+  .timeline-item {
+    background: rgba(6, 6, 6, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.03) !important;
+    border-radius: 6px !important;
+    padding: 1.6rem !important;
+    margin-bottom: 1.5rem !important;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .timeline-item:hover {
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    background: rgba(255, 255, 255, 0.01) !important;
+  }
 }
 
-.timeline-item:hover {
-  border-color: rgba(255, 255, 255, 0.15) !important;
-  background: rgba(255, 255, 255, 0.01) !important;
-}
 
 .timeline-title {
   font-family: "Inter", sans-serif !important;
