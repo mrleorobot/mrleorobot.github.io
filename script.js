@@ -856,7 +856,7 @@ if (btnCopiarEmail) {
         } else {
           btnCopiarEmail.innerHTML = "E-mail copiado!";
         }
-        btnCopiarEmail.style.background = "#ffffff"; // Arcane hex tint
+        btnCopiarEmail.style.background = "#ffffff"; // Primary accent tint
         btnCopiarEmail.classList.add("copied-feedback");
 
         if (toastNotificacao) {
@@ -1176,7 +1176,7 @@ async function fetchRecentRepos() {
 
       article.innerHTML = `
          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
-            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--arcane-hex);">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-accent);">
               <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3-.3 6-1.5 6-6.5a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 5 3 6.2 6 6.5a4.8 4.8 0 0 0-1 3.2v4"></path>
             </svg>
             <span style="font-size: 0.8rem; color: #a0aec0; font-family: 'JetBrains Mono', monospace;">${date}</span>
@@ -1184,8 +1184,8 @@ async function fetchRecentRepos() {
          <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 0.5rem; word-break: break-word; overflow-wrap: break-word; text-transform: uppercase;" class="notranslate" translate="no">${repo.name}</h3>
          <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 1.25rem; flex: 1; line-height: 1.4;">${desc}</p>
          <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
-             <span class="notranslate" translate="no" style="font-size: 0.8rem; color: var(--arcane-hex); display: flex; align-items: center; gap: 0.5rem; font-weight: 600;">
-                <span style="width: 6px; height: 6px; border-radius: 50%; background-color: var(--arcane-hex); display: inline-block;"></span>
+             <span class="notranslate" translate="no" style="font-size: 0.8rem; color: var(--primary-accent); display: flex; align-items: center; gap: 0.5rem; font-weight: 600;">
+                <span style="width: 6px; height: 6px; border-radius: 50%; background-color: var(--primary-accent); display: inline-block;"></span>
                 ${lang}
              </span>
              <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="color: #fff; text-decoration: none; font-size: 0.8rem; border-bottom: 1px dotted currentColor; transition: opacity 0.3s ease; font-family: 'Space Grotesk', sans-serif;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Ver Repositório ↗</a>

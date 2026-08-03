@@ -18,10 +18,10 @@
   --border-contact: rgba(255, 255, 255, 0.1);
   --bg-tag: rgba(20, 20, 20, 0.9);
 
-  /* Arcane & Steven Universe Palette - Unified under our luxury scheme */
-  --arcane-bg: #000000;
-  --arcane-hex: #ffffff;
-  --arcane-gold: #ffffff;
+  /* Primary Palette - Unified under our luxury scheme */
+  --primary-bg: #000000;
+  --primary-accent: #ffffff;
+  --primary-accent-alt: #ffffff;
   --su-pink: #ffffff;
   --su-purple: rgba(10, 10, 10, 0.8);
   --su-sky: rgba(10, 10, 10, 0.8);
@@ -355,7 +355,7 @@ nav.scrolled {
 
 .logo {
   font-size: 1.2rem; /* Reduzido de 1.5rem */
-  color: var(--arcane-hex);
+  color: var(--primary-accent);
   text-decoration: none;
   font-weight: 900;
   letter-spacing: 1px;
@@ -403,10 +403,10 @@ nav.scrolled {
   gap: 6px;
   padding: 8px 16px; /* Mais compacto */
   background: rgba(255, 255, 255, 0.05);
-  color: var(--arcane-hex);
-  border: 1px solid var(--arcane-hex);
+  color: var(--primary-accent);
+  border: 1px solid var(--primary-accent);
   border-radius: 4px;
-  box-shadow: 4px 4px 0 var(--arcane-hex);
+  box-shadow: 4px 4px 0 var(--primary-accent);
   font-family: "Space Grotesk", sans-serif;
   font-weight: 700;
   font-size: 0.75rem;
@@ -418,10 +418,10 @@ nav.scrolled {
 }
 
 .btn-cv:hover {
-  background: var(--arcane-hex);
+  background: var(--primary-accent);
   color: #000;
   transform: translateY(-3px);
-  box-shadow: 6px 6px 0 var(--arcane-hex);
+  box-shadow: 6px 6px 0 var(--primary-accent);
 }
 
 main {
@@ -716,7 +716,7 @@ section {
 
 .hero-subtitle {
   font-size: clamp(0.75rem, 1.8vw, 1rem);
-  color: var(--arcane-hex);
+  color: var(--primary-accent);
   font-weight: 700;
   margin-bottom: 2.5rem;
   letter-spacing: 3px; /* Reduzido de 5px */
@@ -786,7 +786,7 @@ section {
   }
 }
 
-.btn-arcane {
+.btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -807,7 +807,7 @@ section {
   text-shadow: none;
 }
 
-.btn-arcane::before {
+.btn-primary::before {
   content: "";
   position: absolute;
   top: 0;
@@ -824,7 +824,7 @@ section {
   z-index: 0;
 }
 
-.btn-arcane::after {
+.btn-primary::after {
   content: "";
   position: absolute;
   top: 0;
@@ -844,7 +844,7 @@ section {
   z-index: 1;
 }
 
-.btn-arcane:hover {
+.btn-primary:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow:
     0 0 20px rgba(255, 255, 255, 0.25),
@@ -853,11 +853,11 @@ section {
   text-shadow: none;
 }
 
-.btn-arcane:hover::before {
+.btn-primary:hover::before {
   opacity: 1;
 }
 
-.btn-arcane:hover::after {
+.btn-primary:hover::after {
   left: 150%;
   transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -901,7 +901,7 @@ section {
   overflow: hidden;
   box-shadow:
     -6px 6px 0 var(--su-pink),
-    6px -6px 0 var(--arcane-hex);
+    6px -6px 0 var(--primary-accent);
   border: 2px solid rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
   transition:
@@ -1011,7 +1011,7 @@ section {
 
 .testimonial-author {
   font-family: "Space Grotesk", sans-serif;
-  color: var(--arcane-gold);
+  color: var(--primary-accent-alt);
   font-weight: 700;
   font-size: 0.9rem;
   text-transform: uppercase;
@@ -1035,7 +1035,7 @@ section {
 
 .skills-header h2 {
   font-size: clamp(2.2rem, 5vw, 3.5rem);
-  color: var(--arcane-hex);
+  color: var(--primary-accent);
   margin-bottom: 1.5rem;
 }
 
@@ -1431,7 +1431,7 @@ section {
   border-radius: 4px;
   font-weight: bold;
   font-family: "Space Grotesk", sans-serif;
-  color: var(--arcane-hex);
+  color: var(--primary-accent);
   text-transform: uppercase;
   letter-spacing: 1px;
   width: fit-content;
@@ -1790,7 +1790,7 @@ section {
     height: 480px;
     margin: 0 auto;
     transform: none !important;
-    box-shadow: 12px 12px 0 var(--arcane-hex);
+    box-shadow: 12px 12px 0 var(--primary-accent);
   }
 
   .hero-name {
@@ -1969,9 +1969,9 @@ section {
     padding: 0.5rem 1.2rem;
   }
   .btn-cv:hover {
-    background: var(--arcane-hex);
+    background: var(--primary-accent);
     color: #000;
-    box-shadow: 6px 6px 0 var(--arcane-hex);
+    box-shadow: 6px 6px 0 var(--primary-accent);
     transform: translateY(-2px);
   }
 
@@ -2009,13 +2009,13 @@ section {
     border-radius: 12px;
     box-shadow:
       -8px 8px 0 var(--su-pink),
-      8px -8px 0 var(--arcane-hex);
+      8px -8px 0 var(--primary-accent);
   }
   .profile-frame:hover {
     transform: translate(2px, -2px);
     box-shadow:
       -10px 10px 0 var(--su-pink),
-      10px -10px 0 var(--arcane-hex);
+      10px -10px 0 var(--primary-accent);
   }
   .profile-frame:hover img {
     transform: scale(1.05);
@@ -2041,7 +2041,7 @@ section {
   }
   .testimonial-card:hover {
     transform: translateY(-5px);
-    border-left-color: var(--arcane-hex);
+    border-left-color: var(--primary-accent);
   }
 
   /* Skills */
@@ -2254,7 +2254,7 @@ section {
 
 .status-card:hover {
   transform: translateY(-5px) scale(1.02);
-  border-color: var(--arcane-hex);
+  border-color: var(--primary-accent);
   box-shadow:
     0 12px 40px rgba(255, 255, 255, 0.15),
     inset 0 0 20px rgba(255, 255, 255, 0.08);
@@ -2266,7 +2266,7 @@ section {
   gap: 0.5rem;
   padding: 4px 12px;
   background: rgba(255, 255, 255, 0.1);
-  color: var(--arcane-hex);
+  color: var(--primary-accent);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -2279,7 +2279,7 @@ section {
 .live-dot {
   width: 8px;
   height: 8px;
-  background-color: var(--arcane-hex);
+  background-color: var(--primary-accent);
   border-radius: 50%;
   animation: pulse-live 2s infinite;
   display: inline-block;
@@ -2542,7 +2542,7 @@ body {
 }
 
 #searchInput:focus {
-  border-color: var(--arcane-hex);
+  border-color: var(--primary-accent);
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
 }
@@ -2576,7 +2576,7 @@ body {
 .hamburger-line {
   width: 22px;
   height: 3px;
-  background-color: var(--arcane-hex);
+  background-color: var(--primary-accent);
   border-radius: 3px;
   transition: all 0.3s ease;
 }
@@ -2614,7 +2614,7 @@ body {
   }
   .magazine-frame {
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-    box-shadow: 15px 15px 0px var(--arcane-hex);
+    box-shadow: 15px 15px 0px var(--primary-accent);
   }
 }
 
@@ -2638,7 +2638,7 @@ body {
 }
 .design-header h2 {
   font-size: clamp(2rem, 5vw + 1rem, 2.5rem);
-  color: var(--arcane-hex);
+  color: var(--primary-accent);
   margin-bottom: 1rem;
   font-family: "Space Grotesk", sans-serif;
 }
@@ -2700,7 +2700,7 @@ body {
 .design-card:hover .img-placeholder {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.4);
-  color: var(--arcane-hex);
+  color: var(--primary-accent);
 }
 
 .design-card h3 {
@@ -2755,11 +2755,11 @@ body {
       rgba(255, 255, 255, 0.1) 0%,
       rgba(0, 0, 0, 0.6) 100%
     );
-    border-color: var(--arcane-hex);
+    border-color: var(--primary-accent);
     box-shadow:
       0 0 15px rgba(255, 255, 255, 0.4),
       inset 0 0 10px rgba(255, 255, 255, 0.2);
-    color: var(--arcane-hex);
+    color: var(--primary-accent);
   }
 }
 
@@ -2815,7 +2815,7 @@ body {
 }
 
 .faq-item:hover {
-  border-color: var(--arcane-hex);
+  border-color: var(--primary-accent);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -2843,7 +2843,7 @@ body {
 
 @media (hover: hover) and (pointer: fine) {
   .faq-question:hover {
-    color: var(--arcane-hex);
+    color: var(--primary-accent);
   }
 }
 
@@ -2851,7 +2851,7 @@ body {
   font-size: 1.5rem;
   font-weight: 300;
   transition: transform 0.4s ease;
-  color: var(--arcane-hex);
+  color: var(--primary-accent);
   line-height: 1;
 }
 
@@ -3022,7 +3022,7 @@ body {
   font-family: "Inter", sans-serif;
   font-size: 1rem;
   font-weight: 500;
-  border-left: 4px solid var(--arcane-hex);
+  border-left: 4px solid var(--primary-accent);
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   z-index: 9999;
@@ -3055,7 +3055,7 @@ body {
   bottom: 0;
   z-index: 100000;
   pointer-events: none;
-  background: rgba(3, 7, 18, 0.4); /* arcane-bg but transparent */
+  background: rgba(3, 7, 18, 0.4); /* primary-bg but transparent */
   opacity: 0;
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
@@ -3086,7 +3086,7 @@ body {
   }
 
   /* Remove transformações extremas */
-  .btn-arcane:hover,
+  .btn-primary:hover,
   .btn-cv:hover,
   .status-logo {
     transform: none !important;
@@ -3199,7 +3199,7 @@ body {
   pointer-events: none;
   transition: all 0.3s ease;
   z-index: 99;
-  background: var(--arcane-hex);
+  background: var(--primary-accent);
   color: #06040d;
   border: none;
   border-radius: 50px;
@@ -3258,7 +3258,7 @@ body {
 /* =========================================
    ACCESSIBILITY: FOCUS STATES (Laboratório Aberto)
    ========================================= */
-#projetos .btn-arcane:focus-visible {
+#projetos .btn-primary:focus-visible {
   outline: 3px dashed var(--su-pink) !important;
   outline-offset: 6px !important;
   transform: translateY(-4px) scale(1.02) !important;
@@ -3601,7 +3601,7 @@ html {
 
 .cardList__btn:hover {
   background: rgba(255, 255, 255, 0.25) !important;
-  border-color: var(--arcane-hex) !important;
+  border-color: var(--primary-accent) !important;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5) !important;
   transform: translateY(-50%) scale(1.15);
 }
@@ -3783,7 +3783,7 @@ html {
   margin-left: 0px;
   margin-bottom: 8px;
   padding-bottom: 0px;
-  color: var(--arcane-hex);
+  color: var(--primary-accent);
   text-shadow: 0px 2px 10px rgba(0, 0, 0, 1);
 }
 
@@ -3815,7 +3815,7 @@ html {
 }
 
 .info .description strong {
-  color: var(--arcane-hex);
+  color: var(--primary-accent);
 }
 
 .info.current--info {
@@ -3845,7 +3845,7 @@ html {
 }
 
 .loading__wrapper .loader--text {
-  color: var(--arcane-hex);
+  color: var(--primary-accent);
   font-family: "Space Grotesk", sans-serif;
   font-weight: 500;
   margin-bottom: 1.4rem;
@@ -3864,22 +3864,22 @@ html {
   top: 0;
   width: 100%;
   height: 100%;
-  background: var(--arcane-hex);
+  background: var(--primary-accent);
   transform: scaleX(0);
   transform-origin: left;
-  box-shadow: 0 0 10px var(--arcane-hex);
+  box-shadow: 0 0 10px var(--primary-accent);
   animation: loader-pulse 1.5s infinite alternate;
 }
 
 @keyframes loader-pulse {
   0% {
-    box-shadow: 0 0 5px var(--arcane-hex);
+    box-shadow: 0 0 5px var(--primary-accent);
     filter: brightness(1);
   }
   100% {
     box-shadow:
-      0 0 15px var(--arcane-hex),
-      0 0 25px var(--arcane-hex);
+      0 0 15px var(--primary-accent),
+      0 0 25px var(--primary-accent);
     filter: brightness(1.3);
   }
 }
@@ -3976,7 +3976,7 @@ html {
 }
 
 .fechar-modal:hover {
-  color: var(--arcane-hex);
+  color: var(--primary-accent);
 }
 
 /* Fullscreen Image Modal */
@@ -4244,9 +4244,9 @@ html {
   left: 0;
   width: 100%;
   height: 0%;
-  background: var(--arcane-hex);
+  background: var(--primary-accent);
   box-shadow:
-    0 0 20px var(--arcane-hex),
+    0 0 20px var(--primary-accent),
     0 0 40px var(--su-pink);
   transition: height 0.3s ease-out;
 }
@@ -4294,8 +4294,8 @@ html {
 }
 
 .timeline-item.active .timeline-dot {
-  border-color: var(--arcane-hex);
-  box-shadow: 0 0 15px var(--arcane-hex);
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 15px var(--primary-accent);
 }
 
 .timeline-content {
@@ -4391,8 +4391,8 @@ html {
   bottom: 96px;
   right: 20px;
   background: rgba(0, 0, 0, 0.7);
-  color: var(--arcane-hex);
-  border: 1px solid var(--arcane-hex);
+  color: var(--primary-accent);
+  border: 1px solid var(--primary-accent);
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -5579,7 +5579,7 @@ nav {
   }
 }
 
-.btn-arcane,
+.btn-primary,
 .btn-projeto {
   background: transparent !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -5600,7 +5600,7 @@ nav {
   text-decoration: none !important;
 }
 
-.btn-arcane:hover,
+.btn-primary:hover,
 .btn-projeto:hover {
   background: var(--primary-accent) !important;
   color: #030303 !important;
@@ -5988,14 +5988,14 @@ nav.scrolled {
 }
 
 /* --- Pill-shaped buttons everywhere --- */
-.btn-arcane,
+.btn-primary,
 .btn-projeto,
 .btn-escrever-mural,
 .btn-cv {
   border-radius: 999px !important;
 }
 
-.btn-arcane {
+.btn-primary {
   padding: 0.85rem 2rem !important;
   font-size: 0.75rem !important;
 }
@@ -6500,7 +6500,7 @@ html.lenis, html.lenis body {
     font-weight: 700 !important;
   }
   
-  .btn-arcane, .btn-cv, .btn-escrever-mural, .btn-primary {
+  .btn-primary, .btn-cv, .btn-escrever-mural, .btn-primary {
     background: #ffffff !important;
     color: #000000 !important;
     border: none !important;

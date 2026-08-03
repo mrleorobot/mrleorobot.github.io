@@ -258,7 +258,7 @@ if (cardsContainerEl) {
               gsap.to(loaderEl, {
                 duration: 1,
                 scaleX: loadProgress,
-                backgroundColor: `var(--arcane-hex)`,
+                backgroundColor: `var(--primary-accent)`,
               });
           }
 
