@@ -18,10 +18,10 @@
   --border-contact: rgba(255, 255, 255, 0.1);
   --bg-tag: rgba(20, 20, 20, 0.9);
 
-  /* Primary Palette - Unified under our luxury scheme */
-  --primary-bg: #000000;
-  --primary-accent: #ffffff;
-  --primary-accent-alt: #ffffff;
+  /* Arcane & Steven Universe Palette - Unified under our luxury scheme */
+  --arcane-bg: #000000;
+  --arcane-hex: #ffffff;
+  --arcane-gold: #ffffff;
   --su-pink: #ffffff;
   --su-purple: rgba(10, 10, 10, 0.8);
   --su-sky: rgba(10, 10, 10, 0.8);
@@ -52,15 +52,6 @@ body {
   overflow-x: hidden;
   width: 100%;
   position: relative;
-}
-
-/* Hidden scrollbar — premium feel (like mentodovance) */
-html {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-html::-webkit-scrollbar {
-  display: none;
 }
 
 * {
@@ -230,68 +221,8 @@ h3,
   }
 }
 
-/* ======== Blur-In Cascade (Inspired by mentodovance) ======== */
-@keyframes blurInUp {
-  0% {
-    opacity: 0;
-    filter: blur(12px);
-    transform: translate3d(0, 28px, 0);
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0px);
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-.blur-in-1 {
-  animation: blurInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
-}
-.blur-in-2 {
-  animation: blurInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
-}
-.blur-in-3 {
-  animation: blurInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
-}
-.blur-in-4 {
-  animation: blurInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
-}
-.blur-in-5 {
-  animation: blurInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
-}
-
-/* ======== Line Mask Text Reveal ======== */
-.line-reveal {
-  overflow: hidden;
-  padding: 0.1em 0;
-}
-.line-reveal .line-inner {
-  display: block;
-  transform: translate3d(0, 110%, 0);
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-.line-reveal.revealed .line-inner {
-  transform: translate3d(0, 0, 0);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  .blur-in-1, .blur-in-2, .blur-in-3, .blur-in-4, .blur-in-5 {
-    animation: none !important;
-    opacity: 1 !important;
-    filter: none !important;
-    transform: none !important;
-  }
-  .line-reveal .line-inner {
-    transform: none !important;
+  body {
     transition: none !important;
   }
 }
@@ -355,7 +286,7 @@ nav.scrolled {
 
 .logo {
   font-size: 1.2rem; /* Reduzido de 1.5rem */
-  color: var(--primary-accent);
+  color: var(--arcane-hex);
   text-decoration: none;
   font-weight: 900;
   letter-spacing: 1px;
@@ -403,10 +334,10 @@ nav.scrolled {
   gap: 6px;
   padding: 8px 16px; /* Mais compacto */
   background: rgba(255, 255, 255, 0.05);
-  color: var(--primary-accent);
-  border: 1px solid var(--primary-accent);
+  color: var(--arcane-hex);
+  border: 1px solid var(--arcane-hex);
   border-radius: 4px;
-  box-shadow: 4px 4px 0 var(--primary-accent);
+  box-shadow: 4px 4px 0 var(--arcane-hex);
   font-family: "Space Grotesk", sans-serif;
   font-weight: 700;
   font-size: 0.75rem;
@@ -418,10 +349,10 @@ nav.scrolled {
 }
 
 .btn-cv:hover {
-  background: var(--primary-accent);
+  background: var(--arcane-hex);
   color: #000;
   transform: translateY(-3px);
-  box-shadow: 6px 6px 0 var(--primary-accent);
+  box-shadow: 6px 6px 0 var(--arcane-hex);
 }
 
 main {
@@ -453,70 +384,6 @@ section {
   position: relative;
   background: transparent;
   overflow: clip; /* Melhora performance e evita scrollbars indesejadas */
-}
-
-/* Hero base layout */
-#hero {
-  padding-top: 120px;
-  padding-bottom: 80px;
-}
-
-.glitch-title {
-  text-align: center;
-  margin-bottom: 3rem;
-  width: 100%;
-}
-
-/* ======== Hero Ink Shader (WebGL Canvas) ======== */
-#hero-ink {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 1;
-  mix-blend-mode: screen;
-}
-
-#hero .intro-content {
-  position: relative;
-  z-index: 1;
-}
-
-/* Fallback gradient for prefers-reduced-motion or no-WebGL */
-.hero-ink-fallback {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0;
-  transition: opacity 1s ease;
-  background: radial-gradient(
-    ellipse at 30% 50%,
-    rgba(255, 255, 255, 0.06) 0%,
-    transparent 60%
-  ),
-  radial-gradient(
-    ellipse at 70% 30%,
-    rgba(255, 255, 255, 0.04) 0%,
-    transparent 50%
-  );
-}
-
-.hero-ink-fallback.active {
-  opacity: 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #hero-ink {
-    display: none !important;
-  }
-  .hero-ink-fallback {
-    opacity: 1 !important;
-  }
 }
 
 /* Tab System styling */
@@ -557,7 +424,27 @@ section {
   perspective: 1000px; /* For 3D feeling */
 }
 
+#hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.8;
 
+  transition: transform 0.2s ease-out;
+}
+
+@keyframes canvasFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
 
 .hero-split-visual {
   position: relative;
@@ -760,7 +647,7 @@ section {
 
 .hero-subtitle {
   font-size: clamp(0.75rem, 1.8vw, 1rem);
-  color: var(--primary-accent);
+  color: var(--arcane-hex);
   font-weight: 700;
   margin-bottom: 2.5rem;
   letter-spacing: 3px; /* Reduzido de 5px */
@@ -830,7 +717,7 @@ section {
   }
 }
 
-.btn-primary {
+.btn-arcane {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -851,7 +738,7 @@ section {
   text-shadow: none;
 }
 
-.btn-primary::before {
+.btn-arcane::before {
   content: "";
   position: absolute;
   top: 0;
@@ -868,7 +755,7 @@ section {
   z-index: 0;
 }
 
-.btn-primary::after {
+.btn-arcane::after {
   content: "";
   position: absolute;
   top: 0;
@@ -888,7 +775,7 @@ section {
   z-index: 1;
 }
 
-.btn-primary:hover {
+.btn-arcane:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow:
     0 0 20px rgba(255, 255, 255, 0.25),
@@ -897,11 +784,11 @@ section {
   text-shadow: none;
 }
 
-.btn-primary:hover::before {
+.btn-arcane:hover::before {
   opacity: 1;
 }
 
-.btn-primary:hover::after {
+.btn-arcane:hover::after {
   left: 150%;
   transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -945,7 +832,7 @@ section {
   overflow: hidden;
   box-shadow:
     -6px 6px 0 var(--su-pink),
-    6px -6px 0 var(--primary-accent);
+    6px -6px 0 var(--arcane-hex);
   border: 2px solid rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
   transition:
@@ -1055,7 +942,7 @@ section {
 
 .testimonial-author {
   font-family: "Space Grotesk", sans-serif;
-  color: var(--primary-accent-alt);
+  color: var(--arcane-gold);
   font-weight: 700;
   font-size: 0.9rem;
   text-transform: uppercase;
@@ -1079,7 +966,7 @@ section {
 
 .skills-header h2 {
   font-size: clamp(2.2rem, 5vw, 3.5rem);
-  color: var(--primary-accent);
+  color: var(--arcane-hex);
   margin-bottom: 1.5rem;
 }
 
@@ -1475,7 +1362,7 @@ section {
   border-radius: 4px;
   font-weight: bold;
   font-family: "Space Grotesk", sans-serif;
-  color: var(--primary-accent);
+  color: var(--arcane-hex);
   text-transform: uppercase;
   letter-spacing: 1px;
   width: fit-content;
@@ -1834,7 +1721,7 @@ section {
     height: 480px;
     margin: 0 auto;
     transform: none !important;
-    box-shadow: 12px 12px 0 var(--primary-accent);
+    box-shadow: 12px 12px 0 var(--arcane-hex);
   }
 
   .hero-name {
@@ -1963,7 +1850,9 @@ section {
        SUPER SMALL MOBILE FIXES (MAX-WIDTH: 480px)
        ========================================= */
 @media (max-width: 480px) {
-  #status-disponibilidade {
+  /* Ajuste dos Widgets de Status/Clima */
+  #status-disponibilidade,
+  #widget-clima {
     width: 100% !important;
     justify-content: center !important;
     font-size: 13px !important;
@@ -2011,9 +1900,9 @@ section {
     padding: 0.5rem 1.2rem;
   }
   .btn-cv:hover {
-    background: var(--primary-accent);
+    background: var(--arcane-hex);
     color: #000;
-    box-shadow: 6px 6px 0 var(--primary-accent);
+    box-shadow: 6px 6px 0 var(--arcane-hex);
     transform: translateY(-2px);
   }
 
@@ -2051,13 +1940,13 @@ section {
     border-radius: 12px;
     box-shadow:
       -8px 8px 0 var(--su-pink),
-      8px -8px 0 var(--primary-accent);
+      8px -8px 0 var(--arcane-hex);
   }
   .profile-frame:hover {
     transform: translate(2px, -2px);
     box-shadow:
       -10px 10px 0 var(--su-pink),
-      10px -10px 0 var(--primary-accent);
+      10px -10px 0 var(--arcane-hex);
   }
   .profile-frame:hover img {
     transform: scale(1.05);
@@ -2083,7 +1972,7 @@ section {
   }
   .testimonial-card:hover {
     transform: translateY(-5px);
-    border-left-color: var(--primary-accent);
+    border-left-color: var(--arcane-hex);
   }
 
   /* Skills */
@@ -2296,7 +2185,7 @@ section {
 
 .status-card:hover {
   transform: translateY(-5px) scale(1.02);
-  border-color: var(--primary-accent);
+  border-color: var(--arcane-hex);
   box-shadow:
     0 12px 40px rgba(255, 255, 255, 0.15),
     inset 0 0 20px rgba(255, 255, 255, 0.08);
@@ -2308,7 +2197,7 @@ section {
   gap: 0.5rem;
   padding: 4px 12px;
   background: rgba(255, 255, 255, 0.1);
-  color: var(--primary-accent);
+  color: var(--arcane-hex);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -2321,7 +2210,7 @@ section {
 .live-dot {
   width: 8px;
   height: 8px;
-  background-color: var(--primary-accent);
+  background-color: var(--arcane-hex);
   border-radius: 50%;
   animation: pulse-live 2s infinite;
   display: inline-block;
@@ -2584,7 +2473,7 @@ body {
 }
 
 #searchInput:focus {
-  border-color: var(--primary-accent);
+  border-color: var(--arcane-hex);
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
 }
@@ -2618,7 +2507,7 @@ body {
 .hamburger-line {
   width: 22px;
   height: 3px;
-  background-color: var(--primary-accent);
+  background-color: var(--arcane-hex);
   border-radius: 3px;
   transition: all 0.3s ease;
 }
@@ -2656,7 +2545,7 @@ body {
   }
   .magazine-frame {
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-    box-shadow: 15px 15px 0px var(--primary-accent);
+    box-shadow: 15px 15px 0px var(--arcane-hex);
   }
 }
 
@@ -2680,7 +2569,7 @@ body {
 }
 .design-header h2 {
   font-size: clamp(2rem, 5vw + 1rem, 2.5rem);
-  color: var(--primary-accent);
+  color: var(--arcane-hex);
   margin-bottom: 1rem;
   font-family: "Space Grotesk", sans-serif;
 }
@@ -2742,7 +2631,7 @@ body {
 .design-card:hover .img-placeholder {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.4);
-  color: var(--primary-accent);
+  color: var(--arcane-hex);
 }
 
 .design-card h3 {
@@ -2797,11 +2686,11 @@ body {
       rgba(255, 255, 255, 0.1) 0%,
       rgba(0, 0, 0, 0.6) 100%
     );
-    border-color: var(--primary-accent);
+    border-color: var(--arcane-hex);
     box-shadow:
       0 0 15px rgba(255, 255, 255, 0.4),
       inset 0 0 10px rgba(255, 255, 255, 0.2);
-    color: var(--primary-accent);
+    color: var(--arcane-hex);
   }
 }
 
@@ -2857,7 +2746,7 @@ body {
 }
 
 .faq-item:hover {
-  border-color: var(--primary-accent);
+  border-color: var(--arcane-hex);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -2885,7 +2774,7 @@ body {
 
 @media (hover: hover) and (pointer: fine) {
   .faq-question:hover {
-    color: var(--primary-accent);
+    color: var(--arcane-hex);
   }
 }
 
@@ -2893,7 +2782,7 @@ body {
   font-size: 1.5rem;
   font-weight: 300;
   transition: transform 0.4s ease;
-  color: var(--primary-accent);
+  color: var(--arcane-hex);
   line-height: 1;
 }
 
@@ -2991,7 +2880,20 @@ body {
        FIXES FINAIS DE LIGHT MODE (MOBILE + OVERLAY + SEARCH)
     ========================================= */
 
-/* [Removed] Broken light-mode mobile rules with missing selectors */
+@media (max-width: 767px) {
+    background: #ffffff !important;
+    border-left: 1px solid #e2e8f0 !important;
+  } /* Overlay sutil escuro */ /* Texte limpo e escuro */ /* Linhas em escuro */
+
+/* Suavização dos botões flutuantes e hamburger no modo claro */
+@media (max-width: 767px) {
+    background-color: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  } /* Cinza muito translúcido para contraste */
 
 /* THEME TOGGLE BUTTON */
 .theme-toggle-btn {
@@ -3051,7 +2953,7 @@ body {
   font-family: "Inter", sans-serif;
   font-size: 1rem;
   font-weight: 500;
-  border-left: 4px solid var(--primary-accent);
+  border-left: 4px solid var(--arcane-hex);
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   z-index: 9999;
@@ -3084,7 +2986,7 @@ body {
   bottom: 0;
   z-index: 100000;
   pointer-events: none;
-  background: rgba(3, 7, 18, 0.4); /* primary-bg but transparent */
+  background: rgba(3, 7, 18, 0.4); /* arcane-bg but transparent */
   opacity: 0;
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
@@ -3115,7 +3017,7 @@ body {
   }
 
   /* Remove transformações extremas */
-  .btn-primary:hover,
+  .btn-arcane:hover,
   .btn-cv:hover,
   .status-logo {
     transform: none !important;
@@ -3228,7 +3130,7 @@ body {
   pointer-events: none;
   transition: all 0.3s ease;
   z-index: 99;
-  background: var(--primary-accent);
+  background: var(--arcane-hex);
   color: #06040d;
   border: none;
   border-radius: 50px;
@@ -3287,7 +3189,7 @@ body {
 /* =========================================
    ACCESSIBILITY: FOCUS STATES (Laboratório Aberto)
    ========================================= */
-#projetos .btn-primary:focus-visible {
+#projetos .btn-arcane:focus-visible {
   outline: 3px dashed var(--su-pink) !important;
   outline-offset: 6px !important;
   transform: translateY(-4px) scale(1.02) !important;
@@ -3330,13 +3232,15 @@ body {
    PERFORMANCE OPTIMIZATIONS
    ========================================= */
 @media (max-width: 768px) {
+  /* Fallback opaque colors for mobile without blur */
   nav.scrolled {
     background: rgba(6, 6, 6, 0.98) !important;
+  }
+    background: rgba(255, 255, 255, 0.98) !important;
   }
   #glitch-overlay {
     background: rgba(3, 7, 18, 0.9) !important;
   }
-}
 
 /* Enable hardware acceleration for frequently moving elements */
 .project-card,
@@ -3628,7 +3532,7 @@ html {
 
 .cardList__btn:hover {
   background: rgba(255, 255, 255, 0.25) !important;
-  border-color: var(--primary-accent) !important;
+  border-color: var(--arcane-hex) !important;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5) !important;
   transform: translateY(-50%) scale(1.15);
 }
@@ -3810,7 +3714,7 @@ html {
   margin-left: 0px;
   margin-bottom: 8px;
   padding-bottom: 0px;
-  color: var(--primary-accent);
+  color: var(--arcane-hex);
   text-shadow: 0px 2px 10px rgba(0, 0, 0, 1);
 }
 
@@ -3842,7 +3746,7 @@ html {
 }
 
 .info .description strong {
-  color: var(--primary-accent);
+  color: var(--arcane-hex);
 }
 
 .info.current--info {
@@ -3872,7 +3776,7 @@ html {
 }
 
 .loading__wrapper .loader--text {
-  color: var(--primary-accent);
+  color: var(--arcane-hex);
   font-family: "Space Grotesk", sans-serif;
   font-weight: 500;
   margin-bottom: 1.4rem;
@@ -3891,22 +3795,22 @@ html {
   top: 0;
   width: 100%;
   height: 100%;
-  background: var(--primary-accent);
+  background: var(--arcane-hex);
   transform: scaleX(0);
   transform-origin: left;
-  box-shadow: 0 0 10px var(--primary-accent);
+  box-shadow: 0 0 10px var(--arcane-hex);
   animation: loader-pulse 1.5s infinite alternate;
 }
 
 @keyframes loader-pulse {
   0% {
-    box-shadow: 0 0 5px var(--primary-accent);
+    box-shadow: 0 0 5px var(--arcane-hex);
     filter: brightness(1);
   }
   100% {
     box-shadow:
-      0 0 15px var(--primary-accent),
-      0 0 25px var(--primary-accent);
+      0 0 15px var(--arcane-hex),
+      0 0 25px var(--arcane-hex);
     filter: brightness(1.3);
   }
 }
@@ -4003,7 +3907,7 @@ html {
 }
 
 .fechar-modal:hover {
-  color: var(--primary-accent);
+  color: var(--arcane-hex);
 }
 
 /* Fullscreen Image Modal */
@@ -4271,9 +4175,9 @@ html {
   left: 0;
   width: 100%;
   height: 0%;
-  background: var(--primary-accent);
+  background: var(--arcane-hex);
   box-shadow:
-    0 0 20px var(--primary-accent),
+    0 0 20px var(--arcane-hex),
     0 0 40px var(--su-pink);
   transition: height 0.3s ease-out;
 }
@@ -4321,8 +4225,8 @@ html {
 }
 
 .timeline-item.active .timeline-dot {
-  border-color: var(--primary-accent);
-  box-shadow: 0 0 15px var(--primary-accent);
+  border-color: var(--arcane-hex);
+  box-shadow: 0 0 15px var(--arcane-hex);
 }
 
 .timeline-content {
@@ -4358,20 +4262,136 @@ html {
 }
 
 @media (max-width: 768px) {
-  .timeline-line {
-    left: 20px;
+  /* Trajetória: redesenho completo pro mobile — sem linha vertical, sem
+     bolinha, sem caixa. A data grande vira o elemento gráfico principal
+     (tipografia grande no lugar de ícone/decoração), e um traço fino
+     separa cada momento, no mesmo espírito editorial do resto do site */
+  #sobre .timeline-container {
+    max-width: none !important;
+    margin: 2rem 0 1.5rem !important;
+    padding: 0 !important;
+    counter-reset: momento;
   }
-  .timeline-item {
-    width: calc(100% - 20px) !important;
-    left: 20px !important;
+
+  #sobre .timeline-line,
+  #sobre .timeline-item .timeline-dot {
+    display: none !important;
+  }
+
+  #sobre .timeline-item {
+    counter-increment: momento;
+    position: relative !important;
+    width: 100% !important;
+    left: 0 !important;
     text-align: left !important;
-    padding-left: 1.6rem !important;
-    padding-right: 1.6rem !important;
+    padding: 0 0 1.9rem 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    transition:
+      opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    padding-bottom: 0 !important;
   }
-  .timeline-item .timeline-dot {
-    left: -10px !important;
-    right: auto !important;
-    transform: translateX(0) !important;
+  #sobre .timeline-item:active {
+    opacity: 0.7 !important;
+    transform: scale(0.99) !important;
+  }
+  /* Divisor em degradê (some nas pontas) em vez de linha seca de ponta a
+     ponta — só entre um item e o próximo, o primeiro (logo após a linha
+     escondida) não ganha divisor */
+  #sobre .timeline-item + .timeline-item::before {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    margin-bottom: 1.9rem;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.03) 65%,
+      transparent 100%
+    );
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  #sobre .timeline-item.revealed::before {
+    transform: scaleX(1);
+  }
+
+  #sobre .timeline-content {
+    padding: 0 !important;
+  }
+
+  /* Numerador automático "Momento 01/02/03" — atualiza sozinho se algum
+     dia entrar um item a mais, sem precisar editar HTML */
+  #sobre .timeline-date::before {
+    content: "Momento " counter(momento, decimal-leading-zero);
+    display: block;
+    font-family: "Inter", sans-serif !important;
+    font-size: 0.68rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    margin-bottom: 0.5rem !important;
+    padding-left: 1px !important;
+  }
+
+  /* O gradiente via background-clip:text foi removido — é um recurso com
+     bugs conhecidos de recorte de glifo em WebViews Android (exatamente o
+     tipo de corte que você viu). Troquei por sombra sutil, sem esse risco */
+  #sobre .timeline-date {
+    display: block;
+    font-family: "Space Grotesk", sans-serif !important;
+    font-size: 2.6rem !important;
+    font-weight: 700 !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.02em !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-shadow: 0 4px 28px rgba(255, 255, 255, 0.14) !important;
+    margin-bottom: 0.9rem !important;
+    transform: translateY(6px);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  }
+  #sobre .timeline-item.revealed .timeline-date {
+    transform: translateY(0);
+  }
+
+  #sobre .timeline-title {
+    font-size: 1.05rem !important;
+    font-weight: 600 !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.6rem !important;
+  }
+
+  #sobre .timeline-desc {
+    font-size: 0.88rem !important;
+    line-height: 1.65 !important;
+  }
+
+  /* Ícones de status (Cursando/Cargo Atual/Atividade Recente) — menores e
+     já em cor real no mobile, já que o hover que revelava a cor não existe
+     no toque */
+  #sobre .status-icon {
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 11px !important;
+  }
+  #sobre .status-main {
+    gap: 0.85rem !important;
+  }
+  #sobre .status-logo {
+    filter: none !important;
+  }
+  #sobre .status-info h3 {
+    font-size: 1.05rem !important;
+  }
+  #sobre .status-info p {
+    font-size: 0.85rem !important;
   }
 }
 
@@ -4418,8 +4438,8 @@ html {
   bottom: 96px;
   right: 20px;
   background: rgba(0, 0, 0, 0.7);
-  color: var(--primary-accent);
-  border: 1px solid var(--primary-accent);
+  color: var(--arcane-hex);
+  border: 1px solid var(--arcane-hex);
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -4913,7 +4933,9 @@ body {
   display: none !important; /* Remove messy glitch artifacts */
 }
 
-
+#hero-canvas {
+  opacity: 0.12 !important; /* Keep interactive particles very subtle */
+}
 
 ::selection {
   background: var(--primary-accent) !important;
@@ -5177,20 +5199,25 @@ p,
   box-shadow: none !important; /* Glow removed for refined matte look */
 }
 
-/* 7. Interactive Timeline Refinement - Clean Matte Line & Dots */
-.timeline-item {
-  background: rgba(6, 6, 6, 0.5) !important;
-  border: 1px solid rgba(255, 255, 255, 0.03) !important;
-  border-radius: 6px !important;
-  padding: 1.6rem !important;
-  margin-bottom: 1.5rem !important;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+/* 7. Interactive Timeline Refinement - Clean Matte Line & Dots
+   (Só no desktop — no mobile a Trajetória agora usa um visual mais
+   editorial, sem caixa, ver bloco #sobre mais abaixo) */
+@media (min-width: 769px) {
+  .timeline-item {
+    background: rgba(6, 6, 6, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.03) !important;
+    border-radius: 6px !important;
+    padding: 1.6rem !important;
+    margin-bottom: 1.5rem !important;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .timeline-item:hover {
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    background: rgba(255, 255, 255, 0.01) !important;
+  }
 }
 
-.timeline-item:hover {
-  border-color: rgba(255, 255, 255, 0.15) !important;
-  background: rgba(255, 255, 255, 0.01) !important;
-}
 
 .timeline-title {
   font-family: "Inter", sans-serif !important;
@@ -5604,7 +5631,7 @@ nav {
   }
 }
 
-.btn-primary,
+.btn-arcane,
 .btn-projeto {
   background: transparent !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -5625,7 +5652,7 @@ nav {
   text-decoration: none !important;
 }
 
-.btn-primary:hover,
+.btn-arcane:hover,
 .btn-projeto:hover {
   background: var(--primary-accent) !important;
   color: #030303 !important;
@@ -5822,19 +5849,40 @@ body.loading-locked {
   position: relative;
   z-index: 3;
   text-align: center;
-  opacity: 0;
   transform: scale(0.95);
-  transition:
-    opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1),
-    transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Brilho ambiente atrás do nome — dá profundidade ao fundo preto liso */
+.cinematic-brand::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(85vw, 380px);
+  height: min(85vw, 380px);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.07) 0%,
+    transparent 70%
+  );
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 1.8s ease;
+  pointer-events: none;
 }
 
 .cinematic-brand.show {
-  opacity: 1;
   transform: scale(1);
+}
+.cinematic-brand.show::before {
+  opacity: 1;
 }
 
 .cinematic-brand h1 {
+  display: flex;
+  justify-content: center;
   font-family: "Inter", sans-serif;
   font-weight: 300;
   font-style: italic;
@@ -5845,14 +5893,70 @@ body.loading-locked {
   text-transform: none;
 }
 
+/* Cada letra entra em cascata (nítida, de baixo, com leve desfoque saindo)
+   em vez do bloco inteiro surgindo de uma vez só */
+.brand-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(18px);
+  filter: blur(5px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cinematic-brand.show .brand-letter {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+.brand-letter:nth-child(1) { transition-delay: 0.02s; }
+.brand-letter:nth-child(2) { transition-delay: 0.06s; }
+.brand-letter:nth-child(3) { transition-delay: 0.1s; }
+.brand-letter:nth-child(4) { transition-delay: 0.14s; }
+.brand-letter:nth-child(5) { transition-delay: 0.18s; }
+.brand-letter:nth-child(6) { transition-delay: 0.22s; }
+.brand-letter:nth-child(7) { transition-delay: 0.26s; }
+.brand-letter:nth-child(8) { transition-delay: 0.3s; }
+.brand-letter:nth-child(9) { transition-delay: 0.34s; }
+
 .cinematic-brand p {
+  position: relative;
+  display: inline-block;
   font-family: "JetBrains Mono", monospace;
   font-weight: 400;
   font-size: 0.7rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: #888888;
-  margin: 0.6rem 0 0 0;
+  margin: 0.9rem 0 0 0;
+  padding-bottom: 0.7rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.6s ease 0.4s,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+}
+.cinematic-brand.show p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Traço fino desenhando embaixo de "Portfolio", puxando o motivo do
+   cursor/underscore já usado na logo da navegação */
+.cinematic-brand p::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 32px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateX(-50%) scaleX(0);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.55s;
+}
+.cinematic-brand.show p::after {
+  transform: translateX(-50%) scaleX(1);
 }
 
 /* Saida: cortina abre e a marca some junto */
@@ -5979,16 +6083,6 @@ nav.scrolled {
     border-radius: 999px !important;
     padding: 0.5rem 1.1rem !important;
     margin-left: 0.35rem !important;
-    background: #ffffff !important;
-    color: #000000 !important;
-    border: none !important;
-    box-shadow: none !important;
-  }
-  .btn-cv:hover {
-    background: #e5e5e5 !important;
-    color: #000000 !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 4px 12px rgba(255,255,255,0.2) !important;
   }
 }
 
@@ -6023,39 +6117,16 @@ nav.scrolled {
 }
 
 /* --- Pill-shaped buttons everywhere --- */
-.btn-primary,
+.btn-arcane,
 .btn-projeto,
 .btn-escrever-mural,
 .btn-cv {
   border-radius: 999px !important;
-  border: none !important;
-  box-shadow: none !important;
-  background: #ffffff !important;
-  color: #000000 !important;
-  font-weight: 700 !important;
-  text-transform: uppercase;
 }
 
-.btn-primary::before,
-.btn-primary::after,
-.btn-cv::before,
-.btn-cv::after {
-  display: none !important;
-}
-
-.btn-primary {
+.btn-arcane {
   padding: 0.85rem 2rem !important;
   font-size: 0.75rem !important;
-}
-
-.btn-primary:hover,
-.btn-projeto:hover,
-.btn-escrever-mural:hover,
-.btn-cv:hover {
-  background: #e5e5e5 !important;
-  color: #000000 !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2) !important;
 }
 
 /* --- Softer, rounder cards for a premium editorial feel --- */
@@ -6434,9 +6505,6 @@ nav.scrolled {
   html {
     scroll-snap-type: y proximity;
   }
-  @supports not (scroll-snap-type: y proximity) {
-    html { scroll-snap-type: none; }
-  }
 
   #sobre,
   #tech-stack,
@@ -6483,132 +6551,15 @@ nav.scrolled {
   }
 }
 
-/* ======== Enhanced Card Depth (Inspired by mentodovance) ======== */
-.design-card,
-.status-card,
-.timeline-content {
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .design-card:hover,
-  .status-card:hover {
-    box-shadow: 0 24px 56px rgba(0, 0, 0, 0.7), 0 4px 12px rgba(0, 0, 0, 0.4);
-    border-color: rgba(255, 255, 255, 0.12);
-    transition: box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
-  }
-}
-
-/* ======== GPU Compositing Hints ======== */
-.hero-master-wrapper {
-  contain: layout paint;
-}
-
-
-/* ======== Smooth Scroll Container (Lenis) ======== */
-html.lenis, html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-/* ======== Mobile: Blur-in for reveal items ======== */
+/* A barra de progresso de scroll fica presa no rodapé do menu — e como o
+   menu é transparente por design (parte do "REDESIGN LAYER" acima), o
+   brilho dela (box-shadow) vazava por cima de qualquer texto que passasse
+   exatamente por baixo, apagando visualmente as primeiras letras. Era a
+   causa real do "M" de Momento sumindo. Escondida só no mobile — no
+   desktop o menu tem mais espaço e o efeito não causa esse problema. */
 @media (max-width: 768px) {
-  .reveal-item {
-    opacity: 0;
-    filter: blur(8px);
-    transform: translate3d(0, 20px, 0);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                filter 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal-item.revealed {
-    opacity: 1;
-    filter: blur(0px);
-    transform: translate3d(0, 0, 0);
-  }
-
-  /* ======== Mobile Premium Upgrades (Inspiração Vance) ======== */
-  
-  /* 1. Tipografia de Alto Impacto */
-  .glitch-title, .hero-name {
-    font-size: clamp(3rem, 12vw, 4.5rem) !important;
-    line-height: 1.1 !important;
-    letter-spacing: -0.04em !important;
-  }
-  
-  h2, .line-reveal .line-inner, .design-header h2, .skills-header h2, .narrative-text h2 {
-    font-size: clamp(2.5rem, 10vw, 3.5rem) !important;
-    line-height: 1.15 !important;
-    letter-spacing: -0.03em !important;
-  }
-  
-  /* 2. Cores: Forçar Branco/Preto no destaque */
-  .mix-emphasis {
-    color: #ffffff !important;
-    font-weight: 700 !important;
-  }
-  
-  .btn-primary, .btn-cv, .btn-escrever-mural, .btn-primary {
-    background: #ffffff !important;
-    color: #000000 !important;
-    border: none !important;
-    box-shadow: none !important;
-  }
-  
-  /* 3. Bleeding Edges (Bordas vazando na tela para galerias) */
-  #projetos .project-thumbnail-wrapper, 
-  #projetos-design .design-card,
-  #game-dev .indie-image-wrapper {
-    margin-left: -1.5rem !important;
-    margin-right: -1.5rem !important;
-    width: calc(100% + 3rem) !important;
-    border-radius: 0 !important;
-    border-left: none !important;
-    border-right: none !important;
-  }
-  
-  /* 4. Respiro Vertical Maior */
-  section {
-    padding-top: 6rem !important;
-    padding-bottom: 6rem !important;
-  }
-  #hero {
-    padding-top: 10rem !important; /* Mais espaço pra navbar */
-  }
-  
-  /* 5. Menu Mobile Tela Cheia Centrado */
-  .nav-links {
-    justify-content: center !important;
-    align-items: center !important;
-    background: rgba(0, 0, 0, 0.98) !important;
-    backdrop-filter: blur(20px) !important;
-    padding: 2rem !important;
-  }
-  .nav-links a:not(.btn-cv) {
-    text-align: center !important;
-    font-size: clamp(2.5rem, 12vw, 4rem) !important;
-    margin-bottom: 1rem !important;
-  }
-  .nav-links .btn-cv {
-    align-self: center !important;
-    margin-top: 1rem !important;
+  .scroll-progress-container {
+    display: none !important;
   }
 }
 
-@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
-  .reveal-item {
-    opacity: 1 !important;
-    filter: none !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}
