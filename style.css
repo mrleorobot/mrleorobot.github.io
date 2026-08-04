@@ -4289,13 +4289,15 @@ html {
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
-    transition: opacity 0.15s ease !important;
-  }
-  #sobre .timeline-item:last-child {
+    transition:
+      opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
     padding-bottom: 0 !important;
   }
   #sobre .timeline-item:active {
     opacity: 0.7 !important;
+    transform: scale(0.99) !important;
   }
   /* Divisor em degradê (some nas pontas) em vez de linha seca de ponta a
      ponta — só entre um item e o próximo, o primeiro (logo após a linha
@@ -4312,6 +4314,12 @@ html {
       rgba(255, 255, 255, 0.03) 65%,
       transparent 100%
     );
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  #sobre .timeline-item.revealed::before {
+    transform: scaleX(1);
   }
 
   #sobre .timeline-content {
@@ -4330,24 +4338,27 @@ html {
     text-transform: uppercase !important;
     color: rgba(255, 255, 255, 0.4) !important;
     margin-bottom: 0.5rem !important;
+    padding-left: 1px !important;
   }
 
+  /* O gradiente via background-clip:text foi removido — é um recurso com
+     bugs conhecidos de recorte de glifo em WebViews Android (exatamente o
+     tipo de corte que você viu). Troquei por sombra sutil, sem esse risco */
   #sobre .timeline-date {
     display: block;
     font-family: "Space Grotesk", sans-serif !important;
     font-size: 2.6rem !important;
     font-weight: 700 !important;
-    line-height: 1 !important;
+    line-height: 1.15 !important;
     letter-spacing: -0.02em !important;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 0.55) 100%
-    ) !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-shadow: 0 4px 28px rgba(255, 255, 255, 0.14) !important;
     margin-bottom: 0.9rem !important;
+    transform: translateY(6px);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  }
+  #sobre .timeline-item.revealed .timeline-date {
+    transform: translateY(0);
   }
 
   #sobre .timeline-title {
