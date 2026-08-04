@@ -4270,6 +4270,7 @@ html {
     max-width: none !important;
     margin: 2rem 0 1.5rem !important;
     padding: 0 !important;
+    counter-reset: momento;
   }
 
   #sobre .timeline-line,
@@ -4278,35 +4279,75 @@ html {
   }
 
   #sobre .timeline-item {
+    counter-increment: momento;
+    position: relative !important;
     width: 100% !important;
     left: 0 !important;
     text-align: left !important;
-    padding: 1.8rem 0 !important;
+    padding: 0 0 1.9rem 0 !important;
     margin: 0 !important;
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
+    transition: opacity 0.15s ease !important;
   }
-  /* Traço fino separando os itens — só entre um .timeline-item e o
-     próximo, então o primeiro item (que vem logo após a linha escondida)
-     não ganha borda no topo */
-  #sobre .timeline-item + .timeline-item {
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  #sobre .timeline-item:last-child {
+    padding-bottom: 0 !important;
+  }
+  #sobre .timeline-item:active {
+    opacity: 0.7 !important;
+  }
+  /* Divisor em degradê (some nas pontas) em vez de linha seca de ponta a
+     ponta — só entre um item e o próximo, o primeiro (logo após a linha
+     escondida) não ganha divisor */
+  #sobre .timeline-item + .timeline-item::before {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    margin-bottom: 1.9rem;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.03) 65%,
+      transparent 100%
+    );
   }
 
   #sobre .timeline-content {
     padding: 0 !important;
   }
 
+  /* Numerador automático "Momento 01/02/03" — atualiza sozinho se algum
+     dia entrar um item a mais, sem precisar editar HTML */
+  #sobre .timeline-date::before {
+    content: "Momento " counter(momento, decimal-leading-zero);
+    display: block;
+    font-family: "Inter", sans-serif !important;
+    font-size: 0.68rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    margin-bottom: 0.5rem !important;
+  }
+
   #sobre .timeline-date {
     display: block;
     font-family: "Space Grotesk", sans-serif !important;
-    font-size: 2.4rem !important;
+    font-size: 2.6rem !important;
     font-weight: 700 !important;
     line-height: 1 !important;
-    letter-spacing: -0.01em !important;
-    color: rgba(255, 255, 255, 0.9) !important;
-    margin-bottom: 0.8rem !important;
+    letter-spacing: -0.02em !important;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.55) 100%
+    ) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    margin-bottom: 0.9rem !important;
   }
 
   #sobre .timeline-title {
