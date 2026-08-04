@@ -1,3 +1,4 @@
+import { initHeroInk } from './hero-ink.js';
 
 // =========================================
 // APP DEPTH SCROLL (mobile) — a seção que domina a tela fica em primeiro
@@ -163,195 +164,13 @@ window.scrollTo(0, 0);
  * Focado em performance e experiência do usuário.
  */
 
-// Easter Egg para Recrutadores Técnicos
-console.log(
-  "%c Olá, Tech Recruiter ou Tech Lead! %c\n\nVejo que você gosta de olhar debaixo do capô. Este portfólio é 100% Vanilla JS, com Tipografia Fluida, Acessibilidade Sensorial, Busca Fuzzy e Cache de API no LocalStorage.\n\nSe gostou da organização e da atenção aos detalhes, vamos conversar sobre a próxima vaga da sua equipe!",
-  "color: #ffffff; font-size: 20px; font-weight: bold; text-shadow: 1px 1px 0 #ffffff;",
-  "color: #a0aec0; font-size: 14px; line-height: 1.5;",
-);
-
-// --------------------------------------------------------
-// 0. Hero Generative Art (Node-Link reactive web)
-// --------------------------------------------------------
-function initHeroParticles() {
-  const canvas = document.getElementById("hero-canvas");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-
-  let particles = [];
-  const particleCount = window.innerWidth < 768 ? 12 : 60; // Fewer for performance on mobile
-  const colors = ["#ffffff", "#e5e5e5", "#a3a3a3", "#525252"];
-  const mouse = { x: null, y: null, radius: 100 }; // Constrain interaction area for speed
-
-  let heroOffsetTop = 0;
-  let heroOffsetLeft = 0;
-  const updateHeroRect = () => {
-    const rect = canvas.getBoundingClientRect();
-    heroOffsetTop = rect.top + window.scrollY;
-    heroOffsetLeft = rect.left + window.scrollX;
-  };
-  window.addEventListener("resize", updateHeroRect, { passive: true });
-  // Call once
-  updateHeroRect();
-
-  let mouseMoveScheduled = false;
-  window.addEventListener(
-    "mousemove",
-    (e) => {
-      if (!mouseMoveScheduled) {
-        mouseMoveScheduled = true;
-        window.requestAnimationFrame(() => {
-          mouse.x = e.pageX - heroOffsetLeft;
-          mouse.y = e.pageY - heroOffsetTop;
-          mouseMoveScheduled = false;
-        });
-      }
-    },
-    { passive: true },
-  );
-
-  window.addEventListener("mouseout", () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
-
-  function resize() {
-    if (!canvas) return;
-    canvas.width = canvas.parentElement.offsetWidth;
-    canvas.height = canvas.parentElement.offsetHeight;
-  }
-
-  window.addEventListener("resize", resize);
-  resize();
-
-  class Particle {
-    constructor() {
-      this.init();
-    }
-
-    init() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.baseX = this.x;
-      this.baseY = this.y;
-      this.vx = (Math.random() - 0.5) * 1.2;
-      this.vy = (Math.random() - 0.5) * 1.2;
-      this.size = Math.random() * 2 + 1;
-      this.color = colors[Math.floor(Math.random() * colors.length)];
-      this.alpha = Math.random() * 0.5 + 0.2;
-      this.density = Math.random() * 30 + 1;
-    }
-
-    update() {
-      // Normal floating movement
-      this.x += this.vx;
-      this.y += this.vy;
-
-      if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-      if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-
-      // Mouse interaction (Magnetic Effect)
-      if (mouse.x !== null) {
-        let dx = mouse.x - this.x;
-        let dy = mouse.y - this.y;
-        let distSq = dx * dx + dy * dy;
-        let maxRadiusSq = mouse.radius * mouse.radius;
-        if (distSq < maxRadiusSq) {
-          let distance = Math.sqrt(distSq);
-          let forceDirectionX = dx / distance;
-          let forceDirectionY = dy / distance;
-          let force = (mouse.radius - distance) / mouse.radius;
-          let directionX = forceDirectionX * force * this.density;
-          let directionY = forceDirectionY * force * this.density;
-          this.x -= directionX;
-          this.y -= directionY;
-        }
-      }
-    }
-
-    draw(introAlpha = 1) {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = this.color;
-      ctx.globalAlpha = this.alpha * introAlpha;
-      ctx.fill();
-    }
-  }
-
-  for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
-  }
-
-  function drawLines(introAlpha = 1) {
-    if (window.innerWidth < 768) return; // Skip expensive line drawing on mobile to maximize performance
-    const maxDist = window.innerWidth < 768 ? 55 : 95;
-    const maxDistSq = maxDist * maxDist; // Pre-calculate square distance
-
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const p1 = particles[i];
-        const p2 = particles[j];
-        const dx = p1.x - p2.x;
-        const dy = p1.y - p2.y;
-
-        // Fast distance check using square distance (avoids expensive Math.sqrt)
-        const distSq = dx * dx + dy * dy;
-
-        if (distSq < maxDistSq) {
-          const distance = Math.sqrt(distSq); // Only calc sqrt if we actually need to draw
-          const alpha = (1 - distance / maxDist) * 0.12 * introAlpha;
-          ctx.beginPath();
-          ctx.strokeStyle = p1.color;
-          ctx.globalAlpha = alpha;
-          ctx.lineWidth = 0.5;
-          ctx.moveTo(p1.x, p1.y);
-          ctx.lineTo(p2.x, p2.y);
-          ctx.stroke();
-        }
-      }
-    }
-  }
-
-  let introAlpha = 0;
-  let isHeroVisible = true;
-  const heroSection = document.getElementById("hero");
-  if (heroSection) {
-    new IntersectionObserver(
-      (entries) => {
-        isHeroVisible = entries[0].isIntersecting;
-      },
-      { threshold: 0 },
-    ).observe(heroSection);
-  }
-  function animate() {
-    requestAnimationFrame(animate);
-    if (!isHeroVisible) return;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    if (introAlpha < 1) {
-      introAlpha += 0.04;
-      if (introAlpha > 1) introAlpha = 1;
-    }
-
-    particles.forEach((p) => {
-      p.update();
-      p.draw(introAlpha);
-    });
-
-    drawLines(introAlpha);
-  }
-
-  animate();
-}
 
 // --------------------------------------------------------
 // 0.1 Hero Micro-Parallax Effect (Optimized with RequestAnimationFrame)
 // --------------------------------------------------------
 function initHeroParallax() {
   const title = document.querySelector(".glitch-title");
-  const canvas = document.getElementById("hero-canvas");
-  if (!title && !canvas) return;
+  if (!title) return;
 
   let mouseX = 0;
   let mouseY = 0;
@@ -460,6 +279,8 @@ function initCinematicScroll() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("revealed");
+          // Trigger line-reveal children
+          entry.target.querySelectorAll('.line-reveal').forEach(el => el.classList.add('revealed'));
           observer.unobserve(entry.target);
         }
       });
@@ -499,7 +320,6 @@ function initTimelineScroll() {
   const timelineContainer = document.querySelector(".timeline-container");
   const timelineItems = document.querySelectorAll(".timeline-item");
   const timelineGlow = document.getElementById("timeline-glow");
-  let timelineScrollTicking = false;
 
   if (!timelineContainer || !timelineGlow) return;
 
@@ -519,31 +339,24 @@ function initTimelineScroll() {
     observerTimeline.observe(item);
   });
 
+  let timelineTicking = false;
   window.addEventListener(
     "scroll",
     () => {
-      if (timelineScrollTicking) return;
-      timelineScrollTicking = true;
+      if (timelineTicking) return;
+      timelineTicking = true;
       requestAnimationFrame(() => {
         const topViewport = window.scrollY || document.documentElement.scrollTop;
         const rect = timelineContainer.getBoundingClientRect();
-
-        // Posição no documento da timeline (início)
         const timelineTop = rect.top + topViewport;
         const timelineHeight = rect.height;
-
-        // Calcula a altura da viewport
         const viewportHeight = window.innerHeight;
-        // Queremos que a linha de "progresso" acompanhe o meio da tela, ou o fim, vamos usar viewportHeight / 2
         let scrolled = topViewport + viewportHeight / 1.5 - timelineTop;
-
         let percentage = (scrolled / timelineHeight) * 100;
-
         if (percentage < 0) percentage = 0;
         if (percentage > 100) percentage = 100;
-
         timelineGlow.style.height = `${percentage}%`;
-        timelineScrollTicking = false;
+        timelineTicking = false;
       });
     },
     { passive: true },
@@ -560,8 +373,45 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  // ---- Lenis Smooth Scroll ----
+  if (typeof Lenis !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    try {
+      const lenis = new Lenis({
+        duration: 1.4,
+        easing: (t) => 1 - Math.pow(1 - t, 4),
+        smoothWheel: true,
+        wheelMultiplier: 0.85,
+        touchMultiplier: 1.4,
+        infinite: false,
+      });
+
+      // Sync Lenis with GSAP ticker if GSAP is available
+      if (typeof gsap !== 'undefined') {
+        const onTick = (time) => lenis.raf(time * 1000);
+        gsap.ticker.add(onTick);
+        gsap.ticker.lagSmoothing(0);
+
+        // Sync with ScrollTrigger if available
+        if (typeof ScrollTrigger !== 'undefined') {
+          lenis.on('scroll', ScrollTrigger.update);
+        }
+      } else {
+        // Fallback: use requestAnimationFrame
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+      }
+
+      window.__lenis = lenis;
+      console.log('✅ Lenis smooth scroll ativado');
+    } catch (e) {
+      console.warn('Lenis não pôde ser inicializado:', e);
+    }
+  }
+
   initSafe(setupDynamicTabs, "setupDynamicTabs");
-  initSafe(initHeroParticles, "initHeroParticles");
   initSafe(initHeroParallax, "initHeroParallax");
   initSafe(initTypewriter, "initTypewriter");
   initSafe(initCinematicScroll, "initCinematicScroll");
@@ -571,8 +421,46 @@ document.addEventListener("DOMContentLoaded", () => {
   initSafe(initSpotlight, "initSpotlight");
   initSafe(initTabSystem, "initTabSystem");
   initSafe(initScrollProgressBar, "initScrollProgressBar");
-  initSafe(initMuralDepoimentos, "initMuralDepoimentos");
-  initSafe(initPremiumCursor, "initPremiumCursor");
+
+  // ---- Hero Ink Shader (WebGL) ----
+  try {
+    const ink = initHeroInk();
+    if (ink) {
+      window.__heroInk = ink;
+
+      // Fade-in after cinematic loader (~5s delay)
+      setTimeout(() => {
+        if (typeof gsap !== 'undefined') {
+          gsap.to({ v: 0 }, {
+            v: 1,
+            duration: 3,
+            ease: 'power2.out',
+            onUpdate: function () {
+              ink.setIntensity(this.targets()[0].v);
+            },
+          });
+        } else {
+          ink.setIntensity(1);
+        }
+      }, 5500);
+
+      // Connect scroll progress to ink fade-out
+      if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.create({
+          trigger: '#hero',
+          start: 'top top',
+          end: 'bottom top',
+          onUpdate: (self) => {
+            ink.setScroll(self.progress);
+          },
+        });
+      }
+
+      console.log('✅ Hero ink shader ativado');
+    }
+  } catch (e) {
+    console.warn('Hero ink shader não pôde ser inicializado:', e);
+  }
 });
 
 // --------------------------------------------------------
@@ -592,11 +480,19 @@ function initSearchAndMenu() {
       hamburger.setAttribute("aria-expanded", !isActive);
 
       if (!isActive) {
+        // Stop scroll when menu is open
+        if (window.__lenis) window.__lenis.stop();
+        document.body.style.overflow = 'hidden';
+        
         // Wait for display transition then focus first item
         setTimeout(() => {
           const firstLink = navLinks.querySelector("a");
           if (firstLink) firstLink.focus();
         }, 100);
+      } else {
+        // Resume scroll when menu is closed
+        if (window.__lenis) window.__lenis.start();
+        document.body.style.overflow = '';
       }
     });
 
@@ -625,6 +521,8 @@ function initSearchAndMenu() {
         hamburger.classList.remove("active");
         navLinks.classList.remove("active");
         hamburger.setAttribute("aria-expanded", "false");
+        if (window.__lenis) window.__lenis.start();
+        document.body.style.overflow = '';
         hamburger.focus();
       }
     });
@@ -635,6 +533,8 @@ function initSearchAndMenu() {
         hamburger.classList.remove("active");
         navLinks.classList.remove("active");
         hamburger.setAttribute("aria-expanded", "false");
+        if (window.__lenis) window.__lenis.start();
+        document.body.style.overflow = '';
       });
     });
 
@@ -645,6 +545,8 @@ function initSearchAndMenu() {
           hamburger.classList.remove("active");
           navLinks.classList.remove("active");
           hamburger.setAttribute("aria-expanded", "false");
+          if (window.__lenis) window.__lenis.start();
+          document.body.style.overflow = '';
         }
       }
     });
@@ -808,7 +710,7 @@ if (btnCopiarEmail) {
         } else {
           btnCopiarEmail.innerHTML = "E-mail copiado!";
         }
-        btnCopiarEmail.style.background = "#ffffff"; // Arcane hex tint
+        btnCopiarEmail.style.background = "#ffffff"; // Primary accent tint
         btnCopiarEmail.classList.add("copied-feedback");
 
         if (toastNotificacao) {
@@ -1128,7 +1030,7 @@ async function fetchRecentRepos() {
 
       article.innerHTML = `
          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
-            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--arcane-hex);">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-accent);">
               <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3-.3 6-1.5 6-6.5a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 5 3 6.2 6 6.5a4.8 4.8 0 0 0-1 3.2v4"></path>
             </svg>
             <span style="font-size: 0.8rem; color: #a0aec0; font-family: 'JetBrains Mono', monospace;">${date}</span>
@@ -1136,8 +1038,8 @@ async function fetchRecentRepos() {
          <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 0.5rem; word-break: break-word; overflow-wrap: break-word; text-transform: uppercase;" class="notranslate" translate="no">${repo.name}</h3>
          <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 1.25rem; flex: 1; line-height: 1.4;">${desc}</p>
          <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
-             <span class="notranslate" translate="no" style="font-size: 0.8rem; color: var(--arcane-hex); display: flex; align-items: center; gap: 0.5rem; font-weight: 600;">
-                <span style="width: 6px; height: 6px; border-radius: 50%; background-color: var(--arcane-hex); display: inline-block;"></span>
+             <span class="notranslate" translate="no" style="font-size: 0.8rem; color: var(--primary-accent); display: flex; align-items: center; gap: 0.5rem; font-weight: 600;">
+                <span style="width: 6px; height: 6px; border-radius: 50%; background-color: var(--primary-accent); display: inline-block;"></span>
                 ${lang}
              </span>
              <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="color: #fff; text-decoration: none; font-size: 0.8rem; border-bottom: 1px dotted currentColor; transition: opacity 0.3s ease; font-family: 'Space Grotesk', sans-serif;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Ver Repositório ↗</a>
@@ -1226,71 +1128,6 @@ function verificarDisponibilidade() {
 verificarDisponibilidade();
 setInterval(verificarDisponibilidade, 60000); // Atualiza a cada 1 minuto
 
-// --------------------------------------------------------
-// --------------------------------------------------------
-// 13. Weather Widget (Open-Meteo API - No Key Required)
-// --------------------------------------------------------
-async function buscarClima() {
-  const lat = "-5.79";
-  const lon = "-35.21";
-  const cidadeNome = "Natal, RN";
-
-  const iconeEl = document.getElementById("clima-icone");
-  const textoEl = document.getElementById("clima-texto");
-
-  if (!iconeEl || !textoEl) return;
-
-  const svgSun =
-    '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
-  const svgCloud =
-    '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
-  const svgRain =
-    '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
-  const svgStorm =
-    '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>';
-  const svgSnow =
-    '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="M20 16l-4-4 4-4"></path><path d="M4 8l4 4-4 4"></path><path d="M16 4l-4 4-4-4"></path><path d="M8 20l4-4 4 4"></path></svg>';
-
-  try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
-    const response = await fetch(url);
-    if (!response.ok) throw new Error("Falha ao buscar clima");
-
-    const data = await response.json();
-    const temp = Math.round(data.current_weather.temperature);
-    const code = data.current_weather.weathercode;
-
-    let statusTexto = "Limpo";
-    let iconeSvg = svgSun;
-
-    if (code === 0) {
-      statusTexto = "Céu Limpo";
-      iconeSvg = svgSun;
-    } else if ([1, 2, 3, 45, 48].includes(code)) {
-      statusTexto = "Nublado";
-      iconeSvg = svgCloud;
-    } else if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) {
-      statusTexto = "Chuva";
-      iconeSvg = svgRain;
-    } else if ([71, 73, 75, 77, 85, 86].includes(code)) {
-      statusTexto = "Neve";
-      iconeSvg = svgSnow;
-    } else if ([95, 96, 99].includes(code)) {
-      statusTexto = "Tempestade";
-      iconeSvg = svgStorm;
-    }
-
-    iconeEl.innerHTML = iconeSvg;
-    textoEl.innerText = `${cidadeNome}: ${temp}°C, ${statusTexto}`;
-  } catch (error) {
-    console.warn("Erro ao carregar clima real:", error);
-    iconeEl.innerHTML = svgCloud;
-    textoEl.innerText = `${cidadeNome}: Clima Indisponível`;
-  }
-}
-
-buscarClima();
-setInterval(buscarClima, 1800000); // 30 min
 
 // Back to top button logic
 const btnTopo = document.getElementById("btn-topo");
@@ -1848,546 +1685,3 @@ function initScrollProgressBar() {
 
 // Cursor glow logic removed
 
-// --------------------------------------------------------
-// 12. Mural de Depoimentos & Feedback Hub Interativo
-// --------------------------------------------------------
-function initMuralDepoimentos() {
-  const gridElement = document.getElementById("mural-depoimentos-grid");
-  const formWrapper = document.getElementById("mural-form-wrapper");
-  const formElement = document.getElementById("mural-form");
-  const btnAbrirForm = document.getElementById("btn-abrir-mural-form");
-  const btnCancelarForm = document.getElementById("btn-cancelar-mural-form");
-  const filterButtons = document.querySelectorAll(".feedback-filter-btn");
-  const starsContainer = document.getElementById("mural-rating-container");
-
-  if (!gridElement) return;
-
-  // Comentários Padrão
-  const defaultComments = [
-    {
-      id: "c1",
-      name: "Arthur Medeiros",
-      type: "aluno",
-      text: "O Professor Leo tem uma paciência incrível para explicar conceitos difíceis. Graças à sua didática, consegui entender a lógica por trás do código sem me sentir frustrado.",
-      role: "Ex-Aluno de Web Design",
-      date: "Dez/2025",
-      rating: 5,
-      avatar: "AM",
-      color: "linear-gradient(135deg, #111111, #333333)",
-    },
-    {
-      id: "c2",
-      name: "Jennyfer",
-      type: "colega",
-      text: "Trabalhar com ele é ter a certeza de que os processos técnicos estarão sempre organizados e acessíveis. Ele consegue simplificar o uso de sistemas para qualquer pessoa da equipe.",
-      role: "Colega de Administração",
-      date: "Out/2025",
-      rating: 5,
-      avatar: "JE",
-      color: "linear-gradient(135deg, #222222, #444444)",
-    },
-    {
-      id: "c3",
-      name: "Julio Nogueira",
-      type: "aluno",
-      text: "As aulas de informática eram muito visuais e fáceis de acompanhar. Ele realmente se importa em garantir que o aluno não apenas decore, mas entenda a ferramenta.",
-      role: "Ex-Aluno de Informática",
-      date: "Nov/2025",
-      rating: 5,
-      avatar: "JN",
-      color: "linear-gradient(135deg, #333333, #555555)",
-    },
-  ];
-
-  // Cores de gradiente exclusivas para novos avatares
-  const avatarGradients = [
-    "linear-gradient(135deg, #111111, #333333)", // Mono 1
-    "linear-gradient(135deg, #222222, #444444)", // Mono 2
-    "linear-gradient(135deg, #333333, #555555)", // Mono 3
-    "linear-gradient(135deg, #1a1a1a, #2a2a2a)", // Mono 4
-    "linear-gradient(135deg, #444444, #666666)", // Mono 5
-    "linear-gradient(135deg, #0a0a0a, #1a1a1a)", // Charcoal/Slate
-  ];
-
-  let comments = [];
-  try {
-    const saved = localStorage.getItem("mural_comments");
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        // Filtra os comentários salvos para remover duplicatas dos padrões pelo id ou nome
-        const savedNonDefault = parsed.filter(
-          (c) =>
-            !defaultComments.some(
-              (dc) =>
-                dc.id === c.id ||
-                dc.name.toLowerCase() === c.name.toLowerCase(),
-            ),
-        );
-        comments = [...defaultComments, ...savedNonDefault];
-      } else {
-        comments = [...defaultComments];
-      }
-    } else {
-      comments = [...defaultComments];
-    }
-    localStorage.setItem("mural_comments", JSON.stringify(comments));
-  } catch (e) {
-    console.error("Erro ao carregar comentários do localStorage", e);
-    comments = [...defaultComments];
-  }
-
-  let activeFilter = "all";
-  let ratingValue = 5;
-
-  // Inicializa cliques nas estrelas do formulário
-  if (starsContainer) {
-    const starButtons = starsContainer.querySelectorAll(".star-btn");
-    starButtons.forEach((starBtn) => {
-      starBtn.addEventListener("click", () => {
-        const val = parseInt(starBtn.getAttribute("data-value"));
-        ratingValue = val;
-
-        // Atualiza estilo visual das estrelas
-        starButtons.forEach((btn) => {
-          const btnVal = parseInt(btn.getAttribute("data-value"));
-          if (btnVal <= val) {
-            btn.classList.add("active");
-            btn.style.color = "#ffffff";
-            btn.style.transform = "scale(1.15)";
-          } else {
-            btn.classList.remove("active");
-            btn.style.color = "rgba(255,255,255,0.15)";
-            btn.style.transform = "scale(1)";
-          }
-        });
-      });
-
-      // Efeito hover simples
-      starBtn.addEventListener("mouseover", () => {
-        starBtn.style.transform = "scale(1.3)";
-      });
-      starBtn.addEventListener("mouseout", () => {
-        const val = parseInt(starBtn.getAttribute("data-value"));
-        if (val <= ratingValue) {
-          starBtn.style.transform = "scale(1.15)";
-        } else {
-          starBtn.style.transform = "scale(1)";
-        }
-      });
-    });
-  }
-
-  // Abre e fecha o formulário
-  if (btnAbrirForm && formWrapper) {
-    btnAbrirForm.addEventListener("click", () => {
-      // Toca som de clique se useSound estiver disponível
-      if (window.soundEnabled && typeof AudioContext !== "undefined") {
-        // Toca feedback sonoro sutil
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.frequency.setValueAtTime(520, ctx.currentTime);
-        gain.gain.setValueAtTime(0.04, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.15);
-      }
-
-      if (
-        formWrapper.style.maxHeight === "0px" ||
-        !formWrapper.style.maxHeight
-      ) {
-        formWrapper.style.maxHeight = formWrapper.scrollHeight + "px";
-        formWrapper.style.opacity = "1";
-        btnAbrirForm.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-          Fechar Formulário
-        `;
-        // Scroll suave até o formulário
-        setTimeout(() => {
-          formWrapper.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        }, 150);
-      } else {
-        fecharFormulario();
-      }
-    });
-  }
-
-  if (btnCancelarForm) {
-    btnCancelarForm.addEventListener("click", () => {
-      fecharFormulario();
-    });
-  }
-
-  function fecharFormulario() {
-    if (!formWrapper) return;
-    formWrapper.style.maxHeight = "0";
-    formWrapper.style.opacity = "0";
-    if (btnAbrirForm) {
-      btnAbrirForm.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
-          <path d="M12 20h9"></path>
-          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-        </svg>
-        Escrever Depoimento
-      `;
-    }
-    if (formElement) {
-      formElement.reset();
-      ratingValue = 5;
-      const stars = starsContainer
-        ? starsContainer.querySelectorAll(".star-btn")
-        : [];
-      stars.forEach((s) => {
-        s.classList.add("active");
-        s.style.color = "#ffffff";
-        s.style.transform = "scale(1.15)";
-      });
-    }
-  }
-
-  // Filtragem dos depoimentos
-  filterButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      filterButtons.forEach((b) => {
-        b.classList.remove("active");
-        b.style.background = "transparent";
-        b.style.borderColor = "rgba(255, 255, 255, 0.05)";
-        b.style.color = "#888888";
-        const badge = b.querySelector(".count-badge");
-        if (badge) {
-          badge.style.background = "rgba(255, 255, 255, 0.05)";
-          badge.style.color = "#888888";
-        }
-        b.setAttribute("aria-selected", "false");
-      });
-
-      btn.classList.add("active");
-      btn.style.background = "rgba(255, 255, 255, 0.05)";
-      btn.style.borderColor = "rgba(255, 255, 255, 0.15)";
-      btn.style.color = "#ffffff";
-      const badge = btn.querySelector(".count-badge");
-      if (badge) {
-        badge.style.background = "rgba(255, 255, 255, 0.15)";
-        badge.style.color = "#ffffff";
-      }
-      btn.setAttribute("aria-selected", "true");
-
-      activeFilter = btn.getAttribute("data-filter");
-      renderComments();
-    });
-  });
-
-  // Atualiza as contagens numéricas nos botões de filtro
-  function updateCounters() {
-    const allCount = comments.length;
-    const alunoCount = comments.filter((c) => c.type === "aluno").length;
-    const colegaCount = comments.filter((c) => c.type === "colega").length;
-    const recrutadorCount = comments.filter(
-      (c) => c.type === "recrutador",
-    ).length;
-
-    const lblAll = document.getElementById("count-all");
-    const lblAluno = document.getElementById("count-aluno");
-    const lblColega = document.getElementById("count-colega");
-    const lblRecrutador = document.getElementById("count-recrutador");
-
-    if (lblAll) lblAll.textContent = allCount;
-    if (lblAluno) lblAluno.textContent = alunoCount;
-    if (lblColega) lblColega.textContent = colegaCount;
-    if (lblRecrutador) lblRecrutador.textContent = recrutadorCount;
-  }
-
-  // Renderiza a lista de comentários filtrados com belos efeitos em formato de carrossel infinito (Marquee)
-  function renderComments() {
-    if (!gridElement) return;
-    gridElement.innerHTML = "";
-
-    const filtered = comments.filter((c) => {
-      if (activeFilter === "all") return true;
-      return c.type === activeFilter;
-    });
-
-    if (filtered.length === 0) {
-      gridElement.innerHTML = `
-        <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 2rem; background: rgba(255,255,255,0.01); border: 1px dashed rgba(255,255,255,0.05); border-radius: 16px; width: 100%; min-width: 280px; max-width: 600px; margin: 0 auto;">
-          <p style="color: #666666; font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin-bottom: 0.5rem;">Ainda não há depoimentos nesta categoria.</p>
-          <p style="color: #444444; font-size: 0.9rem;">Seja o primeiro a publicar um recado escrevendo um depoimento acima! ✨</p>
-        </div>
-      `;
-      return;
-    }
-
-    // Função interna para criar elemento do card de comentário de alta qualidade
-    function createCardElement(comment) {
-      const card = document.createElement("article");
-      card.className = "mural-card spotlight-card";
-      card.setAttribute("data-type", comment.type);
-
-      // Estilos iniciais de animação de entrada
-      card.style.opacity = "0";
-      card.style.transform = "translateY(15px) scale(0.97)";
-      card.style.filter = "blur(2px)";
-      card.style.transition =
-        "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease";
-
-      // Estilo de relacionamento (badge)
-      let typeText = "Visitante";
-      let typeBg = "rgba(255, 255, 255, 0.05)";
-      let typeColor = "#888888";
-
-      if (comment.type === "aluno") {
-        typeText = "Aluno";
-        typeBg = "rgba(255, 255, 255, 0.08)";
-        typeColor = "#cccccc";
-      } else if (comment.type === "colega") {
-        typeText = "Colega";
-        typeBg = "rgba(255, 255, 255, 0.08)";
-        typeColor = "#cccccc";
-      } else if (comment.type === "recrutador") {
-        typeText = "Recrutador";
-        typeBg = "rgba(255, 255, 255, 0.08)";
-        typeColor = "#cccccc";
-      }
-
-      // Detalhe de borda esquerda monocromática por categoria
-      card.style.borderLeft = `4px solid ${typeColor}`;
-
-      // Estrelas de Avaliação
-      let starsHtml = "";
-      for (let i = 0; i < 5; i++) {
-        if (i < comment.rating) {
-          starsHtml += `<span style="color: #ffffff; margin-right: 2px;">★</span>`;
-        } else {
-          starsHtml += `<span style="color: rgba(255,255,255,0.1); margin-right: 2px;">★</span>`;
-        }
-      }
-
-      card.innerHTML = `
-        <div style="position: absolute; top: -10px; right: 15px; font-size: 7rem; font-family: Georgia, serif; color: rgba(255,255,255,0.03); pointer-events: none; user-select: none;">“</div>
-        
-        <!-- Cabeçalho do Card: Informações do Autor e Avatar -->
-        <div style="display: flex; gap: 1rem; align-items: center; z-index: 2;">
-          <div class="testimonial-avatar" style="transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); width: 44px; height: 44px; border-radius: 50%; background: ${comment.color || "linear-gradient(135deg, #333, #666)"}; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #ffffff; font-size: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0;">
-            ${comment.avatar || comment.name.substring(0, 2).toUpperCase()}
-          </div>
-          <div style="display: flex; flex-direction: column; min-width: 0;">
-            <h5 style="font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: #ffffff; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-              ${comment.name}
-            </h5>
-            <span class="mural-sub" style="font-size: 0.8rem; color: #666666; margin-top: 1px; display: flex; align-items: center; gap: 6px;">
-              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${comment.role}</span>
-              <span style="width: 3px; height: 3px; border-radius: 50%; background: #444; flex-shrink: 0;"></span>
-              <span style="flex-shrink: 0;">${comment.date}</span>
-            </span>
-          </div>
-        </div>
-
-        <!-- Conteúdo de Texto -->
-        <p class="testimonial-text" style="font-style: italic; color: #d1d5db; font-size: 0.95rem; line-height: 1.6; margin: 0; text-align: left; z-index: 1; min-height: 72px;">
-          "${comment.text}"
-        </p>
-
-        <!-- Rodapé do Card: Badge e Estrelas de Avaliação -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 0.75rem; z-index: 2;">
-          <span class="testimonial-type-badge" style="background: ${typeBg}; color: ${typeColor}; padding: 3px 10px; border-radius: 100px; font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-            ${typeText}
-          </span>
-          <div style="font-size: 0.85rem; display: flex; align-items: center;">
-            ${starsHtml}
-          </div>
-        </div>
-      `;
-
-      return card;
-    }
-
-    // 1. Determina a lista base de comentários (garante o mínimo de 6 itens para preencher telas largas sem buracos)
-    let baseItems = [...filtered];
-    if (baseItems.length > 0) {
-      while (baseItems.length < 6) {
-        baseItems = [...baseItems, ...filtered];
-      }
-    }
-
-    // 2. Renderiza a primeira metade do carrossel (Itens originais)
-    baseItems.forEach((comment) => {
-      const card = createCardElement(comment);
-      gridElement.appendChild(card);
-    });
-
-    // 3. Renderiza a segunda metade idêntica do carrossel (Clones perfeitos) para rolagem infinita contínua
-    baseItems.forEach((comment) => {
-      const cloneCard = createCardElement(comment);
-      cloneCard.classList.add("clone");
-      cloneCard.setAttribute("aria-hidden", "true");
-      cloneCard.setAttribute("tabindex", "-1");
-      gridElement.appendChild(cloneCard);
-    });
-
-    // 4. Adiciona listeners de interação modernos a todos os cards (originais e clonados)
-    const allCards = gridElement.querySelectorAll(".mural-card");
-    allCards.forEach((card) => {
-      // Spotlight follow-mouse glow tracking
-      card.addEventListener("mousemove", (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        card.style.setProperty("--mouse-x", `${x}px`);
-        card.style.setProperty("--mouse-y", `${y}px`);
-      });
-    });
-
-    // Revela os cards em cascata só quando a seção realmente aparece na
-    // tela ao rolar — antes disparava num timer fixo desde a criação, o
-    // que "gastava" a animação antes do usuário chegar lá.
-    const revealMuralCards = () => {
-      allCards.forEach((card, index) => {
-        setTimeout(
-          () => {
-            card.style.opacity = "1";
-            card.style.transform = "translateX(0) translateY(0) scale(1)";
-            card.style.filter = "blur(0)";
-          },
-          index * 80 + 50,
-        );
-      });
-    };
-
-    const muralContainer = document.getElementById("mural-marquee-container");
-    if (muralContainer && "IntersectionObserver" in window) {
-      const rect = muralContainer.getBoundingClientRect();
-      const alreadyVisible =
-        rect.top < window.innerHeight * 0.85 && rect.bottom > 0;
-      if (alreadyVisible) {
-        revealMuralCards();
-      } else {
-        const muralObserver = new IntersectionObserver(
-          (entries) => {
-            if (entries[0].isIntersecting) {
-              revealMuralCards();
-              muralObserver.disconnect();
-            }
-          },
-          { threshold: 0.15 },
-        );
-        muralObserver.observe(muralContainer);
-      }
-    } else {
-      revealMuralCards();
-    }
-
-    updateCounters();
-  }
-
-  // Lida com o envio do formulário
-  if (formElement) {
-    formElement.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const nameInput = document.getElementById("mural-nome");
-      const relationSelect = document.getElementById("mural-relacao");
-      const roleInput = document.getElementById("mural-role");
-      const textInput = document.getElementById("mural-texto");
-
-      if (!nameInput || !relationSelect || !roleInput || !textInput) return;
-
-      const name = nameInput.value.trim();
-      const type = relationSelect.value;
-      const role = roleInput.value.trim();
-      const text = textInput.value.trim();
-
-      // Monta as iniciais do avatar
-      const nameParts = name.split(" ");
-      let avatar = "";
-      if (nameParts.length >= 2) {
-        avatar = (
-          nameParts[0].charAt(0) + nameParts[1].charAt(0)
-        ).toUpperCase();
-      } else {
-        avatar = name.substring(0, 2).toUpperCase();
-      }
-
-      // Sorteia um gradiente de colunas para o avatar
-      const randomColor =
-        avatarGradients[Math.floor(Math.random() * avatarGradients.length)];
-
-      // Cria a data atual formatada (Ex: "Fev/2026")
-      const meses = [
-        "Jan",
-        "Fev",
-        "Mar",
-        "Abr",
-        "Mai",
-        "Jun",
-        "Jul",
-        "Ago",
-        "Set",
-        "Out",
-        "Nov",
-        "Dez",
-      ];
-      const dateObj = new Date();
-      const currentMonthStr = meses[dateObj.getMonth()];
-      const currentYearStr = dateObj.getFullYear();
-      const dateFormatted = `${currentMonthStr}/${currentYearStr}`;
-
-      const newComment = {
-        id: "c_" + Date.now(),
-        name: name,
-        type: type,
-        text: text,
-        role: role,
-        date: dateFormatted,
-        rating: ratingValue,
-        avatar: avatar,
-        color: randomColor,
-      };
-
-      // Adiciona o comentário no início do array
-      comments.unshift(newComment);
-
-      // Salva no localStorage
-      try {
-        localStorage.setItem("mural_comments", JSON.stringify(comments));
-      } catch (err) {
-        console.error("Erro ao salvar comentário no localStorage", err);
-      }
-
-      // Fecha o formulário
-      fecharFormulario();
-
-      // Dispara Toast de sucesso
-      const toast = document.getElementById("toast-notificacao");
-      if (toast) {
-        toast.innerHTML =
-          "✨ Seu depoimento foi publicado com sucesso no mural!";
-        toast.classList.remove("toast-escondido");
-        toast.classList.add("toast-visivel");
-        setTimeout(() => {
-          toast.classList.remove("toast-visivel");
-          toast.classList.add("toast-escondido");
-        }, 4000);
-      }
-
-      // Recarrega e renderiza comentários
-      renderComments();
-    });
-  }
-
-  // Renderização Inicial
-  renderComments();
-}
-
-// --------------------------------------------------------
-// 17. Premium Custom Cursor & Magnetic Effects (Removed)
-// --------------------------------------------------------
-function initPremiumCursor() {
-  // Efeito de cursor customizado removido a pedido do usuário
-}
