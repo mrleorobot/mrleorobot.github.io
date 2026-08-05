@@ -957,77 +957,6 @@ if (contadores.length > 0) {
 // --------------------------------------------------------
 // 9. GitHub API Integration (Com Cache Inteligente)
 // --------------------------------------------------------
-async function buscarDadosGitHub() {
-  const cacheKey = "githubDataCache";
-  const cacheTimestampKey = "githubDataTimestamp";
-  const cacheDuration = 3600000; // 1 hora em milissegundos
-  const now = Date.now();
-
-  const cachedData = localStorage.getItem(cacheKey);
-  const cachedTimestamp = localStorage.getItem(cacheTimestampKey);
-
-  if (cachedData && cachedTimestamp && now - cachedTimestamp < cacheDuration) {
-    // Usa dados do cache se ainda estiverem válidos
-    try {
-      const data = JSON.parse(cachedData);
-      document.getElementById("gh-repos").classList.remove("skeleton-text");
-      document.getElementById("gh-repos").innerText = data.public_repos;
-      document.getElementById("gh-followers").classList.remove("skeleton-text");
-      document.getElementById("gh-followers").innerText = data.followers;
-      return; // Para a execução, evitando o fetch
-    } catch (e) {
-      console.warn("Erro ao ler cache do Github", e);
-    }
-  }
-
-  try {
-    const response = await fetch("https://api.github.com/users/mrleorobot");
-    
-    let data;
-    try {
-      data = await response.json();
-    } catch (e) {
-      throw new Error("Falha ao buscar dados do GitHub: " + e.message);
-    }
-
-    if (!response.ok || (data && data.message && data.message.includes("rate limit"))) {
-      throw new Error("Falha ao buscar dados do GitHub ou Rate limit hit");
-    }
-
-    document.getElementById("gh-repos").classList.remove("skeleton-text");
-    document.getElementById("gh-repos").innerText = data.public_repos;
-    document.getElementById("gh-followers").classList.remove("skeleton-text");
-    document.getElementById("gh-followers").innerText = data.followers;
-
-    // Salva os dados e recria o timestamp no localStorage
-    localStorage.setItem(cacheKey, JSON.stringify(data));
-    localStorage.setItem(cacheTimestampKey, now.toString());
-  } catch (error) {
-    console.warn("Aviso na integração com GitHub (usando fallback):", error.message);
-
-    // Em caso de offline/falha, se houver cache vencido, tenta exibir ele mesmo
-    if (cachedData) {
-      try {
-        const data = JSON.parse(cachedData);
-        document.getElementById("gh-repos").classList.remove("skeleton-text");
-        document.getElementById("gh-repos").innerText =
-          data.public_repos + " (Offline)";
-        document
-          .getElementById("gh-followers")
-          .classList.remove("skeleton-text");
-        document.getElementById("gh-followers").innerText =
-          data.followers + " (Offline)";
-        return;
-      } catch (e) {}
-    }
-
-    document.getElementById("gh-repos").classList.remove("skeleton-text");
-    document.getElementById("gh-repos").innerText = "20+";
-    document.getElementById("gh-followers").classList.remove("skeleton-text");
-    document.getElementById("gh-followers").innerText = "45+";
-  }
-}
-
 async function fetchRecentRepos() {
   const container = document.getElementById("github-repos-grid");
   if (!container) return;
@@ -1189,7 +1118,6 @@ async function fetchRecentRepos() {
   }
 }
 
-buscarDadosGitHub();
 fetchRecentRepos();
 
 // --------------------------------------------------------
