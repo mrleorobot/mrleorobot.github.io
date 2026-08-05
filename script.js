@@ -2319,6 +2319,8 @@ function initMuralDepoimentos() {
   renderComments();
 }
 
+document.addEventListener("DOMContentLoaded", initMuralDepoimentos);
+
 // --------------------------------------------------------
 // 17. Premium Custom Cursor & Magnetic Effects (Removed)
 // --------------------------------------------------------
