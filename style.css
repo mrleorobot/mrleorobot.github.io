@@ -1850,9 +1850,8 @@ section {
        SUPER SMALL MOBILE FIXES (MAX-WIDTH: 480px)
        ========================================= */
 @media (max-width: 480px) {
-  /* Ajuste dos Widgets de Status/Clima */
-  #status-disponibilidade,
-  #widget-clima {
+  /* Ajuste do Widget de Status */
+  #status-disponibilidade {
     width: 100% !important;
     justify-content: center !important;
     font-size: 13px !important;
