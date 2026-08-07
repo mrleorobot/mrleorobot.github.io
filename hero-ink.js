@@ -126,13 +126,13 @@
       "  vec2 p3 = p2 + warp2 * 0.25;",
 
       "  float ink = snoise(vec3(p3 * 0.8, t * 0.5));",
-      "  ink = smoothstep(-0.35, 0.65, ink);",
+      "  ink = smoothstep(-0.26, 0.56, ink);",
 
       "  float vign = 1.0 - smoothstep(0.4, 1.3, length(p));",
       "  ink *= mix(0.5, 1.0, vign);",
 
       "  vec3 color = vec3(1.0);",
-      "  float alpha = ink * 0.8;",
+      "  float alpha = ink * 1.0;",
 
       "  gl_FragColor = vec4(color, alpha);",
       "}",
