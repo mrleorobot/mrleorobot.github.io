@@ -437,6 +437,24 @@ section {
   transition: transform 0.2s ease-out;
 }
 
+/* Tinta se dissolvendo — só web. Fica atrás das partículas existentes
+   (z-index menor), e nem sequer inicializa no mobile (ver hero-ink.js) */
+#hero-ink-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 768px) {
+  #hero-ink-canvas {
+    display: none;
+  }
+}
+
 @keyframes canvasFadeIn {
   0% {
     opacity: 0;
