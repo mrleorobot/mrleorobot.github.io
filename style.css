@@ -5628,25 +5628,10 @@ nav {
 }
 
 @media (min-width: 769px) {
-  .btn-cv {
-    background: var(--primary-accent) !important;
-    color: #030303 !important;
-    font-family: "Space Grotesk", sans-serif !important;
-    font-weight: 500 !important;
-    border: none !important;
-    letter-spacing: 1px !important;
-    text-transform: uppercase !important;
-    font-size: 0.75rem !important;
-    transition: all 0.3s ease !important;
-    border-radius: 4px !important;
-  }
-
-  .btn-cv:hover {
-    background: #ffffff !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15) !important;
-  }
 }
+
+@media (min-width: 769px) {
+
 
 .btn-arcane,
 .btn-projeto {
