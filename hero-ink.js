@@ -1,362 +1,240 @@
 // ============================================================
-// hero-ink.js — Generative Ink-in-Water Hero Effect
-// Architecture: OGL (WebGL) + GLSL Shader + GSAP + Lenis
-// Author: Leonilson Souza Portfolio
+// hero-ink.js — Efeito de tinta se dissolvendo na água (Hero, web)
+// Vanilla JS + WebGL puro (sem OGL/GSAP/Three.js — bundle leve, um
+// único loop de animação, zero build step, publica igual ao resto
+// do site).
+//
+// Só roda em telas >= 769px (desktop/tablet largo). No mobile o canvas
+// nem chega a inicializar o contexto WebGL — zero custo de GPU lá.
 // ============================================================
+(function () {
+  "use strict";
 
-const VERTEX_SHADER = /* glsl */ `
-attribute vec2 position;
-attribute vec2 uv;
-varying vec2 vUv;
-void main() {
-    vUv = uv;
-    gl_Position = vec4(position, 0.0, 1.0);
-}
-`;
+  var DESKTOP_BREAKPOINT = 769;
 
-const FRAGMENT_SHADER = /* glsl */ `
-precision highp float;
+  function init() {
+    var canvas = document.getElementById("hero-ink-canvas");
+    if (!canvas) return;
 
-varying vec2 vUv;
-
-uniform float uTime;
-uniform vec2  uResolution;
-uniform vec2  uMouse;
-uniform float uScroll;
-uniform float uIntensity;
-
-// ---- Simplex Noise 3D (Ashima Arts / Ian McEwan) ----
-vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-vec3 permute(vec3 x) { return mod289(((x * 34.0) + 1.0) * x); }
-
-float snoise(vec2 v) {
-    const vec4 C = vec4(0.211324865405187, 0.366025403784439,
-                       -0.577350269189626, 0.024390243902439);
-    vec2 i  = floor(v + dot(v, C.yy));
-    vec2 x0 = v - i + dot(i, C.xx);
-    vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-    vec4 x12 = x0.xyxy + C.xxzz;
-    x12.xy -= i1;
-    i = mod289(i);
-    vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0))
-                             + i.x + vec3(0.0, i1.x, 1.0));
-    vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
-                            dot(x12.zw,x12.zw)), 0.0);
-    m = m * m;
-    m = m * m;
-    vec3 x  = 2.0 * fract(p * C.www) - 1.0;
-    vec3 h  = abs(x) - 0.5;
-    vec3 ox = floor(x + 0.5);
-    vec3 a0 = x - ox;
-    m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
-    vec3 g;
-    g.x = a0.x * x0.x + h.x * x0.y;
-    g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-    return 130.0 * dot(m, g);
-}
-
-// ---- Fractal Brownian Motion ----
-float fbm(vec2 p, float time) {
-    float value = 0.0;
-    float amplitude = 0.5;
-    float frequency = 1.0;
-    for (int i = 0; i < 6; i++) {
-        value += amplitude * snoise(p * frequency + time * 0.08);
-        frequency *= 2.0;
-        amplitude *= 0.5;
+    // Só web: se a tela for mobile, nem tenta — deixa o canvas vazio/oculto
+    if (window.innerWidth < DESKTOP_BREAKPOINT) {
+      return;
     }
-    return value;
-}
 
-// ---- Domain Warping (creates the ink-dissolving look) ----
-float domainWarp(vec2 p, float time) {
-    vec2 q = vec2(
-        fbm(p + vec2(0.0, 0.0), time),
-        fbm(p + vec2(5.2, 1.3), time)
-    );
+    // Respeita quem pediu menos movimento no sistema
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
 
-    vec2 r = vec2(
-        fbm(p + 4.0 * q + vec2(1.7, 9.2), time * 0.8),
-        fbm(p + 4.0 * q + vec2(8.3, 2.8), time * 0.8)
-    );
-
-    return fbm(p + 3.5 * r, time * 0.6);
-}
-
-void main() {
-    // Normalize coordinates keeping aspect ratio
-    vec2 uv = vUv;
-    float aspect = uResolution.x / uResolution.y;
-    vec2 p = (uv - 0.5) * vec2(aspect, 1.0);
-
-    // Scale for visual density
-    p *= 2.5;
-
-    // Slow time for organic movement
-    float time = uTime * 0.15;
-
-    // Mouse influence — subtle distortion near cursor
-    vec2 mouseNorm = uMouse * vec2(aspect, 1.0);
-    float mouseDist = length(p - mouseNorm);
-    float mouseInfluence = smoothstep(1.2, 0.0, mouseDist) * 0.15;
-    p += mouseInfluence * vec2(
-        snoise(p + time * 0.5),
-        snoise(p + time * 0.5 + 100.0)
-    );
-
-    // Core ink effect via domain warping
-    float ink = domainWarp(p, time);
-
-    // Map to black and white with contrast curve
-    // This creates the ink-in-water look: dark tendrils on white/gray
-    float v = ink * 0.5 + 0.5; // remap from [-1,1] to [0,1]
-
-    // Contrast curve — push midtones toward extremes
-    v = smoothstep(0.25, 0.75, v);
-
-    // Invert: dark ink tendrils on dark background (matching the portfolio)
-    v = 1.0 - v;
-
-    // Subtle opacity based on scroll progress
-    float scrollFade = 1.0 - smoothstep(0.0, 0.6, uScroll);
-
-    // Apply global intensity (for intro fade-in)
-    float alpha = v * uIntensity * scrollFade * 0.35; // Max opacity 35% for subtlety
-
-    // Output: white ink forms on transparent background over black page
-    gl_FragColor = vec4(vec3(1.0), alpha);
-}
-`;
-
-// ============================================================
-// Initialization
-// ============================================================
-
-export function initHeroInk() {
-    const canvas = document.getElementById('hero-ink');
-    if (!canvas) return null;
-
-    // Check WebGL support
-    const gl = canvas.getContext('webgl', {
-        alpha: true,
-        premultipliedAlpha: false,
-        antialias: false,
-        preserveDrawingBuffer: false,
-    });
+    var gl =
+      canvas.getContext("webgl", { alpha: true, premultipliedAlpha: false }) ||
+      canvas.getContext("experimental-webgl", { alpha: true });
 
     if (!gl) {
-        console.warn('WebGL not supported — falling back to CSS gradient');
-        canvas.style.display = 'none';
-        document.querySelector('.hero-ink-fallback')?.classList.add('active');
+      // Sem WebGL: o canvas fica transparente e a seção usa só o fundo
+      // sólido normal — sem fallback visual chamativo, é só um detalhe
+      // extra que deixa de existir silenciosamente.
+      return;
+    }
+
+    var vertexSrc = [
+      "attribute vec2 aPosition;",
+      "varying vec2 vUv;",
+      "void main() {",
+      "  vUv = aPosition * 0.5 + 0.5;",
+      "  gl_Position = vec4(aPosition, 0.0, 1.0);",
+      "}",
+    ].join("\n");
+
+    // Simplex noise 3D (Ashima Arts / Stefan Gustavson) + curl-noise pra
+    // domain warping — dá o visual de fluido/tinta, não de ruído estático.
+    var fragmentSrc = [
+      "precision highp float;",
+      "uniform float uTime;",
+      "uniform vec2 uResolution;",
+      "varying vec2 vUv;",
+
+      "vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}",
+      "vec4 mod289(vec4 x){return x-floor(x*(1.0/289.0))*289.0;}",
+      "vec4 permute(vec4 x){return mod289(((x*34.0)+1.0)*x);}",
+      "vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-0.85373472095314*r;}",
+
+      "float snoise(vec3 v){",
+      "  const vec2 C = vec2(1.0/6.0, 1.0/3.0);",
+      "  const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);",
+      "  vec3 i  = floor(v + dot(v, C.yyy));",
+      "  vec3 x0 = v - i + dot(i, C.xxx);",
+      "  vec3 g = step(x0.yzx, x0.xyz);",
+      "  vec3 l = 1.0 - g;",
+      "  vec3 i1 = min(g.xyz, l.zxy);",
+      "  vec3 i2 = max(g.xyz, l.zxy);",
+      "  vec3 x1 = x0 - i1 + C.xxx;",
+      "  vec3 x2 = x0 - i2 + C.yyy;",
+      "  vec3 x3 = x0 - D.yyy;",
+      "  i = mod289(i);",
+      "  vec4 p = permute(permute(permute(",
+      "    i.z + vec4(0.0, i1.z, i2.z, 1.0))",
+      "    + i.y + vec4(0.0, i1.y, i2.y, 1.0))",
+      "    + i.x + vec4(0.0, i1.x, i2.x, 1.0));",
+      "  float n_ = 0.142857142857;",
+      "  vec3 ns = n_ * D.wyz - D.xzx;",
+      "  vec4 j = p - 49.0 * floor(p * ns.z * ns.z);",
+      "  vec4 x_ = floor(j * ns.z);",
+      "  vec4 y_ = floor(j - 7.0 * x_);",
+      "  vec4 x = x_ * ns.x + ns.yyyy;",
+      "  vec4 y = y_ * ns.x + ns.yyyy;",
+      "  vec4 h = 1.0 - abs(x) - abs(y);",
+      "  vec4 b0 = vec4(x.xy, y.xy);",
+      "  vec4 b1 = vec4(x.zw, y.zw);",
+      "  vec4 s0 = floor(b0) * 2.0 + 1.0;",
+      "  vec4 s1 = floor(b1) * 2.0 + 1.0;",
+      "  vec4 sh = -step(h, vec4(0.0));",
+      "  vec4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;",
+      "  vec4 a1 = b1.xzyw + s1.xzyw * sh.zzww;",
+      "  vec3 p0 = vec3(a0.xy, h.x);",
+      "  vec3 p1 = vec3(a0.zw, h.y);",
+      "  vec3 p2 = vec3(a1.xy, h.z);",
+      "  vec3 p3 = vec3(a1.zw, h.w);",
+      "  vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));",
+      "  p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;",
+      "  vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);",
+      "  m = m * m;",
+      "  return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));",
+      "}",
+
+      "vec2 curl(vec2 p, float t){",
+      "  float eps = 0.06;",
+      "  float n1 = snoise(vec3(p.x, p.y + eps, t));",
+      "  float n2 = snoise(vec3(p.x, p.y - eps, t));",
+      "  float n3 = snoise(vec3(p.x + eps, p.y, t));",
+      "  float n4 = snoise(vec3(p.x - eps, p.y, t));",
+      "  float dx = (n1 - n2) / (2.0 * eps);",
+      "  float dy = (n3 - n4) / (2.0 * eps);",
+      "  return vec2(dy, -dx);",
+      "}",
+
+      "void main(){",
+      "  vec2 uv = vUv;",
+      "  vec2 aspect = vec2(uResolution.x / uResolution.y, 1.0);",
+      "  vec2 p = (uv - 0.5) * aspect * 2.4;",
+
+      "  float t = uTime * 0.01;",
+
+      "  vec2 warp1 = curl(p * 0.45, t);",
+      "  vec2 p2 = p + warp1 * 0.5;",
+      "  vec2 warp2 = curl(p2 * 1.0 + 11.0, t * 1.1);",
+      "  vec2 p3 = p2 + warp2 * 0.25;",
+
+      "  float ink = snoise(vec3(p3 * 0.8, t * 0.5));",
+      "  ink = smoothstep(-0.35, 0.65, ink);",
+
+      "  float vign = 1.0 - smoothstep(0.4, 1.3, length(p));",
+      "  ink *= mix(0.5, 1.0, vign);",
+
+      "  vec3 color = vec3(1.0);",
+      "  float alpha = ink * 0.8;",
+
+      "  gl_FragColor = vec4(color, alpha);",
+      "}",
+    ].join("\n");
+
+    function compileShader(type, src) {
+      var shader = gl.createShader(type);
+      gl.shaderSource(shader, src);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.warn("hero-ink: erro ao compilar shader —", gl.getShaderInfoLog(shader));
+        gl.deleteShader(shader);
         return null;
+      }
+      return shader;
     }
 
-    // Respect reduced motion
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        canvas.style.display = 'none';
-        document.querySelector('.hero-ink-fallback')?.classList.add('active');
-        return null;
-    }
+    var vs = compileShader(gl.VERTEX_SHADER, vertexSrc);
+    var fs = compileShader(gl.FRAGMENT_SHADER, fragmentSrc);
+    if (!vs || !fs) return;
 
-    // ---- Device detection ----
-    const isMobile = window.innerWidth < 768;
-    const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 2);
-    const pixelScale = isMobile ? 0.5 : 1.0; // Half resolution on mobile
-
-    // ---- Sizing ----
-    function resize() {
-        const w = canvas.clientWidth;
-        const h = canvas.clientHeight;
-        canvas.width = Math.floor(w * dpr * pixelScale);
-        canvas.height = Math.floor(h * dpr * pixelScale);
-        gl.viewport(0, 0, canvas.width, canvas.height);
-    }
-    resize();
-
-    // ---- Compile shader ----
-    function compileShader(type, source) {
-        const shader = gl.createShader(type);
-        gl.shaderSource(shader, source);
-        gl.compileShader(shader);
-        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-            console.error('Shader compile error:', gl.getShaderInfoLog(shader));
-            gl.deleteShader(shader);
-            return null;
-        }
-        return shader;
-    }
-
-    const vertShader = compileShader(gl.VERTEX_SHADER, VERTEX_SHADER);
-    const fragShader = compileShader(gl.FRAGMENT_SHADER, FRAGMENT_SHADER);
-    if (!vertShader || !fragShader) return null;
-
-    const program = gl.createProgram();
-    gl.attachShader(program, vertShader);
-    gl.attachShader(program, fragShader);
+    var program = gl.createProgram();
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
     gl.linkProgram(program);
-
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        console.error('Program link error:', gl.getProgramInfoLog(program));
-        return null;
+      console.warn("hero-ink: erro ao linkar programa —", gl.getProgramInfoLog(program));
+      return;
     }
-
     gl.useProgram(program);
 
-    // ---- Fullscreen triangle (covers viewport with 1 triangle, more efficient than quad) ----
-    const positions = new Float32Array([
-        -1, -1,
-         3, -1,
-        -1,  3,
-    ]);
-    const uvs = new Float32Array([
-        0, 0,
-        2, 0,
-        0, 2,
-    ]);
-
-    // Position buffer
-    const posBuf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+    var positions = new Float32Array([-1, -1, 3, -1, -1, 3]);
+    var buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
-    const posLoc = gl.getAttribLocation(program, 'position');
-    gl.enableVertexAttribArray(posLoc);
-    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+    var aPosition = gl.getAttribLocation(program, "aPosition");
+    gl.enableVertexAttribArray(aPosition);
+    gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
 
-    // UV buffer
-    const uvBuf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, uvBuf);
-    gl.bufferData(gl.ARRAY_BUFFER, uvs, gl.STATIC_DRAW);
-    const uvLoc = gl.getAttribLocation(program, 'uv');
-    gl.enableVertexAttribArray(uvLoc);
-    gl.vertexAttribPointer(uvLoc, 2, gl.FLOAT, false, 0, 0);
+    var uTime = gl.getUniformLocation(program, "uTime");
+    var uResolution = gl.getUniformLocation(program, "uResolution");
 
-    // ---- Uniforms ----
-    const uTime = gl.getUniformLocation(program, 'uTime');
-    const uResolution = gl.getUniformLocation(program, 'uResolution');
-    const uMouse = gl.getUniformLocation(program, 'uMouse');
-    const uScroll = gl.getUniformLocation(program, 'uScroll');
-    const uIntensity = gl.getUniformLocation(program, 'uIntensity');
-
-    // Initial values
-    gl.uniform2f(uResolution, canvas.width, canvas.height);
-    gl.uniform2f(uMouse, 0.0, 0.0);
-    gl.uniform1f(uScroll, 0.0);
-    gl.uniform1f(uIntensity, 0.0); // Starts invisible, GSAP fades in
-
-    // Enable blending for transparent background
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
-    // ---- State ----
-    let mouseX = 0, mouseY = 0;
-    let smoothMouseX = 0, smoothMouseY = 0;
-    let scrollProgress = 0;
-    let intensity = 0;
-    let isVisible = true;
-    let animationId = null;
-    let lastFrameTime = 0;
-    const targetFPS = isMobile ? 30 : 60;
-    const frameInterval = 1000 / targetFPS;
-
-    // ---- Mouse tracking ----
-    function onMouseMove(e) {
-        // Normalize to [-0.5, 0.5]
-        mouseX = (e.clientX / window.innerWidth) - 0.5;
-        mouseY = -((e.clientY / window.innerHeight) - 0.5); // Flip Y for GL
-    }
-    if (!isMobile) {
-        window.addEventListener('mousemove', onMouseMove, { passive: true });
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = canvas.clientWidth || window.innerWidth;
+      var h = canvas.clientHeight || window.innerHeight;
+      if (w < 2) w = window.innerWidth;
+      if (h < 2) h = window.innerHeight;
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      gl.viewport(0, 0, canvas.width, canvas.height);
     }
 
-    // ---- Touch tracking (mobile) ----
-    function onTouchMove(e) {
-        if (e.touches.length > 0) {
-            mouseX = (e.touches[0].clientX / window.innerWidth) - 0.5;
-            mouseY = -((e.touches[0].clientY / window.innerHeight) - 0.5);
-        }
-    }
-    if (isMobile) {
-        canvas.addEventListener('touchmove', onTouchMove, { passive: true });
+    var resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(canvas);
+    resize();
+
+    var startTime = performance.now();
+    var rafId = null;
+    var isRunning = false;
+
+    function render(now) {
+      var elapsed = (now - startTime) / 1000;
+      gl.uniform1f(uTime, elapsed);
+      gl.uniform2f(uResolution, canvas.width, canvas.height);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      rafId = requestAnimationFrame(render);
     }
 
-    // ---- Visibility observer (pause when out of viewport) ----
-    const observer = new IntersectionObserver(
-        ([entry]) => {
-            isVisible = entry.isIntersecting;
-            if (isVisible && !animationId) {
-                lastFrameTime = performance.now();
-                loop(lastFrameTime);
-            }
-        },
-        { threshold: 0.05 }
+    function start() {
+      if (isRunning) return;
+      isRunning = true;
+      rafId = requestAnimationFrame(render);
+    }
+
+    function stop() {
+      if (!isRunning) return;
+      isRunning = false;
+      if (rafId) cancelAnimationFrame(rafId);
+    }
+
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries[0].isIntersecting ? start() : stop();
+      },
+      { threshold: 0 }
     );
-    observer.observe(canvas);
+    io.observe(canvas);
 
-    // ---- Resize handler ----
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            resize();
-            gl.useProgram(program);
-            gl.uniform2f(uResolution, canvas.width, canvas.height);
-        }, 150);
-    }, { passive: true });
+    document.addEventListener("visibilitychange", function () {
+      document.hidden ? stop() : start();
+    });
 
-    // ---- Render loop ----
-    function loop(now) {
-        if (!isVisible) {
-            animationId = null;
-            return;
-        }
+    start();
+  }
 
-        animationId = requestAnimationFrame(loop);
-
-        // Throttle FPS on mobile
-        const delta = now - lastFrameTime;
-        if (delta < frameInterval) return;
-        lastFrameTime = now - (delta % frameInterval);
-
-        // Smooth mouse interpolation
-        smoothMouseX += (mouseX - smoothMouseX) * 0.05;
-        smoothMouseY += (mouseY - smoothMouseY) * 0.05;
-
-        // Update uniforms
-        gl.useProgram(program);
-        gl.uniform1f(uTime, now * 0.001); // seconds
-        gl.uniform2f(uMouse, smoothMouseX, smoothMouseY);
-        gl.uniform1f(uScroll, scrollProgress);
-        gl.uniform1f(uIntensity, intensity);
-
-        // Clear and draw
-        gl.clearColor(0.0, 0.0, 0.0, 0.0);
-        gl.clear(gl.COLOR_BUFFER_BIT);
-        gl.drawArrays(gl.TRIANGLES, 0, 3);
-    }
-
-    // Start loop
-    lastFrameTime = performance.now();
-    loop(lastFrameTime);
-
-    // ---- Public API for GSAP/Lenis integration ----
-    return {
-        setIntensity(v) { intensity = v; },
-        setScroll(v)    { scrollProgress = v; },
-        destroy() {
-            if (animationId) cancelAnimationFrame(animationId);
-            observer.disconnect();
-            window.removeEventListener('mousemove', onMouseMove);
-            canvas.removeEventListener('touchmove', onTouchMove);
-            window.removeEventListener('resize', resize);
-            gl.deleteProgram(program);
-            gl.deleteShader(vertShader);
-            gl.deleteShader(fragShader);
-            gl.deleteBuffer(posBuf);
-            gl.deleteBuffer(uvBuf);
-            const ext = gl.getExtension('WEBGL_lose_context');
-            if (ext) ext.loseContext();
-        },
-    };
-}
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
