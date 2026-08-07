@@ -6560,15 +6560,38 @@ nav.scrolled {
 }
 
 /* ==========================================================================
-   UPGRADE v2 — Design Premium Melhorado (aplicado como última camada da cascata)
-   Accent ciano, tipografia mais impactante, espaçamento editorial, botões mais ricos.
+   UPGRADE v2 — Monocromático Puro: Preto, Branco e Cinza apenas.
+   Nenhuma cor. Apenas luminosidade e contraste.
    ========================================================================== */
 
-/* Accent ciano — substitui o branco genérico em todos os CTAs e destaques */
-:root {
-  --accent-cyan: #00e5ff;
-  --accent-cyan-dim: rgba(0, 229, 255, 0.15);
-  --accent-cyan-glow: rgba(0, 229, 255, 0.35);
+/* Tipografia: glitch title muito maior e impactante */
+.glitch-title {
+  font-size: clamp(3.5rem, 11vw, 9rem) !important;
+  line-height: 0.95 !important;
+  background: linear-gradient(165deg, #ffffff 0%, #c8c8c8 55%, #6a6a6a 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  letter-spacing: -0.05em !important;
+}
+
+/* Herói: nome maior e mais impactante */
+#hero .hero-name {
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  color: #f0f0f0 !important;
+  text-transform: uppercase !important;
+}
+
+/* Subtítulo do hero */
+.hero-text {
+  font-size: clamp(1rem, 1.8vw, 1.2rem) !important;
+  font-style: italic !important;
+  color: #718096 !important;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Títulos de seção: maiores, mais hierarquia */
@@ -6584,44 +6607,9 @@ nav.scrolled {
   line-height: 1.1 !important;
 }
 
-/* Herói: nome muito maior, mais drama tipográfico */
-#hero .hero-name {
-  font-size: clamp(1.8rem, 4.5vw, 3.2rem) !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.01em !important;
-  color: #f0f0f0 !important;
-  text-transform: uppercase !important;
-}
-
-/* Glitch title: gradiente mais contrastado e maior */
-.glitch-title {
-  font-size: clamp(3.5rem, 11vw, 9rem) !important;
-  line-height: 0.95 !important;
-  background: linear-gradient(
-    165deg,
-    #ffffff 0%,
-    #c8c8c8 55%,
-    #6a6a6a 100%
-  ) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  letter-spacing: -0.05em !important;
-}
-
-/* Subtítulo do hero em itálico refined */
-.hero-text {
-  font-size: clamp(1rem, 1.8vw, 1.2rem) !important;
-  font-style: italic !important;
-  color: #718096 !important;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Botão CTA hero: accent ciano */
+/* Botão CTA hero: branco no hover */
 #hero .hero-cta-btn:hover .cta-badge {
-  background: var(--accent-cyan) !important;
+  background: #ffffff !important;
   color: #000 !important;
 }
 
@@ -6630,26 +6618,11 @@ nav.scrolled {
 }
 
 #hero .hero-cta-btn:hover {
-  border-color: var(--accent-cyan) !important;
-  box-shadow: 0 0 20px var(--accent-cyan-glow) !important;
+  border-color: rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.12) !important;
 }
 
-/* Botões primários: accent ciano no hover */
-.btn-arcane:hover,
-.btn-projeto:hover {
-  background: var(--accent-cyan) !important;
-  color: #000 !important;
-  border-color: transparent !important;
-  box-shadow: 0 8px 25px var(--accent-cyan-glow) !important;
-  transform: translateY(-2px) !important;
-}
-
-/* Estado active/foco do botão cv com ciano */
-.btn-cv:hover {
-  box-shadow: 0 4px 16px var(--accent-cyan-glow) !important;
-}
-
-/* Cards: separação e borda melhorada */
+/* Cards: borda mais visível */
 .narrative-box,
 #live-github-card,
 .kurz-card,
@@ -6667,66 +6640,60 @@ nav.scrolled {
 .design-card:hover,
 .status-card:hover,
 .spotlight-card:hover {
-  border-color: rgba(0, 229, 255, 0.18) !important;
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(0, 229, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65) !important;
 }
 
-/* Timeline: accent ciano nos dots ativos e na linha */
+/* Timeline: branco nos dots ativos */
 .timeline-item.active .timeline-dot,
 .timeline-dot:hover {
-  border-color: var(--accent-cyan) !important;
-  background: var(--accent-cyan) !important;
-  box-shadow: 0 0 16px var(--accent-cyan-glow) !important;
+  border-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.5) !important;
 }
 
 .timeline-line-glow {
-  background: linear-gradient(180deg, var(--accent-cyan), rgba(0, 229, 255, 0.3)) !important;
-  box-shadow: 0 0 10px var(--accent-cyan-glow) !important;
+  background: linear-gradient(180deg, #ffffff, rgba(255, 255, 255, 0.3)) !important;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4) !important;
 }
 
 .timeline-date {
-  color: var(--accent-cyan) !important;
+  color: #ffffff !important;
   font-weight: 600 !important;
 }
 
-/* Live dot: ciano pulsante */
+/* Live dot: branco */
 .live-dot {
-  background-color: var(--accent-cyan) !important;
-  box-shadow: 0 0 6px var(--accent-cyan) !important;
+  background-color: #ffffff !important;
+  box-shadow: none !important;
 }
 
-@keyframes pulse-live {
-  0% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.7); }
-  70% { box-shadow: 0 0 0 8px rgba(0, 229, 255, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0); }
-}
-
-/* Status badge com accent ciano */
+/* Status badge monocromático */
 .status-badge {
-  color: var(--accent-cyan) !important;
-  border-color: rgba(0, 229, 255, 0.25) !important;
-  background: rgba(0, 229, 255, 0.06) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
 }
 
-/* Nav link ativo com accent ciano */
+/* Nav link ativo: branco */
 .nav-links a.active:not(.btn-cv)::after {
-  background-color: var(--accent-cyan) !important;
+  background-color: #ffffff !important;
 }
 
 .nav-links a.active:not(.btn-cv) {
-  color: var(--accent-cyan) !important;
+  color: #ffffff !important;
 }
 
-/* Barra de progresso de scroll com ciano */
+/* Barra de progresso de scroll: branco */
 .scroll-progress-bar {
-  background: linear-gradient(90deg, var(--accent-cyan), rgba(0, 229, 255, 0.6)) !important;
-  box-shadow: 0 0 12px var(--accent-cyan), 0 0 24px var(--accent-cyan-glow) !important;
+  background: linear-gradient(90deg, #ffffff, rgba(255, 255, 255, 0.6)) !important;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5) !important;
 }
 
-/* FAQ: accent ciano no ícone ativo */
+/* FAQ: branco no ícone ativo */
 .faq-item.active .faq-icon {
-  border-color: var(--accent-cyan) !important;
-  background: var(--accent-cyan) !important;
+  border-color: #ffffff !important;
+  background: #ffffff !important;
   color: #000 !important;
 }
 
@@ -6735,24 +6702,24 @@ nav.scrolled {
   border-color: rgba(255, 255, 255, 0.12) !important;
 }
 
-/* Galeria de design: card ativo com glow ciano */
+/* Galeria de design: card ativo */
 .card.current--card {
-  border-color: rgba(0, 229, 255, 0.3) !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 20px var(--accent-cyan-glow) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 15px rgba(255, 255, 255, 0.08) !important;
 }
 
-/* Thumbnail overlay com ciano */
+/* Thumbnail overlay: branco */
 .project-thumbnail-wrapper:hover {
-  border-color: rgba(0, 229, 255, 0.3) !important;
-  box-shadow: 0 0 24px rgba(0, 229, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.08) !important;
 }
 
 .project-thumbnail-wrapper:hover .project-scroll-indicator {
-  background: var(--accent-cyan) !important;
+  background: #ffffff !important;
   color: #000 !important;
 }
 
-/* Contact panel: h2 maior e mais impactante */
+/* Contact panel: h2 maior */
 .contact-panel h2 {
   font-size: clamp(2rem, 5vw, 3.5rem) !important;
   font-weight: 200 !important;
@@ -6760,12 +6727,12 @@ nav.scrolled {
   line-height: 1.05 !important;
 }
 
-/* Contact: link hover refinado */
+/* Contact: link hover branco */
 .contact-link:hover {
-  background: var(--accent-cyan) !important;
+  background: #ffffff !important;
   border-color: transparent !important;
   color: #000 !important;
-  box-shadow: 0 8px 24px var(--accent-cyan-glow) !important;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.12) !important;
 }
 
 .contact-link:hover svg {
@@ -6777,7 +6744,7 @@ nav.scrolled {
   border-color: rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Footer melhorado */
+/* Footer monocromático */
 footer {
   border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
   padding: 3rem 8% !important;
@@ -6813,64 +6780,56 @@ footer {
   }
 }
 
-/* Spotlight com glow ciano */
+/* Spotlight com glow branco sutil */
 .spotlight-card:hover {
-  border-color: rgba(0, 229, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 .spotlight-card::before {
   background: radial-gradient(
     600px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
-    rgba(0, 229, 255, 0.06),
+    rgba(255, 255, 255, 0.04),
     transparent 40%
   ) !important;
 }
 
-/* Skill-core badges com borda ciano no mobile */
+/* Skill-core badges no mobile: branco */
 @media (max-width: 768px) {
   #tech-stack .skill-core {
-    border-color: var(--accent-cyan) !important;
-    background: rgba(0, 229, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
   }
 }
 
-/* Número fantasma de seção: mais sutil e deslocado */
+/* Número fantasma de seção: mais sutil */
 main > section:not(#hero):not(#cta-final)::before {
   color: rgba(255, 255, 255, 0.022) !important;
   font-size: clamp(5rem, 18vw, 10rem) !important;
 }
 
-/* Kinetic flash: usa cyan em vez de rosa */
-@keyframes title-kinetic-flash {
-  0%  { text-shadow: 3px 0 rgba(0, 229, 255, 0.6),   -3px 0 rgba(255, 40, 90, 0.4); }
-  35% { text-shadow: -2px 0 rgba(0, 229, 255, 0.35), 2px 0 rgba(255, 40, 90, 0.25); }
-  70% { text-shadow: 1px 0 rgba(0, 229, 255, 0.15),  -1px 0 rgba(255, 40, 90, 0.1); }
-  100%{ text-shadow: 0 0 transparent; }
-}
-
-/* Suporte card: accent ciano no ícone */
+/* Suporte card: branco no ícone */
 .support-icon-wrapper {
-  color: var(--accent-cyan) !important;
-  border-color: rgba(0, 229, 255, 0.15) !important;
-  background: rgba(0, 229, 255, 0.04) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.02) !important;
 }
 
 .support-card:hover .support-icon-wrapper {
-  background: rgba(0, 229, 255, 0.12) !important;
-  border-color: rgba(0, 229, 255, 0.35) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
   transform: scale(1.06) !important;
 }
 
-/* Mural cards hover com ciano */
+/* Mural cards hover: branco */
 .mural-card[data-type]:hover {
-  border-color: rgba(0, 229, 255, 0.25) !important;
-  box-shadow: 0 15px 38px rgba(0, 0, 0, 0.65), 0 0 16px rgba(0, 229, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 15px 38px rgba(0, 0, 0, 0.65) !important;
   background: rgba(10, 10, 10, 0.98) !important;
 }
 
-/* Scrollbar com ciano */
+/* Scrollbar monocromática */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 229, 255, 0.55) !important;
+  background: rgba(255, 255, 255, 0.35) !important;
 }
 
 /* =========================================================================
