@@ -5627,12 +5627,6 @@ nav {
   }
 }
 
-@media (min-width: 769px) {
-}
-
-@media (min-width: 769px) {
-
-
 .btn-arcane,
 .btn-projeto {
   background: transparent !important;
@@ -6566,6 +6560,279 @@ nav.scrolled {
 }
 
 /* ==========================================================================
+   UPGRADE v2 — Monocromático Puro: Preto, Branco e Cinza apenas.
+   Nenhuma cor. Apenas luminosidade e contraste.
+   ========================================================================== */
+
+/* Tipografia: glitch title muito maior e impactante */
+.glitch-title {
+  font-size: clamp(3.5rem, 11vw, 9rem) !important;
+  line-height: 0.95 !important;
+  background: linear-gradient(165deg, #ffffff 0%, #c8c8c8 55%, #6a6a6a 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  letter-spacing: -0.05em !important;
+}
+
+/* Herói: nome maior e mais impactante */
+#hero .hero-name {
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  color: #f0f0f0 !important;
+  text-transform: uppercase !important;
+}
+
+/* Subtítulo do hero */
+.hero-text {
+  font-size: clamp(1rem, 1.8vw, 1.2rem) !important;
+  font-style: italic !important;
+  color: #718096 !important;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Títulos de seção: maiores, mais hierarquia */
+.skills-header h2,
+.design-header h2,
+#sobre h2,
+#faq h2,
+#game-dev h2,
+#suporte-gestao h2 {
+  font-size: clamp(2rem, 4.5vw, 3.2rem) !important;
+  font-weight: 200 !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.1 !important;
+}
+
+/* Botão CTA hero: branco no hover */
+#hero .hero-cta-btn:hover .cta-badge {
+  background: #ffffff !important;
+  color: #000 !important;
+}
+
+#hero .hero-cta-btn {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+#hero .hero-cta-btn:hover {
+  border-color: rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Cards: borda mais visível */
+.narrative-box,
+#live-github-card,
+.kurz-card,
+.design-card,
+.testimonial-card,
+.spotlight-card,
+.status-card,
+.contact-panel {
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  transition: border-color 0.5s ease, transform 0.5s ease, box-shadow 0.5s ease !important;
+}
+
+.narrative-box:hover,
+.kurz-card:hover,
+.design-card:hover,
+.status-card:hover,
+.spotlight-card:hover {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65) !important;
+}
+
+/* Timeline: branco nos dots ativos */
+.timeline-item.active .timeline-dot,
+.timeline-dot:hover {
+  border-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.5) !important;
+}
+
+.timeline-line-glow {
+  background: linear-gradient(180deg, #ffffff, rgba(255, 255, 255, 0.3)) !important;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4) !important;
+}
+
+.timeline-date {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* Live dot: branco */
+.live-dot {
+  background-color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+/* Status badge monocromático */
+.status-badge {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* Nav link ativo: branco */
+.nav-links a.active:not(.btn-cv)::after {
+  background-color: #ffffff !important;
+}
+
+.nav-links a.active:not(.btn-cv) {
+  color: #ffffff !important;
+}
+
+/* Barra de progresso de scroll: branco */
+.scroll-progress-bar {
+  background: linear-gradient(90deg, #ffffff, rgba(255, 255, 255, 0.6)) !important;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* FAQ: branco no ícone ativo */
+.faq-item.active .faq-icon {
+  border-color: #ffffff !important;
+  background: #ffffff !important;
+  color: #000 !important;
+}
+
+.faq-icon {
+  color: rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Galeria de design: card ativo */
+.card.current--card {
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 15px rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Thumbnail overlay: branco */
+.project-thumbnail-wrapper:hover {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.08) !important;
+}
+
+.project-thumbnail-wrapper:hover .project-scroll-indicator {
+  background: #ffffff !important;
+  color: #000 !important;
+}
+
+/* Contact panel: h2 maior */
+.contact-panel h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem) !important;
+  font-weight: 200 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.05 !important;
+}
+
+/* Contact: link hover branco */
+.contact-link:hover {
+  background: #ffffff !important;
+  border-color: transparent !important;
+  color: #000 !important;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.12) !important;
+}
+
+.contact-link:hover svg {
+  stroke: #000 !important;
+}
+
+.contact-link:hover .icon-holder {
+  background: rgba(0, 0, 0, 0.1) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Footer monocromático */
+footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+  padding: 3rem 8% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 1rem !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 1px !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  text-transform: uppercase !important;
+}
+
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 0.5rem !important;
+    padding: 2rem 5% !important;
+  }
+}
+
+/* Seção hero: mais respiração vertical no desktop */
+@media (min-width: 769px) {
+  #hero {
+    min-height: 95vh !important;
+  }
+
+  .intro-content {
+    padding: 4rem 0 !important;
+  }
+}
+
+/* Spotlight com glow branco sutil */
+.spotlight-card:hover {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.spotlight-card::before {
+  background: radial-gradient(
+    600px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+    rgba(255, 255, 255, 0.04),
+    transparent 40%
+  ) !important;
+}
+
+/* Skill-core badges no mobile: branco */
+@media (max-width: 768px) {
+  #tech-stack .skill-core {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+  }
+}
+
+/* Número fantasma de seção: mais sutil */
+main > section:not(#hero):not(#cta-final)::before {
+  color: rgba(255, 255, 255, 0.022) !important;
+  font-size: clamp(5rem, 18vw, 10rem) !important;
+}
+
+/* Suporte card: branco no ícone */
+.support-icon-wrapper {
+  color: rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.support-card:hover .support-icon-wrapper {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  transform: scale(1.06) !important;
+}
+
+/* Mural cards hover: branco */
+.mural-card[data-type]:hover {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 15px 38px rgba(0, 0, 0, 0.65) !important;
+  background: rgba(10, 10, 10, 0.98) !important;
+}
+
+/* Scrollbar monocromática */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* =========================================================================
    INSPIRAÇÃO: portfólios P&B premiados (Eduardo Duccigne, Valeriia Kostenko,
    Bajgart, Maria Vareva, Daniel Herzog) — 3 técnicas trazidas pro mobile
    ========================================================================== */
