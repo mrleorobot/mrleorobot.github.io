@@ -6916,3 +6916,25 @@ main > section:not(#hero):not(#cta-final)::before {
   }
 }
 
+/* ==========================================================================
+   PERFORMANCE MOBILE — o site estava travando (relato do usuário). Causa
+   provável: muitos cards com backdrop-filter (blur atrás do elemento)
+   visíveis ao mesmo tempo — é um dos efeitos mais caros que existem pra
+   GPU, e o custo escala com a quantidade de elementos na tela. Trocado
+   por fundo sólido semi-transparente, que imita o visual "vidro fosco"
+   sem recalcular o blur em tempo real a cada frame de scroll.
+   ========================================================================== */
+@media (max-width: 768px) {
+  .design-card,
+  .status-card,
+  .support-card,
+  .contact-panel,
+  .narrative-box,
+  .testimonial-card,
+  .spotlight-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(15, 15, 15, 0.92) !important;
+  }
+}
+
