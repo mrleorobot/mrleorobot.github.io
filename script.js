@@ -78,7 +78,11 @@ function initImageParallax() {
   const parallaxWrappers = document.querySelectorAll('.project-thumbnail-wrapper');
   if (!parallaxWrappers.length) return;
 
+  let parallaxTicking = false;
+
   window.addEventListener('scroll', () => {
+    if (parallaxTicking) return;
+    parallaxTicking = true;
     requestAnimationFrame(() => {
       parallaxWrappers.forEach(wrapper => {
         const rect = wrapper.getBoundingClientRect();
@@ -95,8 +99,9 @@ function initImageParallax() {
           }
         }
       });
+      parallaxTicking = false;
     });
-  });
+  }, { passive: true });
 }
 document.addEventListener("DOMContentLoaded", initImageParallax);
 
