@@ -198,6 +198,7 @@
     var isRunning = false;
 
     function render(now) {
+      if (!isRunning) return;
       var elapsed = (now - startTime) / 1000;
       gl.uniform1f(uTime, elapsed);
       gl.uniform2f(uResolution, canvas.width, canvas.height);
