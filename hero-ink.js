@@ -120,6 +120,17 @@
 
       "  float t = uTime * 0.01;",
 
+      // ponto de origem — onde o "pincel" tocou a água. Levemente acima
+      // do centro, que é o lugar mais natural pra ancorar atrás de um
+      // título centralizado
+      "  vec2 origin = vec2(0.0, 0.12);",
+      "  float distFromOrigin = length(p - origin);",
+
+      // raio de espalhamento "respira" bem devagar — a tinta nunca some
+      // nem toma a tela toda, fica sempre viva sem crescer sem fim
+      "  float spreadRadius = 0.85 + sin(t * 0.35) * 0.12;",
+      "  float falloff = 1.0 - smoothstep(0.0, spreadRadius, distFromOrigin);",
+
       "  vec2 warp1 = curl(p * 0.45, t);",
       "  vec2 p2 = p + warp1 * 0.5;",
       "  vec2 warp2 = curl(p2 * 1.0 + 11.0, t * 1.1);",
@@ -128,8 +139,15 @@
       "  float ink = snoise(vec3(p3 * 0.8, t * 0.5));",
       "  ink = smoothstep(-0.26, 0.56, ink);",
 
-      "  float vign = 1.0 - smoothstep(0.4, 1.3, length(p));",
-      "  ink *= mix(0.5, 1.0, vign);",
+      // camada fina extra — quebra as formas lisas em filamentos/tendrilhas,
+      // mais parecido com tinta de verdade se desfazendo do que uma mancha
+      "  float tendril = snoise(vec3(p3 * 3.0, t * 0.8));",
+      "  tendril = smoothstep(0.0, 0.6, tendril);",
+      "  ink *= mix(0.7, 1.0, tendril);",
+
+      // concentra perto da origem, dilui gradualmente pra longe — em vez
+      // do vinheta genérico de antes
+      "  ink *= mix(0.12, 1.0, falloff);",
 
       "  vec3 color = vec3(1.0);",
       "  float alpha = ink * 1.0;",
