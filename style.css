@@ -3834,39 +3834,85 @@ html {
 
 @media (max-width: 768px) {
   :root {
-    --card-width: 180px;
-    --card-height: 270px;
+    --card-width: clamp(260px, 78vw, 320px);
+    --card-height: clamp(370px, 111vw, 460px);
   }
 
+  /* A caixa não tem mais altura fixa nem corta conteúdo — o card e o
+     texto de desafio/solução agora empilham naturalmente, cada um do
+     tamanho que precisa, em vez de brigar por espaço numa caixa de
+     490px com overflow escondido */
   .gallery-app-container {
-    height: 490px !important;
+    height: auto !important;
+    overflow: visible !important;
+    border-radius: 24px !important;
+    padding: 1.5rem 0 !important;
+  }
+
+  .app-slider {
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
   }
 
   .cardList {
-    width: 100%;
-    transform: none;
+    position: relative !important;
+    height: 540px !important;
   }
 
-  .infoList .info__wrapper {
-    padding: 2.5rem 1.5rem;
-  }
-
-  .info .description {
-    max-width: 280px;
-    font-size: 0.8rem;
-    padding: 10px 12px;
+  .card {
+    top: 50% !important;
   }
 
   .cardList__btn {
-    --btn-size: 50px;
-    padding: 12px;
-  }
-
-  .cardList__btn.btn--left {
-    left: 10px;
+    left: 6px !important;
   }
   .cardList__btn.btn--right {
-    right: 10px;
+    left: auto !important;
+    right: 6px !important;
+  }
+
+  /* infoList era um overlay absoluto por cima do card (pensado pro
+     espaço largo do desktop) — no mobile vira conteúdo normal, fluindo
+     logo abaixo do card, centralizado */
+  .infoList {
+    position: static !important;
+    height: auto !important;
+    pointer-events: auto !important;
+    z-index: auto !important;
+  }
+
+  .infoList .info__wrapper {
+    height: auto !important;
+    padding: 0.5rem 1.5rem 0 1.5rem !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+
+  .info {
+    align-items: center !important;
+    text-align: center !important;
+    width: 100%;
+  }
+
+  .info .text {
+    white-space: normal !important;
+  }
+
+  .info .name {
+    font-size: clamp(1.5rem, 7vw, 2rem) !important;
+  }
+
+  .info .location {
+    font-size: 0.95rem !important;
+  }
+
+  .info .description {
+    max-width: 100% !important;
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+    padding: 0 !important;
+    text-align: center !important;
   }
 }
 
@@ -5516,35 +5562,63 @@ nav {
     height: 24px !important;
   }
 
-  /* Cards de depoimento ocupando a largura disponível, empilhados */
+  /* Depoimentos: mesmo espírito editorial da Trajetória — sem caixa, sem
+     borda, a citação vira o elemento principal. Um traço fino separa um
+     depoimento do outro em vez de cada um ser uma caixa individual */
   .mural-card {
     width: 100% !important;
-    max-width: 420px !important;
+    max-width: 480px !important;
     min-width: 0 !important;
-    padding: 1.25rem !important;
-    gap: 0.75rem !important;
-    margin-bottom: 1rem !important;
+    padding: 0 0 1.8rem 0 !important;
+    margin: 0 0 1.8rem 0 !important;
+    gap: 0.9rem !important;
+    background: transparent !important;
+    border: none !important;
+    border-left: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+  .mural-card:last-child {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
   .mural-card h5 {
-    font-size: 0.9rem !important;
+    font-size: 0.95rem !important;
   }
   .mural-card .mural-sub {
-    font-size: 0.7rem !important;
+    font-size: 0.72rem !important;
   }
   .mural-card .testimonial-text {
-    font-size: 0.85rem !important;
+    font-size: 1.05rem !important;
+    font-style: normal !important;
+    color: #ffffff !important;
     min-height: auto !important;
-    line-height: 1.5 !important;
+    line-height: 1.55 !important;
   }
   .mural-card .testimonial-avatar {
-    width: 34px !important;
-    height: 34px !important;
-    font-size: 0.85rem !important;
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 0.9rem !important;
   }
   .mural-card div[style*="font-size: 7rem"] {
-    font-size: 3.5rem !important;
-    top: -5px !important;
-    right: 10px !important;
+    font-size: 4.5rem !important;
+    top: -14px !important;
+    right: 4px !important;
+  }
+  /* As estrelas ficam redundantes com o selo (Aluno/Colega/Recrutador) —
+     escondidas no mobile, menos poluição visual */
+  .mural-card .testimonial-type-badge + div {
+    display: none !important;
+  }
+  .mural-card .testimonial-type-badge {
+    background: transparent !important;
+    padding: 0 !important;
+  }
+  .mural-card > div:last-child {
+    border-top: none !important;
+    padding-top: 0.3rem !important;
   }
 
   /* Prevent FAQ icon from shrinking/compressing when questions wrap on mobile */
