@@ -13,29 +13,46 @@
   var DESKTOP_BREAKPOINT = 769;
 
   function init() {
-    var canvas = document.getElementById("hero-ink-canvas");
-    if (!canvas) return;
+    try {
+      var canvas = document.getElementById("hero-ink-canvas");
+      if (!canvas) {
+        console.warn("hero-ink: canvas #hero-ink-canvas não encontrado no DOM");
+        return;
+      }
+      console.log("hero-ink: canvas encontrado", canvas);
 
-    // Só web: se a tela for mobile, nem tenta — deixa o canvas vazio/oculto
-    if (window.innerWidth < DESKTOP_BREAKPOINT) {
-      return;
+      // Só web: se a tela for mobile, nem tenta — deixa o canvas vazio/oculto
+      if (window.innerWidth < DESKTOP_BREAKPOINT) {
+        console.log("hero-ink: largura da tela (" + window.innerWidth + "px) abaixo do breakpoint desktop (" + DESKTOP_BREAKPOINT + "px) — não inicializa");
+        return;
+      }
+
+      // Respeita quem pediu menos movimento no sistema
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        console.log("hero-ink: prefers-reduced-motion ativo — não inicializa");
+        return;
+      }
+
+      var rect = canvas.getBoundingClientRect();
+      console.log("hero-ink: tamanho do canvas no layout:", rect.width, "x", rect.height);
+
+      var gl =
+        canvas.getContext("webgl", { alpha: true, premultipliedAlpha: false }) ||
+        canvas.getContext("experimental-webgl", { alpha: true });
+
+      if (!gl) {
+        console.warn("hero-ink: WebGL não suportado neste navegador");
+        return;
+      }
+      console.log("hero-ink: contexto WebGL criado com sucesso");
+
+      initShader(canvas, gl);
+    } catch (err) {
+      console.error("hero-ink: erro inesperado durante init()", err);
     }
+  }
 
-    // Respeita quem pediu menos movimento no sistema
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
-
-    var gl =
-      canvas.getContext("webgl", { alpha: true, premultipliedAlpha: false }) ||
-      canvas.getContext("experimental-webgl", { alpha: true });
-
-    if (!gl) {
-      // Sem WebGL: o canvas fica transparente e a seção usa só o fundo
-      // sólido normal — sem fallback visual chamativo, é só um detalhe
-      // extra que deixa de existir silenciosamente.
-      return;
-    }
+  function initShader(canvas, gl) {
 
     var vertexSrc = [
       "attribute vec2 aPosition;",
@@ -181,6 +198,7 @@
       return;
     }
     gl.useProgram(program);
+    console.log("hero-ink: shader compilado e linkado com sucesso");
 
     var positions = new Float32Array([-1, -1, 3, -1, -1, 3]);
     var buffer = gl.createBuffer();
@@ -249,6 +267,7 @@
     });
 
     start();
+    console.log("hero-ink: loop de renderização iniciado");
   }
 
   if (document.readyState === "loading") {
