@@ -7098,3 +7098,27 @@ main > section:not(#hero):not(#cta-final)::before {
   }
 }
 
+/* Botão de Download CV — tira a caixa/pill branca, deixa integrado com
+   os outros links do menu em vez de destacado como botão sólido */
+.nav-links a.btn-cv {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 10px 14px !important;
+  background: transparent !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease !important;
+}
+.nav-links a.btn-cv:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: none !important;
+}
+
