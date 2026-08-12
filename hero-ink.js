@@ -144,8 +144,11 @@
       "  float distFromOrigin = length(p - origin);",
 
       // raio de espalhamento "respira" bem devagar — a tinta nunca some
-      // nem toma a tela toda, fica sempre viva sem crescer sem fim
-      "  float spreadRadius = 0.85 + sin(t * 0.35) * 0.12;",
+      // nem toma a tela toda, fica sempre viva sem crescer sem fim.
+      // Valor bem maior que antes: em telas largas de desktop, p.x chega
+      // a ~2.5 nas bordas, então um raio pequeno deixava a tinta invisível
+      // fora de uma bolha central escondida atrás do texto
+      "  float spreadRadius = 1.9 + sin(t * 0.35) * 0.25;",
       "  float falloff = 1.0 - smoothstep(0.0, spreadRadius, distFromOrigin);",
 
       "  vec2 warp1 = curl(p * 0.45, t);",
@@ -164,7 +167,7 @@
 
       // concentra perto da origem, dilui gradualmente pra longe — em vez
       // do vinheta genérico de antes
-      "  ink *= mix(0.12, 1.0, falloff);",
+      "  ink *= mix(0.22, 1.0, falloff);",
 
       "  vec3 color = vec3(1.0);",
       "  float alpha = ink * 1.0;",
