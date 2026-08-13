@@ -1361,40 +1361,40 @@ const lightboxInfoSide = document.getElementById("lightbox-info-side");
 
 const projectDetails = {
   "placeholder-dashboard": {
-    title: "Dashboard de Gestão",
+    title: "Dashboard de Inventário",
     category: "Web & Front-end Development",
     challenge:
-      "Organizar e resumir dados densos de inventário de forma legível, fluida e esteticamente agradável para tomadores de decisão.",
+      "Organizar e resumir dados densos de estoque de forma legível, fluida e esteticamente agradável para tomadores de decisão.",
     solution:
-      "Criação de um painel interativo utilizando Next.js, Tailwind CSS e Framer Motion. Traz gráficos dinâmicos, animações fluidas e filtragem instantânea de métricas.",
-    tech: ["Next.js", "Tailwind CSS", "Framer Motion", "Recharts"],
+      "Painel interativo com alertas de produtos em baixa, gráficos de tendência de vendas, busca/filtro instantâneo e exportação de relatórios (planilha e PDF).",
+    tech: ["Next.js", "TypeScript", "shadcn/ui", "Framer Motion"],
   },
   "placeholder-refugio": {
     title: "Refúgio Sereno",
-    category: "UX/UI Design & Acessibilidade",
+    category: "Produtividade & Acessibilidade",
     challenge:
-      "Facilitar a rotina diária de pessoas com TDAH e autismo leve, as quais frequentemente sofrem com sobrecarga cognitiva em interfaces convencionais.",
+      "Facilitar a rotina diária de pessoas com TDAH, que frequentemente sofrem com sobrecarga cognitiva em interfaces de produtividade convencionais.",
     solution:
-      "Gerenciador de tarefas gamificado e acolhedor, utilizando contrastes suaves baseados na psicologia das cores, fontes altamente legíveis e feedbacks calmos.",
-    tech: ["HTML5", "Sass", "JavaScript (ES6)", "Vanilla Motion"],
+      "Gerenciador de tarefas gamificado com estética acolhedora (inspirada em Studio Ghibli) — drag-and-drop, sistema de XP/níveis, sincronização em tempo real via Firebase e sugestões inteligentes com IA.",
+    tech: ["React", "Firebase", "Gemini API", "dnd-kit"],
   },
   "placeholder-portal": {
     title: "Portal Corporativo",
     category: "Full-stack & Enterprise Design",
     challenge:
-      "Criar uma interface administrativa unificada para suporte técnico interno e gestão de treinamentos operacionais de forma otimizada.",
+      "Unificar em um só lugar as informações que um colaborador precisa no dia a dia — treinamentos, holerite, avaliações, benefícios e comunicados.",
     solution:
-      "Painel administrativo minimalista com fendas laterais flutuantes, tabelas responsivas otimizadas e gerenciamento ágil de relatórios de auditoria.",
-    tech: ["React", "CSS Modules", "ChartJS", "Node.js"],
+      "Intranet completa com módulos de treinamentos, holerite, avaliações de desempenho, benefícios, férias, mural de avisos e suporte, com formulários validados e navegação fluida.",
+    tech: ["Next.js", "React Hook Form", "Zod", "Zustand"],
   },
   "placeholder-chat-ia": {
-    title: "Tutor IA",
+    title: "Dsol AI",
     category: "Artificial Intelligence UI",
     challenge:
-      "Prover um tutor personalizado e sempre disponível para tirar dúvidas sobre Administração, TI e Design para estudantes.",
+      "Prover um tutor personalizado e sempre disponível para tirar dúvidas de estudo, com respostas claras mesmo em conteúdo técnico.",
     solution:
-      "Interface de chat conversacional fluida com renderização em Markdown, respostas de streaming, e categorização rápida de matérias estudadas.",
-    tech: ["Next.js", "Gemini API", "Tailwind CSS", "LocalCache API"],
+      "Interface de chat com IA (Gemini), renderização em Markdown com highlight de código, exportação de conversas em PDF, sidebar retrátil e modo escuro.",
+    tech: ["React", "Firebase", "Gemini API", "Recharts"],
   },
   "mockup-convite": {
     title: "Convite Digital",
