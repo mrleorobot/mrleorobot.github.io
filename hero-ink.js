@@ -1,276 +1,346 @@
 // ============================================================
-// hero-ink.js — Efeito de tinta se dissolvendo na água (Hero, web)
-// Vanilla JS + WebGL puro (sem OGL/GSAP/Three.js — bundle leve, um
-// único loop de animação, zero build step, publica igual ao resto
-// do site).
+// hero-ink.js — "Tinta → Código → Interface"
 //
-// Só roda em telas >= 769px (desktop/tablet largo). No mobile o canvas
-// nem chega a inicializar o contexto WebGL — zero custo de GPU lá.
+// Fases:
+//   1. SPLASH   — mancha de tinta aparece no centro e se espalha (0–1.6s)
+//   2. REVEAL   — clip-path do conteúdo abre em cascata (1.0s–2.4s)
+//   3. AMBIENT  — movimento muito sutil e contínuo enquanto hero visível
+//
+// Técnica: Canvas 2D puro, partículas de tinta com curl-noise JS,
+//          sem WebGL/Three.js/GSAP. Zero dependências externas.
+//
+// Performance:
+//   • DPR limitado a 1.5 (visual ok, menos pixels)
+//   • RAF só quando hero está visível (IntersectionObserver)
+//   • Para no prefers-reduced-motion (fallback estático imediato)
+//   • No mobile (<769px) o canvas nem inicializa
 // ============================================================
 (function () {
   "use strict";
 
-  var DESKTOP_BREAKPOINT = 769;
+  /* ─── Config ─────────────────────────────────────────── */
+  var CFG = {
+    DESKTOP_MIN: 769,
+    MAX_DPR: 1.5,
 
-  function init() {
-    try {
-      var canvas = document.getElementById("hero-ink-canvas");
-      if (!canvas) {
-        console.warn("hero-ink: canvas #hero-ink-canvas não encontrado no DOM");
-        return;
+    // Splash
+    SPLASH_PARTICLES: 420,       // quantas partículas geram a mancha
+    SPLASH_DURATION: 1800,       // ms até a mancha parar de crescer
+    SPLASH_RADIUS_FACTOR: 0.55,  // raio máximo como fração da metade menor do canvas
+
+    // Cor da tinta — branco com transparência variável
+    INK_COLOR_LIGHT: "rgba(255,255,255,",  // prefixo; alpha concatenado depois
+    INK_ALPHA_MIN: 0.04,
+    INK_ALPHA_MAX: 0.18,
+
+    // Ambient
+    AMBIENT_SPEED: 0.00006,      // muito lento
+    AMBIENT_AMPLITUDE: 1.8,      // px de deslocamento máximo por frame
+    NOISE_SCALE: 0.0018,         // granularidade do campo de fluxo
+
+    // Mouse
+    MOUSE_INFLUENCE: 0.22,       // quanto o mouse torce o campo (0–1)
+    MOUSE_EASE: 0.06,            // suavização do mouse
+
+    // Reveal cascata (CSS vai ler via evento/classe)
+    REVEAL_START: 900,           // ms após init para começar reveal
+    REVEAL_STAGGER: 180,         // ms entre cada elemento
+  };
+
+  /* ─── Estado global ────────────────────────────────── */
+  var canvas, ctx, hero;
+  var W = 0, H = 0;
+  var rafId = null;
+  var running = false;
+  var startTime = 0;
+  var phase = "splash"; // "splash" | "ambient"
+
+  var mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 }; // normalizado 0–1
+
+  var particles = [];
+
+  /* ─── Noise simples (Perlin 2D sem deps) ────────────── */
+  // Implementação compacta de Perlin 2D (Ken Perlin, 1985)
+  var perm = (function () {
+    var p = [];
+    for (var i = 0; i < 256; i++) p[i] = i;
+    for (var i = 255; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = p[i]; p[i] = p[j]; p[j] = tmp;
+    }
+    var out = [];
+    for (var i = 0; i < 512; i++) out[i] = p[i & 255];
+    return out;
+  })();
+
+  function fade(t) { return t * t * t * (t * (t * 6 - 15) + 10); }
+  function lerp(a, b, t) { return a + t * (b - a); }
+  function grad(h, x, y) {
+    h = h & 3;
+    var u = h < 2 ? x : y, v = h < 2 ? y : x;
+    return (h & 1 ? -u : u) + (h & 2 ? -v : v);
+  }
+  function noise2(x, y) {
+    var X = Math.floor(x) & 255, Y = Math.floor(y) & 255;
+    x -= Math.floor(x); y -= Math.floor(y);
+    var u = fade(x), v = fade(y);
+    var a = perm[X] + Y, aa = perm[a], ab = perm[a + 1];
+    var b = perm[X + 1] + Y, ba = perm[b], bb = perm[b + 1];
+    return lerp(
+      lerp(grad(perm[aa], x, y), grad(perm[ba], x - 1, y), u),
+      lerp(grad(perm[ab], x, y - 1), grad(perm[bb], x - 1, y - 1), u),
+      v
+    );
+  }
+
+  // Curl-noise 2D: deriva perpendicular do gradiente de ruído → movimento fluido
+  var CURL_EPS = 0.5;
+  function curlNoise(x, y, t) {
+    var n1 = noise2(x * CFG.NOISE_SCALE, y * CFG.NOISE_SCALE + t);
+    var n2 = noise2(x * CFG.NOISE_SCALE + 100, y * CFG.NOISE_SCALE + t + 100);
+    return {
+      vx: (noise2(x * CFG.NOISE_SCALE, (y + CURL_EPS) * CFG.NOISE_SCALE + t) - n1) / CURL_EPS,
+      vy: -(noise2((x + CURL_EPS) * CFG.NOISE_SCALE, y * CFG.NOISE_SCALE + t) - n2) / CURL_EPS
+    };
+  }
+
+  /* ─── Partícula de tinta ──────────────────────────── */
+  function Particle() {
+    this.reset();
+  }
+
+  Particle.prototype.reset = function () {
+    // Nasce próximo ao centro, com leve dispersão inicial
+    var cx = W * 0.5, cy = H * 0.48;
+    var angle = Math.random() * Math.PI * 2;
+    var r = Math.random() * 8;
+    this.x = cx + Math.cos(angle) * r;
+    this.y = cy + Math.sin(angle) * r;
+
+    // Velocidade radial inicial — impulsiona o splash para fora
+    var speed = 0.8 + Math.random() * 2.2;
+    this.vx = Math.cos(angle) * speed;
+    this.vy = Math.sin(angle) * speed;
+
+    this.size = 1.2 + Math.random() * 3.2;
+    this.alpha = CFG.INK_ALPHA_MIN + Math.random() * (CFG.INK_ALPHA_MAX - CFG.INK_ALPHA_MIN);
+    this.life = 0; // 0→1 (normalizado pelo tempo)
+    this.maxDist = (Math.min(W, H) * CFG.SPLASH_RADIUS_FACTOR) * (0.5 + Math.random() * 0.8);
+    this.dist = 0;
+    this.settled = false;
+
+    // Offset de noise para variar entre partículas
+    this.noiseOffset = Math.random() * 1000;
+    this.noiseSpeed = 0.4 + Math.random() * 0.6; // velocidade individual no ambient
+  };
+
+  Particle.prototype.updateSplash = function (progress) {
+    // progress: 0→1 durante a fase splash
+    if (this.settled) return;
+
+    // Desacelera à medida que o splash avança (easing out)
+    var eased = 1 - Math.pow(1 - Math.min(progress * 1.2, 1), 3);
+    var targetDist = this.maxDist * eased;
+
+    var angle = Math.atan2(this.vy, this.vx);
+    var curl = curlNoise(this.x, this.y, progress * 2 + this.noiseOffset);
+    // Mistura direção radial com curl para forma orgânica
+    var blend = 0.3 + progress * 0.4;
+    this.vx = this.vx * (1 - blend) + curl.vx * blend;
+    this.vy = this.vy * (1 - blend) + curl.vy * blend;
+
+    // Normaliza e aplica velocidade decaindo
+    var mag = Math.sqrt(this.vx * this.vx + this.vy * this.vy) || 1;
+    var speed = (2.5 - progress * 2.0) * (0.7 + Math.random() * 0.3);
+    this.x += (this.vx / mag) * speed;
+    this.y += (this.vy / mag) * speed;
+
+    this.dist = Math.sqrt(
+      Math.pow(this.x - W * 0.5, 2) + Math.pow(this.y - H * 0.48, 2)
+    );
+
+    if (this.dist >= this.maxDist * 0.92) {
+      this.settled = true;
+    }
+  };
+
+  Particle.prototype.updateAmbient = function (t) {
+    var curl = curlNoise(
+      this.x + this.noiseOffset * 50,
+      this.y + this.noiseOffset * 50,
+      t * this.noiseSpeed + this.noiseOffset
+    );
+    // Influência do mouse: torce levemente o campo
+    var mx = (mouse.x - 0.5) * CFG.MOUSE_INFLUENCE;
+    var my = (mouse.y - 0.5) * CFG.MOUSE_INFLUENCE;
+    this.x += (curl.vx + mx) * CFG.AMBIENT_AMPLITUDE;
+    this.y += (curl.vy + my) * CFG.AMBIENT_AMPLITUDE;
+
+    // Mantém dentro de uma área relaxada ao redor do centro
+    var cx = W * 0.5, cy = H * 0.48;
+    var dx = this.x - cx, dy = this.y - cy;
+    var d = Math.sqrt(dx * dx + dy * dy);
+    var maxR = Math.min(W, H) * CFG.SPLASH_RADIUS_FACTOR * 1.05;
+    if (d > maxR) {
+      this.x -= dx * 0.015;
+      this.y -= dy * 0.015;
+    }
+  };
+
+  /* ─── Render ─────────────────────────────────────── */
+  function draw(elapsed) {
+    ctx.clearRect(0, 0, W, H);
+
+    var t = elapsed * CFG.AMBIENT_SPEED * 1000; // tempo normalizado p/ noise
+
+    if (phase === "splash") {
+      var progress = Math.min(elapsed / CFG.SPLASH_DURATION, 1);
+
+      // Fade-in global da tinta durante o splash
+      var globalAlpha = Math.min(progress * 2.5, 1);
+
+      particles.forEach(function (p) {
+        p.updateSplash(progress);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = CFG.INK_COLOR_LIGHT + (p.alpha * globalAlpha).toFixed(3) + ")";
+        ctx.fill();
+      });
+
+      if (progress >= 1) {
+        phase = "ambient";
       }
-      console.log("hero-ink: canvas encontrado", canvas);
 
-      // Só web: se a tela for mobile, nem tenta — deixa o canvas vazio/oculto
-      if (window.innerWidth < DESKTOP_BREAKPOINT) {
-        console.log("hero-ink: largura da tela (" + window.innerWidth + "px) abaixo do breakpoint desktop (" + DESKTOP_BREAKPOINT + "px) — não inicializa");
-        return;
-      }
+    } else {
+      // Ambient: mouse suavizado
+      mouse.x += (mouse.tx - mouse.x) * CFG.MOUSE_EASE;
+      mouse.y += (mouse.ty - mouse.y) * CFG.MOUSE_EASE;
 
-      // Respeita quem pediu menos movimento no sistema
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        console.log("hero-ink: prefers-reduced-motion ativo — não inicializa");
-        return;
-      }
-
-      var rect = canvas.getBoundingClientRect();
-      console.log("hero-ink: tamanho do canvas no layout:", rect.width, "x", rect.height);
-
-      var gl =
-        canvas.getContext("webgl", { alpha: true, premultipliedAlpha: false }) ||
-        canvas.getContext("experimental-webgl", { alpha: true });
-
-      if (!gl) {
-        console.warn("hero-ink: WebGL não suportado neste navegador");
-        return;
-      }
-      console.log("hero-ink: contexto WebGL criado com sucesso");
-
-      initShader(canvas, gl);
-    } catch (err) {
-      console.error("hero-ink: erro inesperado durante init()", err);
+      particles.forEach(function (p) {
+        p.updateAmbient(t);
+        // Alpha pulsa suavemente por partícula
+        var breathe = 0.7 + 0.3 * Math.sin(t * 80 * p.noiseSpeed + p.noiseOffset);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = CFG.INK_COLOR_LIGHT + (p.alpha * breathe).toFixed(3) + ")";
+        ctx.fill();
+      });
     }
   }
 
-  function initShader(canvas, gl) {
+  /* ─── Loop RAF ──────────────────────────────────── */
+  function loop(now) {
+    if (!running) return;
+    var elapsed = now - startTime;
+    draw(elapsed);
+    rafId = requestAnimationFrame(loop);
+  }
 
-    var vertexSrc = [
-      "attribute vec2 aPosition;",
-      "varying vec2 vUv;",
-      "void main() {",
-      "  vUv = aPosition * 0.5 + 0.5;",
-      "  gl_Position = vec4(aPosition, 0.0, 1.0);",
-      "}",
-    ].join("\n");
+  function start() {
+    if (running) return;
+    running = true;
+    startTime = performance.now();
+    rafId = requestAnimationFrame(loop);
+  }
 
-    // Simplex noise 3D (Ashima Arts / Stefan Gustavson) + curl-noise pra
-    // domain warping — dá o visual de fluido/tinta, não de ruído estático.
-    var fragmentSrc = [
-      "precision highp float;",
-      "uniform float uTime;",
-      "uniform vec2 uResolution;",
-      "varying vec2 vUv;",
+  function stop() {
+    running = false;
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  }
 
-      "vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}",
-      "vec4 mod289(vec4 x){return x-floor(x*(1.0/289.0))*289.0;}",
-      "vec4 permute(vec4 x){return mod289(((x*34.0)+1.0)*x);}",
-      "vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-0.85373472095314*r;}",
+  /* ─── Resize ─────────────────────────────────────── */
+  function resize() {
+    var dpr = Math.min(window.devicePixelRatio || 1, CFG.MAX_DPR);
+    var w = canvas.clientWidth || window.innerWidth;
+    var h = canvas.clientHeight || window.innerHeight;
+    if (w < 4) w = window.innerWidth;
+    if (h < 4) h = window.innerHeight;
+    W = Math.floor(w * dpr);
+    H = Math.floor(h * dpr);
+    canvas.width = W;
+    canvas.height = H;
+    ctx.scale(dpr, dpr);
+    W = w; H = h; // trabalhar em coordenadas CSS após o scale
+  }
 
-      "float snoise(vec3 v){",
-      "  const vec2 C = vec2(1.0/6.0, 1.0/3.0);",
-      "  const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);",
-      "  vec3 i  = floor(v + dot(v, C.yyy));",
-      "  vec3 x0 = v - i + dot(i, C.xxx);",
-      "  vec3 g = step(x0.yzx, x0.xyz);",
-      "  vec3 l = 1.0 - g;",
-      "  vec3 i1 = min(g.xyz, l.zxy);",
-      "  vec3 i2 = max(g.xyz, l.zxy);",
-      "  vec3 x1 = x0 - i1 + C.xxx;",
-      "  vec3 x2 = x0 - i2 + C.yyy;",
-      "  vec3 x3 = x0 - D.yyy;",
-      "  i = mod289(i);",
-      "  vec4 p = permute(permute(permute(",
-      "    i.z + vec4(0.0, i1.z, i2.z, 1.0))",
-      "    + i.y + vec4(0.0, i1.y, i2.y, 1.0))",
-      "    + i.x + vec4(0.0, i1.x, i2.x, 1.0));",
-      "  float n_ = 0.142857142857;",
-      "  vec3 ns = n_ * D.wyz - D.xzx;",
-      "  vec4 j = p - 49.0 * floor(p * ns.z * ns.z);",
-      "  vec4 x_ = floor(j * ns.z);",
-      "  vec4 y_ = floor(j - 7.0 * x_);",
-      "  vec4 x = x_ * ns.x + ns.yyyy;",
-      "  vec4 y = y_ * ns.x + ns.yyyy;",
-      "  vec4 h = 1.0 - abs(x) - abs(y);",
-      "  vec4 b0 = vec4(x.xy, y.xy);",
-      "  vec4 b1 = vec4(x.zw, y.zw);",
-      "  vec4 s0 = floor(b0) * 2.0 + 1.0;",
-      "  vec4 s1 = floor(b1) * 2.0 + 1.0;",
-      "  vec4 sh = -step(h, vec4(0.0));",
-      "  vec4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;",
-      "  vec4 a1 = b1.xzyw + s1.xzyw * sh.zzww;",
-      "  vec3 p0 = vec3(a0.xy, h.x);",
-      "  vec3 p1 = vec3(a0.zw, h.y);",
-      "  vec3 p2 = vec3(a1.xy, h.z);",
-      "  vec3 p3 = vec3(a1.zw, h.w);",
-      "  vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));",
-      "  p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;",
-      "  vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);",
-      "  m = m * m;",
-      "  return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));",
-      "}",
+  /* ─── Reveal do conteúdo (cascata CSS) ──────────── */
+  function triggerReveal() {
+    var items = hero ? hero.querySelectorAll(".ink-reveal") : [];
+    items.forEach(function (el, i) {
+      setTimeout(function () {
+        el.classList.add("ink-revealed");
+      }, CFG.REVEAL_START + i * CFG.REVEAL_STAGGER);
+    });
+  }
 
-      "vec2 curl(vec2 p, float t){",
-      "  float eps = 0.06;",
-      "  float n1 = snoise(vec3(p.x, p.y + eps, t));",
-      "  float n2 = snoise(vec3(p.x, p.y - eps, t));",
-      "  float n3 = snoise(vec3(p.x + eps, p.y, t));",
-      "  float n4 = snoise(vec3(p.x - eps, p.y, t));",
-      "  float dx = (n1 - n2) / (2.0 * eps);",
-      "  float dy = (n3 - n4) / (2.0 * eps);",
-      "  return vec2(dy, -dx);",
-      "}",
-
-      "void main(){",
-      "  vec2 uv = vUv;",
-      "  vec2 aspect = vec2(uResolution.x / uResolution.y, 1.0);",
-      "  vec2 p = (uv - 0.5) * aspect * 2.4;",
-
-      "  float t = uTime * 0.01;",
-
-      // ponto de origem — onde o "pincel" tocou a água. Levemente acima
-      // do centro, que é o lugar mais natural pra ancorar atrás de um
-      // título centralizado
-      "  vec2 origin = vec2(0.0, 0.12);",
-      "  float distFromOrigin = length(p - origin);",
-
-      // raio de espalhamento "respira" bem devagar — a tinta nunca some
-      // nem toma a tela toda, fica sempre viva sem crescer sem fim.
-      // Valor bem maior que antes: em telas largas de desktop, p.x chega
-      // a ~2.5 nas bordas, então um raio pequeno deixava a tinta invisível
-      // fora de uma bolha central escondida atrás do texto
-      "  float spreadRadius = 1.9 + sin(t * 0.35) * 0.25;",
-      "  float falloff = 1.0 - smoothstep(0.0, spreadRadius, distFromOrigin);",
-
-      "  vec2 warp1 = curl(p * 0.45, t);",
-      "  vec2 p2 = p + warp1 * 0.5;",
-      "  vec2 warp2 = curl(p2 * 1.0 + 11.0, t * 1.1);",
-      "  vec2 p3 = p2 + warp2 * 0.25;",
-
-      "  float ink = snoise(vec3(p3 * 0.8, t * 0.5));",
-      "  ink = smoothstep(-0.26, 0.56, ink);",
-
-      // camada fina extra — quebra as formas lisas em filamentos/tendrilhas,
-      // mais parecido com tinta de verdade se desfazendo do que uma mancha
-      "  float tendril = snoise(vec3(p3 * 3.0, t * 0.8));",
-      "  tendril = smoothstep(0.0, 0.6, tendril);",
-      "  ink *= mix(0.7, 1.0, tendril);",
-
-      // concentra perto da origem, dilui gradualmente pra longe — em vez
-      // do vinheta genérico de antes
-      "  ink *= mix(0.22, 1.0, falloff);",
-
-      "  vec3 color = vec3(1.0);",
-      "  float alpha = ink * 1.0;",
-
-      "  gl_FragColor = vec4(color, alpha);",
-      "}",
-    ].join("\n");
-
-    function compileShader(type, src) {
-      var shader = gl.createShader(type);
-      gl.shaderSource(shader, src);
-      gl.compileShader(shader);
-      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.warn("hero-ink: erro ao compilar shader —", gl.getShaderInfoLog(shader));
-        gl.deleteShader(shader);
-        return null;
-      }
-      return shader;
+  /* ─── Partículas iniciais ─────────────────────────  */
+  function buildParticles() {
+    particles = [];
+    for (var i = 0; i < CFG.SPLASH_PARTICLES; i++) {
+      particles.push(new Particle());
     }
+  }
 
-    var vs = compileShader(gl.VERTEX_SHADER, vertexSrc);
-    var fs = compileShader(gl.FRAGMENT_SHADER, fragmentSrc);
-    if (!vs || !fs) return;
+  /* ─── Interação mouse / touch ─────────────────── */
+  function onMouseMove(e) {
+    mouse.tx = e.clientX / window.innerWidth;
+    mouse.ty = e.clientY / window.innerHeight;
+  }
 
-    var program = gl.createProgram();
-    gl.attachShader(program, vs);
-    gl.attachShader(program, fs);
-    gl.linkProgram(program);
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-      console.warn("hero-ink: erro ao linkar programa —", gl.getProgramInfoLog(program));
+  function onTouchMove(e) {
+    if (!e.touches.length) return;
+    mouse.tx = e.touches[0].clientX / window.innerWidth;
+    mouse.ty = e.touches[0].clientY / window.innerHeight;
+  }
+
+  /* ─── Init ───────────────────────────────────── */
+  function init() {
+    if (window.innerWidth < CFG.DESKTOP_MIN) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      // Fallback estático: revela o conteúdo imediatamente sem animação
+      triggerReveal();
       return;
     }
-    gl.useProgram(program);
-    console.log("hero-ink: shader compilado e linkado com sucesso");
 
-    var positions = new Float32Array([-1, -1, 3, -1, -1, 3]);
-    var buffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
-    var aPosition = gl.getAttribLocation(program, "aPosition");
-    gl.enableVertexAttribArray(aPosition);
-    gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+    canvas = document.getElementById("hero-ink-canvas");
+    hero = document.getElementById("hero");
+    if (!canvas || !hero) return;
 
-    var uTime = gl.getUniformLocation(program, "uTime");
-    var uResolution = gl.getUniformLocation(program, "uResolution");
+    ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-
-    function resize() {
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      var w = canvas.clientWidth || window.innerWidth;
-      var h = canvas.clientHeight || window.innerHeight;
-      if (w < 2) w = window.innerWidth;
-      if (h < 2) h = window.innerHeight;
-      canvas.width = Math.floor(w * dpr);
-      canvas.height = Math.floor(h * dpr);
-      gl.viewport(0, 0, canvas.width, canvas.height);
-    }
-
-    var resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(canvas);
     resize();
+    buildParticles();
 
-    var startTime = performance.now();
-    var rafId = null;
-    var isRunning = false;
-
-    function render(now) {
-      if (!isRunning) return;
-      var elapsed = (now - startTime) / 1000;
-      gl.uniform1f(uTime, elapsed);
-      gl.uniform2f(uResolution, canvas.width, canvas.height);
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
-      rafId = requestAnimationFrame(render);
-    }
-
-    function start() {
-      if (isRunning) return;
-      isRunning = true;
-      rafId = requestAnimationFrame(render);
-    }
-
-    function stop() {
-      if (!isRunning) return;
-      isRunning = false;
-      if (rafId) cancelAnimationFrame(rafId);
-    }
-
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries[0].isIntersecting ? start() : stop();
-      },
-      { threshold: 0 }
-    );
+    // Visibility: RAF só quando hero visível
+    var io = new IntersectionObserver(function (entries) {
+      entries[0].isIntersecting ? start() : stop();
+    }, { threshold: 0 });
     io.observe(canvas);
 
+    // Pausa quando aba oculta
     document.addEventListener("visibilitychange", function () {
-      document.hidden ? stop() : start();
+      document.hidden ? stop() : (phase !== "splash" && start());
     });
 
+    // Resize
+    var resizeOb = window.ResizeObserver
+      ? new ResizeObserver(function () {
+          resize();
+          buildParticles();
+        })
+      : null;
+    if (resizeOb) resizeOb.observe(canvas);
+    else window.addEventListener("resize", function () { resize(); buildParticles(); }, { passive: true });
+
+    // Mouse
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+
+    // Dispara reveal de conteúdo
+    triggerReveal();
+
     start();
-    console.log("hero-ink: loop de renderização iniciado");
   }
 
   if (document.readyState === "loading") {

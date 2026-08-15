@@ -233,9 +233,11 @@
 
         <section id="hero" style="padding-top: 120px; padding-bottom: 80px;">
           <canvas id="hero-ink-canvas" aria-hidden="true"></canvas>
-          <div class="intro-content reveal-item">
+          <!-- Wrapper com micro-parallax — JS move via transform.
+               Sem reveal-item para não interferir nos filhos .ink-reveal -->
+          <div class="intro-content" id="hero-parallax-layer">
 
-            <h1 class="glitch-title reveal-item stagger-1" style="text-align: center; margin-bottom: 3rem; width: 100%;">
+            <h1 class="glitch-title reveal-item stagger-1 ink-reveal ink-reveal-1" style="text-align: center; margin-bottom: 3rem; width: 100%;">
               <span class="sr-only"
                 >Leonilson Souza - Desenvolvedor Front-end, UX/UI Design &amp;
                 Power BI</span
@@ -244,7 +246,7 @@
             </h1>
 
             <p
-              class="reveal-item stagger-1"
+              class="reveal-item stagger-1 ink-reveal ink-reveal-2"
               style="
                 font-size: 0.72rem;
                 color: #555;
@@ -258,13 +260,13 @@
               Natal, RN &nbsp;/&nbsp; Disponível para oportunidades
             </p>
 
-            <div class="hero-name reveal-item stagger-2">Leonilson Souza</div>
+            <div class="hero-name reveal-item stagger-2 ink-reveal ink-reveal-3">Leonilson Souza</div>
 
-            <p class="hero-text reveal-item stagger-3">
+            <p class="hero-text reveal-item stagger-3 ink-reveal ink-reveal-4">
               Interfaces acessíveis e dashboards que resolvem problemas reais &mdash; de Front-end a Power BI.
             </p>
 
-            <div class="reveal-item stagger-4" style="display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem;">
+            <div class="reveal-item stagger-4 ink-reveal ink-reveal-5" style="display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem;">
               <span style="font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.35); padding: 0.35rem 0.9rem; border: 1px solid rgba(255,255,255,0.08); border-radius: 999px;">Front-end</span>
               <span style="font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.35); padding: 0.35rem 0.9rem; border: 1px solid rgba(255,255,255,0.08); border-radius: 999px;">UX/UI Design</span>
               <span style="font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.6); padding: 0.35rem 0.9rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 999px;">Power BI</span>
@@ -272,7 +274,7 @@
 
             <a
               href="#tech-stack"
-              class="btn-arcane hero-cta-btn reveal-item stagger-4"
+              class="btn-arcane hero-cta-btn reveal-item stagger-4 ink-reveal ink-reveal-6"
               aria-label="Ver minhas habilidades técnicas"
               ><span class="cta-text">Ver Habilidades</span
               ><span class="cta-badge" aria-hidden="true"

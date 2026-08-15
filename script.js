@@ -351,65 +351,70 @@ function initHeroParticles() {
 }
 
 // --------------------------------------------------------
-// 0.1 Hero Micro-Parallax Effect (Optimized with RequestAnimationFrame)
+// 0.1 Hero Micro-Parallax Effect
+// Moves #hero-parallax-layer (conteúdo) e hero-canvas (partículas)
+// em velocidades diferentes — cria profundidade sutil.
+// Desktop only; sem efeito quando prefers-reduced-motion.
 // --------------------------------------------------------
 function initHeroParallax() {
-  const title = document.querySelector(".glitch-title");
+  if (window.innerWidth <= 768) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const layer = document.getElementById("hero-parallax-layer");
   const canvas = document.getElementById("hero-canvas");
-  if (!title && !canvas) return;
+  if (!layer) return;
 
-  let mouseX = 0;
-  let mouseY = 0;
-  let targetX = 0;
-  let targetY = 0;
-  const easing = 0.08; // Smooth interpolation
+  // Limites em px — muito discreto para não parecer exagerado
+  const CONTENT_LIMIT = 6;   // conteúdo se move até 6px
+  const CANVAS_LIMIT  = 12;  // canvas de partículas se move um pouco mais
 
-  window.addEventListener(
-    "mousemove",
-    (e) => {
-      const dampening = 300;
-      targetX = (window.innerWidth / 2 - e.pageX) / dampening;
-      targetY = (window.innerHeight / 2 - e.pageY) / dampening;
+  let cx = 0, cy = 0;  // current (suavizado)
+  let tx = 0, ty = 0;  // target
+  const EASE = 0.06;
 
-      const limit = 10;
-      targetX = Math.max(-limit, Math.min(limit, targetX));
-      targetY = Math.max(-limit, Math.min(limit, targetY));
-    },
-    { passive: true },
-  );
-
-  let lastMouseX = -999;
-  let lastMouseY = -999;
-
-  let isParallaxVisible = true;
-  const heroParallaxSection = document.getElementById("hero");
-  if (heroParallaxSection) {
+  let visible = true;
+  const hero = document.getElementById("hero");
+  if (hero) {
     new IntersectionObserver(
-      (entries) => {
-        isParallaxVisible = entries[0].isIntersecting;
-      },
-      { threshold: 0 },
-    ).observe(heroParallaxSection);
+      (entries) => { visible = entries[0].isIntersecting; },
+      { threshold: 0 }
+    ).observe(hero);
   }
-  function updateParallax() {
-    requestAnimationFrame(updateParallax);
-    if (!isParallaxVisible) return;
-    mouseX += (targetX - mouseX) * easing;
-    mouseY += (targetY - mouseY) * easing;
 
-    // Limita a precisão para evitar escritas desnecessárias no repouso
-    let roundedX = Math.round(mouseX * 100) / 100;
-    let roundedY = Math.round(mouseY * 100) / 100;
+  window.addEventListener("mousemove", (e) => {
+    // Normaliza -1 → +1 a partir do centro da janela
+    tx = ((e.clientX / window.innerWidth)  - 0.5) * 2;
+    ty = ((e.clientY / window.innerHeight) - 0.5) * 2;
+  }, { passive: true });
 
-    if (roundedX !== lastMouseX || roundedY !== lastMouseY) {
-      if (canvas) {
-        canvas.style.transform = `scale(1.1) translate3d(${roundedX * 0.5}px, ${roundedY * 0.5}px, 0)`;
-      }
-      lastMouseX = roundedX;
-      lastMouseY = roundedY;
+  let lastCx = null, lastCy = null;
+
+  function tick() {
+    requestAnimationFrame(tick);
+    if (!visible) return;
+
+    cx += (tx - cx) * EASE;
+    cy += (ty - cy) * EASE;
+
+    const rx = Math.round(cx * 100) / 100;
+    const ry = Math.round(cy * 100) / 100;
+    if (rx === lastCx && ry === lastCy) return;
+    lastCx = rx; lastCy = ry;
+
+    // Conteúdo: movimento pequeno e oposto ao mouse (parallax "leve")
+    const px = -rx * CONTENT_LIMIT;
+    const py = -ry * CONTENT_LIMIT;
+    layer.style.setProperty("--ink-px", px.toFixed(2) + "px");
+    layer.style.setProperty("--ink-py", py.toFixed(2) + "px");
+
+    // Canvas de partículas: move na mesma direção, mais rápido
+    if (canvas) {
+      canvas.style.transform =
+        `scale(1.1) translate3d(${(rx * CANVAS_LIMIT * 0.5).toFixed(2)}px, ${(ry * CANVAS_LIMIT * 0.5).toFixed(2)}px, 0)`;
     }
   }
-  requestAnimationFrame(updateParallax);
+
+  requestAnimationFrame(tick);
 }
 
 // --------------------------------------------------------
