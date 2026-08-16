@@ -131,7 +131,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   body.classList.add("loading-locked");
 
-  // Sequência calibrada para ~5s no total: cortina fechada -> nome aparece -> lê -> cortina abre
+  // Sequência refinada — total ~3.6s:
+  //   0.0s  : starfield backdrop começa a aparecer
+  //   0.3s  : marca aparece (letter-spacing + blur, ~1.4s até estar limpa)
+  //   1.9s  : cortinas dissolvem revelando a hero
+  //   3.6s  : loader removido do DOM
+
+  // Backdrop de nebulosa aparece imediatamente
+  requestAnimationFrame(() => {
+    loader.classList.add("starfield-on");
+  });
+
   setTimeout(() => {
     brandEl.classList.add("show");
 
@@ -141,17 +151,17 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         body.classList.remove("loading-locked");
         loader.remove();
-      }, 2000); // Tempo da cortina deslizar (bate com o CSS: 1.8s + folga)
-    }, 2500); // Tempo pra ler a marca
-  }, 500); // Pequena pausa inicial antes do nome aparecer
+      }, 1700); // duração do dissolve (bate com CSS: 1.5s + folga)
+    }, 1600); // tempo pra ler a marca (mais curto e elegante)
+  }, 300); // pausa inicial mínima
 
-  // Segurança: nunca deixa a tela travada se algo der errado
+  // Segurança
   setTimeout(() => {
     if (document.getElementById("cinematic-loader")) {
       body.classList.remove("loading-locked");
       loader.remove();
     }
-  }, 6000);
+  }, 4500);
 });
 
 // Garantir que a página recomece no topo ao recarregar (Melhora a percepção das animações de entrada)
@@ -328,6 +338,28 @@ function initHeroParticles() {
       { threshold: 0 },
     ).observe(heroSection);
   }
+  // Espera o loader terminar antes de iniciar o loop de partículas
+  let particlesStarted = false;
+  function startParticles() {
+    if (particlesStarted) return;
+    particlesStarted = true;
+    animate();
+  }
+
+  if (!document.body.classList.contains("loading-locked")) {
+    // Loader já saiu
+    setTimeout(startParticles, 200);
+  } else {
+    const pObs = new MutationObserver(() => {
+      if (!document.body.classList.contains("loading-locked")) {
+        pObs.disconnect();
+        startParticles();
+      }
+    });
+    pObs.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    setTimeout(() => { pObs.disconnect(); startParticles(); }, 7000);
+  }
+
   function animate() {
     requestAnimationFrame(animate);
     if (!isHeroVisible) return;
@@ -479,14 +511,35 @@ function initCinematicScroll() {
 
   elementsToAnimate.forEach((element) => observer.observe(element));
 
-  // Immediate reveal for Hero to improve F5 fluidity
+  // Hero reveal — espera o loader terminar antes de revelar elementos do hero.
+  // Os .ink-reveal são controlados pelo hero-ink.js (que também espera o loader).
+  // Aqui controlamos apenas os .reveal-item genéricos do hero.
   const heroItems = document.querySelectorAll(
     "#hero .reveal-item, #hero-intro .reveal-item",
   );
-  heroItems.forEach((item) => {
-    // We use a tiny delay to ensure the browser registers the base styles first
-    setTimeout(() => item.classList.add("revealed"), 100);
-  });
+
+  const revealHeroItems = () => {
+    setTimeout(() => {
+      heroItems.forEach((item) => item.classList.add("revealed"));
+    }, 100);
+  };
+
+  if (!document.body.classList.contains("loading-locked")) {
+    revealHeroItems();
+  } else {
+    const heroRevealObs = new MutationObserver(() => {
+      if (!document.body.classList.contains("loading-locked")) {
+        heroRevealObs.disconnect();
+        revealHeroItems();
+      }
+    });
+    heroRevealObs.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    // Segurança
+    setTimeout(() => {
+      heroRevealObs.disconnect();
+      revealHeroItems();
+    }, 7000);
+  }
 }
 
 function initSpotlight() {
@@ -505,59 +558,618 @@ function initSpotlight() {
   });
 }
 
+function initBeyondCodePhoto() {
+  // Parallax mínimo na fotografia da seção "Além do Código".
+  // Limite 10px conforme especificação. Usa CSS custom properties + rAF,
+  // sem loop concorrente e só quando a seção está no viewport.
+  const section = document.getElementById("suporte-gestao");
+  if (!section) return;
+
+  const media = section.querySelector(".beyond-photo__media");
+  if (!media) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (window.innerWidth < 641) return;   // mobile: foto é bloco estático
+
+  const MAX_SHIFT = 10;   // px — dentro do limite 5-12px
+  const EASE = 0.07;
+
+  let targetX = 0, targetY = 0;
+  let currentX = 0, currentY = 0;
+  let raf = null;
+  let visible = false;
+
+  const io = new IntersectionObserver(
+    (entries) => { visible = entries[0].isIntersecting; },
+    { threshold: 0 }
+  );
+  io.observe(section);
+
+  const tick = () => {
+    currentX += (targetX - currentX) * EASE;
+    currentY += (targetY - currentY) * EASE;
+
+    media.style.setProperty("--photo-px", currentX.toFixed(2) + "px");
+    media.style.setProperty("--photo-py", currentY.toFixed(2) + "px");
+
+    if (Math.abs(targetX - currentX) > 0.1 || Math.abs(targetY - currentY) > 0.1) {
+      raf = requestAnimationFrame(tick);
+    } else {
+      raf = null;
+    }
+  };
+
+  const onMove = (e) => {
+    if (!visible) return;
+    const rect = section.getBoundingClientRect();
+    const nx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+    const ny = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+    // Direção inversa ao cursor — profundidade
+    targetX = Math.max(-1, Math.min(1, nx)) * -MAX_SHIFT;
+    targetY = Math.max(-1, Math.min(1, ny)) * -MAX_SHIFT * 0.6;
+    if (!raf) raf = requestAnimationFrame(tick);
+  };
+
+  const onLeave = () => {
+    targetX = 0;
+    targetY = 0;
+    if (!raf) raf = requestAnimationFrame(tick);
+  };
+
+  section.addEventListener("mousemove", onMove, { passive: true });
+  section.addEventListener("mouseleave", onLeave);
+}
+
+function initGameDevArtwork() {
+  // Parallax extremamente sutil na artwork de pixel art.
+  // Poucos pixels de deslocamento — respeita a delicadeza da arte.
+  // Usa CSS custom properties + rAF; nenhum loop concorrente.
+  const section = document.getElementById("game-dev");
+  if (!section) return;
+
+  const artwork = section.querySelector(".gamedev-artwork");
+  if (!artwork) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (window.innerWidth < 768) return;   // sem parallax no mobile
+
+  const MAX_SHIFT = 6;     // px — muito discreto
+  const EASE = 0.08;
+
+  let targetX = 0, targetY = 0;
+  let currentX = 0, currentY = 0;
+  let raf = null;
+  let visible = false;
+
+  // Só roda quando a seção está no viewport
+  const io = new IntersectionObserver(
+    (entries) => { visible = entries[0].isIntersecting; },
+    { threshold: 0 }
+  );
+  io.observe(section);
+
+  const tick = () => {
+    currentX += (targetX - currentX) * EASE;
+    currentY += (targetY - currentY) * EASE;
+
+    artwork.style.setProperty("--art-px", currentX.toFixed(2) + "px");
+    artwork.style.setProperty("--art-py", currentY.toFixed(2) + "px");
+
+    if (Math.abs(targetX - currentX) > 0.1 || Math.abs(targetY - currentY) > 0.1) {
+      raf = requestAnimationFrame(tick);
+    } else {
+      raf = null;
+    }
+  };
+
+  const onMove = (e) => {
+    if (!visible) return;
+    const rect = artwork.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const nx = (e.clientX - cx) / (rect.width / 2);
+    const ny = (e.clientY - cy) / (rect.height / 2);
+    // Movimento inverso ao cursor — sensação de profundidade
+    targetX = Math.max(-1, Math.min(1, nx)) * -MAX_SHIFT;
+    targetY = Math.max(-1, Math.min(1, ny)) * -MAX_SHIFT;
+    if (!raf) raf = requestAnimationFrame(tick);
+  };
+
+  const onLeave = () => {
+    targetX = 0;
+    targetY = 0;
+    if (!raf) raf = requestAnimationFrame(tick);
+  };
+
+  section.addEventListener("mousemove", onMove, { passive: true });
+  section.addEventListener("mouseleave", onLeave);
+}
+
+function initDesignGallery() {
+  // Vitrine horizontal de UX/UI Design:
+  //   • scroll-snap horizontal nativo
+  //   • dots sincronizados via scroll position
+  //   • setas prev/next com estado disabled
+  //   • drag com mouse (desktop) — touch usa scroll nativo
+  const section = document.getElementById("projetos-design");
+  if (!section) return;
+
+  const track = document.getElementById("design-track");
+  if (!track) return;
+
+  const tiles = Array.from(track.querySelectorAll(".design-tile"));
+  const dots = Array.from(section.querySelectorAll(".design-pagination__dot"));
+  const prevBtn = section.querySelector('.design-nav__btn[data-nav="prev"]');
+  const nextBtn = section.querySelector('.design-nav__btn[data-nav="next"]');
+
+  if (!tiles.length) return;
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  // ─── Step: largura de 1 tile + gap ───
+  const getStep = () => {
+    const first = tiles[0];
+    if (!first) return 300;
+    const rect = first.getBoundingClientRect();
+    const styles = getComputedStyle(track);
+    const gap = parseFloat(styles.columnGap || styles.gap || "16");
+    return rect.width + gap;
+  };
+
+  // ─── Determina qual tile está mais próximo do início do viewport ───
+  const getActiveIndex = () => {
+    const step = getStep();
+    if (step <= 0) return 0;
+    const idx = Math.round(track.scrollLeft / step);
+    return Math.max(0, Math.min(idx, dots.length - 1));
+  };
+
+  // ─── Sincroniza dots + estado dos botões ───
+  const updateUI = () => {
+    const idx = getActiveIndex();
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("design-pagination__dot--active", i === idx);
+    });
+
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    if (prevBtn) prevBtn.disabled = track.scrollLeft <= 2;
+    if (nextBtn) nextBtn.disabled = track.scrollLeft >= maxScroll - 2;
+  };
+
+  // ─── Scroll pra um índice específico ───
+  const scrollToIndex = (idx) => {
+    const step = getStep();
+    track.scrollTo({
+      left: idx * step,
+      behavior: prefersReducedMotion ? "auto" : "smooth"
+    });
+  };
+
+  // ─── Setas ───
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      const step = getStep();
+      track.scrollBy({
+        left: -step,
+        behavior: prefersReducedMotion ? "auto" : "smooth"
+      });
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      const step = getStep();
+      track.scrollBy({
+        left: step,
+        behavior: prefersReducedMotion ? "auto" : "smooth"
+      });
+    });
+  }
+
+  // ─── Dots clicáveis ───
+  dots.forEach((dot, i) => {
+    dot.addEventListener("click", () => scrollToIndex(i));
+  });
+
+  // ─── Scroll listener (throttled via rAF) ───
+  let scrollRaf = null;
+  track.addEventListener("scroll", () => {
+    if (scrollRaf) return;
+    scrollRaf = requestAnimationFrame(() => {
+      updateUI();
+      scrollRaf = null;
+    });
+  }, { passive: true });
+
+  // ─── Drag com mouse (desktop) — touch usa scroll nativo ───
+  let isDown = false;
+  let startX = 0;
+  let startScroll = 0;
+  let moved = false;
+
+  track.addEventListener("pointerdown", (e) => {
+    // Só mouse — touch usa o scroll nativo do browser
+    if (e.pointerType !== "mouse") return;
+    if (e.button !== 0) return;
+    isDown = true;
+    moved = false;
+    startX = e.clientX;
+    startScroll = track.scrollLeft;
+    track.classList.add("is-dragging");
+  });
+
+  track.addEventListener("pointermove", (e) => {
+    if (!isDown || e.pointerType !== "mouse") return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 4) moved = true;
+    track.scrollLeft = startScroll - dx;
+  });
+
+  const endDrag = (e) => {
+    if (!isDown) return;
+    isDown = false;
+    track.classList.remove("is-dragging");
+    // Snap suave pro tile mais próximo após soltar
+    if (moved) {
+      const idx = getActiveIndex();
+      scrollToIndex(idx);
+    }
+  };
+
+  track.addEventListener("pointerup", endDrag);
+  track.addEventListener("pointercancel", endDrag);
+  track.addEventListener("pointerleave", endDrag);
+
+  // Previne click nos links/tiles se houve drag real
+  track.addEventListener("click", (e) => {
+    if (moved) {
+      e.preventDefault();
+      e.stopPropagation();
+      moved = false;
+    }
+  }, true);
+
+  // ─── Teclado ───
+  track.setAttribute("tabindex", "0");
+  track.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      if (nextBtn) nextBtn.click();
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      if (prevBtn) prevBtn.click();
+    }
+  });
+
+  // ─── Resize ───
+  let resizeTimer = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(updateUI, 150);
+  }, { passive: true });
+
+  // Estado inicial
+  requestAnimationFrame(() => setTimeout(updateUI, 100));
+}
+
+function initProjectsCarousel() {
+  // Navegação da vitrine de projetos com prev/next.
+  // Em desktop grande (>=1200px), o grid é 4 colunas — os botões
+  // funcionam como scroll horizontal caso o usuário queira revisitar.
+  // Em tablet/mobile, os botões controlam o scroll-snap horizontal.
+  const viewport = document.getElementById("projects-viewport");
+  if (!viewport) return;
+
+  const prevBtn = document.querySelector('#projetos .projects-nav__btn[data-nav="prev"]');
+  const nextBtn = document.querySelector('#projetos .projects-nav__btn[data-nav="next"]');
+  if (!prevBtn || !nextBtn) return;
+
+  // Distância de scroll por click — largura de 1 card + gap
+  const getStep = () => {
+    const firstCard = viewport.querySelector(".project-card");
+    if (!firstCard) return 320;
+    const rect = firstCard.getBoundingClientRect();
+    const styles = getComputedStyle(viewport);
+    const gap = parseFloat(styles.columnGap || styles.gap || "20");
+    return rect.width + gap;
+  };
+
+  // Atualiza estado dos botões (disabled quando não pode scrollar mais)
+  const updateButtons = () => {
+    const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+    prevBtn.disabled = viewport.scrollLeft <= 1;
+    nextBtn.disabled = viewport.scrollLeft >= maxScroll - 1;
+  };
+
+  const scrollBy = (dir) => {
+    const step = getStep();
+    viewport.scrollBy({
+      left: dir * step,
+      behavior: "smooth"
+    });
+  };
+
+  prevBtn.addEventListener("click", () => scrollBy(-1));
+  nextBtn.addEventListener("click", () => scrollBy(1));
+
+  // Estado inicial + on scroll
+  let scrollTimer = null;
+  viewport.addEventListener("scroll", () => {
+    if (scrollTimer) return;
+    scrollTimer = requestAnimationFrame(() => {
+      updateButtons();
+      scrollTimer = null;
+    });
+  }, { passive: true });
+
+  // On resize
+  let resizeTimer = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(updateButtons, 150);
+  }, { passive: true });
+
+  // Detecta se o viewport tem overflow — se não, botões desabilitados
+  const checkOverflow = () => {
+    const hasOverflow = viewport.scrollWidth > viewport.clientWidth + 2;
+    if (!hasOverflow) {
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+    } else {
+      updateButtons();
+    }
+  };
+
+  // Inicializa após um tick pra layout estar pronto
+  requestAnimationFrame(() => setTimeout(checkOverflow, 100));
+
+  // Keyboard support quando o usuário está com foco no viewport
+  viewport.setAttribute("tabindex", "-1");
+}
+
+function initTechLab() {
+  // Laboratório de tecnologias — parallax sutil no orbital + destaque de linha
+  // SVG correspondente quando o usuário hovera um nó de tecnologia.
+  const section = document.getElementById("tech-stack");
+  if (!section) return;
+
+  const orbit  = document.getElementById("tech-orbit");
+  const nodes  = section.querySelectorAll(".tech-node");
+  const lines  = section.querySelectorAll(".tech-line");
+  const core   = section.querySelector(".tech-lab__core");
+
+  if (!orbit || !nodes.length) return;
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  // ─── Reveal do orbital: quando o container entra no viewport, propaga .revealed
+  // pro próprio orbital (que ativa as linhas SVG e o backdrop) ───
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          orbit.classList.add("revealed");
+          // Também revela cada tech-node individualmente pro reveal genérico
+          nodes.forEach((n) => n.classList.add("revealed"));
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15, rootMargin: "0px 0px -80px 0px" }
+  );
+  io.observe(orbit);
+
+  // ─── Destacar linha SVG correspondente no hover do nó ───
+  const lineMap = {};
+  lines.forEach((line) => {
+    const tech = line.getAttribute("data-tech");
+    if (tech) lineMap[tech] = line;
+  });
+
+  nodes.forEach((node) => {
+    const techId = node.getAttribute("data-tech-id");
+    const line = lineMap[techId];
+    if (!line) return;
+
+    const activate = () => line.classList.add("tech-line--active");
+    const deactivate = () => line.classList.remove("tech-line--active");
+
+    node.addEventListener("mouseenter", activate);
+    node.addEventListener("mouseleave", deactivate);
+    node.addEventListener("focus", activate);
+    node.addEventListener("blur", deactivate);
+  });
+
+  // ─── AUTO-SCAN: sistema "verifica" cada tecnologia em ciclo ───
+  // Ciclo através dos nós, destacando um por vez brevemente
+  if (!prefersReducedMotion) {
+    const nodeArr = Array.from(nodes);
+    let scanIndex = -1;
+    let scanTimer = null;
+
+    // Cria mapa de linhas para scan também
+    const scanLineMap = {};
+    lines.forEach((line) => {
+      const tech = line.getAttribute("data-tech");
+      if (tech) scanLineMap[tech] = line;
+    });
+
+    const runScan = () => {
+      // Remove scanning class do anterior
+      if (scanIndex >= 0) {
+        const prev = nodeArr[scanIndex];
+        prev.classList.remove("tech-node--scanning");
+        const prevTech = prev.getAttribute("data-tech-id");
+        if (prevTech && scanLineMap[prevTech]) {
+          scanLineMap[prevTech].classList.remove("tech-line--scanning");
+        }
+      }
+
+      // Avança pro próximo (random ou sequencial)
+      scanIndex = Math.floor(Math.random() * nodeArr.length);
+      const current = nodeArr[scanIndex];
+      current.classList.add("tech-node--scanning");
+      const currentTech = current.getAttribute("data-tech-id");
+      if (currentTech && scanLineMap[currentTech]) {
+        scanLineMap[currentTech].classList.add("tech-line--scanning");
+      }
+    };
+
+    // Inicia o scan 3.5s após o reveal, depois cicla a cada 2.5s
+    let scanStarted = false;
+    const startScanCycle = () => {
+      if (scanStarted) return;
+      scanStarted = true;
+      setTimeout(() => {
+        runScan();
+        scanTimer = setInterval(runScan, 3500);
+      }, 4500);
+    };
+
+    // Ativa scan quando o orbital fica visível pela primeira vez
+    const scanIO = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            startScanCycle();
+            scanIO.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    scanIO.observe(orbit);
+
+    // Pausa scan quando usuário hovera qualquer nó (não competir com hover)
+    orbit.addEventListener("mouseenter", () => {
+      if (scanTimer) {
+        clearInterval(scanTimer);
+        // Remove destaque atual
+        if (scanIndex >= 0) {
+          const prev = nodeArr[scanIndex];
+          prev.classList.remove("tech-node--scanning");
+          const prevTech = prev.getAttribute("data-tech-id");
+          if (prevTech && scanLineMap[prevTech]) {
+            scanLineMap[prevTech].classList.remove("tech-line--scanning");
+          }
+        }
+      }
+    });
+
+    orbit.addEventListener("mouseleave", () => {
+      // Retoma scan 2s depois do mouse sair
+      if (scanTimer) clearInterval(scanTimer);
+      scanTimer = setTimeout(() => {
+        runScan();
+        scanTimer = setInterval(runScan, 3500);
+      }, 2500);
+    });
+  }
+
+  // ─── Parallax sutil no orbital (desktop + sem reduced-motion) ───
+  if (prefersReducedMotion || window.innerWidth < 992) return;
+
+  let raf = null;
+  let targetX = 0, targetY = 0;
+  let currentX = 0, currentY = 0;
+  const EASE = 0.08;
+  const MAX_SHIFT = 12; // px máximos de deslocamento
+
+  const tick = () => {
+    currentX += (targetX - currentX) * EASE;
+    currentY += (targetY - currentY) * EASE;
+
+    // Aplica parallax via CSS custom properties no container
+    // O CSS incorpora essas variáveis no transform sem conflitar com
+    // as animações keyframes individuais dos nós
+    orbit.style.setProperty("--orbit-px", currentX.toFixed(2) + "px");
+    orbit.style.setProperty("--orbit-py", currentY.toFixed(2) + "px");
+
+    if (Math.abs(targetX - currentX) > 0.1 || Math.abs(targetY - currentY) > 0.1) {
+      raf = requestAnimationFrame(tick);
+    } else {
+      raf = null;
+    }
+  };
+
+  const onMouseMove = (e) => {
+    const rect = orbit.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    // Normalize -1 → +1
+    const nx = (e.clientX - cx) / (rect.width / 2);
+    const ny = (e.clientY - cy) / (rect.height / 2);
+    // Clamp e escala
+    targetX = Math.max(-1, Math.min(1, nx)) * MAX_SHIFT;
+    targetY = Math.max(-1, Math.min(1, ny)) * MAX_SHIFT;
+    if (!raf) raf = requestAnimationFrame(tick);
+  };
+
+  const onMouseLeave = () => {
+    targetX = 0;
+    targetY = 0;
+    if (!raf) raf = requestAnimationFrame(tick);
+  };
+
+  section.addEventListener("mousemove", onMouseMove, { passive: true });
+  section.addEventListener("mouseleave", onMouseLeave);
+}
+
+function initTrajectorySpotlight() {
+  // Spotlight cursor sutil na seção Trajetória — ambient adicional pra dar vida
+  // O #sobre.mouse-active mostra o gradient; posição via CSS custom props
+  const sobre = document.getElementById("sobre");
+  if (!sobre) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (window.innerWidth < 769) return;      // desktop only
+
+  let raf = null;
+  let pendingX = 0, pendingY = 0;
+
+  const onMove = (e) => {
+    const rect = sobre.getBoundingClientRect();
+    pendingX = e.clientX - rect.left;
+    pendingY = e.clientY - rect.top;
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      sobre.style.setProperty("--traj-mx", pendingX + "px");
+      sobre.style.setProperty("--traj-my", pendingY + "px");
+      raf = null;
+    });
+  };
+
+  sobre.addEventListener("mouseenter", () => sobre.classList.add("cursor-lit"));
+  sobre.addEventListener("mouseleave", () => sobre.classList.remove("cursor-lit"));
+  sobre.addEventListener("mousemove", onMove, { passive: true });
+}
+
 function initTimelineScroll() {
+  // Timeline agora é horizontal e one-shot: o CSS controla o desenho
+  // da linha (transform: scaleX) via .revealed no container/section.
+  // Este observer apenas marca cada item como "active" para permitir
+  // efeitos de hover/state via CSS, quando entrar no viewport.
   const timelineContainer = document.querySelector(".timeline-container");
   const timelineItems = document.querySelectorAll(".timeline-item");
-  const timelineGlow = document.getElementById("timeline-glow");
-  let timelineScrollTicking = false;
+  if (!timelineContainer || !timelineItems.length) return;
 
-  if (!timelineContainer || !timelineGlow) return;
-
-  const observerTimeline = new IntersectionObserver(
+  const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("active");
-          entry.target.classList.add("visible"); // If tied to reveal-item but let's be explicit
+          entry.target.classList.add("visible");
         }
       });
     },
-    { threshold: 0.5, rootMargin: "0px 0px -100px 0px" },
+    { threshold: 0.35, rootMargin: "0px 0px -80px 0px" }
   );
 
-  timelineItems.forEach((item) => {
-    observerTimeline.observe(item);
-  });
-
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (timelineScrollTicking) return;
-      timelineScrollTicking = true;
-      requestAnimationFrame(() => {
-        const topViewport = window.scrollY || document.documentElement.scrollTop;
-        const rect = timelineContainer.getBoundingClientRect();
-
-        // Posição no documento da timeline (início)
-        const timelineTop = rect.top + topViewport;
-        const timelineHeight = rect.height;
-
-        // Calcula a altura da viewport
-        const viewportHeight = window.innerHeight;
-        // Queremos que a linha de "progresso" acompanhe o meio da tela, ou o fim, vamos usar viewportHeight / 2
-        let scrolled = topViewport + viewportHeight / 1.5 - timelineTop;
-
-        let percentage = (scrolled / timelineHeight) * 100;
-
-        if (percentage < 0) percentage = 0;
-        if (percentage > 100) percentage = 100;
-
-        timelineGlow.style.height = `${percentage}%`;
-        timelineScrollTicking = false;
-      });
-    },
-    { passive: true },
-  );
+  timelineItems.forEach((item) => observer.observe(item));
 }
 
 // Inicializa todas as funções quando o DOM estiver pronto com proteção robusta de try-catch individual
@@ -578,6 +1190,12 @@ document.addEventListener("DOMContentLoaded", () => {
   initSafe(initSearchAndMenu, "initSearchAndMenu");
   initSafe(initInteractiveRipples, "initInteractiveRipples");
   initSafe(initTimelineScroll, "initTimelineScroll");
+  initSafe(initTrajectorySpotlight, "initTrajectorySpotlight");
+  initSafe(initTechLab, "initTechLab");
+  initSafe(initProjectsCarousel, "initProjectsCarousel");
+  initSafe(initDesignGallery, "initDesignGallery");
+  initSafe(initGameDevArtwork, "initGameDevArtwork");
+  initSafe(initBeyondCodePhoto, "initBeyondCodePhoto");
   initSafe(initSpotlight, "initSpotlight");
   initSafe(initTabSystem, "initTabSystem");
   initSafe(initScrollProgressBar, "initScrollProgressBar");
