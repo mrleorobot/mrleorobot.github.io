@@ -5,7 +5,6 @@
 
   /* Card and Panel Themes - High-end Sleek Monochromatic Gray */
   --bg-card: rgba(10, 10, 10, 0.8);
-  --bg-panel: rgba(18, 18, 18, 0.65);
   --border-card: rgba(255, 255, 255, 0.08);
   --border-panel: rgba(255, 255, 255, 0.04);
   --text-primary: #ffffff;
@@ -14,30 +13,20 @@
   --shadow-color: rgba(0, 0, 0, 0.95);
 
   /* Contact Link & Tags */
-  --bg-contact: rgba(255, 255, 255, 0.03);
-  --border-contact: rgba(255, 255, 255, 0.1);
-  --bg-tag: rgba(20, 20, 20, 0.9);
 
   /* Arcane & Steven Universe Palette - Unified under our luxury scheme */
-  --arcane-bg: #000000;
   --arcane-hex: #ffffff;
   --arcane-gold: #ffffff;
   --su-pink: #ffffff;
   --su-purple: rgba(10, 10, 10, 0.8);
-  --su-sky: rgba(10, 10, 10, 0.8);
 
   /* Stardew Valley UI */
-  --stardew-bg: #0a0a0a;
-  --stardew-border: #262626;
-  --stardew-text: #ffffff;
 
   /* Spider-Verse */
   --spider-red: #ffffff;
   --spider-blue: #888888;
-  --spider-yellow: #ffffff;
 
   /* Kurzgesagt */
-  --kurz-shadow: rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -52,6 +41,19 @@ body {
   overflow-x: hidden;
   width: 100%;
   position: relative;
+  -webkit-text-size-adjust: 100%;
+}
+
+button,
+a,
+input,
+select,
+textarea,
+[role="button"],
+.hamburger,
+.theme-toggle-btn,
+.btn-flutuante {
+  -webkit-tap-highlight-color: transparent;
 }
 
 * {
@@ -3787,27 +3789,22 @@ html {
   filter: grayscale(100%) contrast(100%) brightness(100%) !important;
 }
 
-.card.current--card:hover .card__image img {
-  transform: scale(1.02);
-  filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.4));
+.card.current { filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.4));
 }
 
 .card.current--card {
   --current-card-rotation-offset: 0;
   --card-translateX-offset: 0;
-  --card-rotation-offset: var(--current-card-rotation-offset);
   --card-scale-offset: 1.2;
   --opacity: 1;
 }
 
 .card.previous--card {
   --card-translateX-offset: calc(-1 * var(--card-width) * 0.95);
-  --card-rotation-offset: 0deg;
 }
 
 .card.next--card {
   --card-translateX-offset: calc(var(--card-width) * 0.95);
-  --card-rotation-offset: 0deg;
 }
 
 .card.previous--card,
@@ -3877,7 +3874,6 @@ html {
 
 .info .location {
   font-size: clamp(1rem, 2vw, 1.5rem);
-  --mg-left: 0;
   font-weight: 700;
   margin-left: 0px;
   margin-bottom: 8px;
@@ -4111,6 +4107,11 @@ html {
   position: absolute;
   top: 1rem;
   right: 1rem;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   color: #a0aab2;
@@ -5009,11 +5010,7 @@ body::after {
     box-shadow 0.4s ease !important;
 }
 
-.card.current--card:hover {
-  box-shadow:
-    0 25px 50px rgba(0, 0, 0, 0.7),
-    0 0 35px rgba(255, 255, 255, 0.4) !important;
-}
+
 
 /* Scrollable Mockups classes */
 .project-thumbnail-wrapper {
@@ -6340,19 +6337,32 @@ h2.revealed-mask .text-mask-inner {
    Appended last so it wins the cascade. No HTML/JS changes required.
    ========================================================================= */
 
-/* --- Floating transparent top bar --- */
+/* --- Floating transparent top bar with top gradient mask --- */
 header {
-  background: transparent !important;
+  pointer-events: none;
+}
+
+header > * {
+  pointer-events: auto;
 }
 
 nav,
 nav.scrolled {
-  background: transparent !important;
+  width: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+  background: linear-gradient(180deg, #000000 40%, rgba(0, 0, 0, 0.9) 70%, transparent 100%) !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
   border-bottom: none !important;
   padding: 1.6rem 4% !important;
   justify-content: flex-start !important;
+  pointer-events: none; /* Let clicks pass through the gradient edge */
+}
+
+/* Ensure interactive elements inside nav are clickable */
+nav > * {
+  pointer-events: auto;
 }
 
 /* Logo stays top-left, clean */
@@ -6807,8 +6817,8 @@ nav.scrolled {
      genérica acima — ajusta só o --card-scale-offset, que é a variável que
      o transform já lê, em vez de sobrescrever transform e quebrar a
      posição/rotação do card. */
-  #projetos-design .card.current--card:active {
-    --card-scale-offset: 1.14;
+  #projetos-design .card.current:active {
+    transform: scale(0.98) !important;
     transition: transform 0.15s ease !important;
   }
 
@@ -6817,6 +6827,7 @@ nav.scrolled {
     transition: transform 0.15s ease !important;
   }
 }
+ 
 
 /* ==========================================================================
    SENSAÇÃO DE APP NO MOBILE — rolagem com encaixe suave + profundidade
@@ -7858,9 +7869,7 @@ main > section:not(#hero):not(#cta-final)::before {
   transition: border-color 0.4s ease, background 0.4s ease;
 }
 
-#sobre .timeline-date__range--now::before {
-  content: "";
-  position: absolute;
+#sobre .timeline-date__range { position: absolute;
   left: 0.55rem;
   top: 50%;
   transform: translateY(-50%);
@@ -7872,9 +7881,7 @@ main > section:not(#hero):not(#cta-final)::before {
   animation: traj-live-pulse 1.8s ease-in-out infinite;
 }
 
-#sobre .timeline-item--current:hover .timeline-date__range--now {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.08);
+#sobre .timeline-item { background: rgba(255, 255, 255, 0.08);
 }
 
 @keyframes traj-live-pulse {
@@ -8282,11 +8289,8 @@ main > section:not(#hero):not(#cta-final)::before {
 
   #sobre .timeline-content {
     padding: 0 !important;                  /* mobile: sem padding */
-  }
-  #sobre .timeline-title,
-  #sobre .timeline-desc {
-    max-width: 100% !important;
-  }
+  }/* deduplicated: #sobre .timeline-title,
+  #sobre .timeline-desc */
 
   #sobre .timeline-date__year {
     font-size: 2.2rem !important;
@@ -8642,8 +8646,7 @@ main > section:not(#hero):not(#cta-final)::before {
 }
 
 @keyframes tech-core-ring-slow {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from { transform: rotate(0deg); }to { transform: rotate(360deg); }
 }
 
 #tech-stack.revealed .tech-lab__core,
@@ -8782,11 +8785,13 @@ main > section:not(#hero):not(#cta-final)::before {
   background: rgba(10, 10, 10, 0.85);
   backdrop-filter: blur(6px);
   padding: 8px;
+  opacity: 0.7;
   transition:
     border-color 0.4s ease,
     background 0.4s ease,
     transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.4s ease !important;
+    box-shadow 0.4s ease,
+    opacity 0.4s ease !important;
 }
 
 #tech-stack .tech-node--core .tech-node__icon {
@@ -8794,6 +8799,7 @@ main > section:not(#hero):not(#cta-final)::before {
   height: 48px;
   border-color: rgba(255, 255, 255, 0.2);
   background: rgba(15, 15, 15, 0.9);
+  opacity: 1 !important;
 }
 
 #tech-stack .tech-node__icon img,
@@ -8807,6 +8813,10 @@ main > section:not(#hero):not(#cta-final)::before {
 
 /* Label */
 #tech-stack .tech-node__label {
+  position: absolute;
+  top: calc(100% + 0.55rem);
+  left: 50%;
+  transform: translateX(-50%);
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.72rem;
   font-weight: 500;
@@ -8827,10 +8837,11 @@ main > section:not(#hero):not(#cta-final)::before {
 #tech-stack .tech-node:focus-visible .tech-node__icon {
   border-color: rgba(255, 255, 255, 0.75);
   background: rgba(20, 20, 20, 1);
-  transform: scale(1.12);
+  transform: translateY(-5px);
+  opacity: 1;
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.1),
-    0 8px 24px rgba(0, 0, 0, 0.5);
+    0 0 15px var(--glow-color, rgba(255, 255, 255, 0.5));
 }
 
 #tech-stack .tech-node:hover .tech-node__icon img,
@@ -9088,16 +9099,18 @@ main > section:not(#hero):not(#cta-final)::before {
 #tech-stack .tech-node--scanning .tech-node__icon {
   border-color: rgba(255, 255, 255, 0.9) !important;
   background: rgba(20, 20, 20, 1) !important;
-  transform: scale(1.15) !important;
+  transform: translateY(-5px) !important;
+  opacity: 1;
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.2),
-    0 0 24px 4px rgba(255, 255, 255, 0.2),
-    0 0 40px 8px rgba(255, 255, 255, 0.08) !important;
+    0 0 24px 4px var(--glow-color, rgba(255, 255, 255, 0.2)),
+    0 0 40px 8px var(--glow-color, rgba(255, 255, 255, 0.08)) !important;
   transition:
     border-color 0.4s ease,
     background 0.4s ease,
     transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.4s ease !important;
+    box-shadow 0.4s ease,
+    opacity 0.4s ease !important;
 }
 
 #tech-stack .tech-node--scanning .tech-node__icon img,
@@ -10172,6 +10185,17 @@ main > section:not(#hero):not(#cta-final)::before {
     transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+#projetos-design .design-pagination__dot::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
 #projetos-design .design-pagination__dot::before {
   content: "";
   position: absolute;
@@ -10192,9 +10216,7 @@ main > section:not(#hero):not(#cta-final)::before {
   transform: scale(1.15);
 }
 
-#projetos-design .design-pagination__dot--active::before {
-  transform: scale(1);
-}
+
 
 /* CTA "Ver Galeria Completa" */
 #projetos-design .design-cta-all {
@@ -10260,10 +10282,7 @@ main > section:not(#hero):not(#cta-final)::before {
     opacity 0.4s ease;
 }
 
-#projetos-design .cardList__btn.btn--left:hover,
-#projetos-design .cardList__btn.btn--right:hover {
-  transform: scale(1.06);
-}
+
 
 /* ==========================================================================
    UX/UI DESIGN — RESPONSIVE
@@ -10503,9 +10522,7 @@ main > section:not(#hero):not(#cta-final)::before {
   color: rgba(255, 255, 255, 0.85);
 }
 
-#projetos-design .design-tile--cta:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.3);
+#projetos-design .design-tile { border-color: rgba(255, 255, 255, 0.3);
   color: #ffffff;
 }
 
@@ -10517,9 +10534,7 @@ main > section:not(#hero):not(#cta-final)::before {
   transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-#projetos-design .design-tile--cta:hover .design-tile--cta__icon {
-  opacity: 1;
-  transform: scale(1.08);
+#projetos-design .design-tile { transform: scale(1.08);
 }
 
 #projetos-design .design-tile--cta__label {
@@ -10559,6 +10574,15 @@ main > section:not(#hero):not(#cta-final)::before {
   transition:
     border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}#projetos-design .design-pagination__dot::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
 }
 
 #projetos-design .design-pagination__dot::before {
@@ -10570,29 +10594,20 @@ main > section:not(#hero):not(#cta-final)::before {
   transform: scale(0);
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-
 #projetos-design .design-pagination__dot:hover {
   border-color: rgba(255, 255, 255, 0.65);
   transform: scale(1.15);
 }
-
 #projetos-design .design-pagination__dot--active {
   border-color: rgba(255, 255, 255, 0.9);
   transform: scale(1.15);
 }
-
-#projetos-design .design-pagination__dot--active::before {
-  transform: scale(1);
-}
-
-/* Setas à direita */
 #projetos-design .design-nav {
   display: flex;
   gap: 0.6rem;
   grid-column: 3;
   justify-self: end;
 }
-
 #projetos-design .design-nav__btn {
   width: 38px;
   height: 38px;
@@ -10939,8 +10954,7 @@ main > section:not(#hero):not(#cta-final)::before {
 @keyframes gamedev-panel-shimmer {
   0%   { transform: translateX(-100%); }
   35%  { transform: translateX(-100%); }
-  55%  { transform: translateX(300%);  }
-  100% { transform: translateX(300%);  }
+  55%  { transform: translateX(300%);  }/* deduplicated: 100% */
 }
 
 #game-dev .gamedev-panel__title {
@@ -11066,7 +11080,7 @@ main > section:not(#hero):not(#cta-final)::before {
   position: relative;
 }
 
-#game-dev .gamedev-footer__mark--filled::before {
+#game-dev .gamedev-footer__mark::after {
   content: "";
   position: absolute;
   inset: 1px;
@@ -11148,7 +11162,7 @@ main > section:not(#hero):not(#cta-final)::before {
     transition: none !important;
   }
   #game-dev .gamedev-panel::before,
-  #game-dev .gamedev-footer__mark--filled::before {
+  #game-dev .gamedev-footer__mark {
     animation: none !important;
   }
 }
@@ -12056,11 +12070,7 @@ main > section:not(#hero):not(#cta-final)::before {
     transparent 100%
   );
   transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
-}
-
-#soft-skills .alumni-block.revealed .alumni-block__rule {
-  transform: scaleX(1);
-}
+}/* deduplicated: #soft-skills .alumni-block.revealed .alumni-block__rule */
 
 /* Descrição */
 #soft-skills .alumni-block__desc {
@@ -13089,7 +13099,7 @@ main > section:not(#hero):not(#cta-final)::before {
 /* Layout principal */
 .site-footer .footer-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(2rem, 4vw, 4.5rem);
   align-items: start;
   padding-bottom: 3.5rem;

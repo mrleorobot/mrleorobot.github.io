@@ -2,7 +2,7 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
     <title>
       Leonilson Souza | Desenvolvedor Front-end, UX/UI Design &amp; Power BI |
@@ -180,6 +180,7 @@
       class="hamburger"
       aria-label="Abrir menu"
       aria-expanded="false"
+      aria-controls="primary-nav-menu"
     >
       <span class="hamburger-line"></span>
       <span class="hamburger-line"></span>
@@ -199,7 +200,7 @@
       <nav aria-label="Navegação principal">
         <a href="#hero" class="logo" aria-label="Voltar ao topo">LEONILSON_</a>
 
-        <div class="nav-links">
+        <div class="nav-links" id="primary-nav-menu">
           <a href="#hero" class="nav-tab-link active" data-section="hero"
             >Início</a
           >
@@ -314,14 +315,6 @@
 
             <!-- RIGHT: Ink canvas area + code elements -->
             <div class="hero-editorial__right">
-              <!-- Code snippets como linguagem visual — cascata individual -->
-              <div class="hero-code-fragments" aria-hidden="true">
-                <span class="hero-code-fragment hero-code-fragment--1 ink-reveal ink-reveal--fade" style="--rd: 2.15s;">&lt; /&gt;</span>
-                <span class="hero-code-fragment hero-code-fragment--2 ink-reveal ink-reveal--fade" style="--rd: 2.25s;">ideas();</span>
-                <span class="hero-code-fragment hero-code-fragment--3 ink-reveal ink-reveal--fade" style="--rd: 2.33s;">code();</span>
-                <span class="hero-code-fragment hero-code-fragment--4 ink-reveal ink-reveal--fade" style="--rd: 2.41s;">people();</span>
-                <span class="hero-code-fragment hero-code-fragment--5 ink-reveal ink-reveal--fade" style="--rd: 2.49s;">better web();</span>
-              </div>
             </div>
 
           </div>
@@ -551,59 +544,6 @@
               <span class="tech-frame-label tech-frame-label--bl" aria-hidden="true">v · 2026</span>
               <span class="tech-frame-label tech-frame-label--br" aria-hidden="true">live</span>
 
-              <!-- Linhas conectando o núcleo às tecnologias -->
-              <svg class="tech-lab__connections" aria-hidden="true" viewBox="0 0 1000 700" preserveAspectRatio="none">
-                <!-- Núcleo → tecnologias (23 linhas totais) -->
-                <line x1="500" y1="350" x2="320" y2="224" class="tech-line" data-tech="html"/>
-                <line x1="500" y1="350" x2="500" y2="154" class="tech-line" data-tech="js"/>
-                <line x1="500" y1="350" x2="680" y2="224" class="tech-line" data-tech="vscode"/>
-                <line x1="500" y1="350" x2="320" y2="476" class="tech-line" data-tech="photoshop"/>
-                <line x1="500" y1="350" x2="500" y2="546" class="tech-line" data-tech="figma"/>
-                <line x1="500" y1="350" x2="680" y2="476" class="tech-line" data-tech="git"/>
-                <line x1="500" y1="350" x2="200" y2="84"  class="tech-line" data-tech="linux"/>
-                <line x1="500" y1="350" x2="420" y2="56"  class="tech-line" data-tech="redes"/>
-                <line x1="500" y1="350" x2="580" y2="56"  class="tech-line" data-tech="ia"/>
-                <line x1="500" y1="350" x2="800" y2="84"  class="tech-line" data-tech="claude"/>
-                <line x1="500" y1="350" x2="100" y2="210" class="tech-line" data-tech="java"/>
-                <line x1="500" y1="350" x2="900" y2="154" class="tech-line" data-tech="vercel"/>
-                <line x1="500" y1="350" x2="70"  y2="350" class="tech-line" data-tech="python"/>
-                <line x1="500" y1="350" x2="930" y2="350" class="tech-line" data-tech="firebase"/>
-                <line x1="500" y1="350" x2="100" y2="490" class="tech-line" data-tech="php"/>
-                <line x1="500" y1="350" x2="900" y2="476" class="tech-line" data-tech="v0"/>
-                <line x1="500" y1="350" x2="100" y2="630" class="tech-line" data-tech="infosec"/>
-                <line x1="500" y1="350" x2="270" y2="630" class="tech-line" data-tech="illustrator"/>
-                <line x1="500" y1="350" x2="430" y2="644" class="tech-line" data-tech="premiere"/>
-                <line x1="500" y1="350" x2="580" y2="630" class="tech-line" data-tech="canva"/>
-                <line x1="500" y1="350" x2="740" y2="630" class="tech-line" data-tech="corel"/>
-                <line x1="500" y1="350" x2="880" y2="644" class="tech-line" data-tech="seo"/>
-                <line x1="500" y1="350" x2="950" y2="546" class="tech-line" data-tech="powerbi"/>
-                <!-- Pulses viajantes por cima das linhas base -->
-                <line x1="500" y1="350" x2="320" y2="224" class="tech-line-pulse" data-tech-pulse="html" style="animation-delay: 0.0s;"/>
-                <line x1="500" y1="350" x2="500" y2="154" class="tech-line-pulse" data-tech-pulse="js" style="animation-delay: 0.55s;"/>
-                <line x1="500" y1="350" x2="680" y2="224" class="tech-line-pulse" data-tech-pulse="vscode" style="animation-delay: 1.1s;"/>
-                <line x1="500" y1="350" x2="320" y2="476" class="tech-line-pulse" data-tech-pulse="photoshop" style="animation-delay: 1.65s;"/>
-                <line x1="500" y1="350" x2="500" y2="546" class="tech-line-pulse" data-tech-pulse="figma" style="animation-delay: 2.2s;"/>
-                <line x1="500" y1="350" x2="680" y2="476" class="tech-line-pulse" data-tech-pulse="git" style="animation-delay: 2.75s;"/>
-                <line x1="500" y1="350" x2="200" y2="84" class="tech-line-pulse" data-tech-pulse="linux" style="animation-delay: 3.3s;"/>
-                <line x1="500" y1="350" x2="420" y2="56" class="tech-line-pulse" data-tech-pulse="redes" style="animation-delay: 3.85s;"/>
-                <line x1="500" y1="350" x2="580" y2="56" class="tech-line-pulse" data-tech-pulse="ia" style="animation-delay: 4.4s;"/>
-                <line x1="500" y1="350" x2="800" y2="84" class="tech-line-pulse" data-tech-pulse="claude" style="animation-delay: 4.95s;"/>
-                <line x1="500" y1="350" x2="100" y2="210" class="tech-line-pulse" data-tech-pulse="java" style="animation-delay: 0.0s;"/>
-                <line x1="500" y1="350" x2="900" y2="154" class="tech-line-pulse" data-tech-pulse="vercel" style="animation-delay: 0.55s;"/>
-                <line x1="500" y1="350" x2="70" y2="350" class="tech-line-pulse" data-tech-pulse="python" style="animation-delay: 1.1s;"/>
-                <line x1="500" y1="350" x2="930" y2="350" class="tech-line-pulse" data-tech-pulse="firebase" style="animation-delay: 1.65s;"/>
-                <line x1="500" y1="350" x2="100" y2="490" class="tech-line-pulse" data-tech-pulse="php" style="animation-delay: 2.2s;"/>
-                <line x1="500" y1="350" x2="900" y2="476" class="tech-line-pulse" data-tech-pulse="v0" style="animation-delay: 2.75s;"/>
-                <line x1="500" y1="350" x2="100" y2="630" class="tech-line-pulse" data-tech-pulse="infosec" style="animation-delay: 3.3s;"/>
-                <line x1="500" y1="350" x2="270" y2="630" class="tech-line-pulse" data-tech-pulse="illustrator" style="animation-delay: 3.85s;"/>
-                <line x1="500" y1="350" x2="430" y2="644" class="tech-line-pulse" data-tech-pulse="premiere" style="animation-delay: 4.4s;"/>
-                <line x1="500" y1="350" x2="580" y2="630" class="tech-line-pulse" data-tech-pulse="canva" style="animation-delay: 4.95s;"/>
-                <line x1="500" y1="350" x2="740" y2="630" class="tech-line-pulse" data-tech-pulse="corel" style="animation-delay: 0.0s;"/>
-                <line x1="500" y1="350" x2="880" y2="644" class="tech-line-pulse" data-tech-pulse="seo" style="animation-delay: 0.55s;"/>
-                <line x1="500" y1="350" x2="950" y2="546" class="tech-line-pulse" data-tech-pulse="powerbi" style="animation-delay: 1.1s;"/>
-              </svg>
-
-              <!-- Backdrop atmosférico (radial glow) -->
               <div class="tech-lab__backdrop" aria-hidden="true"></div>
 
               <!-- Núcleo central "L" (Leonilson) -->
@@ -2550,18 +2490,7 @@
           </div>
         </div>
 
-        <!-- Coluna 2: Navegação -->
-        <nav class="footer-nav" aria-label="Navegação do footer">
-          <a href="#hero">Início</a>
-          <a href="#sobre">Trajetória</a>
-          <a href="#tech-stack">Habilidades</a>
-          <a href="#projetos">Projetos</a>
-          <a href="#projetos-design">UX/UI</a>
-          <a href="#game-dev">Game Dev</a>
-          <a href="#cta-final">Contato</a>
-        </nav>
-
-        <!-- Coluna 3: Quote + back-to-top -->
+        <!-- Coluna 2: Quote + back-to-top -->
         <div class="footer-end">
           <p class="footer-end__quote"><em>Código é ferramenta.<br/>O que importa<br/>são as pessoas<br/>e o que construímos<br/>juntos.</em></p>
           <a href="#hero" class="footer-end__top" aria-label="Voltar ao topo">
@@ -2590,7 +2519,7 @@
     ></script>
     <script type="module" src="./script.js"></script>
     <script type="module" src="./gallery.js"></script>
-    <script src="./hero-ink.js"></script>
+    <script type="module" src="./hero-ink.js"></script>
 
     <!-- BOTÃO COMPARTILHAR -->
     <button
@@ -2636,7 +2565,7 @@
         <button
           class="fechar-modal"
           aria-label="Fechar"
-          onclick="document.getElementById('modal-behance').close()"
+          data-close-modal
         >
           ×
         </button>
@@ -2662,7 +2591,7 @@
           breve estará recheado de projetos incríveis. Fique de olho!
         </p>
         <button
-          onclick="document.getElementById('modal-behance').close()"
+          data-close-modal
           class="btn-cv"
           style="margin-top: 2rem; display: inline-flex"
         >
@@ -2676,7 +2605,7 @@
         <button
           class="fechar-modal"
           aria-label="Fechar"
-          onclick="document.getElementById('modal-dribbble').close()"
+          data-close-modal
         >
           ×
         </button>
@@ -2702,7 +2631,7 @@
           estudos de interface e paletas de design incríveis por lá também!
         </p>
         <button
-          onclick="document.getElementById('modal-dribbble').close()"
+          data-close-modal
           class="btn-cv"
           style="margin-top: 2rem; display: inline-flex"
         >
@@ -2715,14 +2644,14 @@
       <button
         class="fechar-modal"
         aria-label="Fechar Tela Cheia"
-        onclick="document.getElementById('modal-fullscreen-image').close()"
+        data-close-modal
         style="top: 20px; right: 20px; z-index: 10;"
       >
         ×
       </button>
-      <div class="fullscreen-img-container" onclick="document.getElementById('modal-fullscreen-image').close()">
+      <button class="fullscreen-img-container" data-close-modal aria-label="Fechar modal de tela cheia" style="background:transparent; border:none; padding:0; width:100%; height:100%; cursor:pointer;">
         <img id="fullscreen-img" src="" alt="Tela Cheia" />
-      </div>
+      </button>
     </dialog>
 
     <dialog id="modal-lightbox" class="custom-modal lightbox">
@@ -2730,7 +2659,7 @@
         <button
           class="fechar-modal"
           aria-label="Fechar"
-          onclick="document.getElementById('modal-lightbox').close()"
+          data-close-modal
         >
           ×
         </button>

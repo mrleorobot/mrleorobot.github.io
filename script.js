@@ -1214,12 +1214,13 @@ function initSearchAndMenu() {
   if (hamburger && navLinks) {
     hamburger.addEventListener("click", (e) => {
       e.stopPropagation();
-      const isActive = hamburger.classList.contains("active");
-      hamburger.classList.toggle("active");
-      navLinks.classList.toggle("active");
-      hamburger.setAttribute("aria-expanded", !isActive);
+      const willBeActive = !hamburger.classList.contains("active");
+      hamburger.classList.toggle("active", willBeActive);
+      navLinks.classList.toggle("active", willBeActive);
+      hamburger.setAttribute("aria-expanded", String(willBeActive));
+      hamburger.setAttribute("aria-label", willBeActive ? "Fechar menu" : "Abrir menu");
 
-      if (!isActive) {
+      if (willBeActive) {
         // Wait for display transition then focus first item
         setTimeout(() => {
           const firstLink = navLinks.querySelector("a");
@@ -1253,6 +1254,7 @@ function initSearchAndMenu() {
         hamburger.classList.remove("active");
         navLinks.classList.remove("active");
         hamburger.setAttribute("aria-expanded", "false");
+        hamburger.setAttribute("aria-label", "Abrir menu");
         hamburger.focus();
       }
     });
@@ -1263,6 +1265,7 @@ function initSearchAndMenu() {
         hamburger.classList.remove("active");
         navLinks.classList.remove("active");
         hamburger.setAttribute("aria-expanded", "false");
+        hamburger.setAttribute("aria-label", "Abrir menu");
       });
     });
 
@@ -1273,6 +1276,7 @@ function initSearchAndMenu() {
           hamburger.classList.remove("active");
           navLinks.classList.remove("active");
           hamburger.setAttribute("aria-expanded", "false");
+          hamburger.setAttribute("aria-label", "Abrir menu");
         }
       }
     });
@@ -2883,3 +2887,15 @@ document.addEventListener("DOMContentLoaded", initMuralDepoimentos);
 function initPremiumCursor() {
   // Efeito de cursor customizado removido a pedido do usuário
 }
+
+
+// --- Modal Close Logic (Added for accessibility and clean code) ---
+document.addEventListener('click', (e) => {
+  const closeBtn = e.target.closest('[data-close-modal]');
+  if (closeBtn) {
+    const dialog = closeBtn.closest('dialog');
+    if (dialog) {
+      dialog.close();
+    }
+  }
+});
