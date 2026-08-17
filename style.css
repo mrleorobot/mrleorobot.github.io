@@ -97,10 +97,10 @@ h3,
 
 /* Copied Feedback */
 .copied-feedback {
-  background-color: #22c55e !important;
+  background-color: #ffffff !important;
   color: white !important;
   transform: scale(1.05);
-  box-shadow: 0 0 10px #22c55e;
+  box-shadow: 0 0 10px #ffffff;
 }
 
 /* Modern Stardust & Tech Particles */
@@ -919,7 +919,7 @@ body:not(.loading-locked) #hero::after {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.2),
-    rgba(255, 123, 156, 0.2)
+    rgba(255, 255, 255, 0.2)
   );
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -936,9 +936,9 @@ body:not(.loading-locked) #hero::after {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 123, 156, 0.1) 30%,
-    rgba(255, 123, 156, 0.5) 50%,
-    rgba(255, 123, 156, 0.1) 70%,
+    rgba(255, 255, 255, 0.1) 30%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.1) 70%,
     transparent 100%
   );
   transform: skewX(-20deg);
@@ -1142,7 +1142,7 @@ body:not(.loading-locked) #hero::after {
 }
 
 .skills-header p {
-  color: #a0aec0;
+  color: #a2a2a2;
   font-size: 1.15rem;
   max-width: 650px;
   margin: 0 auto;
@@ -1582,7 +1582,7 @@ body:not(.loading-locked) #hero::after {
 }
 
 .support-card p {
-  color: #a0aec0;
+  color: #a2a2a2;
   line-height: 1.6;
   font-size: 1.05rem;
   margin: 0;
@@ -1607,9 +1607,11 @@ body:not(.loading-locked) #hero::after {
 }
 
 @media (hover: hover) and (pointer: fine) {
-    border-color: rgba(0, 0, 0, 0.1);
+  .support-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
   }
+}
 
 /* =========================================
    SUPPORT & MANAGEMENT CARD ICON WRAPPER
@@ -1630,18 +1632,18 @@ body:not(.loading-locked) #hero::after {
 @keyframes pulse-dev-light {
   0% {
     transform: scale(0.99);
-    box-shadow: 0 0 0 0 rgba(0, 102, 112, 0.05);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.05);
     opacity: 0.85;
   }
   50% {
     transform: scale(1);
-    box-shadow: 0 0 6px 0 rgba(0, 102, 112, 0.15);
+    box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.15);
     opacity: 1;
-    border-color: rgba(0, 102, 112, 0.4);
+    border-color: rgba(255, 255, 255, 0.4);
   }
   100% {
     transform: scale(0.99);
-    box-shadow: 0 0 0 0 rgba(0, 102, 112, 0);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
     opacity: 0.85;
     border-color: rgba(0, 0, 0, 0.2);
   }
@@ -2192,11 +2194,11 @@ body:not(.loading-locked) #hero::after {
 @keyframes insert-coin {
   from {
     opacity: 1;
-    box-shadow: 0 0 10px #ffaa00;
+    box-shadow: 0 0 10px #f2f2f2;
   }
   to {
     opacity: 0.5;
-    box-shadow: 0 0 20px #ffaa00;
+    box-shadow: 0 0 20px #f2f2f2;
   }
 }
 
@@ -2223,7 +2225,7 @@ body:not(.loading-locked) #hero::after {
   }
   70% {
     opacity: 1;
-    background: repeating-linear-gradient(45deg, #ffaa00, #000 10%);
+    background: repeating-linear-gradient(45deg, #f2f2f2, #000 10%);
     mix-blend-mode: color-burn;
   }
   100% {
@@ -2547,7 +2549,7 @@ body:not(.loading-locked) #hero::after {
 }
 
 .status-info p {
-  color: #94a3b8;
+  color: #9a9a9a;
   font-size: 0.95rem;
   line-height: 1.4;
 }
@@ -2744,7 +2746,7 @@ body {
   font-family: "Space Grotesk", sans-serif;
 }
 .design-header p {
-  color: #a0aec0;
+  color: #a2a2a2;
   font-size: 1.1rem;
   max-width: 600px;
   margin: 0 auto;
@@ -2973,7 +2975,7 @@ body {
 
 .faq-answer-content {
   padding: 0 1.5rem 1.5rem 1.5rem;
-  color: #a0aab2;
+  color: #a2a2a2;
   line-height: 1.6;
   font-size: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -3029,21 +3031,21 @@ body {
 }
 
 .tech-color-cyan {
-  color: #00ffff;
-  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+  color: #ffffff;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 .tech-bg-cyan {
-  background: linear-gradient(90deg, transparent, #00ffff);
-  box-shadow: 0 0 10px #00ffff;
+  background: linear-gradient(90deg, transparent, #ffffff);
+  box-shadow: 0 0 10px #ffffff;
 }
 
 .tech-color-magenta {
-  color: #ff4a5a;
-  text-shadow: 0 0 5px rgba(255, 74, 90, 0.5);
+  color: #b9b9b9;
+  text-shadow: 0 0 5px rgba(185, 185, 185, 0.5);
 }
 .tech-bg-magenta {
-  background: linear-gradient(90deg, transparent, #ff4a5a);
-  box-shadow: 0 0 10px #ff4a5a;
+  background: linear-gradient(90deg, transparent, #b9b9b9);
+  box-shadow: 0 0 10px #b9b9b9;
 }
 
 /* =========================================
@@ -3364,8 +3366,8 @@ body {
   outline-offset: 6px !important;
   transform: translateY(-4px) scale(1.02) !important;
   box-shadow:
-    0 0 20px rgba(255, 123, 156, 0.5),
-    inset 0 0 15px rgba(255, 123, 156, 0.3) !important;
+    0 0 20px rgba(255, 255, 255, 0.5),
+    inset 0 0 15px rgba(255, 255, 255, 0.3) !important;
   border-color: var(--su-pink);
   transition: all 0.2s ease-out;
 }
@@ -3549,12 +3551,12 @@ html {
 .kurz-card:hover {
   transform: translateY(-8px) scale(1.05) !important;
   box-shadow:
-    0 12px 0 #7a62a3,
+    0 12px 0 #3a3a3a,
     0 20px 40px rgba(0, 0, 0, 0.4) !important;
 }
 .kurz-card.learning:hover {
   box-shadow:
-    0 12px 0 #6baaa4,
+    0 12px 0 #242424,
     0 20px 40px rgba(0, 0, 0, 0.4) !important;
 }
 
@@ -4114,7 +4116,7 @@ html {
   justify-content: center;
   background: none;
   border: none;
-  color: #a0aab2;
+  color: #a2a2a2;
   font-size: 1.5rem;
   cursor: pointer;
   transition: color 0.2s ease;
@@ -5276,7 +5278,7 @@ p,
 .intro-content p,
 .faq-answer-content p {
   font-family: "Inter", sans-serif !important;
-  color: #94a3b8 !important; /* Muted silver-gray body for relaxed readability */
+  color: #9a9a9a !important; /* Muted silver-gray body for relaxed readability */
   line-height: 1.8 !important;
   letter-spacing: 0.015em !important;
 }
@@ -5381,7 +5383,7 @@ p,
 
 .faq-answer-content {
   padding: 0 1.4rem 1.4rem 1.4rem !important;
-  color: #94a3b8 !important;
+  color: #9a9a9a !important;
   font-size: 0.85rem !important;
   line-height: 1.7 !important;
 }
@@ -5432,7 +5434,7 @@ p,
 .kurz-tag {
   background: rgba(255, 255, 255, 0.015) !important;
   border: 1px solid rgba(255, 255, 255, 0.04) !important;
-  color: #94a3b8 !important;
+  color: #9a9a9a !important;
   border-radius: 4px !important;
   transition: all 0.3s ease !important;
 }
@@ -5613,7 +5615,7 @@ nav {
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #a0aab2;
+    color: #a2a2a2;
   }
   #tech-stack .skills-group-label--core {
     order: -3;
@@ -5973,7 +5975,7 @@ nav {
 
 #mural-form input::placeholder,
 #mural-form textarea::placeholder {
-  color: #6a7b8e !important;
+  color: #8a8a8a !important;
   opacity: 0.8;
 }
 
@@ -6925,7 +6927,7 @@ nav > * {
 .hero-text {
   font-size: clamp(1rem, 1.8vw, 1.2rem) !important;
   font-style: italic !important;
-  color: #718096 !important;
+  color: #787878 !important;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -7208,18 +7210,18 @@ main > section:not(#hero):not(#cta-final)::before {
 @keyframes title-kinetic-flash {
   0% {
     text-shadow:
-      3px 0 rgba(255, 40, 90, 0.75),
-      -3px 0 rgba(60, 220, 255, 0.6);
+      3px 0 rgba(235, 235, 235, 0.75),
+      -3px 0 rgba(120, 120, 120, 0.6);
   }
   25% {
     text-shadow:
-      -2px 0 rgba(255, 40, 90, 0.55),
-      2px 0 rgba(60, 220, 255, 0.4);
+      -2px 0 rgba(235, 235, 235, 0.55),
+      2px 0 rgba(120, 120, 120, 0.4);
   }
   55% {
     text-shadow:
-      1px 0 rgba(255, 40, 90, 0.3),
-      -1px 0 rgba(60, 220, 255, 0.2);
+      1px 0 rgba(235, 235, 235, 0.3),
+      -1px 0 rgba(120, 120, 120, 0.2);
   }
   100% {
     text-shadow: 0 0 transparent;

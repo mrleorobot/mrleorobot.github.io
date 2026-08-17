@@ -151,8 +151,8 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         body.classList.remove("loading-locked");
         loader.remove();
-      }, 1700); // duração do dissolve (bate com CSS: 1.5s + folga)
-    }, 1600); // tempo pra ler a marca (mais curto e elegante)
+      }, 1400); // duração do dissolve (bate com CSS: 1.5s + folga)
+    }, 1200); // tempo pra ler a marca (mais curto e elegante)
   }, 300); // pausa inicial mínima
 
   // Segurança
