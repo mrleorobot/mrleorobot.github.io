@@ -61,7 +61,7 @@ textarea,
 }
 
 body {
-  font-family: "Nunito", sans-serif;
+  font-family: "Inter", sans-serif;
   background-color: var(--page-bg);
   color: var(--page-text);
   font-weight: 400;
@@ -590,7 +590,7 @@ body:not(.loading-locked) #hero::after {
 
 /* DESCRIPTION */
 .hero-editorial__desc {
-  font-family: "Nunito", "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: clamp(0.9rem, 1.2vw, 1.05rem);
   line-height: 1.65;
   color: rgba(255, 255, 255, 0.5);
@@ -3956,7 +3956,7 @@ html {
 }
 
 .info .description {
-  font-family: "Nunito", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 400;
   color: #e2e8f0;
   margin-top: 8px;
@@ -4400,7 +4400,7 @@ html {
 }
 
 .lightbox-section p {
-  font-family: "Nunito", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.95rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.65);
@@ -7365,7 +7365,7 @@ main > section:not(#hero):not(#cta-final)::before {
   }
 
   .design-gallery-mobile-desc {
-    font-family: "Nunito", sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: 0.88rem;
     line-height: 1.65;
     color: rgba(255, 255, 255, 0.65);
@@ -7764,7 +7764,7 @@ main > section:not(#hero):not(#cta-final)::before {
 }
 
 #sobre .trajectory-header__lead {
-  font-family: "Inter", "Nunito", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
   font-size: clamp(0.95rem, 1.25vw, 1.1rem) !important;
   line-height: 1.7 !important;
   color: rgba(255, 255, 255, 0.58) !important;
@@ -8012,7 +8012,7 @@ main > section:not(#hero):not(#cta-final)::before {
 
 /* ─── Descrição ─── */
 #sobre .timeline-desc {
-  font-family: "Inter", "Nunito", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
   font-size: 0.92rem !important;
   line-height: 1.78 !important;              /* mais respiro entre linhas */
   color: rgba(255, 255, 255, 0.6) !important;
@@ -8481,7 +8481,7 @@ main > section:not(#hero):not(#cta-final)::before {
 }
 
 #tech-stack .tech-header__lead {
-  font-family: "Inter", "Nunito", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
   font-size: clamp(0.95rem, 1.25vw, 1.1rem) !important;
   line-height: 1.7 !important;
   color: rgba(255, 255, 255, 0.58) !important;
@@ -8968,7 +8968,7 @@ main > section:not(#hero):not(#cta-final)::before {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-family: "Inter", "Nunito", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.88rem;
   font-weight: 400;
   line-height: 1.5;
@@ -9777,7 +9777,7 @@ main > section:not(#hero):not(#cta-final)::before {
 
 /* Descrição */
 #projetos .project-card__desc {
-  font-family: "Inter", "Nunito", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.85rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.55);
@@ -10100,7 +10100,7 @@ main > section:not(#hero):not(#cta-final)::before {
 }
 
 #projetos-design .design-header__lead {
-  font-family: "Inter", "Nunito", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
   font-size: clamp(0.95rem, 1.25vw, 1.1rem) !important;
   line-height: 1.7 !important;
   color: rgba(255, 255, 255, 0.58) !important;
@@ -10516,7 +10516,7 @@ main > section:not(#hero):not(#cta-final)::before {
 
 /* Descrição: truncada visualmente com line-clamp (conteúdo real preservado) */
 #projetos-design .design-tile__desc {
-  font-family: "Inter", "Nunito", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.78rem;
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.55);
@@ -11025,7 +11025,7 @@ main > section:not(#hero):not(#cta-final)::before {
 }
 
 #game-dev .gamedev-panel__desc {
-  font-family: "Inter", "Nunito", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
   font-size: 0.86rem !important;
   line-height: 1.72 !important;
   color: rgba(255, 255, 255, 0.58) !important;
@@ -11712,7 +11712,7 @@ main > section:not(#hero):not(#cta-final)::before {
 
 /* Descrição */
 #suporte-gestao .support-card p {
-  font-family: "Inter", "Nunito", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
   font-size: 0.835rem !important;
   line-height: 1.72 !important;
   color: rgba(255, 255, 255, 0.52) !important;
@@ -12105,7 +12105,7 @@ main > section:not(#hero):not(#cta-final)::before {
 
 /* Descrição */
 #soft-skills .alumni-block__desc {
-  font-family: "Inter", "Nunito", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
   font-size: clamp(0.92rem, 1.15vw, 1.05rem) !important;
   line-height: 1.72 !important;
   color: rgba(255, 255, 255, 0.6) !important;
@@ -12391,7 +12391,7 @@ main > section:not(#hero):not(#cta-final)::before {
 }
 
 #cta-final .contact-header__desc {
-  font-family: "Inter", "Nunito", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.92rem;
   line-height: 1.72;
   color: rgba(255, 255, 255, 0.55);
@@ -12764,7 +12764,7 @@ main > section:not(#hero):not(#cta-final)::before {
 }
 
 #faq .faq-header__subtitle {
-  font-family: "Inter", "Nunito", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.92rem;
   line-height: 1.65;
   color: rgba(255, 255, 255, 0.52);
@@ -12855,7 +12855,7 @@ main > section:not(#hero):not(#cta-final)::before {
 
 #faq .faq-answer-content {
   padding: 0 1.5rem 1.5rem !important;
-  font-family: "Inter", "Nunito", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
   font-size: 0.88rem !important;
   line-height: 1.75 !important;
   color: rgba(255, 255, 255, 0.6) !important;
@@ -13007,7 +13007,7 @@ main > section:not(#hero):not(#cta-final)::before {
 }
 
 #soft-skills .mural-editorial-header__desc {
-  font-family: "Inter", "Nunito", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.9rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.52);
