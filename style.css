@@ -15467,3 +15467,122 @@ main > section:not(#hero):not(#cta-final)::before {
     font-size: 0.95rem !important;
   }
 }
+
+/* ==========================================================================
+   MOBILE NOSTALGIA: IDEIAS DE 13 DIAS ATRÁS APLICADAS APENAS NO MOBILE
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  
+  /* ── 1. TRAJETÓRIA: NUMERADOR FANTASMA + DESIGN EDITORIAL DE DATAS ── */
+  #sobre .timeline-track {
+    grid-template-columns: 1fr !important; /* Força 1 coluna */
+    gap: 0 !important;
+    counter-reset: momento;
+  }
+
+  #sobre .timeline-item {
+    counter-increment: momento;
+    position: relative !important;
+    padding: 2.5rem 0 2.5rem 0 !important;
+    border-top: none !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Esconde o ícone gráfico no mobile (foco puramente tipográfico) */
+  #sobre .timeline-icon {
+    display: none !important;
+  }
+
+  /* Divisor em degradê elegante (só entre itens) */
+  #sobre .timeline-item + .timeline-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0.03) 70%,
+      transparent 100%
+    );
+  }
+
+  /* O famoso numerador "Momento 01/02/03" antes da data */
+  #sobre .timeline-date::before {
+    content: "Momento " counter(momento, decimal-leading-zero);
+    display: block;
+    font-family: "JetBrains Mono", monospace !important;
+    font-size: 0.65rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* Data vira o elemento gráfico central gigante */
+  #sobre .timeline-date {
+    display: block !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  #sobre .timeline-date__year {
+    font-family: "Space Grotesk", sans-serif !important;
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    color: #ffffff !important;
+    text-shadow: 0 4px 20px rgba(255, 255, 255, 0.1) !important;
+    display: inline-block;
+  }
+
+  #sobre .timeline-date__range {
+    display: block;
+    font-family: "Inter", sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.3rem;
+  }
+
+  #sobre .timeline-title {
+    font-size: 1.3rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* ── 2. HABILIDADES: NUVEM DE TAGS ESTÁTICA EM VEZ DE MARQUEE ── */
+  /* No mobile, o marquee infinito pode ser rápido demais de ler ou dar tontura, 
+     a nuvem de tags fixa no centro funciona super bem (como há 13 dias) */
+  .tech-marquee-container {
+    animation: none !important;
+    transform: none !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+  
+  .tech-marquee {
+    animation: none !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+  }
+
+  /* Oculta a duplicação do marquee necessária pro infinito rodar */
+  .tech-marquee[aria-hidden="true"] {
+    display: none !important;
+  }
+
+  /* Ajuste das pílulas para a nuvem de tags */
+  #tech-stack .tech-node {
+    padding: 0.5rem 1rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    flex: 0 0 auto !important; /* Não deixa esticar */
+  }
+}
