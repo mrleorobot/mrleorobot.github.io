@@ -14847,3 +14847,326 @@ main > section:not(#hero):not(#cta-final)::before {
 #tech-stack .tech-node--core {
   display: none !important;
 }
+
+/* ==========================================================================
+   UX/UI DESIGN (BENTO GALLERY)
+   ========================================================================== */
+#projetos-design {
+  padding: 8rem 0 4rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.design-editorial-header {
+  padding: 0 2rem;
+  margin-bottom: 4rem;
+  max-width: 800px;
+}
+
+.design-editorial-header__eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 1rem;
+}
+
+.design-editorial-header__title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  margin: 0 0 1.5rem;
+  color: #ffffff;
+}
+
+.design-editorial-header__lead {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+/* Grid Layout */
+.design-bento-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 300px;
+  gap: 1.5rem;
+  padding: 0 2rem;
+}
+
+.design-bento-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0A0A0A;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+.design-bento-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Sizing Classes for Bento Grid */
+.bento-large { grid-column: span 2; grid-row: span 2; }
+.bento-tall  { grid-column: span 1; grid-row: span 2; }
+.bento-wide  { grid-column: span 2; grid-row: span 1; }
+.bento-small { grid-column: span 1; grid-row: span 1; }
+
+.design-bento-media {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+}
+
+.design-bento-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.design-bento-card:hover .design-bento-media img {
+  transform: scale(1.05);
+}
+
+.design-bento-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.design-bento-card:hover .design-bento-overlay {
+  opacity: 0.95;
+}
+
+.design-bento-content {
+  position: absolute;
+  bottom: 0; left: 0; width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 2;
+  transform: translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.design-bento-card:hover .design-bento-content {
+  transform: translateY(0);
+}
+
+.design-bento-category {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  padding: 4px 8px;
+  border-radius: 4px;
+  width: max-content;
+  margin-bottom: 0.5rem;
+}
+
+.design-bento-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.design-bento-desc {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.4s ease, max-height 0.4s ease;
+}
+
+.design-bento-card:hover .design-bento-desc {
+  opacity: 1;
+  max-height: 100px;
+}
+
+/* Mobile Fallback */
+@media (max-width: 991px) {
+  .design-bento-gallery {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 400px;
+    padding: 0 1.5rem;
+  }
+  .bento-large, .bento-tall, .bento-wide, .bento-small {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  .design-bento-content {
+    transform: translateY(0);
+  }
+  .design-bento-desc {
+    opacity: 1;
+    max-height: 100px;
+  }
+}
+
+/* ==========================================================================
+   INDIE GAME DEV (HUD LAYOUT)
+   ========================================================================== */
+#game-dev {
+  padding: 4rem 2rem 8rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.gamedev-hud-container {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 80vh;
+  display: flex;
+  align-items: flex-end;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.gamedev-hud-bg {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+}
+
+.gamedev-hud-bg img {
+  width: 100%; height: 100%; object-fit: cover;
+  image-rendering: pixelated; /* Perfect for pixel art */
+  transition: transform 10s linear;
+}
+
+.gamedev-hud-container:hover .gamedev-hud-bg img {
+  transform: scale(1.05);
+}
+
+.gamedev-hud-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to top, rgba(10,10,12,0.95) 0%, rgba(10,10,12,0.6) 40%, rgba(10,10,12,0.2) 100%);
+}
+
+.gamedev-hud-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+}
+
+.gamedev-hud-header {
+  flex: 1;
+}
+
+.hud-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 6px 12px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.hud-dot {
+  width: 6px; height: 6px;
+  background: #10B981;
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.gamedev-hud-header h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  margin: 0 0 0.5rem;
+}
+
+.hud-subtitle {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.gamedev-hud-panel {
+  flex: 0 0 450px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 2.5rem;
+}
+
+.gamedev-hud-panel h3 {
+  font-family: "Inter", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 1rem;
+}
+
+.gamedev-hud-panel p {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.gamedev-hud-panel strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+@media (max-width: 991px) {
+  #game-dev { padding: 0; }
+  .gamedev-hud-container {
+    border-radius: 0; border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 100dvh;
+  }
+  .gamedev-hud-content {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2rem 1.5rem 6rem;
+  }
+  .gamedev-hud-panel {
+    flex: auto;
+    width: 100%;
+    background: transparent;
+    border: none;
+    backdrop-filter: none;
+    padding: 0;
+  }
+}
