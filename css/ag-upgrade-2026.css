@@ -2421,3 +2421,118 @@ body::after {
   opacity: 0.05 !important;
   background-size: 80px !important;
 }
+
+/* ==========================================================================
+   MOBILE APP VIBE (INSPIRAÇÃO AWWWARDS BR)
+   Transforma o mobile em um app nativo (iOS/Android feel)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* 1. Morte ao Menu Hamburguer de "Site Web" */
+  header#header, .hamburger {
+    display: none !important;
+  }
+
+  /* 2. O Dock de Navegação Nativo no Rodapé */
+  .mobile-bottom-dock {
+    display: flex !important;
+    position: fixed;
+    bottom: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 10, 12, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 0.8rem 1.5rem;
+    gap: 2rem;
+    z-index: 999999;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    width: max-content;
+  }
+  
+  .dock-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    font-size: 0.65rem;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    gap: 6px;
+    transition: color 0.2s ease;
+  }
+  
+  .dock-item:active, .dock-item:focus {
+    color: #ffffff;
+  }
+  
+  .dock-item svg {
+    width: 22px;
+    height: 22px;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    fill: none;
+  }
+
+  /* 3. Horizontal Swiping (O Fim da Rolagem Infinita para Baixo) */
+  /* Secao Dev */
+  #projetos .projects-viewport {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    gap: 1.25rem !important;
+    padding: 1rem 1rem 4rem 1rem !important; /* Espaço pro dock no final */
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  #projetos .projects-viewport::-webkit-scrollbar { display: none; }
+  
+  #projetos .project-card {
+    flex: 0 0 88vw !important; /* Cartão largo, deixa uma espiadinha do próximo */
+    scroll-snap-align: center;
+    margin: 0 !important;
+  }
+
+  /* Secao UX/UI */
+  .design-bento-gallery {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    gap: 1.25rem !important;
+    padding: 1rem 1rem 4rem 1rem !important;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .design-bento-gallery::-webkit-scrollbar { display: none; }
+  
+  .design-bento-card {
+    flex: 0 0 88vw !important;
+    height: 60vh !important;
+    scroll-snap-align: center;
+    margin: 0 !important;
+  }
+
+  /* 4. Títulos Estilo "iOS Sticky Header" */
+  .design-editorial-header {
+    position: sticky;
+    top: 0;
+    background: var(--page-bg);
+    z-index: 10;
+    padding: 1.5rem 1rem !important;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  /* Ajuste no body para o Dock não comer conteúdo do rodapé */
+  body {
+    padding-bottom: 100px;
+  }
+  
+  /* Esconder botões flutuantes de desktop no mobile */
+  #btn-topo {
+    display: none !important;
+  }
+}
