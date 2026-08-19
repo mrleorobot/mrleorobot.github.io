@@ -14843,10 +14843,7 @@ main > section:not(#hero):not(#cta-final)::before {
   color: #ffffff !important;
 }
 
-/* Hide core node since we don't need the central "L" in a marquee */
-#tech-stack .tech-node--core {
-  display: none !important;
-}
+
 
 /* ==========================================================================
    UX/UI DESIGN (BENTO GALLERY)
@@ -15610,11 +15607,7 @@ main > section:not(#hero):not(#cta-final)::before {
   .mural-card.spotlight-card { background: #111111 !important; }
 }
 
-/* Fix das Habilidades sumindo no Mobile/Desktop! */
-/* Remove a regra que ocultava as pílulas */
-#tech-stack .tech-node--core {
-  display: flex !important;
-}
+
 
 /* ==========================================================================
    EXTREME PERFORMANCE MODE (DESKTOP & MOBILE)
