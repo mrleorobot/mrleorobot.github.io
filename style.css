@@ -15669,3 +15669,43 @@ main > section:not(#hero):not(#cta-final)::before {
     opacity: 0;
   }
 }
+
+/* ==========================================================================
+   FASE 1: UPGRADE AWWWARDS BR (OUTLINE HOVER E RUÍDO CINEMATOGRÁFICO)
+   ========================================================================== */
+
+/* 1. Ruído Cinematográfico Estático (Film Grain)
+   Extremamente leve, usando SVG in-line em vez de imagem pesada.
+   Opacidade mínima apenas para dar textura ao preto chapado. */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999998; /* Fica abaixo apenas do cursor/loader */
+  opacity: 0.035; /* Ajuste finíssimo para não poluir, só dar textura */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* 2. Efeito Typographic Outline Hover nos Projetos (Tendência Brutalista)
+   Ao passar o mouse no card do projeto, o título fica vazado (só o contorno). */
+.project-card .project-card__title {
+  transition: color 0.3s ease, -webkit-text-stroke 0.3s ease;
+}
+
+.project-card:hover .project-card__title {
+  color: transparent !important;
+  -webkit-text-stroke: 1.5px var(--text-primary);
+}
+
+.design-bento-card .design-bento-title {
+  transition: color 0.3s ease, -webkit-text-stroke 0.3s ease;
+}
+
+.design-bento-card:hover .design-bento-title {
+  color: transparent !important;
+  -webkit-text-stroke: 1px var(--text-primary);
+}
