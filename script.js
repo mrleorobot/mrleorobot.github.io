@@ -2967,3 +2967,53 @@ document.addEventListener('click', (e) => {
     }
   }
 });
+
+// =========================================
+// MOBILE CHROMATIC REVEAL — cor automática ao scroll (2026-08-19)
+// Detecta quando imagens de projetos estão centralizadas na viewport
+// e revela as cores (grayscale → colorido). Só ativa em mobile ≤ 768px.
+// =========================================
+function initMobileColorReveal() {
+  if (window.innerWidth > 768) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const projectCards = document.querySelectorAll("#projetos .project-card");
+  const designItems = document.querySelectorAll(".design-gallery-mobile-item");
+  const gamedevArt = document.querySelectorAll(".gamedev-artwork");
+  const beyondSection = document.querySelectorAll("#suporte-gestao");
+
+  const allTargets = [
+    ...projectCards,
+    ...designItems,
+    ...gamedevArt,
+    ...beyondSection,
+  ];
+
+  if (!allTargets.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.intersectionRatio >= 0.35) {
+          entry.target.classList.add("mobile-color-reveal");
+        } else {
+          entry.target.classList.remove("mobile-color-reveal");
+        }
+      });
+    },
+    {
+      threshold: [0, 0.15, 0.25, 0.35, 0.5, 0.65, 0.8, 1.0],
+      rootMargin: "-8% 0px -8% 0px",
+    },
+  );
+
+  allTargets.forEach((el) => observer.observe(el));
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  try {
+    initMobileColorReveal();
+  } catch (e) {
+    console.warn("[MobileColorReveal]", e);
+  }
+});
