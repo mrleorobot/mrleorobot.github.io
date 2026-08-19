@@ -15415,3 +15415,55 @@ main > section:not(#hero):not(#cta-final)::before {
   .support-dashboard { padding: 2rem 1.5rem; border-radius: 16px; }
   .support-header h2 { font-size: 2.5rem; }
 }
+
+/* ==========================================================================
+   MURAL DE DEPOIMENTOS (PREMIUM TWEAKS)
+   ========================================================================== */
+.mural-card.spotlight-card {
+  background: rgba(15, 15, 18, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-radius: 16px !important;
+  padding: 2.5rem !important;
+  min-width: 380px !important;
+  max-width: 420px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease !important;
+}
+
+.mural-card.spotlight-card:hover {
+  transform: translateY(-8px) scale(1.02) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  z-index: 10;
+}
+
+.mural-text {
+  font-family: "Inter", sans-serif !important;
+  font-size: 1.05rem !important;
+  line-height: 1.6 !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  font-style: italic !important;
+  margin-top: 1.5rem !important;
+}
+
+/* Pause Marquee on Hover */
+.kurz-marquee-container:hover .kurz-grid {
+  animation-play-state: paused !important;
+}
+
+/* Hide scrollbar just in case */
+.kurz-marquee-container::-webkit-scrollbar {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .mural-card.spotlight-card {
+    min-width: 300px !important;
+    max-width: 300px !important;
+    padding: 1.5rem !important;
+  }
+  .mural-text {
+    font-size: 0.95rem !important;
+  }
+}
