@@ -120,7 +120,6 @@
 
   function start() {
     if (!desktop) return;
-    initCursor();
     initMagnetic();
     initTilt();
   }
