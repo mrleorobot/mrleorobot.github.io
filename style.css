@@ -14480,3 +14480,36 @@ main > section:not(#hero):not(#cta-final)::before {
   font-size: 1.2rem;
   opacity: 0.8;
 }
+
+/* Force pure white monochrome vectors for the orbital lab */
+#tech-stack .tech-node__icon img,
+#tech-stack .tech-node__icon svg {
+  filter: brightness(0) invert(1) !important;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+#tech-stack .tech-node:hover .tech-node__icon img,
+#tech-stack .tech-node:hover .tech-node__icon svg,
+#tech-stack .tech-node--scanning .tech-node__icon img,
+#tech-stack .tech-node--scanning .tech-node__icon svg {
+  /* On hover/scan, maybe bring back color? Or keep white but 100% opacity? 
+     The user's rule: "uma coisa não deve mudar, o monoromatico". 
+     So let's keep them white, just brighter/glowy. */
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255,255,255,0.8)) !important;
+  opacity: 1 !important;
+}
+
+/* Ensure the connecting lines are visible */
+.tech-lab__connections {
+  opacity: 1 !important;
+  display: block !important;
+}
+.tech-line {
+  stroke: rgba(255, 255, 255, 0.15) !important;
+  stroke-width: 1px;
+}
+.tech-line-pulse {
+  stroke: rgba(255, 255, 255, 0.8) !important;
+  stroke-width: 2px;
+}
