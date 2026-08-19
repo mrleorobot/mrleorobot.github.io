@@ -14642,3 +14642,63 @@ main > section:not(#hero):not(#cta-final)::before {
     scroll-snap-align: start;
   }
 }
+
+/* ==========================================================================
+   ORBITAL LAB UPGRADE (VETORES E ANIMAÇÕES)
+   ========================================================================== */
+/* Core "L" Breathing Glow */
+#tech-stack .tech-lab__core {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.05) !important;
+  animation: core-pulse 4s ease-in-out infinite alternate !important;
+}
+
+@keyframes core-pulse {
+  0% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.05); }
+  100% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1); }
+}
+
+/* Organic Floating for Nodes */
+@keyframes tech-node-drift {
+  0%, 100% { transform: translate(-50%, -50%) translate(0, 0); }
+  25% { transform: translate(-50%, -50%) translate(2px, -4px); }
+  50% { transform: translate(-50%, -50%) translate(-2px, -2px); }
+  75% { transform: translate(-50%, -50%) translate(-3px, 3px); }
+}
+
+/* Vectors pure white filter */
+#tech-stack .tech-node__icon img,
+#tech-stack .tech-node__icon svg {
+  filter: brightness(0) invert(1) !important;
+  opacity: 0.6;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Hover & Scanning State */
+#tech-stack .tech-node:hover .tech-node__icon img,
+#tech-stack .tech-node:hover .tech-node__icon svg,
+#tech-stack .tech-node--scanning .tech-node__icon img,
+#tech-stack .tech-node--scanning .tech-node__icon svg {
+  filter: brightness(0) invert(1) drop-shadow(0 0 12px rgba(255,255,255,1)) !important;
+  opacity: 1 !important;
+  transform: scale(1.15) !important;
+}
+
+/* Connecting Lines */
+#tech-stack .tech-line {
+  stroke: rgba(255, 255, 255, 0.08) !important;
+  stroke-width: 1.5px !important;
+  transition: stroke 0.3s ease, stroke-width 0.3s ease !important;
+}
+
+#tech-stack .tech-line--scanning,
+#tech-stack .tech-line--active {
+  stroke: rgba(255, 255, 255, 0.6) !important;
+  stroke-width: 2.5px !important;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.8)) !important;
+}
+
+#tech-stack .tech-line-pulse {
+  stroke: rgba(255, 255, 255, 0.9) !important;
+  stroke-width: 2.5px !important;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.8));
+}
