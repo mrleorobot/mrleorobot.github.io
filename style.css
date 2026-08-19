@@ -15614,3 +15614,31 @@ main > section:not(#hero):not(#cta-final)::before {
 #tech-stack .tech-node--core {
   display: flex !important;
 }
+
+/* ==========================================================================
+   EXTREME PERFORMANCE MODE (DESKTOP & MOBILE)
+   ========================================================================== */
+/* Desativa blur (backdrop-filter) globalmente para garantir 60fps lisos */
+.design-bento-card,
+.project-card,
+.gamedev-hud-panel,
+.support-widget,
+.mural-card.spotlight-card,
+.faq-item,
+.cmd-k-overlay,
+.mobile-bottom-dock {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Compensar a perda do vidro com pretos sólidos/translúcidos refinados */
+.design-bento-card { background: #0c0c0e !important; border: 1px solid rgba(255,255,255,0.06) !important; }
+.gamedev-hud-panel { background: rgba(5, 5, 8, 0.95) !important; }
+.support-widget { background: #0a0a0c !important; }
+.mural-card.spotlight-card { background: #0c0c0e !important; box-shadow: 0 10px 40px rgba(0,0,0,0.8) !important; }
+.faq-item { background: rgba(255, 255, 255, 0.02) !important; }
+
+/* Simplifica a animação do Loader (Remove opacidades complexas) */
+#cinematic-loader {
+  will-change: transform, opacity;
+}
