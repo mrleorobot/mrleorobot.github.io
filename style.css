@@ -13318,3 +13318,502 @@ main > section:not(#hero):not(#cta-final)::before {
     gap: 0.5rem;
   }
 }
+/* ==========================================================================
+   MOBILE PREMIUM EXPERIENCE v2 — Experiência nativa mobile
+   Adicionado em 2026-08-19. Todas as regras abaixo SÓ ativam em ≤ 767px.
+   Desktop permanece 100% intocado.
+   ========================================================================== */
+
+/* ── Keyframes (fora da media query para compatibilidade) ── */
+@keyframes mobileMenuLinkSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes mobileFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobileHintPulse {
+  0%, 100% {
+    opacity: 0.25;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(4px);
+  }
+}
+
+@keyframes mobileColorPop {
+  from { filter: grayscale(100%); }
+  to   { filter: grayscale(0%); }
+}
+
+/* ==========================================================================
+   MOBILE CORE (max-width: 767px)
+   ========================================================================== */
+@media (max-width: 767px) {
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     1. HAMBURGER → TOPO DIREITO (dentro da nav bar fixa)
+     ────────────────────────────────────────────────────────────────────────── */
+  .hamburger {
+    position: fixed !important;
+    top: 8px !important;
+    right: 5% !important;
+    left: auto !important;
+    bottom: auto !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 10px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    z-index: 10012 !important;
+  }
+
+  .hamburger-line {
+    width: 20px;
+    height: 2px;
+    background-color: #fff;
+  }
+
+  .hamburger.active {
+    z-index: 10013 !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     2. MENU OVERLAY FULLSCREEN PREMIUM
+     ────────────────────────────────────────────────────────────────────────── */
+  .nav-links {
+    background: rgba(0, 0, 0, 0.97) !important;
+    backdrop-filter: blur(40px) saturate(1.2) !important;
+    -webkit-backdrop-filter: blur(40px) saturate(1.2) !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    padding: 0 10% !important;
+    gap: 0.15rem !important;
+    transition:
+      opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0.45s !important;
+  }
+
+  /* Links iniciam invisíveis dentro do overlay */
+  .nav-links a:not(.btn-cv) {
+    opacity: 0;
+    transform: translateX(-20px);
+    font-size: clamp(2.2rem, 10.5vw, 3.2rem) !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.03em !important;
+    line-height: 1.25 !important;
+    padding: 0.55rem 0 !important;
+    color: rgba(255, 255, 255, 0.35) !important;
+    transition: color 0.3s ease !important;
+    position: relative;
+    border: none !important;
+    background: none !important;
+  }
+
+  .nav-links a:not(.btn-cv):hover,
+  .nav-links a:not(.btn-cv):active {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  /* Link ativo → branco + barra vertical à esquerda */
+  .nav-links a.active:not(.btn-cv) {
+    color: #fff !important;
+    background: none !important;
+    box-shadow: none !important;
+  }
+
+  .nav-links a.active:not(.btn-cv)::before {
+    content: '';
+    position: absolute;
+    left: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 55%;
+    background: #fff;
+    border-radius: 2px;
+  }
+
+  /* Stagger animation quando menu abre */
+  .nav-links.active a:not(.btn-cv) {
+    animation: mobileMenuLinkSlideIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .nav-links.active a:nth-child(1) { animation-delay: 0.06s; }
+  .nav-links.active a:nth-child(2) { animation-delay: 0.12s; }
+  .nav-links.active a:nth-child(3) { animation-delay: 0.18s; }
+  .nav-links.active a:nth-child(4) { animation-delay: 0.24s; }
+  .nav-links.active a:nth-child(5) { animation-delay: 0.30s; }
+
+  /* Reset das animações quando menu fecha (permite re-trigger) */
+  .nav-links:not(.active) a:not(.btn-cv) {
+    animation: none;
+  }
+
+  /* CV button com animação própria */
+  .nav-links .btn-cv {
+    opacity: 0;
+    transform: translateY(16px);
+    margin-top: 2.5rem !important;
+    align-self: flex-start !important;
+  }
+  .nav-links.active .btn-cv {
+    animation: mobileFadeInUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.38s forwards;
+  }
+  .nav-links:not(.active) .btn-cv {
+    animation: none;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     3. HERO MOBILE — Impacto visual centrado
+     ────────────────────────────────────────────────────────────────────────── */
+  #hero {
+    min-height: 100dvh !important;
+    padding-top: 80px !important;
+    padding-bottom: 2rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .hero-editorial {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    text-align: center !important;
+    padding: 0 clamp(1.25rem, 6vw, 2.5rem) !important;
+  }
+
+  /* Ocultar elementos laterais que não pertencem ao mobile */
+  .hero-side-indicator,
+  .hero-editorial__right,
+  .hero-section-marker {
+    display: none !important;
+  }
+
+  .hero-editorial__left {
+    justify-content: center !important;
+    gap: 0 !important;
+  }
+
+  .hero-editorial__content {
+    align-items: center !important;
+    gap: 0.5rem !important;
+  }
+
+  .hero-editorial__name {
+    font-size: clamp(3.2rem, 14vw, 5rem) !important;
+    text-align: center !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    line-height: 0.88 !important;
+    letter-spacing: -0.05em !important;
+  }
+
+  .hero-editorial__subtitle {
+    justify-content: center !important;
+    text-align: center !important;
+    flex-wrap: wrap !important;
+    gap: 0.3rem !important;
+    margin-top: 0.75rem !important;
+  }
+
+  .hero-editorial__desc {
+    text-align: center !important;
+    max-width: none !important;
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    margin-top: 0.5rem !important;
+  }
+
+  .hero-editorial__cta {
+    width: 100% !important;
+    max-width: 320px !important;
+    justify-content: center !important;
+    margin-top: 1rem !important;
+  }
+
+  .hero-editorial__cta a,
+  .hero-editorial__cta button {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .hero-editorial__bottom {
+    position: relative !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    padding: 0 1rem !important;
+    margin-top: 1.5rem !important;
+  }
+
+  /* Scroll CTA desnecessário no mobile */
+  .hero-scroll-cta {
+    display: none !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     4. SEÇÕES — Respiros e hierarquia visual consistente
+     ────────────────────────────────────────────────────────────────────────── */
+  section:not(#hero) {
+    padding: 4.5rem clamp(1.25rem, 5vw, 2rem) !important;
+  }
+
+  /* Separador visual sutil entre seções */
+  .section-reveal + .section-reveal {
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  /* Títulos de seção - tamanho controlado */
+  .section-title-kinetic,
+  .trajectory-header__title,
+  .tech-header__title,
+  .design-header h2,
+  .gamedev-header h2 {
+    font-size: clamp(2rem, 9vw, 2.75rem) !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.035em !important;
+  }
+
+  /* Parágrafos de intro */
+  .trajectory-header__lead,
+  .tech-header__lead,
+  .projects-header__intro p {
+    font-size: 0.92rem !important;
+    line-height: 1.7 !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     5. PROJETOS — Scroll-snap horizontal nativo
+     ────────────────────────────────────────────────────────────────────────── */
+  #projetos .projects-viewport {
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-padding: 0 8% !important;
+    gap: 1rem !important;
+    padding-bottom: 0.5rem !important;
+    /* Esconder scrollbar nativo */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  #projetos .projects-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  #projetos .project-card {
+    scroll-snap-align: center !important;
+    flex: 0 0 84vw !important;
+    max-width: 84vw !important;
+    border-radius: 12px !important;
+  }
+
+  /* Swipe hint via pseudo-elemento (zero mudança em HTML) */
+  #projetos .projects-header::after {
+    content: '← ARRASTE PARA VER →';
+    display: block;
+    margin-top: 0.75rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+    animation: mobileHintPulse 2.5s ease-in-out infinite;
+  }
+
+  /* Esconder botões prev/next no mobile (swipe é mais natural) */
+  #projetos .projects-nav {
+    display: none !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     6. CHROMATIC REVEAL NO SCROLL (CSS)
+     ────────────────────────────────────────────────────────────────────────── */
+
+  /* Projetos front-end: imagens P&B por padrão */
+  #projetos .project-card .project-thumbnail-image {
+    filter: grayscale(100%) !important;
+    transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  /* Revelação de cor quando centralizado na viewport */
+  #projetos .project-card.mobile-color-reveal .project-thumbnail-image {
+    filter: grayscale(0%) !important;
+  }
+
+  /* Design gallery mobile: mesma lógica */
+  .design-gallery-mobile-image img {
+    filter: grayscale(100%);
+    transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .design-gallery-mobile-item.mobile-color-reveal .design-gallery-mobile-image img {
+    filter: grayscale(0%);
+  }
+
+  /* Gamedev artwork */
+  .gamedev-artwork img {
+    filter: grayscale(100%);
+    transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .gamedev-artwork.mobile-color-reveal img {
+    filter: grayscale(0%);
+  }
+
+  /* Beyond Code photo */
+  .beyond-photo__media img {
+    transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  #suporte-gestao.mobile-color-reveal .beyond-photo__media img {
+    filter: grayscale(0%) !important;
+  }
+
+  /* Profile photo */
+  .profile-photo,
+  .profile-photo img {
+    transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     7. TOUCH FEEDBACK PREMIUM
+     ────────────────────────────────────────────────────────────────────────── */
+  .project-card:active,
+  .design-gallery-mobile-item:active,
+  .support-card:active {
+    transform: scale(0.97) !important;
+    transition: transform 0.12s ease !important;
+  }
+
+  .faq-question:active {
+    opacity: 0.7 !important;
+    transition: opacity 0.1s ease !important;
+  }
+
+  /* Áreas clicáveis: mínimo 44x44px (WCAG) */
+  .contact-channel,
+  .faq-question,
+  .feedback-filter-btn {
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     8. FORMULÁRIO DE CONTATO — iOS-safe + full-width
+     ────────────────────────────────────────────────────────────────────────── */
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select {
+    font-size: 16px !important; /* Previne zoom automático no iOS */
+    padding: 1rem 1.1rem !important;
+    border-radius: 6px !important;
+  }
+
+  .contact-form__submit {
+    width: 100% !important;
+    padding: 1.15rem !important;
+    font-size: 0.82rem !important;
+    letter-spacing: 2px !important;
+    border-radius: 6px !important;
+    min-height: 52px !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     9. SCROLL SNAP VERTICAL REFINADO
+     ────────────────────────────────────────────────────────────────────────── */
+  html {
+    scroll-behavior: smooth !important;
+  }
+
+  .section-reveal {
+    scroll-snap-align: start !important;
+    scroll-margin-top: 56px !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     10. TIMELINE MOBILE — mais compacta
+     ────────────────────────────────────────────────────────────────────────── */
+  .timeline-container {
+    padding: 0 !important;
+  }
+
+  .timeline-item {
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     11. FAQ — respiro e legibilidade
+     ────────────────────────────────────────────────────────────────────────── */
+  .faq-item {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .faq-question {
+    padding: 1.1rem 1rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  .faq-answer-wrapper {
+    padding: 0 1rem 1rem !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     12. STATUS CARDS & MOMENTO ATUAL
+     ────────────────────────────────────────────────────────────────────────── */
+  .status-container {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .status-card {
+    padding: 1.25rem !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     13. FOOTER — safe area
+     ────────────────────────────────────────────────────────────────────────── */
+  .site-footer,
+  footer {
+    padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     14. GPU PERF — desligar backdrop-filter pesado em cards
+     ────────────────────────────────────────────────────────────────────────── */
+  .project-card,
+  .support-card,
+  .status-card,
+  .timeline-content {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     15. PROGRESS BAR — oculta no mobile
+     ────────────────────────────────────────────────────────────────────────── */
+  .scroll-progress-container {
+    display: none !important;
+  }
+}
