@@ -183,8 +183,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Position: start from above-left of the brand name
     const brandRect = brandEl.getBoundingClientRect();
-    const startX = brandRect.left - 60;
-    const startY = brandRect.top - 30;
+    const startX = brandRect.left - 100;
+    const startY = brandRect.top - 80;
 
     trail.style.left = startX + "px";
     trail.style.top = startY + "px";
