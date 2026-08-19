@@ -106,11 +106,12 @@ function initImageParallax() {
 document.addEventListener("DOMContentLoaded", initImageParallax);
 
 // =========================================
-// CINEMATIC LOADER ANIMATION
+// CINEMATIC LOADER ANIMATION (Optimized)
 // =========================================
 document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("cinematic-loader");
   const brandEl = document.getElementById("cinematic-brand");
+  const canvas = document.getElementById("loader-stars-canvas");
   const body = document.body;
 
   if (!loader || !brandEl) {
@@ -131,13 +132,53 @@ document.addEventListener("DOMContentLoaded", () => {
 
   body.classList.add("loading-locked");
 
-  // Sequência refinada — total ~3.6s:
-  //   0.0s  : starfield backdrop começa a aparecer
-  //   0.3s  : marca aparece (letter-spacing + blur, ~1.4s até estar limpa)
-  //   1.9s  : cortinas dissolvem revelando a hero
-  //   3.6s  : loader removido do DOM
+  // --- Lightweight canvas starfield ---
+  let animId = null;
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = (canvas.width = window.innerWidth * dpr);
+    const h = (canvas.height = window.innerHeight * dpr);
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    ctx.scale(dpr, dpr);
 
-  // Backdrop de nebulosa aparece imediatamente
+    const logicalW = window.innerWidth;
+    const logicalH = window.innerHeight;
+    const STAR_COUNT = Math.min(80, Math.floor((logicalW * logicalH) / 12000));
+    const stars = [];
+
+    for (let i = 0; i < STAR_COUNT; i++) {
+      stars.push({
+        x: Math.random() * logicalW,
+        y: Math.random() * logicalH,
+        r: Math.random() * 1.2 + 0.3,
+        baseAlpha: Math.random() * 0.5 + 0.2,
+        twinkleSpeed: Math.random() * 0.008 + 0.003,
+        phase: Math.random() * Math.PI * 2,
+      });
+    }
+
+    function drawStars(t) {
+      ctx.clearRect(0, 0, logicalW, logicalH);
+      for (const s of stars) {
+        const alpha = s.baseAlpha + Math.sin(t * s.twinkleSpeed + s.phase) * 0.3;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${Math.max(0, Math.min(1, alpha))})`;
+        ctx.fill();
+      }
+      animId = requestAnimationFrame(drawStars);
+    }
+    animId = requestAnimationFrame(drawStars);
+  }
+
+  // --- Animation sequence (~2.9s total, snappier) ---
+  //   0ms   : starfield fades in
+  //   250ms : brand name appears (letter cascade)
+  //   1400ms: curtains reveal
+  //   2900ms: loader removed from DOM
+
   requestAnimationFrame(() => {
     loader.classList.add("starfield-on");
   });
@@ -147,21 +188,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       loader.classList.add("reveal");
+      if (animId) cancelAnimationFrame(animId);
 
       setTimeout(() => {
         body.classList.remove("loading-locked");
         loader.remove();
-      }, 1400); // duração do dissolve (bate com CSS: 1.5s + folga)
-    }, 1200); // tempo pra ler a marca (mais curto e elegante)
-  }, 300); // pausa inicial mínima
+      }, 1200);
+    }, 1100);
+  }, 250);
 
-  // Segurança
+  // Safety fallback
   setTimeout(() => {
     if (document.getElementById("cinematic-loader")) {
+      if (animId) cancelAnimationFrame(animId);
       body.classList.remove("loading-locked");
       loader.remove();
     }
-  }, 4500);
+  }, 4000);
 });
 
 // Garantir que a página recomece no topo ao recarregar (Melhora a percepção das animações de entrada)
