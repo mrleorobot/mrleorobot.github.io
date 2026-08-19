@@ -14702,3 +14702,148 @@ main > section:not(#hero):not(#cta-final)::before {
   stroke-width: 2.5px !important;
   filter: drop-shadow(0 0 6px rgba(255,255,255,0.8));
 }
+
+/* ==========================================================================
+   INFINITE MARQUEE SKILLS
+   ========================================================================== */
+.tech-marquee-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 4rem;
+  overflow: hidden; /* Hide horizontal scroll */
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  padding: 2rem 0;
+  position: relative;
+}
+
+/* Fades nas bordas */
+.tech-marquee-container::before,
+.tech-marquee-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 15vw;
+  z-index: 2;
+  pointer-events: none;
+}
+.tech-marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, #050505, transparent);
+}
+.tech-marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, #050505, transparent);
+}
+
+.tech-marquee {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+.tech-marquee__track {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: max-content;
+  padding-left: 2rem;
+  will-change: transform;
+}
+
+/* Animations */
+.tech-marquee__track--left {
+  animation: marquee-left 40s linear infinite;
+}
+.tech-marquee__track--right {
+  animation: marquee-right 40s linear infinite;
+}
+
+.tech-marquee:hover .tech-marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+/* Redesign nodes for Marquee */
+#tech-stack .tech-node {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  animation: none !important;
+  display: flex !important;
+  flex-direction: row !important; /* Icon + text horizontally */
+  align-items: center !important;
+  gap: 1rem !important;
+  padding: 1rem 2rem !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 100px !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#tech-stack .tech-node:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(-4px) scale(1.02) !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+}
+
+#tech-stack .tech-node__icon {
+  width: 24px !important;
+  height: 24px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#tech-stack .tech-node__icon img,
+#tech-stack .tech-node__icon svg {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+  /* Vector white filter */
+  filter: brightness(0) invert(1) !important;
+  opacity: 0.7 !important;
+  transition: all 0.3s ease !important;
+}
+
+#tech-stack .tech-node:hover .tech-node__icon img,
+#tech-stack .tech-node:hover .tech-node__icon svg {
+  opacity: 1 !important;
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255,255,255,0.8)) !important;
+}
+
+#tech-stack .tech-node__label {
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  letter-spacing: 0.02em !important;
+  transition: color 0.3s ease !important;
+  opacity: 1 !important; /* Override old hide on mobile */
+  display: block !important;
+}
+
+#tech-stack .tech-node:hover .tech-node__label {
+  color: #ffffff !important;
+}
+
+/* Hide core node since we don't need the central "L" in a marquee */
+#tech-stack .tech-node--core {
+  display: none !important;
+}
