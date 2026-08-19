@@ -1819,7 +1819,7 @@ async function fetchRecentRepos() {
   }
 }
 
-fetchRecentRepos();
+// fetchRecentRepos(); // Desativado: seção substituída pela vitrine estática
 
 // --------------------------------------------------------
 // 11. Availability Status Logic (Business Hours)
