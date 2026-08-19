@@ -3106,3 +3106,28 @@ function initLocalTime() {
   }, 1000);
 }
 document.addEventListener('DOMContentLoaded', initLocalTime);
+
+// ==========================================
+// FOOTER LIVE CLOCK (Natal/RN)
+// ==========================================
+function initFooterClock() {
+  const clockEl = document.getElementById("local-time-footer");
+  if (!clockEl) return;
+  
+  function update() {
+    const now = new Date();
+    // Force format to pt-BR timezone America/Fortaleza (Natal/RN time)
+    const timeString = new Intl.DateTimeFormat('pt-BR', {
+      timeZone: 'America/Fortaleza',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    }).format(now);
+    
+    clockEl.innerHTML = `Natal/RN &mdash; ${timeString} BRT`;
+  }
+  
+  update();
+  setInterval(update, 1000);
+}
+document.addEventListener("DOMContentLoaded", initFooterClock);
