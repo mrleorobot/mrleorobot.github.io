@@ -554,12 +554,28 @@ body:not(.loading-locked) #hero::after {
 }
 
 /* DOMINANT NAME */
+.hero-masthead-meta {
+  font-family: "JetBrains Mono", "Space Grotesk", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.hero-masthead-meta .meta-divider {
+  width: 24px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
 .hero-editorial__name {
   font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(3.75rem, 9.5vw, 8.5rem);
+  font-size: clamp(4.5rem, 11vw, 12.5rem);
   font-weight: 900;
-  letter-spacing: -0.045em;
-  line-height: 0.86;
+  letter-spacing: -0.06em;
+  line-height: 0.82;
   color: #ffffff;
   text-transform: uppercase;
   margin: 0 0 1.35rem 0;
@@ -886,6 +902,22 @@ body:not(.loading-locked) #hero::after {
     display: none;
   }
 
+.hero-masthead-meta {
+  font-family: "JetBrains Mono", "Space Grotesk", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.hero-masthead-meta .meta-divider {
+  width: 24px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
   .hero-editorial__name {
     font-size: clamp(3rem, 12vw, 5rem);
     white-space: normal;
@@ -939,6 +971,22 @@ body:not(.loading-locked) #hero::after {
 }
 
 @media (max-width: 480px) {
+.hero-masthead-meta {
+  font-family: "JetBrains Mono", "Space Grotesk", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.hero-masthead-meta .meta-divider {
+  width: 24px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
   .hero-editorial__name {
     font-size: clamp(2.5rem, 14vw, 3.5rem);
   }
@@ -7453,7 +7501,7 @@ main > section:not(#hero):not(#cta-final)::before {
   transition-delay: var(--rd, 0s);
 }
 .ink-reveal.ink-reveal--name.ink-revealed {
-  letter-spacing: -0.045em;
+  letter-spacing: -0.06em;
   filter: blur(0);
 }
 
@@ -13518,6 +13566,22 @@ main > section:not(#hero):not(#cta-final)::before {
     align-items: center !important;
     gap: 0.5rem !important;
   }
+
+.hero-masthead-meta {
+  font-family: "JetBrains Mono", "Space Grotesk", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.hero-masthead-meta .meta-divider {
+  width: 24px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
 
   .hero-editorial__name {
     font-size: clamp(3.2rem, 14vw, 5rem) !important;
