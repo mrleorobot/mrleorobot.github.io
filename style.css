@@ -14513,3 +14513,132 @@ main > section:not(#hero):not(#cta-final)::before {
   stroke: rgba(255, 255, 255, 0.8) !important;
   stroke-width: 2px;
 }
+
+/* ==========================================================================
+   10. MOBILE STORY REELS & HERO STATEMENT
+   ========================================================================== */
+@media (max-width: 991px) {
+  /* Fix sticky split column bleed into mobile */
+  #projetos .project-card {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* HERO STATEMENT: Limpo e Tipográfico */
+  #hero {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 1.5rem;
+  }
+  
+  #hero-ink-canvas,
+  .hero-side-indicator {
+    display: none !important; /* Hide decorative elements to focus on type */
+  }
+
+  .hero-editorial__name {
+    font-size: clamp(4rem, 18vw, 8rem) !important;
+    line-height: 0.8 !important;
+    letter-spacing: -0.06em !important;
+    word-break: break-word;
+    text-align: left;
+    margin-top: 10vh;
+  }
+
+  .hero-masthead-meta {
+    font-size: 0.6rem;
+    gap: 0.5rem;
+  }
+
+  /* STORY REELS (PROJETOS) */
+  #projetos {
+    padding: 0 !important;
+  }
+
+  #projetos .projects-header {
+    padding: 4rem 1.5rem 2rem;
+  }
+
+  #projetos .projects-track {
+    margin: 0 !important;
+  }
+
+  #projetos .projects-viewport {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    scroll-snap-type: none !important; /* Use window scroll */
+  }
+
+  #projetos .project-card {
+    width: 100% !important;
+    height: 100dvh !important;
+    max-width: 100% !important;
+    flex: 0 0 100dvh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+  }
+
+  #projetos .project-card__media {
+    position: absolute !important;
+    top: 0; left: 0; width: 100%; height: 100% !important;
+    z-index: 1;
+    border: none !important;
+    order: 1 !important; /* Ignore nth-child even rules */
+  }
+
+  #projetos .project-thumbnail-wrapper {
+    height: 100%;
+  }
+
+  #projetos .project-thumbnail-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* Dark gradient overlay so text is readable */
+  #projetos .project-card__media::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.2) 100%);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  #projetos .project-card__body {
+    position: relative !important;
+    z-index: 3 !important;
+    padding: 2rem 1.5rem 6rem !important; /* Padding at bottom for dock */
+    background: transparent !important;
+  }
+
+  #projetos .project-card__title {
+    font-size: 2.2rem !important;
+    color: #ffffff !important;
+  }
+
+  #projetos .project-card__desc {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+  #hero, #projetos .project-card, #tech-stack, #sobre, #cta-final {
+    scroll-snap-align: start;
+  }
+}
