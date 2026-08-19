@@ -15192,3 +15192,64 @@ main > section:not(#hero):not(#cta-final)::before {
 .cinematic-curtain {
   background-color: var(--page-bg) !important;
 }
+
+/* ==========================================================================
+   MOBILE REVIEW FIXES
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* 1. Habilidades / Marquee Infinito (Ajuste de tamanho) */
+  #tech-stack .tech-node {
+    padding: 0.6rem 1.2rem !important;
+    gap: 0.75rem !important;
+  }
+  #tech-stack .tech-node__icon {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  #tech-stack .tech-node__label {
+    font-size: 0.9rem !important;
+  }
+  .tech-marquee-container {
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+
+  /* 2. Galeria UX/UI (Bento Grid Mobile) */
+  .design-bento-gallery {
+    grid-auto-rows: 60vh !important; /* Em vez de 400px fixos, proporção da tela */
+    gap: 1rem !important;
+  }
+  .design-editorial-header__title {
+    font-size: clamp(2.5rem, 10vw, 4rem) !important;
+  }
+  .design-bento-title {
+    font-size: 1.2rem !important;
+  }
+  .design-bento-desc {
+    font-size: 0.8rem !important;
+  }
+
+  /* 3. Game Dev HUD (Ajustes finos de padding) */
+  .gamedev-hud-header h2 {
+    font-size: clamp(2.5rem, 12vw, 4rem) !important;
+  }
+  .gamedev-hud-panel {
+    padding: 1.5rem !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(8px) !important;
+    border-radius: 12px !important;
+  }
+  .gamedev-hud-panel h3 {
+    font-size: 1.1rem !important;
+  }
+  .gamedev-hud-panel p {
+    font-size: 0.85rem !important;
+  }
+
+  /* 4. Snap Scrolling: Adicionando as novas seções ao radar do scroll */
+  #game-dev,
+  #projetos-design .design-bento-card {
+    scroll-snap-align: start;
+  }
+}
