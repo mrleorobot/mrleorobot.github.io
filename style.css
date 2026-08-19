@@ -15586,3 +15586,31 @@ main > section:not(#hero):not(#cta-final)::before {
     flex: 0 0 auto !important; /* Não deixa esticar */
   }
 }
+
+/* ==========================================================================
+   PERFORMANCE FIX (MOBILE)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Desativa backdrop-filter (blur) em telas pequenas para não travar a GPU */
+  .design-bento-card,
+  .project-card,
+  .gamedev-hud-panel,
+  .support-widget,
+  .mural-card.spotlight-card,
+  .faq-item {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  
+  /* Substitui o blur por fundos sólidos equivalentes */
+  .design-bento-card { background: #111111 !important; }
+  .gamedev-hud-panel { background: rgba(0, 0, 0, 0.9) !important; }
+  .support-widget { background: #151518 !important; }
+  .mural-card.spotlight-card { background: #111111 !important; }
+}
+
+/* Fix das Habilidades sumindo no Mobile/Desktop! */
+/* Remove a regra que ocultava as pílulas */
+#tech-stack .tech-node--core {
+  display: flex !important;
+}
