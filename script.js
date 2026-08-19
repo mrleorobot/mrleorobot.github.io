@@ -3017,3 +3017,32 @@ document.addEventListener("DOMContentLoaded", function () {
     console.warn("[MobileColorReveal]", e);
   }
 });
+
+// Mobile Bottom Dock Observer
+function initMobileDock() {
+  const sections = document.querySelectorAll('section[id]');
+  const dockItems = document.querySelectorAll('.dock-item');
+  if (dockItems.length === 0) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        dockItems.forEach(item => {
+          item.classList.remove('active');
+          if (item.getAttribute('href') === `#${entry.target.id}`) {
+            item.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(section => observer.observe(section));
+
+  dockItems.forEach(item => {
+    item.addEventListener('click', () => {
+      if (navigator.vibrate) navigator.vibrate(10);
+    });
+  });
+}
+document.addEventListener('DOMContentLoaded', initMobileDock);
