@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("cinematic-loader");
   const brandEl = document.getElementById("cinematic-brand");
   const canvas = document.getElementById("loader-stars-canvas");
+  const shootingStarEl = document.getElementById("loader-shooting-star");
   const body = document.body;
 
   if (!loader || !brandEl) {
@@ -132,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   body.classList.add("loading-locked");
 
-  // --- Lightweight canvas starfield ---
+  // --- Lightweight canvas starfield (brighter, more visible) ---
   let animId = null;
   if (canvas) {
     const ctx = canvas.getContext("2d");
@@ -145,15 +146,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const logicalW = window.innerWidth;
     const logicalH = window.innerHeight;
-    const STAR_COUNT = Math.min(80, Math.floor((logicalW * logicalH) / 12000));
+    const STAR_COUNT = Math.min(120, Math.floor((logicalW * logicalH) / 8000));
     const stars = [];
 
     for (let i = 0; i < STAR_COUNT; i++) {
+      const isBright = Math.random() < 0.15; // 15% are brighter accent stars
       stars.push({
         x: Math.random() * logicalW,
         y: Math.random() * logicalH,
-        r: Math.random() * 1.2 + 0.3,
-        baseAlpha: Math.random() * 0.5 + 0.2,
+        r: isBright ? Math.random() * 1.2 + 1.0 : Math.random() * 0.8 + 0.4,
+        baseAlpha: isBright ? Math.random() * 0.3 + 0.6 : Math.random() * 0.35 + 0.2,
         twinkleSpeed: Math.random() * 0.008 + 0.003,
         phase: Math.random() * Math.PI * 2,
       });
@@ -162,10 +164,10 @@ document.addEventListener("DOMContentLoaded", () => {
     function drawStars(t) {
       ctx.clearRect(0, 0, logicalW, logicalH);
       for (const s of stars) {
-        const alpha = s.baseAlpha + Math.sin(t * s.twinkleSpeed + s.phase) * 0.3;
+        const alpha = s.baseAlpha + Math.sin(t * s.twinkleSpeed + s.phase) * 0.25;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${Math.max(0, Math.min(1, alpha))})`;
+        ctx.fillStyle = `rgba(255,255,255,${Math.max(0.05, Math.min(1, alpha))})`;
         ctx.fill();
       }
       animId = requestAnimationFrame(drawStars);
@@ -173,11 +175,28 @@ document.addEventListener("DOMContentLoaded", () => {
     animId = requestAnimationFrame(drawStars);
   }
 
-  // --- Animation sequence (~2.9s total, snappier) ---
-  //   0ms   : starfield fades in
-  //   250ms : brand name appears (letter cascade)
-  //   1400ms: curtains reveal
-  //   2900ms: loader removed from DOM
+  // --- Shooting star: position trail above brand name ---
+  function fireShootingStar() {
+    if (!shootingStarEl) return;
+    const trail = shootingStarEl.querySelector(".loader-shooting-star__trail");
+    if (!trail) return;
+
+    // Position: start from above-left of the brand name
+    const brandRect = brandEl.getBoundingClientRect();
+    const startX = brandRect.left - 60;
+    const startY = brandRect.top - 30;
+
+    trail.style.left = startX + "px";
+    trail.style.top = startY + "px";
+    trail.classList.add("animate");
+  }
+
+  // --- Animation sequence (~3.4s total) ---
+  //   0ms    : starfield fades in
+  //   250ms  : brand name appears (letter cascade, ~700ms for all letters)
+  //   1050ms : shooting star fires above the name
+  //   1850ms : curtains reveal
+  //   3400ms : loader removed from DOM
 
   requestAnimationFrame(() => {
     loader.classList.add("starfield-on");
@@ -186,15 +205,21 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     brandEl.classList.add("show");
 
+    // Fire shooting star after name animation completes
     setTimeout(() => {
-      loader.classList.add("reveal");
-      if (animId) cancelAnimationFrame(animId);
+      fireShootingStar();
 
+      // Start reveal after shooting star finishes
       setTimeout(() => {
-        body.classList.remove("loading-locked");
-        loader.remove();
-      }, 1200);
-    }, 1100);
+        loader.classList.add("reveal");
+        if (animId) cancelAnimationFrame(animId);
+
+        setTimeout(() => {
+          body.classList.remove("loading-locked");
+          loader.remove();
+        }, 1200);
+      }, 700); // wait for shooting star to cross
+    }, 800); // wait for letter cascade to finish
   }, 250);
 
   // Safety fallback
@@ -204,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
       body.classList.remove("loading-locked");
       loader.remove();
     }
-  }, 4000);
+  }, 5000);
 });
 
 // Garantir que a página recomece no topo ao recarregar (Melhora a percepção das animações de entrada)
