@@ -1005,6 +1005,7 @@ function initTechLab() {
   if (!section) return;
 
   const orbit  = document.getElementById("tech-orbit");
+  if (!orbit) return;
   const nodes  = section.querySelectorAll(".tech-node");
   const lines  = section.querySelectorAll(".tech-line");
   const core   = section.querySelector(".tech-lab__core");
@@ -3046,3 +3047,62 @@ function initMobileDock() {
   });
 }
 document.addEventListener('DOMContentLoaded', initMobileDock);
+
+// Command Palette (Cmd+K)
+function initCmdK() {
+  const overlay = document.getElementById('cmd-k-overlay');
+  const input = document.getElementById('cmd-k-input');
+  const items = document.querySelectorAll('.cmd-k-item');
+  if(!overlay) return;
+
+  const toggleModal = (show) => {
+    if(show) {
+      overlay.classList.add('is-open');
+      input.focus();
+    } else {
+      overlay.classList.remove('is-open');
+      input.value = '';
+    }
+  };
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      toggleModal(!overlay.classList.contains('is-open'));
+    }
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+      toggleModal(false);
+    }
+  });
+
+  overlay.addEventListener('click', (e) => {
+    if(e.target === overlay) toggleModal(false);
+  });
+
+  items.forEach(item => {
+    item.addEventListener('click', (e) => {
+      toggleModal(false);
+      if(item.dataset.action === 'copy-email') {
+        navigator.clipboard.writeText('leosouza5555@gmail.com');
+        const originalText = item.innerHTML;
+        item.innerHTML = '<span class="cmd-k-icon">✅</span> Copiado!';
+        setTimeout(() => item.innerHTML = originalText, 2000);
+      }
+    });
+  });
+}
+document.addEventListener('DOMContentLoaded', initCmdK);
+
+// Live Local Time for Footer
+function initLocalTime() {
+  const timeEl = document.getElementById('local-time-footer');
+  if(!timeEl) return;
+  
+  setInterval(() => {
+    const options = { timeZone: 'America/Fortaleza', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const formatter = new Intl.DateTimeFormat('pt-BR', options);
+    const timeStr = formatter.format(new Date());
+    timeEl.innerHTML = `Natal/RN &mdash; ${timeStr} BRT`;
+  }, 1000);
+}
+document.addEventListener('DOMContentLoaded', initLocalTime);
