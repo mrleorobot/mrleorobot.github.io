@@ -3093,19 +3093,7 @@ function initCmdK() {
 }
 document.addEventListener('DOMContentLoaded', initCmdK);
 
-// Live Local Time for Footer
-function initLocalTime() {
-  const timeEl = document.getElementById('local-time-footer');
-  if(!timeEl) return;
-  
-  setInterval(() => {
-    const options = { timeZone: 'America/Fortaleza', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-    const formatter = new Intl.DateTimeFormat('pt-BR', options);
-    const timeStr = formatter.format(new Date());
-    timeEl.innerHTML = `Natal/RN &mdash; ${timeStr} BRT`;
-  }, 1000);
-}
-document.addEventListener('DOMContentLoaded', initLocalTime);
+
 
 // ==========================================
 // FOOTER LIVE CLOCK (Natal/RN)
