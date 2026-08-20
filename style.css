@@ -7267,33 +7267,9 @@ main > section:not(#hero):not(#cta-final)::before {
   }
 }
 
-/* 2) Numeração fantasma por seção — número gigante e bem apagado no canto,
-   criando um sistema de "capítulos" editorial ao longo do site. Puxa a
-   mesma ideia do aspas gigante que já existe nos depoimentos, só que
-   aplicada à estrutura inteira da página. Fora do hero e do CTA final,
-   que já têm identidade visual forte própria. */
-main {
-  counter-reset: section-num;
-}
+/* Contexto de posicionamento para elementos decorativos internos */
 main > section {
   position: relative;
-}
-main > section:not(#hero):not(#cta-final) {
-  counter-increment: section-num;
-}
-main > section:not(#hero):not(#cta-final)::before {
-  content: counter(section-num, decimal-leading-zero);
-  position: absolute;
-  top: 0.5rem;
-  right: 5%;
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 800;
-  font-size: clamp(3.5rem, 14vw, 8rem);
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.035);
-  z-index: 0;
-  pointer-events: none;
-  user-select: none;
 }
 
 /* 3) Títulos com entrada cinética — um flash rápido em duas cores (efeito
