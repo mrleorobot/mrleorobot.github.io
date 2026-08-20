@@ -3138,3 +3138,138 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
+// =========================================
+// Interações nativas mobile: dots de paginação nos carrosséis
+// =========================================
+function initSwipeDots(scrollSelector, dotsId) {
+  const scroller = document.querySelector(scrollSelector);
+  const dotsContainer = document.getElementById(dotsId);
+  if (!scroller || !dotsContainer || scroller.dataset.dotsInit) return;
+  scroller.dataset.dotsInit = "1";
+
+  const items = Array.from(scroller.children).filter((el) => el.nodeType === 1);
+  if (items.length < 2) return;
+
+  dotsContainer.innerHTML = "";
+  items.forEach((item, i) => {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "swipe-dots__dot";
+    dot.setAttribute("aria-label", `Ir para item ${i + 1} de ${items.length}`);
+    dot.addEventListener("click", () => {
+      item.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    });
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = Array.from(dotsContainer.children);
+
+  function updateActive() {
+    const scrollerRect = scroller.getBoundingClientRect();
+    const center = scrollerRect.left + scrollerRect.width / 2;
+    let closestIdx = 0;
+    let closestDist = Infinity;
+    items.forEach((item, i) => {
+      const r = item.getBoundingClientRect();
+      const itemCenter = r.left + r.width / 2;
+      const dist = Math.abs(itemCenter - center);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closestIdx = i;
+      }
+    });
+    dots.forEach((d, i) => d.classList.toggle("is-active", i === closestIdx));
+  }
+
+  let ticking = false;
+  scroller.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateActive();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+  window.addEventListener("resize", updateActive);
+
+  updateActive();
+}
+
+function initAllSwipeDots() {
+  initSwipeDots("#projects-viewport", "projects-dots");
+  initSwipeDots(".design-bento-gallery", "gallery-dots");
+}
+document.addEventListener("DOMContentLoaded", initAllSwipeDots);
+
+// =========================================
+// Bottom Sheet: arrastar a alça pra baixo fecha o modal (mobile)
+// =========================================
+(function initSheetDrag() {
+  const sheet = document.getElementById("modal-lightbox");
+  const handle = sheet ? sheet.querySelector(".sheet-handle") : null;
+  if (!sheet || !handle) return;
+
+  let startY = 0;
+  let currentY = 0;
+  let dragging = false;
+
+  function isMobile() {
+    return window.matchMedia("(max-width: 768px)").matches;
+  }
+
+  handle.addEventListener(
+    "touchstart",
+    (e) => {
+      if (!isMobile()) return;
+      dragging = true;
+      startY = e.touches[0].clientY;
+      currentY = startY;
+      sheet.classList.add("sheet-dragging");
+    },
+    { passive: true }
+  );
+
+  handle.addEventListener(
+    "touchmove",
+    (e) => {
+      if (!dragging) return;
+      currentY = e.touches[0].clientY;
+      const delta = Math.max(0, currentY - startY);
+      sheet.style.transform = `translateY(${delta}px)`;
+    },
+    { passive: true }
+  );
+
+  handle.addEventListener("touchend", () => {
+    if (!dragging) return;
+    dragging = false;
+    const delta = Math.max(0, currentY - startY);
+    sheet.classList.remove("sheet-dragging");
+
+    if (delta > 120) {
+      // Passou do ponto de corte: termina a animação pra fora e fecha
+      sheet.style.transform = "translateY(100%)";
+      sheet.addEventListener(
+        "transitionend",
+        () => {
+          sheet.close();
+          sheet.style.transform = "";
+        },
+        { once: true }
+      );
+    } else {
+      // Não passou: volta suavemente pro lugar
+      sheet.style.transform = "";
+    }
+
+    startY = 0;
+    currentY = 0;
+  });
+})();
+
