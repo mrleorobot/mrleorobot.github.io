@@ -131,6 +131,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  const alreadyShownThisSession = sessionStorage.getItem("loaderShown") === "1";
+  if (alreadyShownThisSession) {
+    body.classList.remove("loading-locked");
+    loader.remove();
+    return;
+  }
+  sessionStorage.setItem("loaderShown", "1");
+
   body.classList.add("loading-locked");
 
   // --- Lightweight canvas starfield (brighter, more visible) ---
@@ -191,12 +199,12 @@ document.addEventListener("DOMContentLoaded", () => {
     trail.classList.add("animate");
   }
 
-  // --- Animation sequence (~3.4s total) ---
+  // --- Animation sequence (~2.25s total) ---
   //   0ms    : starfield fades in
   //   250ms  : brand name appears (letter cascade, ~700ms for all letters)
-  //   1050ms : shooting star fires above the name
-  //   1850ms : curtains reveal
-  //   3400ms : loader removed from DOM
+  //   850ms  : shooting star fires above the name
+  //   1350ms : curtains reveal
+  //   2250ms : loader removed from DOM
 
   requestAnimationFrame(() => {
     loader.classList.add("starfield-on");
@@ -217,9 +225,9 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
           body.classList.remove("loading-locked");
           loader.remove();
-        }, 1200);
-      }, 700); // wait for shooting star to cross
-    }, 800); // wait for letter cascade to finish
+        }, 900);
+      }, 500); // wait for shooting star to cross
+    }, 600); // wait for letter cascade to finish
   }, 250);
 
   // Safety fallback

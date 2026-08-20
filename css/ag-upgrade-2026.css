@@ -1415,6 +1415,7 @@
   top: auto !important;
   transform: none !important;
   animation: none !important;
+  opacity: 1 !important;
   display: flex !important;
   flex-direction: row !important; /* Icon + text horizontally */
   align-items: center !important;
@@ -2340,54 +2341,6 @@ body::after {
 .design-bento-card:hover .design-bento-title {
   color: transparent !important;
   -webkit-text-stroke: 1px var(--text-primary);
-}
-
-/* ==========================================================================
-   FASE 2: INVERSÃO DE CONTRASTE BRUTALISTA (MURAL DE DEPOIMENTOS)
-   ========================================================================== */
-#soft-skills {
-  background-color: #ffffff !important;
-  color: #000000 !important;
-  border-top: 1px solid #000000;
-  border-bottom: 1px solid #000000;
-}
-
-#soft-skills h2, 
-#soft-skills .mural-header-eyebrow,
-#soft-skills .mural-card__text,
-#soft-skills .mural-card__name,
-#soft-skills .mural-card__role {
-  color: #000000 !important;
-}
-
-#soft-skills .mural-card.spotlight-card {
-  background-color: #f4f4f4 !important;
-  border-color: #e0e0e0 !important;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.05) !important;
-}
-
-#soft-skills .mural-card.spotlight-card:hover {
-  border-color: #000000 !important;
-}
-
-#soft-skills .mural-grid::before,
-#soft-skills .mural-grid::after {
-  /* Altera as máscaras de opacidade para branco */
-  background: linear-gradient(to right, #ffffff, transparent);
-}
-#soft-skills .mural-grid::after {
-  background: linear-gradient(to left, #ffffff, transparent);
-}
-
-#soft-skills .btn-arcane {
-  background-color: #000000 !important;
-  color: #ffffff !important;
-  border-color: #000000 !important;
-}
-
-#soft-skills .btn-arcane:hover {
-  background-color: transparent !important;
-  color: #000000 !important;
 }
 
 /* ==========================================================================
