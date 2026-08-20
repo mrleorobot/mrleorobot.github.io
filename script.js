@@ -3127,3 +3127,14 @@ function initFooterClock() {
   setInterval(update, 1000);
 }
 document.addEventListener("DOMContentLoaded", initFooterClock);
+
+// =========================================
+// PWA: registra o service worker (permite instalar como app / offline)
+// =========================================
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {
+      // Falha silenciosa: site continua funcionando normalmente sem PWA.
+    });
+  });
+}
