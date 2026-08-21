@@ -468,3 +468,333 @@ html.lenis, html.lenis body { height: auto; }
   .projects-header__title span { transform: none !important; opacity: 1 !important; transition: none !important; }
   .projects-header__subtitle { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
+
+
+/* =========================================================
+   AWWWARDS — MOBILE EXPERIENCE (Upgrade Individual)
+   Apenas mobile. Zero alteração no HTML. Nada removido.
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  /* ─── 1. MENU FULLSCREEN CINEMATOGRÁFICO ─── */
+  .nav-links {
+    background: rgba(3, 3, 3, 0.98) !important;
+    backdrop-filter: blur(40px) saturate(1.2) !important;
+    -webkit-backdrop-filter: blur(40px) saturate(1.2) !important;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transform: translateY(-20px) scale(0.98) !important;
+  }
+  .nav-links.active {
+    transform: translateY(0) scale(1) !important;
+  }
+
+  /* Links do menu com stagger reveal */
+  .nav-links a:not(.btn-cv) {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.3s ease;
+  }
+  .nav-links.active a:not(.btn-cv) {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .nav-links.active a:not(.btn-cv):nth-child(1) { transition-delay: 0.1s; }
+  .nav-links.active a:not(.btn-cv):nth-child(2) { transition-delay: 0.18s; }
+  .nav-links.active a:not(.btn-cv):nth-child(3) { transition-delay: 0.26s; }
+  .nav-links.active a:not(.btn-cv):nth-child(4) { transition-delay: 0.34s; }
+  .nav-links.active a:not(.btn-cv):nth-child(5) { transition-delay: 0.42s; }
+
+  /* Download CV no menu com destaque especial */
+  .nav-links .btn-cv {
+    margin-top: 2rem !important;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.5s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s,
+                background 0.3s, box-shadow 0.3s;
+  }
+  .nav-links.active .btn-cv {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── 2. BOTTOM DOCK PREMIUM ─── */
+  .mobile-bottom-dock {
+    background: rgba(6, 6, 6, 0.85) !important;
+    backdrop-filter: blur(25px) saturate(1.3) !important;
+    -webkit-backdrop-filter: blur(25px) saturate(1.3) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4) !important;
+    padding-bottom: env(safe-area-inset-bottom, 8px) !important;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .mobile-bottom-dock.is-hidden {
+    transform: translateY(120%);
+  }
+
+  .dock-item {
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.3s ease;
+  }
+  .dock-item:active {
+    transform: scale(0.92);
+  }
+
+  /* Indicador ativo no dock */
+  .dock-item.active::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    animation: dockPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes dockPulse {
+    0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+    50% { opacity: 1; transform: translateX(-50%) scale(1.3); }
+  }
+
+  .dock-item svg {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.3s ease;
+  }
+  .dock-item.active svg {
+    transform: translateY(-2px);
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+  }
+
+  /* ─── 3. HERO MOBILE DRAMÁTICO ─── */
+  #hero {
+    min-height: 100dvh !important;
+    padding-top: 80px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+
+  .hero-editorial__name {
+    font-size: clamp(3.5rem, 18vw, 6rem) !important;
+    line-height: 0.85 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  .hero-editorial__subtitle {
+    font-size: clamp(0.7rem, 3vw, 0.9rem) !important;
+    letter-spacing: 0.25em !important;
+    margin-top: 1.5rem !important;
+  }
+
+  .hero-editorial__cta .btn-primary {
+    width: 100% !important;
+    max-width: 320px !important;
+    justify-content: center !important;
+    padding: 1rem 2rem !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.2em !important;
+  }
+
+  /* ─── 4. SCROLL SNAP POR SEÇÃO ─── */
+  html {
+    scroll-snap-type: y proximity;
+  }
+
+  section {
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+  }
+
+  #hero {
+    scroll-snap-align: start;
+  }
+
+  /* ─── 5. CARDS DE PROJETO — SWIPE HINT & GESTOS ─── */
+  .projects-viewport {
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+  .projects-viewport::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .project-card {
+    scroll-snap-align: center !important;
+    flex: 0 0 85% !important;
+    max-width: 340px !important;
+  }
+
+  /* Swipe indicator */
+  .projects-header::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+    margin: 1rem auto 0;
+    animation: swipeHint 2s ease-in-out infinite;
+  }
+
+  @keyframes swipeHint {
+    0%, 100% { transform: translateX(-8px); opacity: 0.3; }
+    50% { transform: translateX(8px); opacity: 0.7; }
+  }
+
+  /* ─── 6. TIMELINE MOBILE — ENTRADA DRAMÁTICA ─── */
+  .timeline-item {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .timeline-item.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Linha do tempo com glow */
+  .timeline-track::before {
+    background: linear-gradient(180deg, 
+      rgba(255,255,255,0.1) 0%, 
+      rgba(255,255,255,0.3) 50%, 
+      rgba(255,255,255,0.1) 100%) !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1) !important;
+  }
+
+  /* ─── 7. TECH STACK — ÍCONES QUE RESPIRAM ─── */
+  .tech-node {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.4s ease;
+  }
+  .tech-node:active {
+    transform: scale(0.9) !important;
+  }
+
+  /* Animação de respiração nos ícones */
+  @keyframes techBreathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  .tech-lab__orbit .tech-node {
+    animation: techBreathe 4s ease-in-out infinite;
+  }
+  .tech-lab__orbit .tech-node:nth-child(2n) { animation-delay: 0.5s; }
+  .tech-lab__orbit .tech-node:nth-child(3n) { animation-delay: 1s; }
+  .tech-lab__orbit .tech-node:nth-child(4n) { animation-delay: 1.5s; }
+
+  /* ─── 8. DEPOIMENTOS — CARD ATIVO EM DESTAQUE ─── */
+  .testimonial-card {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.5s ease,
+                box-shadow 0.5s ease;
+  }
+  .testimonial-card.active {
+    transform: scale(1.02);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  /* ─── 9. SEÇÕES — ENTRADA COM FADE UP ─── */
+  .section-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .section-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── 10. HERO INK CANVAS — MAIS INTENSO NO MOBILE ─── */
+  #hero-ink-canvas {
+    opacity: 0.7 !important;
+  }
+
+  /* ─── 11. SCROLL PROGRESS MAIS VISÍVEL ─── */
+  .scroll-progress-bar {
+    height: 2px !important;
+    background: linear-gradient(90deg, #fff, rgba(255,255,255,0.3)) !important;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3) !important;
+  }
+
+  /* ─── 12. HAMBURGER ANIMAÇÃO PREMIUM ─── */
+  .hamburger {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hamburger:active {
+    transform: scale(0.9);
+  }
+  .hamburger-line {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease,
+                width 0.3s ease;
+  }
+  .hamburger.active .hamburger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+    width: 0;
+  }
+  .hamburger.active .hamburger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* ─── 13. BOTÕES FLUTUANTES — MELHOR POSICIONAMENTO ─── */
+  .btn-flutuante {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.3s ease;
+  }
+  .btn-flutuante:active {
+    transform: scale(0.92) !important;
+  }
+
+  /* ─── 14. FAQ — ACCORDION SMOOTH ─── */
+  .faq-answer {
+    transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.4s ease,
+                padding 0.4s ease;
+  }
+
+  /* ─── 15. FOOTER — REVEAL ESCALONADO ─── */
+  .footer-links a {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .footer.is-visible .footer-links a {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .footer.is-visible .footer-links a:nth-child(1) { transition-delay: 0.1s; }
+  .footer.is-visible .footer-links a:nth-child(2) { transition-delay: 0.15s; }
+  .footer.is-visible .footer-links a:nth-child(3) { transition-delay: 0.2s; }
+  .footer.is-visible .footer-links a:nth-child(4) { transition-delay: 0.25s; }
+  .footer.is-visible .footer-links a:nth-child(5) { transition-delay: 0.3s; }
+}
+
+/* ─── REDUCED MOTION MOBILE ─── */
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .nav-links { transform: none !important; transition: opacity 0.3s ease !important; }
+  .nav-links a:not(.btn-cv) { transform: none !important; transition: opacity 0.3s ease !important; }
+  .dock-item.active::before { animation: none !important; }
+  .projects-header::after { animation: none !important; }
+  .tech-lab__orbit .tech-node { animation: none !important; }
+  .timeline-item { transform: none !important; transition: opacity 0.5s ease !important; }
+  .section-reveal { transform: none !important; transition: opacity 0.5s ease !important; }
+  html { scroll-snap-type: none !important; }
+  .project-card { scroll-snap-align: none !important; }
+}
