@@ -257,4 +257,137 @@
     });
   }
 
+
+
+  /* =========================================================
+     AWWWARDS — SEÇÃO PROJETOS (Upgrade Individual)
+     Apenas classes existentes. Zero alteração no HTML.
+     ========================================================= */
+
+  /* ─── 1. REVEAL DOS CARDS COM CLIP-PATH ─── */
+  const projectCards = document.querySelectorAll('.project-card');
+  const projectObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        const media = card.querySelector('.project-card__media');
+        if (media) {
+          let delay = 0;
+          if (card.classList.contains('stagger-2')) delay = 150;
+          else if (card.classList.contains('stagger-3')) delay = 300;
+
+          setTimeout(() => {
+            media.classList.add('is-revealed');
+            card.classList.add('is-revealed');
+
+            const title = card.querySelector('.project-card__title');
+            if (title && !title.dataset.scrambled) {
+              title.dataset.scrambled = 'true';
+              scrambleText(title, 800);
+            }
+          }, delay);
+        }
+        projectObserver.unobserve(card);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+
+  projectCards.forEach(card => projectObserver.observe(card));
+
+  /* ─── 2. TEXT SCRAMBLE NOS TÍTULOS ─── */
+  function scrambleText(element, duration) {
+    if (prefersReduced) return;
+    const originalText = element.textContent.trim();
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+    const length = originalText.length;
+    let startTime = null;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      let result = '';
+
+      for (let i = 0; i < length; i++) {
+        if (originalText[i] === ' ') {
+          result += ' ';
+        } else if (progress > i / length) {
+          result += originalText[i];
+        } else {
+          result += chars[Math.floor(Math.random() * chars.length)];
+        }
+      }
+
+      element.textContent = result;
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        element.textContent = originalText;
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ─── 3. PARALLAX DE IMAGEM NO SCROLL ─── */
+  if (!prefersReduced) {
+    const parallaxImages = document.querySelectorAll('.project-thumbnail-image');
+    let ticking = false;
+
+    function updateParallax() {
+      parallaxImages.forEach(img => {
+        const rect = img.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const centerOffset = (rect.top + rect.height / 2 - viewportHeight / 2) / viewportHeight;
+        const moveY = centerOffset * -20;
+        img.style.transform = `translateY(${moveY}px) scale(1.05)`;
+      });
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  /* ─── 4. HEADER DOS PROJETOS — REVEAL COM STAGGER ─── */
+  const projectsHeaderTitle = document.querySelector('.projects-header__title');
+  if (projectsHeaderTitle) {
+    if (!projectsHeaderTitle.querySelector('span')) {
+      const text = projectsHeaderTitle.textContent.trim();
+      projectsHeaderTitle.innerHTML = '';
+      text.split('').forEach((char) => {
+        const span = document.createElement('span');
+        span.textContent = char === ' ' ? '\u00A0' : char;
+        span.style.display = 'inline-block';
+        projectsHeaderTitle.appendChild(span);
+      });
+    }
+
+    const headerObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          headerObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    headerObserver.observe(projectsHeaderTitle);
+  }
+
+  /* ─── 5. SUBTÍTULO DO HEADER — FADE IN ─── */
+  const projectsHeaderSubtitle = document.querySelector('.projects-header__subtitle');
+  if (projectsHeaderSubtitle) {
+    const subObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          subObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    subObserver.observe(projectsHeaderSubtitle);
+  }
+
 })();
