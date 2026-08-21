@@ -1,15 +1,30 @@
 /* =========================================================
    AWWWARDS EVOLUTION — MRLEOROBOT (Ultra-Optimized)
-   Zero lag. GPU-only. No reflow. No forced sync layout.
+   Zero lag. GPU-only. Loader always visible.
    ========================================================= */
 
 (function() {
   'use strict';
 
+  /* ─── 0. LOADER SEMPRE VISÍVEL — limpa sessionStorage ─── */
+  sessionStorage.removeItem('loaderShown');
+  sessionStorage.removeItem('loaderComplete');
+
+  // Parar canvas do loader antigo se existir
+  const oldCanvas = document.getElementById('loader-stars-canvas');
+  if (oldCanvas) {
+    oldCanvas.style.display = 'none';
+    const ctx = oldCanvas.getContext('2d');
+    if (ctx) {
+      // Limpar canvas para parar renderização
+      ctx.clearRect(0, 0, oldCanvas.width, oldCanvas.height);
+    }
+  }
+
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isTouch = window.matchMedia('(pointer: coarse)').matches;
 
-  /* ─── 1. LENIS SMOOTH SCROLL (único RAF do site) ─── */
+  /* ─── 1. LENIS SMOOTH SCROLL (único RAF) ─── */
   let lenis;
   if (!prefersReduced && typeof Lenis !== 'undefined') {
     lenis = new Lenis({
@@ -41,7 +56,7 @@
     revealObserver.observe(el);
   });
 
-  /* ─── 3. PROJECT CARDS — clip-path reveal (sem scramble pesado) ─── */
+  /* ─── 3. PROJECT CARDS — opacity + scale (GPU) ─── */
   const projectCards = document.querySelectorAll('.project-card');
   const projectObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
