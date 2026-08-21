@@ -12,14 +12,16 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ─── 2. CUSTOM CURSOR (desktop only) ─── */
 @media (pointer: fine) {
-  * { cursor: none !important; }
+  /* Cursor customizado — exclui header/nav para não quebrar interatividade */
+  body *:not(header):not(nav):not(header *):not(nav *) { cursor: none !important; }
+  header, nav, header *, nav * { cursor: auto !important; }
 
   .cursor-root {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
     pointer-events: none;
-    z-index: 99999;
+    z-index: 1001; /* acima do nav (1000) mas não absurdo */
     mix-blend-mode: difference;
   }
 
