@@ -382,6 +382,220 @@
       return div.innerHTML;
     }
 
+  
+
+  /* =========================================================
+     AWWWARDS — SCROLL PROGRESS ORGÂNICO (SVG Draw)
+     Zero alteração no HTML.
+     ========================================================= */
+
+  (function initOrganicScrollProgress() {
+    const container = document.querySelector('.scroll-progress-container');
+    if (!container) return;
+
+    // Criar SVG
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.classList.add('scroll-progress-svg');
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.setAttribute('viewBox', '0 0 1200 6');
+    svg.setAttribute('aria-hidden', 'true');
+
+    // Definir gradiente
+    const defs = document.createElementNS(svgNS, 'defs');
+    const gradient = document.createElementNS(svgNS, 'linearGradient');
+    gradient.setAttribute('id', 'scrollGradient');
+    gradient.setAttribute('x1', '0%');
+    gradient.setAttribute('y1', '0%');
+    gradient.setAttribute('x2', '100%');
+    gradient.setAttribute('y2', '0%');
+
+    const stop1 = document.createElementNS(svgNS, 'stop');
+    stop1.setAttribute('offset', '0%');
+    stop1.setAttribute('stop-color', 'rgba(255,255,255,0.2)');
+
+    const stop2 = document.createElementNS(svgNS, 'stop');
+    stop2.setAttribute('offset', '50%');
+    stop2.setAttribute('stop-color', 'rgba(255,255,255,0.8)');
+
+    const stop3 = document.createElementNS(svgNS, 'stop');
+    stop3.setAttribute('offset', '100%');
+    stop3.setAttribute('stop-color', 'rgba(255,255,255,0.2)');
+
+    gradient.appendChild(stop1);
+    gradient.appendChild(stop2);
+    gradient.appendChild(stop3);
+    defs.appendChild(gradient);
+    svg.appendChild(defs);
+
+    // Path orgânico com ondas suaves
+    const path = document.createElementNS(svgNS, 'path');
+    // Linha com curvas de Bezier suaves — ondulação sutil
+    const d = 'M0,3 C100,1 200,5 300,3 C400,1 500,5 600,3 C700,1 800,5 900,3 C1000,1 1100,5 1200,3';
+    path.setAttribute('d', d);
+    svg.appendChild(path);
+
+    // Glow trail (mesmo path, mas com stroke-dasharray dinâmico)
+    const glowPath = document.createElementNS(svgNS, 'path');
+    glowPath.setAttribute('d', d);
+    glowPath.classList.add('scroll-progress-glow');
+    svg.appendChild(glowPath);
+
+    // Ponto de luz na ponta
+    const tip = document.createElementNS(svgNS, 'circle');
+    tip.setAttribute('r', '3');
+    tip.classList.add('scroll-progress-tip');
+    svg.appendChild(tip);
+
+    container.appendChild(svg);
+
+    // Calcular comprimento do path
+    const pathLength = path.getTotalLength();
+    path.style.strokeDasharray = pathLength;
+    path.style.strokeDashoffset = pathLength;
+    glowPath.style.strokeDasharray = pathLength;
+    glowPath.style.strokeDashoffset = pathLength;
+
+    // Atualizar no scroll
+    let ticking = false;
+
+    function updateProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+      const clamped = Math.max(0, Math.min(1, progress));
+
+      const offset = pathLength * (1 - clamped);
+      path.style.strokeDashoffset = offset;
+      glowPath.style.strokeDashoffset = offset;
+
+      // Posicionar o ponto de luz na ponta do progresso
+      const point = path.getPointAtLength(pathLength * clamped);
+      tip.setAttribute('cx', point.x);
+      tip.setAttribute('cy', point.y);
+
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateProgress);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Inicializar
+    updateProgress();
+
+  })();
+
+})();
+
+
+
+  /* =========================================================
+     AWWWARDS — SCROLL PROGRESS ORGÂNICO (SVG Draw)
+     Zero alteração no HTML.
+     ========================================================= */
+
+  (function initOrganicScrollProgress() {
+    const container = document.querySelector('.scroll-progress-container');
+    if (!container) return;
+
+    // Criar SVG
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.classList.add('scroll-progress-svg');
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.setAttribute('viewBox', '0 0 1200 6');
+    svg.setAttribute('aria-hidden', 'true');
+
+    // Definir gradiente
+    const defs = document.createElementNS(svgNS, 'defs');
+    const gradient = document.createElementNS(svgNS, 'linearGradient');
+    gradient.setAttribute('id', 'scrollGradient');
+    gradient.setAttribute('x1', '0%');
+    gradient.setAttribute('y1', '0%');
+    gradient.setAttribute('x2', '100%');
+    gradient.setAttribute('y2', '0%');
+
+    const stop1 = document.createElementNS(svgNS, 'stop');
+    stop1.setAttribute('offset', '0%');
+    stop1.setAttribute('stop-color', 'rgba(255,255,255,0.2)');
+
+    const stop2 = document.createElementNS(svgNS, 'stop');
+    stop2.setAttribute('offset', '50%');
+    stop2.setAttribute('stop-color', 'rgba(255,255,255,0.8)');
+
+    const stop3 = document.createElementNS(svgNS, 'stop');
+    stop3.setAttribute('offset', '100%');
+    stop3.setAttribute('stop-color', 'rgba(255,255,255,0.2)');
+
+    gradient.appendChild(stop1);
+    gradient.appendChild(stop2);
+    gradient.appendChild(stop3);
+    defs.appendChild(gradient);
+    svg.appendChild(defs);
+
+    // Path orgânico com ondas suaves
+    const path = document.createElementNS(svgNS, 'path');
+    // Linha com curvas de Bezier suaves — ondulação sutil
+    const d = 'M0,3 C100,1 200,5 300,3 C400,1 500,5 600,3 C700,1 800,5 900,3 C1000,1 1100,5 1200,3';
+    path.setAttribute('d', d);
+    svg.appendChild(path);
+
+    // Glow trail (mesmo path, mas com stroke-dasharray dinâmico)
+    const glowPath = document.createElementNS(svgNS, 'path');
+    glowPath.setAttribute('d', d);
+    glowPath.classList.add('scroll-progress-glow');
+    svg.appendChild(glowPath);
+
+    // Ponto de luz na ponta
+    const tip = document.createElementNS(svgNS, 'circle');
+    tip.setAttribute('r', '3');
+    tip.classList.add('scroll-progress-tip');
+    svg.appendChild(tip);
+
+    container.appendChild(svg);
+
+    // Calcular comprimento do path
+    const pathLength = path.getTotalLength();
+    path.style.strokeDasharray = pathLength;
+    path.style.strokeDashoffset = pathLength;
+    glowPath.style.strokeDasharray = pathLength;
+    glowPath.style.strokeDashoffset = pathLength;
+
+    // Atualizar no scroll
+    let ticking = false;
+
+    function updateProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+      const clamped = Math.max(0, Math.min(1, progress));
+
+      const offset = pathLength * (1 - clamped);
+      path.style.strokeDashoffset = offset;
+      glowPath.style.strokeDashoffset = offset;
+
+      // Posicionar o ponto de luz na ponta do progresso
+      const point = path.getPointAtLength(pathLength * clamped);
+      tip.setAttribute('cx', point.x);
+      tip.setAttribute('cy', point.y);
+
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateProgress);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Inicializar
+    updateProgress();
+
   })();
 
 })();
