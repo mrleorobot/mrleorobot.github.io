@@ -1,4 +1,29 @@
 /* =========================================================
+   CRITICAL FIX — NAV VISIBILITY (z-index above polish overlay)
+   ========================================================= */
+nav, header {
+  z-index: 10001 !important;
+  position: relative;
+}
+.nav-links {
+  z-index: 10002 !important;
+}
+.logo {
+  z-index: 10003 !important;
+}
+.scroll-progress-container {
+  z-index: 10004 !important;
+}
+
+/* Cursor root ABAIXO do nav para não interferir */
+.cursor-root {
+  z-index: 9990 !important;
+}
+
+/* =========================================================
+   AWWWARDS EVOLUTION — MRLEOROBOT
+   ========================================================= */
+/* =========================================================
    AWWWARDS EVOLUTION — MRLEOROBOT
    Creative Developer + Senior Front-End + Motion Design
    Poucas interações, extremamente refinadas.
