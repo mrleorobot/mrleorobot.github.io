@@ -390,4 +390,204 @@
     subObserver.observe(projectsHeaderSubtitle);
   }
 
+
+
+  /* =========================================================
+     AWWWARDS — MOBILE EXPERIENCE (Upgrade Individual)
+     Apenas mobile. Zero alteração no HTML. Nada removido.
+     ========================================================= */
+
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  if (isMobile && !prefersReduced) {
+
+    /* ─── 1. BOTTOM DOCK — INDICADOR ATIVO BASEADO NO SCROLL ─── */
+    const dockItems = document.querySelectorAll('.mobile-bottom-dock .dock-item');
+    const sections = ['hero', 'projetos', 'projetos-design', 'cta-final'];
+
+    function updateDockActive() {
+      const scrollY = window.scrollY + window.innerHeight / 2;
+      let activeIdx = 0;
+
+      sections.forEach((id, idx) => {
+        const section = document.getElementById(id);
+        if (section) {
+          const top = section.offsetTop;
+          const bottom = top + section.offsetHeight;
+          if (scrollY >= top && scrollY < bottom) {
+            activeIdx = idx;
+          }
+        }
+      });
+
+      dockItems.forEach((item, idx) => {
+        item.classList.toggle('active', idx === activeIdx);
+      });
+    }
+
+    let dockTicking = false;
+    window.addEventListener('scroll', () => {
+      if (!dockTicking) {
+        requestAnimationFrame(() => {
+          updateDockActive();
+          dockTicking = false;
+        });
+        dockTicking = true;
+      }
+    }, { passive: true });
+    updateDockActive();
+
+    /* ─── 2. HIDE/SHOW DOCK NO SCROLL ─── */
+    let lastScrollY = 0;
+    const dock = document.querySelector('.mobile-bottom-dock');
+
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+      if (dock) {
+        if (currentY > lastScrollY && currentY > 200) {
+          dock.classList.add('is-hidden');
+        } else {
+          dock.classList.remove('is-hidden');
+        }
+      }
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    /* ─── 3. MENU FULLSCREEN — STAGGER ENHANCED ─── */
+    const hamburgerMobile = document.querySelector('.hamburger');
+    const navLinksMobile = document.querySelector('.nav-links');
+
+    if (hamburgerMobile && navLinksMobile) {
+      const originalToggle = hamburger.onclick;
+
+      hamburgerMobile.addEventListener('click', () => {
+        const isActive = navLinksMobile.classList.contains('active');
+        const links = navLinksMobile.querySelectorAll('a:not(.btn-cv)');
+        const btnCv = navLinksMobile.querySelector('.btn-cv');
+
+        if (!isActive) {
+          // Abrindo — reset delays primeiro
+          links.forEach(link => {
+            link.style.transitionDelay = '0s';
+            link.style.opacity = '0';
+            link.style.transform = 'translateX(-30px)';
+          });
+          if (btnCv) {
+            btnCv.style.transitionDelay = '0s';
+            btnCv.style.opacity = '0';
+            btnCv.style.transform = 'translateY(20px)';
+          }
+
+          // Forçar reflow
+          navLinksMobile.offsetHeight;
+
+          // Aplicar delays
+          links.forEach((link, i) => {
+            link.style.transitionDelay = `${0.1 + i * 0.08}s`;
+          });
+          if (btnCv) {
+            btnCv.style.transitionDelay = '0.5s';
+          }
+        }
+      });
+    }
+
+    /* ─── 4. PARALLAX TOUCH NOS CARDS DE PROJETO ─── */
+    const projectCardsMobile = document.querySelectorAll('.project-card');
+    projectCardsMobile.forEach(card => {
+      const media = card.querySelector('.project-card__media');
+      const img = card.querySelector('.project-thumbnail-image');
+      if (!media || !img) return;
+
+      card.addEventListener('touchmove', (e) => {
+        const touch = e.touches[0];
+        const rect = card.getBoundingClientRect();
+        const x = (touch.clientX - rect.left) / rect.width;
+        const y = (touch.clientY - rect.top) / rect.height;
+        const cx = (x - 0.5) * 2;
+        const cy = (y - 0.5) * 2;
+
+        media.style.transform = `perspective(800px) rotateX(${cy * -3}deg) rotateY(${cx * 3}deg)`;
+      }, { passive: true });
+
+      card.addEventListener('touchend', () => {
+        media.style.transform = '';
+      });
+    });
+
+    /* ─── 5. TIMELINE MOBILE — REVEAL COM INTERSECTION ─── */
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const timelineObserverMobile = new IntersectionObserver((entries) => {
+      entries.forEach((entry, idx) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('is-visible');
+          }, idx * 100);
+          timelineObserverMobile.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    timelineItems.forEach(item => timelineObserverMobile.observe(item));
+
+    /* ─── 6. FOOTER REVEAL ─── */
+    const footerElMobile = document.querySelector('footer');
+    if (footerElMobile) {
+      footerElMobile.classList.add('section-reveal');
+      const footerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            footerObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      footerObserver.observe(footerElMobile);
+    }
+
+    /* ─── 7. SMOOTH SCROLL NOS LINKS DO DOCK ─── */
+    dockItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        const href = item.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+
+    /* ─── 8. HERO MOBILE — PARALLAX SUTIL NO TOUCH ─── */
+    const heroSection = document.getElementById('hero');
+    const heroInk = document.getElementById('hero-ink-canvas');
+    if (heroSection && heroInk) {
+      heroSection.addEventListener('touchmove', (e) => {
+        const touch = e.touches[0];
+        const x = (touch.clientX / window.innerWidth - 0.5) * 10;
+        const y = (touch.clientY / window.innerHeight - 0.5) * 10;
+        heroInk.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      }, { passive: true });
+
+      heroSection.addEventListener('touchend', () => {
+        heroInk.style.transform = '';
+      });
+    }
+
+    /* ─── 9. DEPOIMENTOS — AUTO-HIGHLIGHT NO SCROLL ─── */
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    const testimonialObserverMobile = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          testimonialCards.forEach(c => c.classList.remove('active'));
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.6 });
+
+    testimonialCards.forEach(card => testimonialObserverMobile.observe(card));
+
+  }
+
 })();
