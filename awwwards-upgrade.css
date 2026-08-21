@@ -1,0 +1,332 @@
+/* =========================================================
+   AWWWARDS EVOLUTION — MRLEOROBOT
+   Creative Developer + Senior Front-End + Motion Design
+   Poucas interações, extremamente refinadas.
+   ========================================================= */
+
+/* ─── 1. SMOOTH SCROLL & RHYTHM ─── */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ─── 2. CUSTOM CURSOR (desktop only) ─── */
+@media (pointer: fine) {
+  * { cursor: none !important; }
+
+  .cursor-root {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 99999;
+    mix-blend-mode: difference;
+  }
+
+  .cursor-dot {
+    position: absolute;
+    width: 6px; height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width .15s, height .15s, opacity .15s;
+    will-change: transform;
+  }
+
+  .cursor-ring {
+    position: absolute;
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255,255,255,.45);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width .4s cubic-bezier(.16,1,.3,1), 
+                height .4s cubic-bezier(.16,1,.3,1),
+                border-color .3s;
+    will-change: transform;
+  }
+
+  .cursor-root.is-hover .cursor-dot {
+    width: 0; height: 0; opacity: 0;
+  }
+  .cursor-root.is-hover .cursor-ring {
+    width: 60px; height: 60px;
+    border-color: rgba(255,255,255,.8);
+    background: rgba(255,255,255,.04);
+  }
+  .cursor-root.is-press .cursor-ring {
+    width: 30px; height: 30px;
+    border-color: rgba(255,255,255,.9);
+  }
+}
+
+/* ─── 3. HERO TYPOGRAPHY UPGRADE ─── */
+.hero-editorial__name {
+  font-size: clamp(3.2rem, 10vw, 9.5rem) !important;
+  line-height: .88 !important;
+  letter-spacing: -.04em !important;
+  font-weight: 900 !important;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.hero-editorial__name span[aria-hidden="true"] {
+  display: block;
+  transform: translateY(105%);
+  animation: heroNameUp 1.2s cubic-bezier(.16,1,.3,1) forwards;
+  animation-delay: .9s;
+}
+
+@keyframes heroNameUp {
+  to { transform: translateY(0); }
+}
+
+.hero-editorial__subtitle {
+  font-size: clamp(.9rem, 1.8vw, 1.35rem) !important;
+  letter-spacing: .18em !important;
+  text-transform: uppercase;
+  font-weight: 500 !important;
+  color: rgba(255,255,255,.55) !important;
+  margin-top: 1.2rem !important;
+}
+
+.hero-editorial__subtitle .ink-reveal--word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: wordFade .8s ease forwards;
+}
+
+@keyframes wordFade {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── 4. SECTION CINEMATIC REVEAL ─── */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(60px) scale(.98);
+  transition: opacity 1s cubic-bezier(.16,1,.3,1),
+              transform 1.2s cubic-bezier(.16,1,.3,1);
+}
+.section-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ─── 5. PROJECT CARDS — 3D TILT & CINEMATIC HOVER ─── */
+.project-card {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.project-card__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  transform-style: preserve-3d;
+  transition: transform .6s cubic-bezier(.16,1,.3,1),
+              box-shadow .6s ease;
+  box-shadow: 0 20px 60px rgba(0,0,0,.4);
+}
+
+.project-card:hover .project-card__media {
+  box-shadow: 0 30px 80px rgba(0,0,0,.6);
+}
+
+.project-card__media img {
+  transition: transform 1.2s cubic-bezier(.16,1,.3,1);
+  will-change: transform;
+}
+
+.project-card:hover .project-card__media img {
+  transform: scale(1.06);
+}
+
+/* Overlay cinemático no hover */
+.project-card__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), 
+              rgba(255,255,255,.08) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity .6s ease;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+.project-card:hover .project-card__media::after {
+  opacity: 1;
+}
+
+/* Tech tags — entrada escalonada */
+.project-card__tech-tag {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1), 
+              background .3s, color .3s;
+}
+
+.project-card:hover .project-card__tech-tag {
+  opacity: 1;
+  transform: translateY(0);
+}
+.project-card:hover .project-card__tech-tag:nth-child(1) { transition-delay: .05s; }
+.project-card:hover .project-card__tech-tag:nth-child(2) { transition-delay: .1s; }
+.project-card:hover .project-card__tech-tag:nth-child(3) { transition-delay: .15s; }
+
+/* ─── 6. MAGNETIC BUTTONS ─── */
+.magnetic-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .3s cubic-bezier(.16,1,.3,1);
+}
+
+.magnetic-btn .btn-text {
+  display: inline-block;
+  transition: transform .3s cubic-bezier(.16,1,.3,1);
+}
+
+/* ─── 7. LINKS — EDITORIAL UNDERLINE ─── */
+.editorial-link {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+.editorial-link::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .5s cubic-bezier(.16,1,.3,1);
+}
+
+.editorial-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ─── 8. SCROLLBAR REFINED ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.35); }
+
+/* Firefox */
+* { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.15) transparent; }
+
+/* ─── 9. NOISE GRAIN CINEMATOGRAPHIC ─── */
+.noise-overlay {
+  opacity: .035 !important;
+  animation: grain 8s steps(10) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0,0); }
+  10% { transform: translate(-2%,-2%); }
+  20% { transform: translate(2%,2%); }
+  30% { transform: translate(-1%,1%); }
+  40% { transform: translate(1%,-1%); }
+  50% { transform: translate(-2%,2%); }
+  60% { transform: translate(2%,-2%); }
+  70% { transform: translate(-1%,-1%); }
+  80% { transform: translate(1%,1%); }
+  90% { transform: translate(-2%,-1%); }
+}
+
+/* ─── 10. HERO CTA MAGNETIC ENHANCEMENT ─── */
+.hero-editorial__cta .btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-editorial__cta .btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.08) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform .6s ease;
+}
+
+.hero-editorial__cta .btn-primary:hover::before {
+  transform: translateX(100%);
+}
+
+/* ─── 11. TIMELINE ENTRANCE ─── */
+.timeline-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+}
+.timeline-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── 12. SKILL TAGS STAGGER ─── */
+.skill-tag {
+  opacity: 0;
+  transform: translateY(20px) scale(.95);
+  transition: opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1), background .3s;
+}
+.skill-tag.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ─── 13. TESTIMONIAL CARDS FLOAT ─── */
+.testimonial-card {
+  transition: transform .6s cubic-bezier(.16,1,.3,1), box-shadow .6s ease;
+}
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,.3);
+}
+
+/* ─── 14. FOOTER LINKS EDITORIAL ─── */
+.footer-links a {
+  position: relative;
+}
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -1px;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .4s cubic-bezier(.16,1,.3,1);
+}
+.footer-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ─── 15. PREFERS REDUCED MOTION ─── */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-root { display: none !important; }
+  .section-reveal, .timeline-item, .skill-tag { 
+    opacity: 1 !important; 
+    transform: none !important; 
+    transition: none !important; 
+  }
+  .hero-editorial__name span[aria-hidden="true"] { 
+    animation: none !important; 
+    transform: none !important; 
+  }
+  .project-card__media, .project-card__media img { 
+    transition: none !important; 
+  }
+  .noise-overlay { animation: none !important; }
+  .hero-editorial__subtitle .ink-reveal--word {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
