@@ -1,5 +1,284 @@
 /* =========================================================
-   LOADER V2 — CSS Puro, GPU-accelerated, cinematográfico
+   CRITICAL FIX — NAV VISIBILITY
+   ========================================================= */
+nav, header {
+  z-index: 10001;
+  position: relative;
+}
+.nav-links {
+  z-index: 10002;
+}
+.logo {
+  z-index: 10003;
+}
+.scroll-progress-container {
+  z-index: 10004;
+}
+
+/* =========================================================
+   AWWWARDS EVOLUTION — MRLEOROBOT (Ultra-Optimized)
+   GPU-only transforms. Zero backdrop-filter. Zero clip-path.
+   ========================================================= */
+
+/* ─── 1. SMOOTH SCROLL ─── */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+
+/* ─── 2. HERO TYPOGRAPHY ─── */
+.hero-editorial__name {
+  font-size: clamp(3.2rem, 10vw, 9.5rem);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+.hero-editorial__name span[aria-hidden="true"] {
+  display: block;
+  transform: translateY(105%);
+  animation: heroNameUp 1.2s cubic-bezier(.16,1,.3,1) forwards;
+  animation-delay: 0.9s;
+}
+@keyframes heroNameUp {
+  to { transform: translateY(0); }
+}
+.hero-editorial__subtitle {
+  font-size: clamp(0.9rem, 1.8vw, 1.35rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  margin-top: 1.2rem;
+}
+.hero-editorial__subtitle .ink-reveal--word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: wordFade 0.8s ease forwards;
+}
+@keyframes wordFade {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── 3. SECTION REVEAL — opacity + translateY (GPU) ─── */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(.16,1,.3,1),
+              transform 0.8s cubic-bezier(.16,1,.3,1);
+}
+.section-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── 4. PROJECT CARDS — scale + opacity (GPU, sem clip-path) ─── */
+.project-card__media {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 1s cubic-bezier(.16,1,.3,1),
+              transform 1s cubic-bezier(.16,1,.3,1);
+}
+.project-card__media.is-revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+.project-card {
+  transition: transform 0.4s cubic-bezier(.16,1,.3,1),
+              box-shadow 0.4s ease;
+}
+.project-card:hover {
+  box-shadow: 0 0 40px rgba(255,255,255,0.04);
+}
+.project-card__media img {
+  transition: transform 0.8s cubic-bezier(.16,1,.3,1);
+  will-change: transform;
+}
+.project-card:hover .project-card__media img {
+  transform: scale(1.04);
+}
+.project-card__tech-tag {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(.16,1,.3,1);
+}
+.project-card.is-revealed .project-card__tech-tag {
+  opacity: 1;
+  transform: translateY(0);
+}
+.project-card.is-revealed .project-card__tech-tag:nth-child(1) { transition-delay: 0.2s; }
+.project-card.is-revealed .project-card__tech-tag:nth-child(2) { transition-delay: 0.3s; }
+.project-card.is-revealed .project-card__tech-tag:nth-child(3) { transition-delay: 0.4s; }
+.project-card.is-revealed .project-card__tech-tag:nth-child(4) { transition-delay: 0.5s; }
+.project-card.is-revealed .project-card__tech-tag:nth-child(5) { transition-delay: 0.6s; }
+
+/* ─── 5. EDITORIAL LINKS ─── */
+.editorial-link {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+.editorial-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(.16,1,.3,1);
+}
+.editorial-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ─── 6. SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.35); }
+
+/* ─── 7. NOISE GRAIN — CSS-only, sem animation pesada ─── */
+.noise-overlay {
+  opacity: 0.03;
+}
+
+/* ─── 8. HERO CTA SHINE ─── */
+.hero-editorial__cta .btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+.hero-editorial__cta .btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.08) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+.hero-editorial__cta .btn-primary:hover::before {
+  transform: translateX(100%);
+}
+
+/* ─── 9. TIMELINE ENTRANCE ─── */
+.timeline-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1);
+}
+.timeline-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── 10. SKILL TAGS ─── */
+.skill-tag {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(.16,1,.3,1), background 0.3s;
+}
+.skill-tag.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── 11. TESTIMONIAL CARDS ─── */
+.testimonial-card {
+  transition: transform 0.5s cubic-bezier(.16,1,.3,1), box-shadow 0.5s ease;
+}
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+/* ─── 12. FOOTER LINKS ─── */
+.footer-links a {
+  position: relative;
+}
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(.16,1,.3,1);
+}
+.footer-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ─── 13. PROJECTS HEADER ─── */
+.projects-header__title {
+  overflow: hidden;
+}
+.projects-header__title span {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 1s cubic-bezier(.16,1,.3,1), opacity 0.8s ease;
+}
+.projects-header__title.is-visible span {
+  transform: translateY(0);
+  opacity: 1;
+}
+.projects-header__title.is-visible span:nth-child(1) { transition-delay: 0s; }
+.projects-header__title.is-visible span:nth-child(2) { transition-delay: 0.08s; }
+.projects-header__title.is-visible span:nth-child(3) { transition-delay: 0.16s; }
+.projects-header__title.is-visible span:nth-child(4) { transition-delay: 0.24s; }
+.projects-header__title.is-visible span:nth-child(5) { transition-delay: 0.32s; }
+.projects-header__title.is-visible span:nth-child(6) { transition-delay: 0.40s; }
+.projects-header__title.is-visible span:nth-child(7) { transition-delay: 0.48s; }
+.projects-header__title.is-visible span:nth-child(8) { transition-delay: 0.56s; }
+.projects-header__title.is-visible span:nth-child(9) { transition-delay: 0.64s; }
+.projects-header__title.is-visible span:nth-child(10){ transition-delay: 0.72s; }
+
+.projects-header__subtitle {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease 0.4s, transform 0.8s cubic-bezier(.16,1,.3,1) 0.4s;
+}
+.projects-header__subtitle.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── 14. CTA SHINE ─── */
+.projects-cta-all {
+  position: relative;
+  overflow: hidden;
+}
+.projects-cta-all::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.8s ease;
+  pointer-events: none;
+}
+.projects-cta-all:hover::after {
+  transform: translateX(100%);
+}
+
+/* ─── 15. DESCRIÇÃO FADE ─── */
+.project-card__desc {
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+}
+.project-card:hover .project-card__desc {
+  opacity: 1;
+}
+
+/* =========================================================
+   LOADER V2 — CSS Puro, GPU-accelerated
    ========================================================= */
 
 /* Esconder canvas do loader antigo (pesado) */
@@ -7,9 +286,9 @@
   display: none !important;
 }
 
-/* Background do loader com gradiente sutil animado */
+/* Background do loader */
 #cinematic-loader {
-  background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 70%) !important;
+  background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 70%);
 }
 
 /* Brilho sutil no fundo */
@@ -28,7 +307,7 @@
   100% { opacity: 1; }
 }
 
-/* Estrela cadente CSS pura — GPU accelerated */
+/* Estrela cadente CSS pura */
 .loader-shooting-star__trail {
   position: absolute;
   width: 4px;
@@ -37,8 +316,7 @@
   border-radius: 50%;
   box-shadow: 
     0 0 10px 2px rgba(255,255,255,0.8),
-    0 0 30px 8px rgba(255,255,255,0.3),
-    0 0 60px 15px rgba(255,255,255,0.1);
+    0 0 30px 8px rgba(255,255,255,0.3);
   opacity: 0;
 }
 
@@ -61,7 +339,7 @@
   }
 }
 
-/* Letras do nome com glow sutil */
+/* Letras do nome com glow */
 #cinematic-loader .brand-letter {
   text-shadow: 0 0 20px rgba(255,255,255,0.15);
   animation: letterGlow 2s ease-in-out infinite alternate;
@@ -69,842 +347,13 @@
 
 @keyframes letterGlow {
   0% { text-shadow: 0 0 20px rgba(255,255,255,0.1); }
-  100% { text-shadow: 0 0 30px rgba(255,255,255,0.25), 0 0 60px rgba(255,255,255,0.05); }
+  100% { text-shadow: 0 0 30px rgba(255,255,255,0.25); }
 }
 
 /* =========================================================
-   CRITICAL FIX — NAV VISIBILITY (z-index above polish overlay)
-   ========================================================= */
-nav, header {
-  z-index: 10001 !important;
-  position: relative;
-}
-.nav-links {
-  z-index: 10002 !important;
-}
-.logo {
-  z-index: 10003 !important;
-}
-.scroll-progress-container {
-  z-index: 10004 !important;
-}
-
-/* Cursor root ABAIXO do nav para não interferir */
-.cursor-root {
-  z-index: 9990 !important;
-}
-
-/* =========================================================
-   AWWWARDS EVOLUTION — MRLEOROBOT
-   ========================================================= */
-/* =========================================================
-   AWWWARDS EVOLUTION — MRLEOROBOT
-   Creative Developer + Senior Front-End + Motion Design
-   Poucas interações, extremamente refinadas.
+   CASE STUDY OVERLAY
    ========================================================= */
 
-/* ─── 1. SMOOTH SCROLL & RHYTHM ─── */
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-.lenis.lenis-stopped { overflow: hidden; }
-
-/* ─── 2. CUSTOM CURSOR (desktop only) ─── */
-@media (pointer: fine) {
-  /* Cursor customizado — exclui header/nav para não quebrar interatividade */
-  body *:not(header):not(nav):not(header *):not(nav *) { cursor: none !important; }
-  header, nav, header *, nav * { cursor: auto !important; }
-
-  .cursor-root {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 999; /* ABAIXO do nav (1000) para não sobrepor */
-  }
-
-  .cursor-dot {
-    position: absolute;
-    width: 6px; height: 6px;
-    background: #fff;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width .15s, height .15s, opacity .15s;
-    will-change: transform;
-    mix-blend-mode: difference;
-  }
-
-  .cursor-ring {
-    position: absolute;
-    width: 40px; height: 40px;
-    border: 1px solid rgba(255,255,255,.45);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width .4s cubic-bezier(.16,1,.3,1), 
-                height .4s cubic-bezier(.16,1,.3,1),
-                border-color .3s;
-    will-change: transform;
-    mix-blend-mode: difference;
-  }
-
-  .cursor-root.is-hover .cursor-dot {
-    width: 0; height: 0; opacity: 0;
-  }
-  .cursor-root.is-hover .cursor-ring {
-    width: 60px; height: 60px;
-    border-color: rgba(255,255,255,.8);
-    background: rgba(255,255,255,.04);
-  }
-  .cursor-root.is-press .cursor-ring {
-    width: 30px; height: 30px;
-    border-color: rgba(255,255,255,.9);
-  }
-}
-
-/* ─── 3. HERO TYPOGRAPHY UPGRADE ─── */
-.hero-editorial__name {
-  font-size: clamp(3.2rem, 10vw, 9.5rem) !important;
-  line-height: .88 !important;
-  letter-spacing: -.04em !important;
-  font-weight: 900 !important;
-  text-transform: uppercase;
-  overflow: hidden;
-}
-
-.hero-editorial__name span[aria-hidden="true"] {
-  display: block;
-  transform: translateY(105%);
-  animation: heroNameUp 1.2s cubic-bezier(.16,1,.3,1) forwards;
-  animation-delay: .9s;
-}
-
-@keyframes heroNameUp {
-  to { transform: translateY(0); }
-}
-
-.hero-editorial__subtitle {
-  font-size: clamp(.9rem, 1.8vw, 1.35rem) !important;
-  letter-spacing: .18em !important;
-  text-transform: uppercase;
-  font-weight: 500 !important;
-  color: rgba(255,255,255,.55) !important;
-  margin-top: 1.2rem !important;
-}
-
-.hero-editorial__subtitle .ink-reveal--word {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(12px);
-  animation: wordFade .8s ease forwards;
-}
-
-@keyframes wordFade {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ─── 4. SECTION CINEMATIC REVEAL ─── */
-.section-reveal {
-  opacity: 0;
-  transform: translateY(60px) scale(.98);
-  transition: opacity 1s cubic-bezier(.16,1,.3,1),
-              transform 1.2s cubic-bezier(.16,1,.3,1);
-}
-.section-reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-/* ─── 5. PROJECT CARDS — 3D TILT & CINEMATIC HOVER ─── */
-.project-card {
-  perspective: 1000px;
-  transform-style: preserve-3d;
-}
-
-.project-card__media {
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  transform-style: preserve-3d;
-  transition: transform .6s cubic-bezier(.16,1,.3,1),
-              box-shadow .6s ease;
-  box-shadow: 0 20px 60px rgba(0,0,0,.4);
-}
-
-.project-card:hover .project-card__media {
-  box-shadow: 0 30px 80px rgba(0,0,0,.6);
-}
-
-.project-card__media img {
-  transition: transform 1.2s cubic-bezier(.16,1,.3,1);
-  will-change: transform;
-}
-
-.project-card:hover .project-card__media img {
-  transform: scale(1.06);
-}
-
-/* Overlay cinemático no hover */
-.project-card__media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), 
-              rgba(255,255,255,.08) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity .6s ease;
-  pointer-events: none;
-  mix-blend-mode: overlay;
-}
-
-.project-card:hover .project-card__media::after {
-  opacity: 1;
-}
-
-/* Tech tags — entrada escalonada */
-.project-card__tech-tag {
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1), 
-              background .3s, color .3s;
-}
-
-.project-card:hover .project-card__tech-tag {
-  opacity: 1;
-  transform: translateY(0);
-}
-.project-card:hover .project-card__tech-tag:nth-child(1) { transition-delay: .05s; }
-.project-card:hover .project-card__tech-tag:nth-child(2) { transition-delay: .1s; }
-.project-card:hover .project-card__tech-tag:nth-child(3) { transition-delay: .15s; }
-
-/* ─── 6. MAGNETIC BUTTONS ─── */
-.magnetic-btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform .3s cubic-bezier(.16,1,.3,1);
-}
-
-.magnetic-btn .btn-text {
-  display: inline-block;
-  transition: transform .3s cubic-bezier(.16,1,.3,1);
-}
-
-/* ─── 7. LINKS — EDITORIAL UNDERLINE ─── */
-.editorial-link {
-  position: relative;
-  text-decoration: none;
-  color: inherit;
-}
-
-.editorial-link::after {
-  content: '';
-  position: absolute;
-  left: 0; bottom: -2px;
-  width: 100%; height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform .5s cubic-bezier(.16,1,.3,1);
-}
-
-.editorial-link:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-/* ─── 8. SCROLLBAR REFINED ─── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.35); }
-
-/* Firefox */
-* { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.15) transparent; }
-
-/* ─── 9. NOISE GRAIN CINEMATOGRAPHIC ─── */
-.noise-overlay {
-  opacity: .035 !important;
-  animation: grain 12s steps(5) infinite;
-}
-
-@keyframes grain {
-  0%, 100% { transform: translate(0,0); }
-  10% { transform: translate(-2%,-2%); }
-  20% { transform: translate(2%,2%); }
-  30% { transform: translate(-1%,1%); }
-  40% { transform: translate(1%,-1%); }
-  50% { transform: translate(-2%,2%); }
-  60% { transform: translate(2%,-2%); }
-  70% { transform: translate(-1%,-1%); }
-  80% { transform: translate(1%,1%); }
-  90% { transform: translate(-2%,-1%); }
-}
-
-/* ─── 10. HERO CTA MAGNETIC ENHANCEMENT ─── */
-.hero-editorial__cta .btn-primary {
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-editorial__cta .btn-primary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.08) 50%, transparent 70%);
-  transform: translateX(-100%);
-  transition: transform .6s ease;
-}
-
-.hero-editorial__cta .btn-primary:hover::before {
-  transform: translateX(100%);
-}
-
-/* ─── 11. TIMELINE ENTRANCE ─── */
-.timeline-item {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
-}
-.timeline-item.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ─── 12. SKILL TAGS STAGGER ─── */
-.skill-tag {
-  opacity: 0;
-  transform: translateY(20px) scale(.95);
-  transition: opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1), background .3s;
-}
-.skill-tag.is-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-/* ─── 13. TESTIMONIAL CARDS FLOAT ─── */
-.testimonial-card {
-  transition: transform .6s cubic-bezier(.16,1,.3,1), box-shadow .6s ease;
-}
-.testimonial-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 50px rgba(0,0,0,.3);
-}
-
-/* ─── 14. FOOTER LINKS EDITORIAL ─── */
-.footer-links a {
-  position: relative;
-}
-.footer-links a::after {
-  content: '';
-  position: absolute;
-  left: 0; bottom: -1px;
-  width: 100%; height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform .4s cubic-bezier(.16,1,.3,1);
-}
-.footer-links a:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-/* ─── 15. PREFERS REDUCED MOTION ─── */
-@media (prefers-reduced-motion: reduce) {
-  .cursor-root { display: none !important; }
-  .section-reveal, .timeline-item, .skill-tag { 
-    opacity: 1 !important; 
-    transform: none !important; 
-    transition: none !important; 
-  }
-  .hero-editorial__name span[aria-hidden="true"] { 
-    animation: none !important; 
-    transform: none !important; 
-  }
-  .project-card__media, .project-card__media img { 
-    transition: none !important; 
-  }
-  .noise-overlay { animation: none !important; }
-  .hero-editorial__subtitle .ink-reveal--word {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
-
-
-/* =========================================================
-   AWWWARDS — SEÇÃO PROJETOS (Upgrade Individual)
-   Apenas classes existentes. Zero alteração no HTML.
-   ========================================================= */
-
-/* ─── 1. CLIP-PATH REVEAL NAS IMAGENS ─── */
-.project-card__media {
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 1.2s cubic-bezier(.77,0,.18,1);
-}
-.project-card__media.is-revealed {
-  clip-path: inset(0 0 0 0);
-}
-
-/* ─── 2. PARALLAX DE IMAGEM NO SCROLL ─── */
-.project-thumbnail-image {
-  will-change: transform;
-  transition: transform 0.1s linear;
-}
-
-/* ─── 3. GLOW MONOCROMÁTICO NO HOVER ─── */
-.project-card {
-  transition: transform .5s cubic-bezier(.16,1,.3,1),
-              box-shadow .5s ease;
-}
-.project-card:hover {
-  box-shadow: 0 0 60px rgba(255,255,255,.06),
-              0 0 120px rgba(255,255,255,.03);
-}
-
-/* ─── 4. TÍTULO COM SCRAMBLE VISUAL ─── */
-.project-card__title {
-  position: relative;
-  overflow: hidden;
-}
-
-/* ─── 5. TECH TAGS STAGGER REVEAL ─── */
-.project-card__tech-tag {
-  opacity: 0;
-  transform: translateY(10px) scale(.95);
-  transition: opacity .4s ease, transform .4s cubic-bezier(.16,1,.3,1);
-}
-.project-card.is-revealed .project-card__tech-tag {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-.project-card.is-revealed .project-card__tech-tag:nth-child(1) { transition-delay: .3s; }
-.project-card.is-revealed .project-card__tech-tag:nth-child(2) { transition-delay: .4s; }
-.project-card.is-revealed .project-card__tech-tag:nth-child(3) { transition-delay: .5s; }
-.project-card.is-revealed .project-card__tech-tag:nth-child(4) { transition-delay: .6s; }
-.project-card.is-revealed .project-card__tech-tag:nth-child(5) { transition-delay: .7s; }
-
-/* ─── 6. HEADER DOS PROJETOS — ENTRADA DRAMÁTICA ─── */
-.projects-header__title {
-  overflow: hidden;
-}
-.projects-header__title span {
-  display: inline-block;
-  transform: translateY(100%);
-  opacity: 0;
-  transition: transform 1s cubic-bezier(.16,1,.3,1), opacity .8s ease;
-}
-.projects-header__title.is-visible span {
-  transform: translateY(0);
-  opacity: 1;
-}
-.projects-header__title.is-visible span:nth-child(1) { transition-delay: 0s; }
-.projects-header__title.is-visible span:nth-child(2) { transition-delay: .08s; }
-.projects-header__title.is-visible span:nth-child(3) { transition-delay: .16s; }
-.projects-header__title.is-visible span:nth-child(4) { transition-delay: .24s; }
-.projects-header__title.is-visible span:nth-child(5) { transition-delay: .32s; }
-.projects-header__title.is-visible span:nth-child(6) { transition-delay: .40s; }
-.projects-header__title.is-visible span:nth-child(7) { transition-delay: .48s; }
-.projects-header__title.is-visible span:nth-child(8) { transition-delay: .56s; }
-.projects-header__title.is-visible span:nth-child(9) { transition-delay: .64s; }
-.projects-header__title.is-visible span:nth-child(10){ transition-delay: .72s; }
-
-.projects-header__subtitle {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .8s ease .4s, transform .8s cubic-bezier(.16,1,.3,1) .4s;
-}
-.projects-header__subtitle.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ─── 7. CTA "VER TODOS" — SHINE SWEEP ─── */
-.projects-cta-all {
-  position: relative;
-  overflow: hidden;
-}
-.projects-cta-all::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.06) 50%, transparent 70%);
-  transform: translateX(-100%);
-  transition: transform .8s ease;
-  pointer-events: none;
-}
-.projects-cta-all:hover::after {
-  transform: translateX(100%);
-}
-
-/* ─── 8. THUMBNAIL OVERLAY — GLOW SUTIL ─── */
-.project-thumbnail-overlay {
-  opacity: 0;
-  transition: opacity .6s ease;
-  background: radial-gradient(ellipse at center, rgba(255,255,255,.03) 0%, transparent 70%);
-}
-.project-card:hover .project-thumbnail-overlay {
-  opacity: 1;
-}
-
-/* ─── 9. DESCRIÇÃO — FADE IN SUTIL ─── */
-.project-card__desc {
-  opacity: 0.7;
-  transition: opacity .4s ease, transform .4s ease;
-}
-.project-card:hover .project-card__desc {
-  opacity: 1;
-  transform: translateX(4px);
-}
-
-/* ─── 10. REDUCED MOTION ─── */
-@media (prefers-reduced-motion: reduce) {
-  .project-card__media { clip-path: inset(0 0 0 0) !important; transition: none !important; }
-  .project-thumbnail-image { transition: none !important; }
-  .project-card__tech-tag { opacity: 1 !important; transform: none !important; transition: none !important; }
-  .projects-header__title span { transform: none !important; opacity: 1 !important; transition: none !important; }
-  .projects-header__subtitle { opacity: 1 !important; transform: none !important; transition: none !important; }
-}
-
-
-/* =========================================================
-   AWWWARDS — MOBILE EXPERIENCE (Upgrade Individual)
-   Apenas mobile. Zero alteração no HTML. Nada removido.
-   ========================================================= */
-
-@media (max-width: 768px) {
-
-  /* ─── 1. MENU FULLSCREEN CINEMATOGRÁFICO ─── */
-  .nav-links {
-    background: rgba(3, 3, 3, 0.98) !important;
-    backdrop-filter: blur(40px) saturate(1.2) !important;
-    -webkit-backdrop-filter: blur(40px) saturate(1.2) !important;
-    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                visibility 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    transform: translateY(-20px) scale(0.98) !important;
-  }
-  .nav-links.active {
-    transform: translateY(0) scale(1) !important;
-  }
-
-  /* Links do menu com stagger reveal */
-  .nav-links a:not(.btn-cv) {
-    opacity: 0;
-    transform: translateX(-30px);
-    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                color 0.3s ease;
-  }
-  .nav-links.active a:not(.btn-cv) {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  .nav-links.active a:not(.btn-cv):nth-child(1) { transition-delay: 0.1s; }
-  .nav-links.active a:not(.btn-cv):nth-child(2) { transition-delay: 0.18s; }
-  .nav-links.active a:not(.btn-cv):nth-child(3) { transition-delay: 0.26s; }
-  .nav-links.active a:not(.btn-cv):nth-child(4) { transition-delay: 0.34s; }
-  .nav-links.active a:not(.btn-cv):nth-child(5) { transition-delay: 0.42s; }
-
-  /* Download CV no menu com destaque especial */
-  .nav-links .btn-cv {
-    margin-top: 2rem !important;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease 0.5s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s,
-                background 0.3s, box-shadow 0.3s;
-  }
-  .nav-links.active .btn-cv {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ─── 2. BOTTOM DOCK PREMIUM ─── */
-  .mobile-bottom-dock {
-    background: rgba(6, 6, 6, 0.85) !important;
-    backdrop-filter: blur(25px) saturate(1.3) !important;
-    -webkit-backdrop-filter: blur(25px) saturate(1.3) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4) !important;
-    padding-bottom: env(safe-area-inset-bottom, 8px) !important;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .mobile-bottom-dock.is-hidden {
-    transform: translateY(120%);
-  }
-
-  .dock-item {
-    position: relative;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                color 0.3s ease;
-  }
-  .dock-item:active {
-    transform: scale(0.92);
-  }
-
-  /* Indicador ativo no dock */
-  .dock-item.active::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
-    animation: dockPulse 2s ease-in-out infinite;
-  }
-
-  @keyframes dockPulse {
-    0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
-    50% { opacity: 1; transform: translateX(-50%) scale(1.3); }
-  }
-
-  .dock-item svg {
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                filter 0.3s ease;
-  }
-  .dock-item.active svg {
-    transform: translateY(-2px);
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
-  }
-
-  /* ─── 3. HERO MOBILE DRAMÁTICO ─── */
-  #hero {
-    min-height: 100dvh !important;
-    padding-top: 80px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-  }
-
-  .hero-editorial__name {
-    font-size: clamp(3.5rem, 18vw, 6rem) !important;
-    line-height: 0.85 !important;
-    letter-spacing: -0.03em !important;
-  }
-
-  .hero-editorial__subtitle {
-    font-size: clamp(0.7rem, 3vw, 0.9rem) !important;
-    letter-spacing: 0.25em !important;
-    margin-top: 1.5rem !important;
-  }
-
-  .hero-editorial__cta .btn-primary {
-    width: 100% !important;
-    max-width: 320px !important;
-    justify-content: center !important;
-    padding: 1rem 2rem !important;
-    font-size: 0.8rem !important;
-    letter-spacing: 0.2em !important;
-  }
-
-  /* ─── 4. SCROLL SNAP POR SEÇÃO ─── */
-  html {
-    scroll-snap-type: y proximity;
-  }
-
-  section {
-    scroll-snap-align: start;
-    scroll-snap-stop: normal;
-  }
-
-  #hero {
-    scroll-snap-align: start;
-  }
-
-  /* ─── 5. CARDS DE PROJETO — SWIPE HINT & GESTOS ─── */
-  .projects-viewport {
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: none !important;
-  }
-  .projects-viewport::-webkit-scrollbar {
-    display: none !important;
-  }
-
-  .project-card {
-    scroll-snap-align: center !important;
-    flex: 0 0 85% !important;
-    max-width: 340px !important;
-  }
-
-  /* Swipe indicator */
-  .projects-header::after {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 2px;
-    margin: 1rem auto 0;
-    animation: swipeHint 2s ease-in-out infinite;
-  }
-
-  @keyframes swipeHint {
-    0%, 100% { transform: translateX(-8px); opacity: 0.3; }
-    50% { transform: translateX(8px); opacity: 0.7; }
-  }
-
-  /* ─── 6. TIMELINE MOBILE — ENTRADA DRAMÁTICA ─── */
-  .timeline-item {
-    opacity: 0;
-    transform: translateX(-30px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .timeline-item.is-visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  /* Linha do tempo com glow */
-  .timeline-track::before {
-    background: linear-gradient(180deg, 
-      rgba(255,255,255,0.1) 0%, 
-      rgba(255,255,255,0.3) 50%, 
-      rgba(255,255,255,0.1) 100%) !important;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1) !important;
-  }
-
-  /* ─── 7. TECH STACK — ÍCONES QUE RESPIRAM ─── */
-  .tech-node {
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                filter 0.4s ease;
-  }
-  .tech-node:active {
-    transform: scale(0.9) !important;
-  }
-
-  /* Animação de respiração nos ícones */
-  @keyframes techBreathe {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-  }
-  .tech-lab__orbit .tech-node {
-    animation: techBreathe 4s ease-in-out infinite;
-  }
-  .tech-lab__orbit .tech-node:nth-child(2n) { animation-delay: 0.5s; }
-  .tech-lab__orbit .tech-node:nth-child(3n) { animation-delay: 1s; }
-  .tech-lab__orbit .tech-node:nth-child(4n) { animation-delay: 1.5s; }
-
-  /* ─── 8. DEPOIMENTOS — CARD ATIVO EM DESTAQUE ─── */
-  .testimonial-card {
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.5s ease,
-                box-shadow 0.5s ease;
-  }
-  .testimonial-card.active {
-    transform: scale(1.02);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  }
-
-  /* ─── 9. SEÇÕES — ENTRADA COM FADE UP ─── */
-  .section-reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .section-reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ─── 10. HERO INK CANVAS — MAIS INTENSO NO MOBILE ─── */
-  #hero-ink-canvas {
-    opacity: 0.7 !important;
-  }
-
-  /* ─── 11. SCROLL PROGRESS MAIS VISÍVEL ─── */
-  .scroll-progress-bar {
-    height: 2px !important;
-    background: linear-gradient(90deg, #fff, rgba(255,255,255,0.3)) !important;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3) !important;
-  }
-
-  /* ─── 12. HAMBURGER ANIMAÇÃO PREMIUM ─── */
-  .hamburger {
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .hamburger:active {
-    transform: scale(0.9);
-  }
-  .hamburger-line {
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.3s ease,
-                width 0.3s ease;
-  }
-  .hamburger.active .hamburger-line:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-  }
-  .hamburger.active .hamburger-line:nth-child(2) {
-    opacity: 0;
-    width: 0;
-  }
-  .hamburger.active .hamburger-line:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-  }
-
-  /* ─── 13. BOTÕES FLUTUANTES — MELHOR POSICIONAMENTO ─── */
-  .btn-flutuante {
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.3s ease;
-  }
-  .btn-flutuante:active {
-    transform: scale(0.92) !important;
-  }
-
-  /* ─── 14. FAQ — ACCORDION SMOOTH ─── */
-  .faq-answer {
-    transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.4s ease,
-                padding 0.4s ease;
-  }
-
-  /* ─── 15. FOOTER — REVEAL ESCALONADO ─── */
-  .footer-links a {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .footer.is-visible .footer-links a {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .footer.is-visible .footer-links a:nth-child(1) { transition-delay: 0.1s; }
-  .footer.is-visible .footer-links a:nth-child(2) { transition-delay: 0.15s; }
-  .footer.is-visible .footer-links a:nth-child(3) { transition-delay: 0.2s; }
-  .footer.is-visible .footer-links a:nth-child(4) { transition-delay: 0.25s; }
-  .footer.is-visible .footer-links a:nth-child(5) { transition-delay: 0.3s; }
-}
-
-/* ─── REDUCED MOTION MOBILE ─── */
-@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
-  .nav-links { transform: none !important; transition: opacity 0.3s ease !important; }
-  .nav-links a:not(.btn-cv) { transform: none !important; transition: opacity 0.3s ease !important; }
-  .dock-item.active::before { animation: none !important; }
-  .projects-header::after { animation: none !important; }
-  .tech-lab__orbit .tech-node { animation: none !important; }
-  .timeline-item { transform: none !important; transition: opacity 0.5s ease !important; }
-  .section-reveal { transform: none !important; transition: opacity 0.5s ease !important; }
-  html { scroll-snap-type: none !important; }
-  .project-card { scroll-snap-align: none !important; }
-}
-
-
-/* =========================================================
-   AWWWARDS — PROJECT CASE STUDY OVERLAY (Cinematográfico)
-   Zero alteração no HTML. Classes dinâmicas via JS.
-   ========================================================= */
-
-/* ─── OVERLAY CONTAINER ─── */
 .project-case-overlay {
   position: fixed;
   inset: 0;
@@ -920,55 +369,38 @@ html.lenis, html.lenis body { height: auto; }
   pointer-events: all;
   opacity: 1;
 }
-
-/* ─── BACKGROUND ESCURO COM BLUR ─── */
 .project-case-overlay__bg {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,.92);
-  backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(0px);
-  transition: backdrop-filter 0.8s cubic-bezier(.16,1,.3,1) 0.1s,
-              -webkit-backdrop-filter 0.8s cubic-bezier(.16,1,.3,1) 0.1s;
+  background: rgba(0,0,0,0.92);
 }
-.project-case-overlay.is-active .project-case-overlay__bg {
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-}
-
-/* ─── IMAGEM FULL-BLEED — WIPE REVEAL ─── */
 .project-case-overlay__image {
   position: absolute;
   inset: 0;
-  clip-path: inset(0 100% 0 0);
+  opacity: 0;
   transform: scale(1.1);
-  transition: clip-path 1s cubic-bezier(.77,0,.18,1) 0.15s,
+  transition: opacity 1s cubic-bezier(.16,1,.3,1) 0.15s,
               transform 1.2s cubic-bezier(.16,1,.3,1) 0.3s;
-  will-change: clip-path, transform;
 }
 .project-case-overlay.is-active .project-case-overlay__image {
-  clip-path: inset(0 0 0 0);
+  opacity: 1;
   transform: scale(1);
 }
 .project-case-overlay__image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.4) saturate(0.8);
+  filter: brightness(0.4);
 }
-
-/* ─── GRADIENTE DE LEITURA ─── */
 .project-case-overlay__image::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, 
-    rgba(0,0,0,.2) 0%, 
-    rgba(0,0,0,.6) 50%, 
-    rgba(0,0,0,.9) 100%);
+    rgba(0,0,0,0.2) 0%, 
+    rgba(0,0,0,0.6) 50%, 
+    rgba(0,0,0,0.9) 100%);
 }
-
-/* ─── CONTEÚDO SOBREPOSTO ─── */
 .project-case-overlay__content {
   position: relative;
   z-index: 2;
@@ -977,12 +409,10 @@ html.lenis, html.lenis body { height: auto; }
   padding: 2rem;
   text-align: center;
 }
-
-/* Título */
 .project-case-overlay__title {
   font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 900;
-  letter-spacing: -.03em;
+  letter-spacing: -0.03em;
   line-height: 1;
   color: #fff;
   margin-bottom: 1rem;
@@ -995,12 +425,10 @@ html.lenis, html.lenis body { height: auto; }
   opacity: 1;
   transform: translateY(0);
 }
-
-/* Descrição */
 .project-case-overlay__desc {
   font-size: clamp(0.95rem, 1.5vw, 1.15rem);
   line-height: 1.7;
-  color: rgba(255,255,255,.7);
+  color: rgba(255,255,255,0.7);
   margin-bottom: 1.5rem;
   opacity: 0;
   transform: translateY(30px);
@@ -1011,8 +439,6 @@ html.lenis, html.lenis body { height: auto; }
   opacity: 1;
   transform: translateY(0);
 }
-
-/* Tech tags */
 .project-case-overlay__tech {
   display: flex;
   flex-wrap: wrap;
@@ -1030,22 +456,20 @@ html.lenis, html.lenis body { height: auto; }
 }
 .project-case-overlay__tech-tag {
   padding: 0.35rem 0.9rem;
-  border: 1px solid rgba(255,255,255,.2);
+  border: 1px solid rgba(255,255,255,0.2);
   border-radius: 100px;
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.7);
-  background: rgba(255,255,255,.05);
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.05);
 }
-
-/* Botão CTA */
 .project-case-overlay__cta {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 1rem 2.5rem;
-  border: 1px solid rgba(255,255,255,.3);
+  border: 1px solid rgba(255,255,255,0.3);
   border-radius: 100px;
   color: #fff;
   text-decoration: none;
@@ -1064,11 +488,9 @@ html.lenis, html.lenis body { height: auto; }
   transform: translateY(0);
 }
 .project-case-overlay__cta:hover {
-  background: rgba(255,255,255,.1);
-  border-color: rgba(255,255,255,.6);
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.6);
 }
-
-/* ─── BOTÃO FECHAR (X) ─── */
 .project-case-overlay__close {
   position: absolute;
   top: 2rem;
@@ -1077,9 +499,8 @@ html.lenis, html.lenis body { height: auto; }
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.2);
-  background: rgba(255,255,255,.05);
-  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1096,8 +517,8 @@ html.lenis, html.lenis body { height: auto; }
   transform: scale(1) rotate(0deg);
 }
 .project-case-overlay__close:hover {
-  background: rgba(255,255,255,.15);
-  border-color: rgba(255,255,255,.5);
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.5);
   transform: scale(1.1) rotate(90deg);
 }
 .project-case-overlay__close svg {
@@ -1108,30 +529,190 @@ html.lenis, html.lenis body { height: auto; }
   stroke-linecap: round;
 }
 
-/* ─── INDICADOR DE SCROLL ─── */
-.project-case-overlay__scroll-hint {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.4);
-  opacity: 0;
-  transition: opacity 0.5s ease 1s;
-  animation: scrollHintBounce 2s ease-in-out infinite;
-}
-.project-case-overlay.is-active .project-case-overlay__scroll-hint {
-  opacity: 1;
-}
-@keyframes scrollHintBounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(6px); }
-}
+/* =========================================================
+   MOBILE EXPERIENCE
+   ========================================================= */
 
-/* ─── MOBILE ─── */
 @media (max-width: 768px) {
+  .nav-links {
+    background: rgba(3, 3, 3, 0.98);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(-20px) scale(0.98);
+  }
+  .nav-links.active {
+    transform: translateY(0) scale(1);
+  }
+  .nav-links a:not(.btn-cv) {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.3s ease;
+  }
+  .nav-links.active a:not(.btn-cv) {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .nav-links.active a:not(.btn-cv):nth-child(1) { transition-delay: 0.1s; }
+  .nav-links.active a:not(.btn-cv):nth-child(2) { transition-delay: 0.18s; }
+  .nav-links.active a:not(.btn-cv):nth-child(3) { transition-delay: 0.26s; }
+  .nav-links.active a:not(.btn-cv):nth-child(4) { transition-delay: 0.34s; }
+  .nav-links.active a:not(.btn-cv):nth-child(5) { transition-delay: 0.42s; }
+  .nav-links .btn-cv {
+    margin-top: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.5s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+  }
+  .nav-links.active .btn-cv {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mobile-bottom-dock {
+    background: rgba(6, 6, 6, 0.85);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
+    padding-bottom: env(safe-area-inset-bottom, 8px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mobile-bottom-dock.is-hidden {
+    transform: translateY(120%);
+  }
+  .dock-item {
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+  }
+  .dock-item:active {
+    transform: scale(0.92);
+  }
+  .dock-item.active::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    animation: dockPulse 2s ease-in-out infinite;
+  }
+  @keyframes dockPulse {
+    0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+    50% { opacity: 1; transform: translateX(-50%) scale(1.3); }
+  }
+
+  #hero {
+    min-height: 100dvh;
+    padding-top: 80px;
+  }
+  .hero-editorial__name {
+    font-size: clamp(3.5rem, 18vw, 6rem);
+    line-height: 0.85;
+  }
+  .hero-editorial__subtitle {
+    font-size: clamp(0.7rem, 3vw, 0.9rem);
+    letter-spacing: 0.25em;
+  }
+  .hero-editorial__cta .btn-primary {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+    padding: 1rem 2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+  }
+
+  .projects-viewport {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .projects-viewport::-webkit-scrollbar {
+    display: none;
+  }
+  .project-card {
+    scroll-snap-align: center;
+    flex: 0 0 85%;
+    max-width: 340px;
+  }
+  .projects-header::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+    margin: 1rem auto 0;
+    animation: swipeHint 2s ease-in-out infinite;
+  }
+  @keyframes swipeHint {
+    0%, 100% { transform: translateX(-8px); opacity: 0.3; }
+    50% { transform: translateX(8px); opacity: 0.7; }
+  }
+
+  .timeline-item {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .timeline-item.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @keyframes techBreathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  .tech-lab__orbit .tech-node {
+    animation: techBreathe 4s ease-in-out infinite;
+  }
+  .tech-lab__orbit .tech-node:nth-child(2n) { animation-delay: 0.5s; }
+  .tech-lab__orbit .tech-node:nth-child(3n) { animation-delay: 1s; }
+  .tech-lab__orbit .tech-node:nth-child(4n) { animation-delay: 1.5s; }
+
+  .testimonial-card {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease, box-shadow 0.5s ease;
+  }
+  .testimonial-card.active {
+    transform: scale(1.02);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .scroll-progress-bar {
+    height: 2px;
+    background: linear-gradient(90deg, #fff, rgba(255,255,255,0.3));
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  }
+
+  .hamburger {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hamburger:active {
+    transform: scale(0.9);
+  }
+
+  .footer-links a {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .footer.is-visible .footer-links a {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .footer.is-visible .footer-links a:nth-child(1) { transition-delay: 0.1s; }
+  .footer.is-visible .footer-links a:nth-child(2) { transition-delay: 0.15s; }
+  .footer.is-visible .footer-links a:nth-child(3) { transition-delay: 0.2s; }
+  .footer.is-visible .footer-links a:nth-child(4) { transition-delay: 0.25s; }
+  .footer.is-visible .footer-links a:nth-child(5) { transition-delay: 0.3s; }
+
   .project-case-overlay__content {
     padding: 1.5rem;
     width: 95%;
@@ -1145,94 +726,32 @@ html.lenis, html.lenis body { height: auto; }
     width: 40px;
     height: 40px;
   }
-  .project-case-overlay__image img {
-    object-position: center 30%;
-  }
 }
 
 /* ─── REDUCED MOTION ─── */
 @media (prefers-reduced-motion: reduce) {
-  .project-case-overlay,
-  .project-case-overlay__bg,
-  .project-case-overlay__image,
-  .project-case-overlay__title,
-  .project-case-overlay__desc,
-  .project-case-overlay__tech,
-  .project-case-overlay__cta,
-  .project-case-overlay__close {
-    transition: none !important;
-    animation: none !important;
-    transform: none !important;
-    opacity: 1 !important;
+  .section-reveal, .timeline-item, .skill-tag { 
+    opacity: 1; 
+    transform: none; 
+    transition: none; 
   }
-  .project-case-overlay__image {
-    clip-path: inset(0 0 0 0) !important;
+  .hero-editorial__name span[aria-hidden="true"] { 
+    animation: none; 
+    transform: none; 
   }
-}
-
-
-/* Scroll progress otimizado — simples e leve */
-.scroll-progress-bar {
-  background: linear-gradient(90deg, rgba(255,255,255,.3), #fff) !important;
-  box-shadow: 0 0 8px rgba(255,255,255,.3) !important;
-  height: 2px !important;
-  transition: width 0.1s linear !important;
-}
-
-/* Container do SVG */
-.scroll-progress-container {
-  background: transparent !important;
-  overflow: visible !important;
-}
-
-/* SVG orgânico */
-.scroll-progress-svg {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 6px;
-  z-index: 1002;
-  pointer-events: none;
-}
-
-.scroll-progress-svg path {
-  fill: none;
-  stroke: url(#scrollGradient);
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  filter: drop-shadow(0 0 4px rgba(255,255,255,.4)) drop-shadow(0 0 12px rgba(255,255,255,.15));
-}
-
-/* Glow trail que segue o progresso */
-.scroll-progress-svg .scroll-progress-glow {
-  fill: none;
-  stroke: rgba(255,255,255,.6);
-  stroke-width: 1;
-  stroke-linecap: round;
-  filter: drop-shadow(0 0 8px rgba(255,255,255,.8)) drop-shadow(0 0 20px rgba(255,255,255,.3));
-}
-
-/* Ponto de luz na ponta */
-.scroll-progress-svg .scroll-progress-tip {
-  fill: #fff;
-  filter: drop-shadow(0 0 6px rgba(255,255,255,.9)) drop-shadow(0 0 15px rgba(255,255,255,.4));
-}
-
-/* ─── MOBILE ─── */
-@media (max-width: 768px) {
-  .scroll-progress-svg {
-    height: 4px;
+  .project-card__media, .project-card__media img { 
+    transition: none; 
   }
-  .scroll-progress-svg path {
-    stroke-width: 2;
+  .noise-overlay { animation: none; }
+  .hero-editorial__subtitle .ink-reveal--word {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
-}
-
-/* ─── REDUCED MOTION ─── */
-@media (prefers-reduced-motion: reduce) {
-  .scroll-progress-svg path {
-    transition: none !important;
-  }
+  .projects-header__title span { transform: none; opacity: 1; transition: none; }
+  .projects-header__subtitle { opacity: 1; transform: none; transition: none; }
+  #loader-stars-canvas { display: none; }
+  .dock-item.active::before { animation: none; }
+  .projects-header::after { animation: none; }
+  .tech-lab__orbit .tech-node { animation: none; }
 }
