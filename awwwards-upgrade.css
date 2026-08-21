@@ -1169,3 +1169,73 @@ html.lenis, html.lenis body { height: auto; }
     clip-path: inset(0 0 0 0) !important;
   }
 }
+
+
+/* =========================================================
+   AWWWARDS — SCROLL PROGRESS ORGÂNICO (SVG Draw)
+   Zero alteração no HTML. Substitui barra padrão.
+   ========================================================= */
+
+/* Esconder barra de progresso padrão */
+.scroll-progress-bar {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Container do SVG */
+.scroll-progress-container {
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+/* SVG orgânico */
+.scroll-progress-svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  z-index: 1002;
+  pointer-events: none;
+}
+
+.scroll-progress-svg path {
+  fill: none;
+  stroke: url(#scrollGradient);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,.4)) drop-shadow(0 0 12px rgba(255,255,255,.15));
+}
+
+/* Glow trail que segue o progresso */
+.scroll-progress-svg .scroll-progress-glow {
+  fill: none;
+  stroke: rgba(255,255,255,.6);
+  stroke-width: 1;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,.8)) drop-shadow(0 0 20px rgba(255,255,255,.3));
+}
+
+/* Ponto de luz na ponta */
+.scroll-progress-svg .scroll-progress-tip {
+  fill: #fff;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,.9)) drop-shadow(0 0 15px rgba(255,255,255,.4));
+}
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+  .scroll-progress-svg {
+    height: 4px;
+  }
+  .scroll-progress-svg path {
+    stroke-width: 2;
+  }
+}
+
+/* ─── REDUCED MOTION ─── */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress-svg path {
+    transition: none !important;
+  }
+}
