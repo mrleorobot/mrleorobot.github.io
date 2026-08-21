@@ -2405,3 +2405,17 @@ body::after {
   }
 }
 
+/* ==========================================================================
+   ROBUSTEZ: Seção de Projetos sempre visível, sem depender do
+   IntersectionObserver genérico de scroll-reveal.
+   Essa seção já causou 3 rodadas de bugs de "conteúdo invisível" por causa
+   de CSS conflitante de redesigns antigos. Em vez de continuar dependendo
+   de um mecanismo compartilhado e frágil, ela passa a renderizar direto.
+   ========================================================================== */
+#projetos.section-reveal,
+#projetos .reveal-item {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
