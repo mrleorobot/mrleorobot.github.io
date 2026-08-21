@@ -117,6 +117,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!loader || !brandEl) {
     if (loader) loader.remove();
+        // Parar canvas do loader para não consumir CPU
+        const loaderCanvas = document.getElementById("loader-stars-canvas");
+        if (loaderCanvas) {
+          loaderCanvas.style.display = "none";
+          const ctx = loaderCanvas.getContext("2d");
+          if (ctx) ctx.clearRect(0, 0, loaderCanvas.width, loaderCanvas.height);
+        }
+        // Revelar hero
+        document.body.classList.add("loader-complete");
     body.classList.remove("loading-locked");
     return;
   }
@@ -128,16 +137,34 @@ document.addEventListener("DOMContentLoaded", () => {
   if (prefersReducedMotion) {
     body.classList.remove("loading-locked");
     loader.remove();
+        // Parar canvas do loader para não consumir CPU
+        const loaderCanvas = document.getElementById("loader-stars-canvas");
+        if (loaderCanvas) {
+          loaderCanvas.style.display = "none";
+          const ctx = loaderCanvas.getContext("2d");
+          if (ctx) ctx.clearRect(0, 0, loaderCanvas.width, loaderCanvas.height);
+        }
+        // Revelar hero
+        document.body.classList.add("loader-complete");
     return;
   }
 
-  const alreadyShownThisSession = sessionStorage.getItem("loaderShown") === "1";
+  const alreadyShownThisSession = false; // sessionStorage removido — loader sempre aparece
   if (alreadyShownThisSession) {
     body.classList.remove("loading-locked");
     loader.remove();
+        // Parar canvas do loader para não consumir CPU
+        const loaderCanvas = document.getElementById("loader-stars-canvas");
+        if (loaderCanvas) {
+          loaderCanvas.style.display = "none";
+          const ctx = loaderCanvas.getContext("2d");
+          if (ctx) ctx.clearRect(0, 0, loaderCanvas.width, loaderCanvas.height);
+        }
+        // Revelar hero
+        document.body.classList.add("loader-complete");
     return;
   }
-  sessionStorage.setItem("loaderShown", "1");
+  // sessionStorage removido — loader sempre aparece
 
   body.classList.add("loading-locked");
 
@@ -204,7 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //   250ms  : brand name appears (letter cascade, ~700ms for all letters)
   //   850ms  : shooting star fires above the name
   //   1350ms : curtains reveal
-  //   2250ms : loader removed from DOM
+  //   6000ms : loader removed from DOM
 
   requestAnimationFrame(() => {
     loader.classList.add("starfield-on");
@@ -225,6 +252,15 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
           body.classList.remove("loading-locked");
           loader.remove();
+        // Parar canvas do loader para não consumir CPU
+        const loaderCanvas = document.getElementById("loader-stars-canvas");
+        if (loaderCanvas) {
+          loaderCanvas.style.display = "none";
+          const ctx = loaderCanvas.getContext("2d");
+          if (ctx) ctx.clearRect(0, 0, loaderCanvas.width, loaderCanvas.height);
+        }
+        // Revelar hero
+        document.body.classList.add("loader-complete");
         }, 900);
       }, 500); // wait for shooting star to cross
     }, 600); // wait for letter cascade to finish
@@ -236,6 +272,15 @@ document.addEventListener("DOMContentLoaded", () => {
       if (animId) cancelAnimationFrame(animId);
       body.classList.remove("loading-locked");
       loader.remove();
+        // Parar canvas do loader para não consumir CPU
+        const loaderCanvas = document.getElementById("loader-stars-canvas");
+        if (loaderCanvas) {
+          loaderCanvas.style.display = "none";
+          const ctx = loaderCanvas.getContext("2d");
+          if (ctx) ctx.clearRect(0, 0, loaderCanvas.width, loaderCanvas.height);
+        }
+        // Revelar hero
+        document.body.classList.add("loader-complete");
     }
   }, 5000);
 });
