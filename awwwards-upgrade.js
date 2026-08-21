@@ -244,4 +244,144 @@
     });
   }
 
+
+
+  /* =========================================================
+     AWWWARDS — PROJECT CASE STUDY OVERLAY (Cinematográfico)
+     Zero alteração no HTML. Classes dinâmicas via JS.
+     ========================================================= */
+
+  (function initCaseStudyOverlay() {
+    const cards = document.querySelectorAll('.project-card');
+    if (!cards.length) return;
+
+    let currentOverlay = null;
+    let isAnimating = false;
+
+    cards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Se clicou no lightbox trigger ou na imagem, deixa o lightbox original funcionar
+        if (e.target.closest('.project-lightbox-trigger') || e.target.closest('.project-thumbnail-wrapper')) {
+          return;
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (isAnimating) return;
+        isAnimating = true;
+
+        // Extrair dados do card
+        const img = card.querySelector('.project-thumbnail-image');
+        const title = card.querySelector('.project-card__title');
+        const desc = card.querySelector('.project-card__desc');
+        const techTags = card.querySelectorAll('.project-card__tech-tag');
+        const link = card.querySelector('a[href^="http"]');
+
+        const data = {
+          imageSrc: img ? img.src : '',
+          imageAlt: img ? img.alt : '',
+          title: title ? title.textContent.trim() : '',
+          desc: desc ? desc.textContent.trim() : '',
+          tags: Array.from(techTags).map(t => t.textContent.trim()),
+          link: link ? link.href : ''
+        };
+
+        openOverlay(data);
+      });
+    });
+
+    function openOverlay(data) {
+      // Criar overlay
+      const overlay = document.createElement('div');
+      overlay.className = 'project-case-overlay';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+
+      // Montar HTML do overlay
+      const tagsHtml = data.tags.map(tag =>
+        `<span class="project-case-overlay__tech-tag">${escapeHtml(tag)}</span>`
+      ).join('');
+
+      overlay.innerHTML = `
+        <div class="project-case-overlay__bg"></div>
+        <div class="project-case-overlay__image">
+          <img src="${escapeHtml(data.imageSrc)}" alt="${escapeHtml(data.imageAlt)}" loading="eager">
+        </div>
+        <div class="project-case-overlay__content">
+          <h2 class="project-case-overlay__title">${escapeHtml(data.title)}</h2>
+          <p class="project-case-overlay__desc">${escapeHtml(data.desc)}</p>
+          <div class="project-case-overlay__tech">${tagsHtml}</div>
+          ${data.link ? `<a href="${escapeHtml(data.link)}" target="_blank" rel="noopener" class="project-case-overlay__cta">
+            <span>Ver Projeto</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12L12 4M12 4H6M12 4V10"/></svg>
+          </a>` : ''}
+        </div>
+        <button class="project-case-overlay__close" aria-label="Fechar">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <div class="project-case-overlay__scroll-hint">Role para explorar</div>
+      `;
+
+      document.body.appendChild(overlay);
+      currentOverlay = overlay;
+
+      // Bloquear scroll do body
+      document.body.style.overflow = 'hidden';
+
+      // Forçar reflow para animação
+      overlay.offsetHeight;
+
+      // Ativar animação
+      requestAnimationFrame(() => {
+        overlay.classList.add('is-active');
+        isAnimating = false;
+      });
+
+      // Event listeners de fechamento
+      const closeBtn = overlay.querySelector('.project-case-overlay__close');
+      closeBtn.addEventListener('click', closeOverlay);
+
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay || e.target.classList.contains('project-case-overlay__bg')) {
+          closeOverlay();
+        }
+      });
+
+      // ESC para fechar
+      document.addEventListener('keydown', onKeyDown);
+    }
+
+    function closeOverlay() {
+      if (!currentOverlay || isAnimating) return;
+      isAnimating = true;
+
+      currentOverlay.classList.remove('is-active');
+
+      // Esperar animação de saída
+      setTimeout(() => {
+        if (currentOverlay && currentOverlay.parentNode) {
+          currentOverlay.parentNode.removeChild(currentOverlay);
+        }
+        currentOverlay = null;
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', onKeyDown);
+        isAnimating = false;
+      }, 700);
+    }
+
+    function onKeyDown(e) {
+      if (e.key === 'Escape') {
+        closeOverlay();
+      }
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+  })();
+
 })();
