@@ -2109,6 +2109,51 @@ const lightboxWrapper = document.getElementById("lightbox-wrapper");
 const lightboxInfoSide = document.getElementById("lightbox-info-side");
 
 const projectDetails = {
+  "screenshot-onething": {
+    title: "ONE THING",
+    category: "Design Experimental & Tipografia",
+    challenge:
+      "Testar até onde uma página consegue comunicar usando quase nada — sem cor, sem imagem, só tipografia crua e espaço negativo.",
+    solution:
+      "Landing page experimental construída em torno de uma única palavra gigante e micro-interações discretas, explorando hierarquia tipográfica pura e um único ponto de cor de destaque.",
+    tech: ["Vite", "Framer Motion", "CSS Puro"],
+  },
+  "screenshot-komorebi": {
+    title: "Komorebi",
+    category: "Landing Page & Branding",
+    challenge:
+      "Transmitir a atmosfera calma e artesanal de uma torrefação boutique numa landing page, sem cair no clichê visual de 'site de cafeteria'.",
+    solution:
+      "Design premium com paleta orgânica, fotografia em close-up do ritual do café e tipografia serifada, guiando o usuário por uma narrativa de pausa e cuidado até a assinatura.",
+    tech: ["React", "Vite", "CSS Art"],
+  },
+  "screenshot-memoryexe": {
+    title: "MEMORY.EXE",
+    category: "Experiência Narrativa Interativa",
+    challenge:
+      "Criar uma experiência web que parecesse um artefato digital real de 1998 — não uma imitação óbvia, mas algo que gerasse dúvida genuína no visitante.",
+    solution:
+      "Interface estilo terminal/boot antigo, bilíngue (PT-BR/EN), com narrativa revelada progressivamente conforme o usuário interage — sem biblioteca visual pronta, tudo em Vanilla JS.",
+    tech: ["Vite", "JavaScript", "CSS Terminal UI"],
+  },
+  "screenshot-hanamori": {
+    title: "Hanamori",
+    category: "Landing Page Ilustrada",
+    challenge:
+      "Fazer uma landing page parecer um livro ilustrado à mão, sem perder performance nem responsividade.",
+    solution:
+      "Cenários pintados em camadas com paralaxe suave, tipografia serifada editorial e transições que imitam a virada de páginas de uma história ilustrada.",
+    tech: ["Vite", "CSS Art", "Parallax Scroll"],
+  },
+  "screenshot-aurvm": {
+    title: "AURVM",
+    category: "E-commerce de Luxo",
+    challenge:
+      "Projetar uma vitrine digital de joalheria autoral que comunicasse exclusividade e artesania sem depender de um catálogo tradicional de e-commerce.",
+    solution:
+      "Landing escura e cinematográfica com fotografia macro das peças, tipografia serifada de alto contraste e microtexto guiando a narrativa de cada coleção.",
+    tech: ["React", "Vite", "Scroll Storytelling"],
+  },
   "placeholder-dashboard": {
     title: "Dashboard de Inventário",
     category: "Web & Front-end Development",
