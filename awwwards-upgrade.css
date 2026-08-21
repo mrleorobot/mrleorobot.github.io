@@ -325,7 +325,7 @@ html.lenis, html.lenis body { height: auto; }
 /* ─── 9. NOISE GRAIN CINEMATOGRAPHIC ─── */
 .noise-overlay {
   opacity: .035 !important;
-  animation: grain 8s steps(10) infinite;
+  animation: grain 12s steps(5) infinite;
 }
 
 @keyframes grain {
@@ -1171,15 +1171,12 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 
-/* =========================================================
-   AWWWARDS — SCROLL PROGRESS ORGÂNICO (SVG Draw)
-   Zero alteração no HTML. Substitui barra padrão.
-   ========================================================= */
-
-/* Esconder barra de progresso padrão */
+/* Scroll progress otimizado — simples e leve */
 .scroll-progress-bar {
-  opacity: 0 !important;
-  pointer-events: none !important;
+  background: linear-gradient(90deg, rgba(255,255,255,.3), #fff) !important;
+  box-shadow: 0 0 8px rgba(255,255,255,.3) !important;
+  height: 2px !important;
+  transition: width 0.1s linear !important;
 }
 
 /* Container do SVG */
