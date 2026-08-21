@@ -897,3 +897,275 @@ html.lenis, html.lenis body { height: auto; }
   html { scroll-snap-type: none !important; }
   .project-card { scroll-snap-align: none !important; }
 }
+
+
+/* =========================================================
+   AWWWARDS — PROJECT CASE STUDY OVERLAY (Cinematográfico)
+   Zero alteração no HTML. Classes dinâmicas via JS.
+   ========================================================= */
+
+/* ─── OVERLAY CONTAINER ─── */
+.project-case-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(.16,1,.3,1);
+}
+.project-case-overlay.is-active {
+  pointer-events: all;
+  opacity: 1;
+}
+
+/* ─── BACKGROUND ESCURO COM BLUR ─── */
+.project-case-overlay__bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.92);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  transition: backdrop-filter 0.8s cubic-bezier(.16,1,.3,1) 0.1s,
+              -webkit-backdrop-filter 0.8s cubic-bezier(.16,1,.3,1) 0.1s;
+}
+.project-case-overlay.is-active .project-case-overlay__bg {
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+}
+
+/* ─── IMAGEM FULL-BLEED — WIPE REVEAL ─── */
+.project-case-overlay__image {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 100% 0 0);
+  transform: scale(1.1);
+  transition: clip-path 1s cubic-bezier(.77,0,.18,1) 0.15s,
+              transform 1.2s cubic-bezier(.16,1,.3,1) 0.3s;
+  will-change: clip-path, transform;
+}
+.project-case-overlay.is-active .project-case-overlay__image {
+  clip-path: inset(0 0 0 0);
+  transform: scale(1);
+}
+.project-case-overlay__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4) saturate(0.8);
+}
+
+/* ─── GRADIENTE DE LEITURA ─── */
+.project-case-overlay__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, 
+    rgba(0,0,0,.2) 0%, 
+    rgba(0,0,0,.6) 50%, 
+    rgba(0,0,0,.9) 100%);
+}
+
+/* ─── CONTEÚDO SOBREPOSTO ─── */
+.project-case-overlay__content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  width: 90%;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Título */
+.project-case-overlay__title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -.03em;
+  line-height: 1;
+  color: #fff;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(.16,1,.3,1) 0.4s,
+              transform 0.7s cubic-bezier(.16,1,.3,1) 0.4s;
+}
+.project-case-overlay.is-active .project-case-overlay__title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Descrição */
+.project-case-overlay__desc {
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  line-height: 1.7;
+  color: rgba(255,255,255,.7);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(.16,1,.3,1) 0.55s,
+              transform 0.6s cubic-bezier(.16,1,.3,1) 0.55s;
+}
+.project-case-overlay.is-active .project-case-overlay__desc {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Tech tags */
+.project-case-overlay__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(.16,1,.3,1) 0.65s,
+              transform 0.6s cubic-bezier(.16,1,.3,1) 0.65s;
+}
+.project-case-overlay.is-active .project-case-overlay__tech {
+  opacity: 1;
+  transform: translateY(0);
+}
+.project-case-overlay__tech-tag {
+  padding: 0.35rem 0.9rem;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 100px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.7);
+  background: rgba(255,255,255,.05);
+}
+
+/* Botão CTA */
+.project-case-overlay__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2.5rem;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 100px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(.16,1,.3,1) 0.75s,
+              transform 0.6s cubic-bezier(.16,1,.3,1) 0.75s,
+              background 0.3s ease, border-color 0.3s ease;
+}
+.project-case-overlay.is-active .project-case-overlay__cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+.project-case-overlay__cta:hover {
+  background: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.6);
+}
+
+/* ─── BOTÃO FECHAR (X) ─── */
+.project-case-overlay__close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.2);
+  background: rgba(255,255,255,.05);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: scale(0.8) rotate(-90deg);
+  transition: opacity 0.5s cubic-bezier(.16,1,.3,1) 0.5s,
+              transform 0.5s cubic-bezier(.16,1,.3,1) 0.5s,
+              background 0.3s ease, border-color 0.3s ease;
+}
+.project-case-overlay.is-active .project-case-overlay__close {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+.project-case-overlay__close:hover {
+  background: rgba(255,255,255,.15);
+  border-color: rgba(255,255,255,.5);
+  transform: scale(1.1) rotate(90deg);
+}
+.project-case-overlay__close svg {
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+/* ─── INDICADOR DE SCROLL ─── */
+.project-case-overlay__scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  opacity: 0;
+  transition: opacity 0.5s ease 1s;
+  animation: scrollHintBounce 2s ease-in-out infinite;
+}
+.project-case-overlay.is-active .project-case-overlay__scroll-hint {
+  opacity: 1;
+}
+@keyframes scrollHintBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+  .project-case-overlay__content {
+    padding: 1.5rem;
+    width: 95%;
+  }
+  .project-case-overlay__title {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+  }
+  .project-case-overlay__close {
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+  }
+  .project-case-overlay__image img {
+    object-position: center 30%;
+  }
+}
+
+/* ─── REDUCED MOTION ─── */
+@media (prefers-reduced-motion: reduce) {
+  .project-case-overlay,
+  .project-case-overlay__bg,
+  .project-case-overlay__image,
+  .project-case-overlay__title,
+  .project-case-overlay__desc,
+  .project-case-overlay__tech,
+  .project-case-overlay__cta,
+  .project-case-overlay__close {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .project-case-overlay__image {
+    clip-path: inset(0 0 0 0) !important;
+  }
+}
