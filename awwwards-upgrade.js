@@ -79,8 +79,11 @@
 
   /* ─── 3. MAGNETIC BUTTONS ─── */
   if (!isTouch && !prefersReduced) {
-    const magneticSelectors = '.btn-primary, .btn-cv, .projects-cta-all, .project-card__title, .btn-flutuante';
+    // Só aplica em botões FORA do header/nav para não quebrar a barra fixa
+    const magneticSelectors = '.btn-primary:not(header .btn-primary):not(nav .btn-primary), .projects-cta-all, .project-card__title, .btn-flutuante';
     document.querySelectorAll(magneticSelectors).forEach(btn => {
+      // Ignora elementos dentro de header ou nav
+      if (btn.closest('header') || btn.closest('nav')) return;
       btn.classList.add('magnetic-btn');
       const text = btn.querySelector('span') || btn.firstChild;
       if (text && text.nodeType === 1) text.classList.add('btn-text');
@@ -142,7 +145,8 @@
   });
 
   /* ─── 6. NAV LINKS — EDITORIAL UNDERLINE ─── */
-  document.querySelectorAll('.nav-links a, .footer-links a').forEach(link => {
+  // Só aplica em links do footer; nav-links do header já têm estilo próprio
+  document.querySelectorAll('.footer-links a').forEach(link => {
     link.classList.add('editorial-link');
   });
 
