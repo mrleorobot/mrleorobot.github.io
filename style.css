@@ -14011,3 +14011,253 @@ main > section {
     margin: 0 1rem 2rem;
   }
 }
+
+
+/* =========================================================
+   SEÇÃO UX/UI DESIGN — CINEMATOGRÁFICO + HOVER REVEAL
+   ========================================================= */
+
+/* ---------- HEADER ---------- */
+.ux-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding-top: 2rem;
+}
+.ux-header__eyebrow {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 1rem;
+}
+.ux-header__title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.ux-header__subtitle {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ---------- GRID CINEMATOGRÁFICO ---------- */
+.ux-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 260px;
+  gap: 1.25rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ---------- CARD BASE ---------- */
+.ux-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.ux-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255,255,255,0.15);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+/* Variações de tamanho */
+.ux-card--large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.ux-card--tall {
+  grid-row: span 2;
+}
+.ux-card--wide {
+  grid-column: span 2;
+}
+
+/* ---------- IMAGEM ---------- */
+.ux-card__media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.ux-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.1) brightness(0.9);
+  transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.ux-card:hover .ux-card__media img {
+  filter: grayscale(0%) contrast(1) brightness(1);
+  transform: scale(1.05);
+}
+
+/* ---------- OVERLAY ---------- */
+.ux-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(6,4,13,0.95) 0%, rgba(6,4,13,0.5) 35%, transparent 65%);
+  transition: all 0.5s ease;
+}
+.ux-card:hover .ux-card__overlay {
+  background: linear-gradient(to top, rgba(6,4,13,0.85) 0%, rgba(6,4,13,0.2) 50%, transparent 75%);
+}
+
+/* ---------- CONTEÚDO ---------- */
+.ux-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.8rem;
+  z-index: 2;
+}
+.ux-card__category {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 0.7rem;
+  transition: all 0.4s ease;
+}
+.ux-card:hover .ux-card__category {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.85);
+}
+.ux-card__title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.3rem;
+  transition: all 0.3s ease;
+}
+.ux-card__desc {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.35);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.ux-card:hover .ux-card__desc {
+  max-height: 200px;
+  opacity: 1;
+  color: rgba(255,255,255,0.65);
+  margin-top: 0.4rem;
+}
+
+/* ---------- ÍCONE EXPANDIR ---------- */
+.ux-card__expand {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.4);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  z-index: 3;
+}
+.ux-card:hover .ux-card__expand {
+  opacity: 1;
+  transform: scale(1);
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.2);
+  color: #fff;
+}
+
+/* ---------- NÚMERO DE PROJETO ---------- */
+.ux-card__num {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.5rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.12);
+  letter-spacing: 1px;
+  z-index: 3;
+  transition: color 0.3s ease;
+}
+.ux-card:hover .ux-card__num {
+  color: rgba(255,255,255,0.4);
+}
+
+/* ---------- LINHA DECORATIVA ---------- */
+.ux-card__line {
+  position: absolute;
+  bottom: 0;
+  left: 1.8rem;
+  right: 1.8rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transform: scaleX(0);
+  transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+  z-index: 2;
+}
+.ux-card:hover .ux-card__line {
+  transform: scaleX(1);
+}
+
+/* ---------- RESPONSIVO ---------- */
+@media (max-width: 900px) {
+  .ux-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 220px;
+  }
+  .ux-card--large {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+  .ux-card--tall {
+    grid-row: span 1;
+  }
+  .ux-card--wide {
+    grid-column: span 2;
+  }
+}
+@media (max-width: 600px) {
+  .ux-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 280px;
+    gap: 1rem;
+  }
+  .ux-card--large,
+  .ux-card--wide {
+    grid-column: span 1;
+  }
+  .ux-card__content {
+    padding: 1.2rem;
+  }
+}
