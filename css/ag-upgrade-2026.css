@@ -2149,12 +2149,24 @@ body::after {
   }
 
   /* 2. O Dock de Navegação Nativo no Rodapé */
+  /* Blindado com !important em top/left/right/width/justify-content/
+     align-items/height: existe uma regra genérica de tag (`nav, nav.scrolled`,
+     em style.css) pensada só pro menu do topo, mas que também bate nesse
+     elemento por ele também ser um <nav>. Sem essa blindagem, ela força
+     top:0 + width:100%, esticando o dock quase pra tela inteira e jogando
+     os ícones pro meio da tela em vez de uma pílula grudada embaixo. */
   .mobile-bottom-dock {
     display: flex !important;
-    position: fixed;
-    bottom: 2vh;
-    left: 50%;
-    transform: translateX(-50%);
+    position: fixed !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: 2vh !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: max-content !important;
+    height: auto !important;
+    justify-content: center !important;
+    align-items: center !important;
     background: rgba(10, 10, 12, 0.95);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
@@ -2164,7 +2176,6 @@ body::after {
     gap: 2rem;
     z-index: 999999;
     box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-    width: max-content;
   }
   
   .dock-item {
