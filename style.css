@@ -12379,7 +12379,7 @@ main > section {
    ========================================================================== */
 
 #cta-final {
-  padding: 8rem clamp(1.5rem, 3.5vw, 3.5rem) 5rem !important;
+  padding: 8rem clamp(1.5rem, 3.5vw, 3.5rem) 3rem !important;
   max-width: 1680px !important;
   margin: 0 auto !important;
   position: relative;
@@ -13200,7 +13200,7 @@ main > section {
 /* Layout principal */
 .site-footer .footer-inner {
   display: grid;
-  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  grid-template-columns: minmax(0, auto) minmax(0, auto) minmax(0, 1fr);
   gap: clamp(2rem, 4vw, 4.5rem);
   align-items: start;
   justify-content: space-between;
@@ -13238,6 +13238,13 @@ main > section {
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.4);
   margin: 0;
+}
+
+.site-footer .footer-brand__clock {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.32);
 }
 
 .site-footer .footer-brand__social {

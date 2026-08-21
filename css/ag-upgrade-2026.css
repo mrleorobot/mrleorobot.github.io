@@ -711,13 +711,13 @@
    FOOTER EDITORIAL GIGANTE
    ========================================================================== */
 .footer-editorial {
-  padding: 8rem 0 2rem;
+  padding: 8rem 0 4rem;
   max-width: 1440px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 80vh;
+  justify-content: center;
+  min-height: 70vh;
 }
 
 .footer-editorial__top {
@@ -813,56 +813,6 @@
   background: #e0e0e0;
 }
 
-.footer-editorial__bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding-top: 2rem;
-  font-family: "Inter", sans-serif;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.footer-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.footer-links {
-  display: flex;
-  gap: 2rem;
-}
-
-.footer-links a {
-  color: rgba(255, 255, 255, 0.6);
-  text-decoration: none;
-  transition: color 0.3s ease;
-  position: relative;
-}
-
-.footer-links a::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: #ffffff;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.footer-links a:hover {
-  color: #ffffff;
-}
-
-.footer-links a:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
 @media (max-width: 768px) {
   .footer-editorial {
     min-height: auto;
@@ -875,17 +825,6 @@
   }
   .footer-giant-arrow {
     align-self: flex-end;
-  }
-  .footer-editorial__bottom {
-    flex-direction: column-reverse;
-    align-items: center;
-    gap: 2rem;
-    text-align: center;
-  }
-  .footer-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
   }
 }
 
