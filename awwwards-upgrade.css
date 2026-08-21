@@ -307,38 +307,6 @@ html.lenis, html.lenis body { height: auto; }
   100% { opacity: 1; }
 }
 
-/* Estrela cadente CSS pura */
-.loader-shooting-star__trail {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 
-    0 0 10px 2px rgba(255,255,255,0.8),
-    0 0 30px 8px rgba(255,255,255,0.3);
-  opacity: 0;
-}
-
-#cinematic-loader .loader-shooting-star__trail.animate {
-  animation: shootingStarV2 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes shootingStarV2 {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0) scale(0.5);
-  }
-  10% {
-    opacity: 1;
-    transform: translate(20px, 20px) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(300px, 300px) scale(0.3);
-  }
-}
-
 /* Letras do nome com glow */
 #cinematic-loader .brand-letter {
   text-shadow: 0 0 20px rgba(255,255,255,0.15);
@@ -775,35 +743,7 @@ body.loader-complete #hero {
   transition: opacity 1.5s cubic-bezier(.16,1,.3,1), visibility 0s;
 }
 
-/* Estrela cadente do loader — visível e mais lenta */
-#loader-shooting-star .loader-shooting-star__trail {
-  opacity: 1;
-  animation: shootingStarLoader 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: 0.8s;
-}
-
-@keyframes shootingStarLoader {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0) scale(0.5);
-  }
-  15% {
-    opacity: 1;
-    transform: translate(30px, 30px) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(400px, 400px) scale(0.2);
-  }
-}
-
-/* Glow mais intenso na estrela cadente */
-#loader-shooting-star .loader-shooting-star__trail {
-  box-shadow: 
-    0 0 15px 3px rgba(255,255,255,0.9),
-    0 0 40px 10px rgba(255,255,255,0.4),
-    0 0 80px 20px rgba(255,255,255,0.15);
-}
+/* Estrela cadente: ver definição única e completa mais abaixo neste arquivo */
 
 /* Hero canvas de estrelas — continua animado */
 #hero-ink-canvas {
@@ -813,4 +753,70 @@ body.loader-complete #hero {
 
 body.loader-complete #hero-ink-canvas {
   opacity: 1;
+}
+
+/* ==========================================================================
+   ESTRELA CADENTE DO LOADER — versão única e definitiva
+   Rastro longo + cabeça brilhante, caindo em diagonal antes de revelar o nome.
+   ========================================================================== */
+.loader-shooting-star__trail {
+  position: absolute;
+  width: clamp(160px, 22vw, 320px);
+  height: 3px;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 12%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.9) 85%,
+    #ffffff 100%
+  );
+  border-radius: 999px;
+  opacity: 0;
+  transform: rotate(35deg);
+  filter: blur(0.4px);
+}
+
+.loader-shooting-star__trail::after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  width: clamp(7px, 1.4vw, 11px);
+  height: clamp(7px, 1.4vw, 11px);
+  transform: translateY(-50%);
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow:
+    0 0 14px 3px rgba(255, 255, 255, 0.95),
+    0 0 34px 10px rgba(255, 255, 255, 0.55),
+    0 0 70px 22px rgba(255, 255, 255, 0.2);
+}
+
+.loader-shooting-star__trail.animate {
+  animation: loader-star-fall 1.3s cubic-bezier(0.45, 0, 0.4, 1) forwards;
+}
+
+@keyframes loader-star-fall {
+  0% {
+    opacity: 0;
+    transform: rotate(35deg) translateX(-60px) scale(0.7);
+  }
+  14% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(35deg) translateX(min(80vw, 780px)) scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-shooting-star__trail.animate {
+    animation: none;
+    opacity: 0;
+  }
 }

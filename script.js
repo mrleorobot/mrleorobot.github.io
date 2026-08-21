@@ -210,41 +210,43 @@ document.addEventListener("DOMContentLoaded", () => {
     animId = requestAnimationFrame(drawStars);
   }
 
-  // --- Shooting star: position trail above brand name ---
+  // --- Shooting star: big fall toward the brand name ---
   function fireShootingStar() {
     if (!shootingStarEl) return;
     const trail = shootingStarEl.querySelector(".loader-shooting-star__trail");
     if (!trail) return;
 
-    // Position: start from above-left of the brand name
+    // Starts further up and to the left, giving the longer trail room to
+    // build up before arriving near the name.
     const brandRect = brandEl.getBoundingClientRect();
-    const startX = brandRect.left - 100;
-    const startY = brandRect.top - 80;
+    const startX = brandRect.left - 320;
+    const startY = brandRect.top - 260;
 
     trail.style.left = startX + "px";
     trail.style.top = startY + "px";
     trail.classList.add("animate");
   }
 
-  // --- Animation sequence (~2.25s total) ---
+  // --- Animation sequence (~3s total) ---
   //   0ms    : starfield fades in
-  //   250ms  : brand name appears (letter cascade, ~700ms for all letters)
-  //   850ms  : shooting star fires above the name
-  //   1350ms : curtains reveal
-  //   6000ms : loader removed from DOM
+  //   200ms  : big shooting star begins falling toward the name
+  //   1300ms : star arrives -> brand name letters cascade in
+  //   2100ms : name fully revealed, brief hold
+  //   2600ms : curtains reveal
+  //   3500ms : loader removed from DOM
 
   requestAnimationFrame(() => {
     loader.classList.add("starfield-on");
   });
 
   setTimeout(() => {
-    brandEl.classList.add("show");
+    fireShootingStar();
 
-    // Fire shooting star after name animation completes
+    // Reveal the brand name as the star arrives
     setTimeout(() => {
-      fireShootingStar();
+      brandEl.classList.add("show");
 
-      // Start reveal after shooting star finishes
+      // Start reveal after a brief hold on the revealed name
       setTimeout(() => {
         loader.classList.add("reveal");
         if (animId) cancelAnimationFrame(animId);
@@ -262,9 +264,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Revelar hero
         document.body.classList.add("loader-complete");
         }, 900);
-      }, 500); // wait for shooting star to cross
-    }, 600); // wait for letter cascade to finish
-  }, 250);
+      }, 800); // hold after name reveals
+    }, 1100); // wait for the star to arrive near the name
+  }, 200);
 
   // Safety fallback
   setTimeout(() => {

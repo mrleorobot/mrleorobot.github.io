@@ -2044,28 +2044,6 @@
   visibility: hidden !important;
 }
 
-/* Fix Shooting Star to fall instead of rise */
-.loader-shooting-star__trail {
-  transform: rotate(35deg) !important;
-}
-
-@keyframes shooting-star-fly {
-  0% {
-    transform: rotate(35deg) translateX(-50px);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  70% {
-    opacity: 1;
-  }
-  100% {
-    transform: rotate(35deg) translateX(min(60vw, 500px));
-    opacity: 0;
-  }
-}
-
 /* ==========================================================================
    FASE 1: UPGRADE AWWWARDS BR (OUTLINE HOVER E RUÍDO CINEMATOGRÁFICO)
    ========================================================================== */
