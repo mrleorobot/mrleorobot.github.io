@@ -1,4 +1,78 @@
 /* =========================================================
+   LOADER V2 — CSS Puro, GPU-accelerated, cinematográfico
+   ========================================================= */
+
+/* Esconder canvas do loader antigo (pesado) */
+#loader-stars-canvas {
+  display: none !important;
+}
+
+/* Background do loader com gradiente sutil animado */
+#cinematic-loader {
+  background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 70%) !important;
+}
+
+/* Brilho sutil no fundo */
+#cinematic-loader::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(255,255,255,0.03) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.02) 0%, transparent 40%);
+  animation: loaderGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes loaderGlow {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Estrela cadente CSS pura — GPU accelerated */
+.loader-shooting-star__trail {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 
+    0 0 10px 2px rgba(255,255,255,0.8),
+    0 0 30px 8px rgba(255,255,255,0.3),
+    0 0 60px 15px rgba(255,255,255,0.1);
+  opacity: 0;
+}
+
+#cinematic-loader .loader-shooting-star__trail.animate {
+  animation: shootingStarV2 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes shootingStarV2 {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+  10% {
+    opacity: 1;
+    transform: translate(20px, 20px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(300px, 300px) scale(0.3);
+  }
+}
+
+/* Letras do nome com glow sutil */
+#cinematic-loader .brand-letter {
+  text-shadow: 0 0 20px rgba(255,255,255,0.15);
+  animation: letterGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes letterGlow {
+  0% { text-shadow: 0 0 20px rgba(255,255,255,0.1); }
+  100% { text-shadow: 0 0 30px rgba(255,255,255,0.25), 0 0 60px rgba(255,255,255,0.05); }
+}
+
+/* =========================================================
    CRITICAL FIX — NAV VISIBILITY (z-index above polish overlay)
    ========================================================= */
 nav, header {
