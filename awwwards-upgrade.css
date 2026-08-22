@@ -578,10 +578,6 @@ html.lenis, html.lenis body { height: auto; }
     min-height: 100dvh;
     padding-top: 80px;
   }
-  .hero-editorial__name {
-    font-size: clamp(3.5rem, 18vw, 6rem);
-    line-height: 0.85;
-  }
   .hero-editorial__subtitle {
     font-size: clamp(0.7rem, 3vw, 0.9rem);
     letter-spacing: 0.25em;

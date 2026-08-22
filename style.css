@@ -934,11 +934,6 @@ body:not(.loading-locked) #hero::after {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-  .hero-editorial__name {
-    font-size: clamp(3rem, 12vw, 5rem);
-    white-space: normal;
-  }
-
   .hero-editorial__content {
     align-items: center;
     text-align: center;
@@ -1002,10 +997,6 @@ body:not(.loading-locked) #hero::after {
   height: 1px;
   background-color: rgba(255, 255, 255, 0.2);
 }
-
-  .hero-editorial__name {
-    font-size: clamp(2.5rem, 14vw, 3.5rem);
-  }
 
   .hero-editorial__subtitle {
     gap: 0.4rem;
@@ -6500,27 +6491,30 @@ nav > * {
 }
 
 @media screen and (max-width: 768px) {
+  /* O dock de navegação fica em bottom:2vh, ~78px de altura (z-index
+     altíssimo, 999999) — esses 4 botões precisam ficar bem acima dele,
+     não competir pelo mesmo espaço. */
   #soundToggleBtn {
     left: 16px !important;
-    bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: calc(110px + env(safe-area-inset-bottom, 0px)) !important;
     width: 46px !important;
     height: 46px !important;
   }
   #langToggleBtn {
     left: 16px !important;
-    bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important; /* 16 + 46 + 14 */
+    bottom: calc(170px + env(safe-area-inset-bottom, 0px)) !important; /* 110 + 46 + 14 */
     width: 46px !important;
     height: 46px !important;
   }
   #btn-share {
     right: 16px !important;
-    bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: calc(110px + env(safe-area-inset-bottom, 0px)) !important;
     width: 46px !important;
     height: 46px !important;
   }
   #btn-topo {
     right: 16px !important;
-    bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: calc(170px + env(safe-area-inset-bottom, 0px)) !important;
     width: 46px !important;
     height: 46px !important;
   }

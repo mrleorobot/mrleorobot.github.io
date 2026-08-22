@@ -189,10 +189,9 @@
 }
 
   .hero-editorial__name {
-    font-size: clamp(3.2rem, 14vw, 5rem) !important;
+    font-size: clamp(2.2rem, 11.5vw, 4.5rem) !important;
     text-align: center !important;
-    white-space: normal !important;
-    word-break: break-word !important;
+    white-space: nowrap !important;
     line-height: 0.88 !important;
     letter-spacing: -0.05em !important;
   }
@@ -1024,15 +1023,6 @@
   #hero-ink-canvas,
   .hero-side-indicator {
     display: none !important; /* Hide decorative elements to focus on type */
-  }
-
-  .hero-editorial__name {
-    font-size: clamp(4rem, 18vw, 8rem) !important;
-    line-height: 0.8 !important;
-    letter-spacing: -0.06em !important;
-    word-break: break-word;
-    text-align: left;
-    margin-top: 10vh;
   }
 
   .hero-masthead-meta {
