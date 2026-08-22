@@ -13149,6 +13149,17 @@ main > section {
    ========================================================================== */
 
 .site-footer {
+  /* A tag <footer> tem uma regra genérica antiga (style.css, "Footer
+     monocromático") com display:flex/text-align/text-transform em
+     !important, pensada pra um rodapé simples de 1 linha. Como o
+     rodapé atual reaproveita a mesma tag, ela sequestrava o layout:
+     display:flex fazia o .footer-inner (grid) encolher pro conteúdo
+     e ser empurrado pra esquerda, e text-transform:uppercase vazava
+     por herança pra textos que não deveriam ficar em caixa alta
+     (a citação, o copyright). Blindado abaixo. */
+  display: block !important;
+  text-align: left !important;
+  text-transform: none !important;
   padding: 5rem clamp(1.5rem, 3.5vw, 3.5rem) 2.5rem !important;
   max-width: 1680px !important;
   margin: 0 auto !important;
