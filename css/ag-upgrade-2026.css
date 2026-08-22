@@ -1962,6 +1962,15 @@
     margin-left: 0 !important;
     width: 100% !important;
   }
+
+  /* O fade nas bordas (::before/::after) existe pra disfarçar o ponto de
+     loop de um scroll infinito. Como no mobile isso vira uma nuvem estática
+     (sem scroll), o fade só ficava cortando/escurecendo pills que deveriam
+     estar 100% visíveis — desligado aqui. */
+  .tech-marquee-container::before,
+  .tech-marquee-container::after {
+    display: none !important;
+  }
   
   .tech-marquee {
     animation: none !important;
@@ -2334,3 +2343,20 @@ body::after {
   }
 }
 
+
+/* ==========================================================================
+   DIVISÓRIAS DE SEÇÃO — linha fina que some nas pontas (fade via mask)
+   Elemento real (não ::before), porque várias seções já usam ::before/
+   ::after pra efeitos de glow radial próprios — um pseudo-elemento meu
+   ficaria escondido atrás deles.
+   ========================================================================== */
+.section-divider {
+  display: block;
+  width: min(88%, 900px);
+  height: 1px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.09);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+  pointer-events: none;
+}
