@@ -6496,25 +6496,25 @@ nav > * {
      não competir pelo mesmo espaço. */
   #soundToggleBtn {
     left: 16px !important;
-    bottom: calc(110px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: calc(128px + env(safe-area-inset-bottom, 0px)) !important;
     width: 46px !important;
     height: 46px !important;
   }
   #langToggleBtn {
     left: 16px !important;
-    bottom: calc(170px + env(safe-area-inset-bottom, 0px)) !important; /* 110 + 46 + 14 */
+    bottom: calc(188px + env(safe-area-inset-bottom, 0px)) !important; /* 128 + 46 + 14 */
     width: 46px !important;
     height: 46px !important;
   }
   #btn-share {
     right: 16px !important;
-    bottom: calc(110px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: calc(128px + env(safe-area-inset-bottom, 0px)) !important;
     width: 46px !important;
     height: 46px !important;
   }
   #btn-topo {
     right: 16px !important;
-    bottom: calc(170px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: calc(188px + env(safe-area-inset-bottom, 0px)) !important;
     width: 46px !important;
     height: 46px !important;
   }
