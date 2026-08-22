@@ -13507,11 +13507,20 @@ main > section {
 }
 .testimonials-marquee-container::before {
   left: 0;
-  background: linear-gradient(to right, #06040d, transparent);
+  background: linear-gradient(to right, #000000, transparent);
 }
 .testimonials-marquee-container::after {
   right: 0;
-  background: linear-gradient(to left, #06040d, transparent);
+  background: linear-gradient(to left, #000000, transparent);
+}
+
+@media (max-width: 768px) {
+  /* 80px fixo come quase metade de uma tela de ~390px — reduzido e
+     proporcional aqui, só pra mobile. */
+  .testimonials-marquee-container::before,
+  .testimonials-marquee-container::after {
+    width: 32px;
+  }
 }
 .testimonials-marquee-track {
   display: flex;

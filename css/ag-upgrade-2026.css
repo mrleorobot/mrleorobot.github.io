@@ -1972,6 +1972,15 @@
     margin-left: 0 !important;
     width: 100% !important;
   }
+
+  /* O fade nas bordas (::before/::after) existe pra disfarçar o ponto de
+     loop de um scroll infinito. Como no mobile isso vira uma nuvem estática
+     (sem scroll), o fade só ficava cortando/escurecendo pills que deveriam
+     estar 100% visíveis — desligado aqui. */
+  .tech-marquee-container::before,
+  .tech-marquee-container::after {
+    display: none !important;
+  }
   
   .tech-marquee {
     animation: none !important;
