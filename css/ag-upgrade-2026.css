@@ -813,6 +813,49 @@
   background: #e0e0e0;
 }
 
+/* Botões grandes de contato (LinkedIn/Email/GitHub/Dribbble/Behance),
+   logo abaixo do "VAMOS CONVERSAR". Reaproveita o componente
+   .contact-link/.icon-holder (já existia pronto no CSS, com hover de
+   levantar + inverter pra branco, só nunca tinha sido usado no HTML).
+   Aqui só troco o grid rígido de 2 colunas por um flex centralizado,
+   já que são 5 itens (ímpar). */
+.footer-editorial__channels {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  width: 100%;
+}
+
+.footer-editorial__channels .contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0;
+}
+
+.footer-editorial__channels .contact-link {
+  flex: 0 1 auto;
+  width: auto;
+}
+
+/* Ícones de Dribbble/Behance aqui são line-art (stroke), não o
+   glifo preenchido que o .contact-link.behance/.dribbble global
+   espera — sobrescrevo só nesse escopo pra manter consistência
+   visual com os outros ícones (LinkedIn/Email/GitHub). */
+.footer-editorial__channels .contact-link.behance svg,
+.footer-editorial__channels .contact-link.dribbble svg,
+.footer-editorial__channels .contact-link.behance:hover svg,
+.footer-editorial__channels .contact-link.dribbble:hover svg {
+  fill: none !important;
+  stroke: currentColor !important;
+}
+
+@media (max-width: 600px) {
+  .footer-editorial__channels .contact-link {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 @media (max-width: 768px) {
   .footer-editorial {
     min-height: auto;
