@@ -130,22 +130,29 @@
     skillObserver.observe(grid);
   });
 
-  /* ─── 7. MOBILE DOCK — throttled scroll ─── */
+  /* ─── 7. MOBILE DOCK + BOTÕES FLUTUANTES — throttled scroll ─── */
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
   if (isMobile && !prefersReduced) {
     const dock = document.querySelector('.mobile-bottom-dock');
+    const floatingBtnIds = ['soundToggleBtn', 'langToggleBtn', 'btn-share', 'btn-topo'];
+    const floatingBtns = floatingBtnIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
     let lastScrollY = 0;
     let dockTicking = false;
 
     function updateDock() {
+      const hide = window.scrollY > lastScrollY && window.scrollY > 200;
       if (dock) {
-        if (window.scrollY > lastScrollY && window.scrollY > 200) {
-          dock.classList.add('is-hidden');
-        } else {
-          dock.classList.remove('is-hidden');
-        }
+        dock.classList.toggle('is-hidden', hide);
       }
+      // Os botões flutuantes (som/idioma/compartilhar/topo) ficam bem
+      // acima do dock, numa faixa que às vezes cruza com texto real da
+      // página (títulos, anos da timeline). Escondendo junto com o dock
+      // ao rolar pra baixo, eles só aparecem quando o usuário para ou
+      // volta a rolar pra cima — reduz bastante a chance de tampar algo.
+      floatingBtns.forEach((btn) => btn.classList.toggle('floating-hidden', hide));
       lastScrollY = window.scrollY;
       dockTicking = false;
     }
@@ -157,6 +164,7 @@
       }
     }, { passive: true });
   }
+
 
   /* ─── 8. CASE STUDY OVERLAY (lightweight) ─── */
   (function initCaseStudyOverlay() {

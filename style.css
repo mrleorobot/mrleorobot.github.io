@@ -6491,32 +6491,52 @@ nav > * {
 }
 
 @media screen and (max-width: 768px) {
-  /* O dock de navegação fica em bottom:2vh, ~78px de altura (z-index
-     altíssimo, 999999) — esses 4 botões precisam ficar bem acima dele,
-     não competir pelo mesmo espaço. */
+  /* O dock de navegação fica em bottom:2vh, ~104px de altura (z-index
+     altíssimo, 999999). Antes esses 4 botões ficavam em 2 pilhas
+     verticais (2 níveis cada) pra não competir com o dock — só que
+     isso empurrava o nível de cima pra ~220px do fundo, alto o
+     suficiente pra tampar texto de verdade da página ao rolar (ex:
+     o ano na timeline "Trajetória"). Agora são 2 pares lado a lado,
+     numa única faixa, bem mais rente ao dock. */
   #soundToggleBtn {
     left: 16px !important;
-    bottom: calc(160px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: calc(140px + env(safe-area-inset-bottom, 0px)) !important;
     width: 46px !important;
     height: 46px !important;
   }
   #langToggleBtn {
-    left: 16px !important;
-    bottom: calc(220px + env(safe-area-inset-bottom, 0px)) !important; /* 160 + 46 + 14 */
+    left: 72px !important; /* 16 + 46 + 10 de respiro, ao lado do som */
+    bottom: calc(140px + env(safe-area-inset-bottom, 0px)) !important;
     width: 46px !important;
     height: 46px !important;
   }
   #btn-share {
     right: 16px !important;
-    bottom: calc(160px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: calc(140px + env(safe-area-inset-bottom, 0px)) !important;
     width: 46px !important;
     height: 46px !important;
   }
   #btn-topo {
-    right: 16px !important;
-    bottom: calc(220px + env(safe-area-inset-bottom, 0px)) !important;
+    right: 72px !important; /* ao lado do share, mesma altura */
+    bottom: calc(140px + env(safe-area-inset-bottom, 0px)) !important;
     width: 46px !important;
     height: 46px !important;
+  }
+
+  #soundToggleBtn,
+  #langToggleBtn,
+  #btn-share,
+  #btn-topo {
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  #soundToggleBtn.floating-hidden,
+  #langToggleBtn.floating-hidden,
+  #btn-share.floating-hidden,
+  #btn-topo.floating-hidden {
+    opacity: 0 !important;
+    transform: scale(0.7) translateY(12px) !important;
+    pointer-events: none !important;
   }
 }
 
