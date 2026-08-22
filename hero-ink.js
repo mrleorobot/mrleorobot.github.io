@@ -763,8 +763,15 @@
   }
 
   function init() {
-    if (window.innerWidth < CFG.DESKTOP_MIN) return;
+    if (window.innerWidth < CFG.DESKTOP_MIN) {
+      // Efeito de nebulosa no canvas é desktop-only (custo de performance),
+      // mas o texto do hero (.ink-reveal) precisa revelar de qualquer forma.
+      hero = document.getElementById("hero");
+      triggerReveal();
+      return;
+    }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      hero = document.getElementById("hero");
       triggerReveal();
       return;
     }
