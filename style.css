@@ -1980,10 +1980,6 @@ body:not(.loading-locked) #hero::after {
     color: #000 !important;
   }
 
-  .hamburger {
-    display: flex !important;
-  }
-
   .nav-links.active {
     opacity: 1 !important;
     visibility: visible !important;
@@ -2119,18 +2115,6 @@ body:not(.loading-locked) #hero::after {
   }
 
   /* Toggle e Toast Notification Fixes */
-  .theme-toggle-btn {
-    width: 48px !important;
-    height: 48px !important;
-    left: 20px !important;
-  }
-  #soundToggleBtn {
-    bottom: 20px !important;
-  }
-  #langToggleBtn {
-    bottom: 84px !important;
-  }
-
   #toast-notificacao {
     bottom: 90px !important;
     left: 50% !important;
@@ -3227,10 +3211,6 @@ body {
   filter: grayscale(100%);
 }
 
-#soundToggleBtn {
-  bottom: 24px;
-}
-
 .theme-toggle-btn:hover {
   transform: translateY(-5px) scale(1.05) !important;
   border-color: var(--primary-accent) !important;
@@ -3648,28 +3628,6 @@ html {
 /* Regra de .btn-cv do antigo "light mode" removida — a feature não existe
    mais (sem toggle no JS/HTML) e ela estava vencendo por engano o padding
    do botão no menu mobile em tela cheia. */
-
-@media screen and (max-width: 768px) {
-  .theme-toggle-btn {
-    left: 20px !important;
-    width: 44px !important;
-    height: 44px !important;
-    font-size: 1.2rem !important;
-  }
-
-
-  #soundToggleBtn {
-    bottom: 20px !important;
-  }
-
-  #btn-topo {
-    bottom: 168px !important;
-    right: 20px !important;
-    width: 44px !important;
-    height: 44px !important;
-    font-size: 1.2rem !important;
-  }
-}
 
 @media screen and (max-width: 768px) {
   footer {
@@ -4804,26 +4762,11 @@ html {
   box-shadow: 0 6px 15px rgba(255, 255, 255, 0.6);
 }
 
-@media screen and (max-width: 768px) {
-  #btn-share {
-    bottom: 96px !important;
-    right: 20px !important;
-    width: 44px !important;
-    height: 44px !important;
-  }
-}
-
 /* =========================================
-   FLOATING ACTION BUTTONS REWORK
+   FLOATING ACTION BUTTONS — estilo (posição fica no bloco consolidado)
    ========================================= */
-
-/* Overrides for uniform floating buttons */
 #btn-share,
 #btn-topo {
-  position: fixed !important;
-  right: 24px !important;
-  width: 56px !important;
-  height: 56px !important;
   border-radius: 14px !important;
   display: flex !important;
   align-items: center !important;
@@ -4832,39 +4775,15 @@ html {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
   cursor: pointer !important;
   box-shadow: 0 4px 20px var(--shadow-color) !important;
-}
-
-/* Base colors and borders */
-#btn-share,
-#btn-topo {
   background: rgba(10, 10, 10, 0.85) !important;
   color: #ffffff !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
   backdrop-filter: blur(12px) !important;
 }
 
-/* Light mode adjustments */
-
-/* Positioning / Spacing with 20px gap */
-
-/* Share at bottom */
-#btn-share {
-  bottom: 24px !important;
-}
-
-/* Topo above share */
-#btn-topo {
-  bottom: 100px !important; /* 24 + 56 + 20 */
-}
-
-/* Scale and Glow on hover */
 #btn-share:hover,
 #btn-topo:hover {
   transform: translateY(-5px) scale(1.05) !important;
-}
-
-#btn-share:hover,
-#btn-topo:hover {
   border-color: var(--primary-accent) !important;
   background: rgba(18, 18, 18, 0.95) !important;
   box-shadow:
@@ -4872,7 +4791,7 @@ html {
     0 0 15px rgba(255, 255, 255, 0.08) !important;
 }
 
-/* Hide Topo initially */
+/* Topo só aparece depois de rolar a página */
 #btn-topo:not(.show) {
   opacity: 0 !important;
   pointer-events: none !important;
@@ -4887,41 +4806,21 @@ html {
   transform: translateY(-5px) scale(1.05) !important;
 }
 
-/* SVG icons size standardization */
 #btn-share svg,
 #btn-topo svg {
   width: 24px !important;
   height: 24px !important;
 }
 #btn-topo {
-  font-size: 1.5rem !important; /* In case it's text '↑' */
+  font-size: 1.5rem !important;
 }
 
-/* Responsive (Mobile) */
 @media screen and (max-width: 768px) {
-  #btn-share,
-  #btn-topo {
-    right: 16px !important;
-    width: 44px !important;
-    height: 44px !important;
-    border-radius: 12px !important;
-  }
-
-  #btn-share {
-    bottom: 20px !important;
-  }
-
-  #btn-topo {
-    bottom: 80px !important; /* 20 + 44 + 16 */
-  }
-
-  /* Adjust SVG size for mobile */
   #btn-share svg,
   #btn-topo svg {
     width: 20px !important;
     height: 20px !important;
   }
-
   #btn-topo {
     font-size: 1.3rem !important;
   }
@@ -4931,16 +4830,7 @@ html {
    LANGUAGE TOGGLE
    ========================================= */
 #langToggleBtn {
-  bottom: 96px;
   z-index: 9999;
-}
-@media screen and (max-width: 768px) {
-  #langToggleBtn {
-    bottom: 76px !important;
-    left: 20px !important;
-    width: 44px !important;
-    height: 44px !important;
-  }
 }
 /* Hide annoying Google Translate element completely */
 #google_translate_element {
@@ -6569,12 +6459,15 @@ nav > * {
 
 /* ==========================================================================
    BOTÕES FLUTUANTES — POSICIONAMENTO CONSOLIDADO (idioma, áudio, share, topo)
-   Havia 3 blocos de media query conflitantes espalhados pelo arquivo mexendo
-   nesses mesmos botões com valores diferentes. Este bloco final consolida
-   a posição/tamanho de todos, deixando cor/sombra/hover como já estavam.
+   Havia mais de 15 declarações conflitantes espalhadas por 3 arquivos
+   diferentes mexendo nesses mesmos botões com valores diferentes — inclusive
+   uma escondendo #btn-topo com display:none permanente por engano, e um
+   grupo inteiro de regras mortas pro hambúrguer (que hoje é sempre
+   display:none; o dock de navegação embaixo faz esse papel no mobile).
+   Este bloco é a ÚNICA fonte de posição/tamanho desses 4 botões.
    ========================================================================== */
 
-/* Pilha esquerda: som embaixo, idioma no meio, menu (hambúrguer) em cima */
+/* Pilha esquerda: som embaixo, idioma em cima */
 #soundToggleBtn {
   left: 24px !important;
   right: auto !important;
@@ -6586,13 +6479,6 @@ nav > * {
   left: 24px !important;
   right: auto !important;
   bottom: 96px !important; /* 24 + 56 + 16 de respiro */
-  width: 56px !important;
-  height: 56px !important;
-}
-.hamburger {
-  left: 24px !important;
-  right: auto !important;
-  bottom: 168px !important; /* 96 + 56 + 16 de respiro */
   width: 56px !important;
   height: 56px !important;
 }
@@ -6626,12 +6512,6 @@ nav > * {
     width: 46px !important;
     height: 46px !important;
   }
-  .hamburger {
-    left: 16px !important;
-    bottom: calc(136px + env(safe-area-inset-bottom, 0px)) !important; /* 76 + 46 + 14 */
-    width: 46px !important;
-    height: 46px !important;
-  }
   #btn-share {
     right: 16px !important;
     bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
@@ -6645,6 +6525,7 @@ nav > * {
     height: 46px !important;
   }
 }
+
 
 /* ==========================================================================
    HERO — vida extra inspirada no vanceportal (github.com/harryportugal/vanceportal)

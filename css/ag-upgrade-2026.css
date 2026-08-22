@@ -48,35 +48,8 @@
    ========================================================================== */
 @media (max-width: 767px) {
 
-  /* ──────────────────────────────────────────────────────────────────────────
-     1. HAMBURGER → TOPO DIREITO (dentro da nav bar fixa)
-     ────────────────────────────────────────────────────────────────────────── */
-  .hamburger {
-    position: fixed !important;
-    top: 8px !important;
-    right: 5% !important;
-    left: auto !important;
-    bottom: auto !important;
-    width: 44px !important;
-    height: 44px !important;
-    border-radius: 10px !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    z-index: 10012 !important;
-  }
-
-  .hamburger-line {
-    width: 20px;
-    height: 2px;
-    background-color: #fff;
-  }
-
-  .hamburger.active {
-    z-index: 10013 !important;
-  }
+  /* Hamburger: escondido no mobile — o dock de navegação embaixo faz esse
+     papel agora (ver "MOBILE APP VIBE" mais abaixo neste arquivo). */
 
   /* ──────────────────────────────────────────────────────────────────────────
      2. MENU OVERLAY FULLSCREEN PREMIUM
@@ -2277,11 +2250,6 @@ body::after {
   /* Ajuste no body para o Dock não comer conteúdo do rodapé */
   body {
     padding-bottom: 100px;
-  }
-  
-  /* Esconder botões flutuantes de desktop no mobile */
-  #btn-topo {
-    display: none !important;
   }
 }
 
