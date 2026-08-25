@@ -262,40 +262,6 @@
   }
 
   // ═══════════════════════════════════════════
-  // 9. WORD BY WORD REVEAL
-  // ═══════════════════════════════════════════
-  function initWordByWordReveal() {
-    if (prefersReducedMotion) return;
-
-    const elements = document.querySelectorAll('.trajectory-header__lead, .hero-editorial__desc');
-
-    elements.forEach(el => {
-      const text = el.innerText;
-      const words = text.split(' ');
-      el.innerHTML = '';
-      el.classList.add('word-reveal');
-
-      words.forEach((word, i) => {
-        const span = document.createElement('span');
-        span.innerText = word + ' ';
-        span.style.transitionDelay = `${i * 0.04}s`;
-        el.appendChild(span);
-      });
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-
-    document.querySelectorAll('.word-reveal').forEach(el => observer.observe(el));
-  }
-
-  // ═══════════════════════════════════════════
   // 10. TIMELINE LINE DRAW
   // ═══════════════════════════════════════════
   function initTimelineLineDraw() {
@@ -638,7 +604,6 @@
       initSectionEntrance();
       initSectionDividers();
       initSectionTitleEntrance();
-      initWordByWordReveal();
       initTimelineLineDraw();
       initStaggerReveal();
       initAmbientParticles();
