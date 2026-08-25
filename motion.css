@@ -1,0 +1,84 @@
+/* MOTION DESIGN SYSTEM — Performance Optimized */
+:root{--ease-out-expo:cubic-bezier(0.16,1,0.3,1);--dur-fast:0.3s;--dur-slow:0.6s}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Scroll-triggered */
+.motion-on-scroll{opacity:0;transform:translateY(30px);transition:opacity var(--dur-slow) var(--ease-out-expo),transform var(--dur-slow) var(--ease-out-expo)}
+.motion-on-scroll.is-visible{opacity:1;transform:translateY(0)}
+.motion-on-scroll[data-motion="scale-in"]{transform:scale(0.95)}
+.motion-on-scroll[data-motion="scale-in"].is-visible{transform:scale(1)}
+
+/* Stagger */
+.motion-stagger > *{opacity:0;transform:translateY(20px);transition:opacity .5s var(--ease-out-expo),transform .5s var(--ease-out-expo)}
+.motion-stagger.is-visible > *:nth-child(1){transition-delay:0s}
+.motion-stagger.is-visible > *:nth-child(2){transition-delay:.08s}
+.motion-stagger.is-visible > *:nth-child(3){transition-delay:.16s}
+.motion-stagger.is-visible > *:nth-child(4){transition-delay:.24s}
+.motion-stagger.is-visible > *:nth-child(5){transition-delay:.32s}
+.motion-stagger.is-visible > *:nth-child(6){transition-delay:.4s}
+.motion-stagger.is-visible > * > *{opacity:1;transform:translateY(0)}
+
+/* Hero orbs — simplificado, sem blur pesado */
+.hero-motion-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.hero-motion-orb{position:absolute;border-radius:50%;opacity:0.08;pointer-events:none;will-change:transform}
+.hero-motion-orb--1{width:300px;height:300px;background:rgba(255,255,255,0.15);top:10%;left:10%;animation:orbFloat 12s ease-in-out infinite}
+.hero-motion-orb--2{width:250px;height:250px;background:rgba(255,255,255,0.1);bottom:20%;right:15%;animation:orbFloat 10s ease-in-out infinite 2s}
+.hero-motion-orb--3{width:200px;height:200px;background:rgba(255,255,255,0.12);top:50%;left:60%;animation:orbFloat 14s ease-in-out infinite 4s}
+@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+
+/* Micro-interactions — sem backdrop-filter */
+.motion-lift{transition:transform var(--dur-fast) var(--ease-out-expo)}
+.motion-lift:hover{transform:translateY(-6px)}
+
+.motion-shine{position:relative;overflow:hidden}
+.motion-shine::after{content:"";position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);transition:left .6s}
+.motion-shine:hover::after{left:150%}
+
+/* Spotlight — simplificado */
+.motion-spotlight{position:relative;overflow:hidden}
+.motion-spotlight::before{content:"";position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.06) 0%,transparent 70%);transform:translate(-50%,-50%);pointer-events:none;opacity:0;transition:opacity .3s;left:var(--spotlight-x,50%);top:var(--spotlight-y,50%)}
+.motion-spotlight:hover::before{opacity:1}
+
+/* Nav scroll */
+.nav-motion{transition:background .3s,padding .3s}
+.nav-motion.is-scrolled{background:rgba(0,0,0,0.9);padding:.6rem 5%}
+
+/* Image reveal */
+.motion-img-reveal{position:relative;overflow:hidden}
+.motion-img-reveal::before{content:"";position:absolute;inset:0;background:#000;z-index:2;transform:translateX(0);transition:transform .8s var(--ease-out-expo)}
+.motion-img-reveal.is-visible::before{transform:translateX(100%)}
+.motion-img-reveal img{transform:scale(1.1);transition:transform .8s var(--ease-out-expo)}
+.motion-img-reveal.is-visible img{transform:scale(1)}
+
+/* Button */
+.btn-motion{transition:transform .2s,box-shadow .2s}
+.btn-motion:hover{transform:translateY(-2px)}
+
+/* 3D Tilt — só em desktop com pointer fine */
+@media(pointer:fine){
+.motion-tilt{transform-style:preserve-3d;transition:transform .2s}
+.motion-tilt:hover{transform:perspective(1000px) rotateY(5deg) rotateX(-5deg)}
+}
+
+/* Mesh — sem blur, opacidade baixa */
+.motion-mesh{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.motion-mesh__blob{position:absolute;border-radius:50%;opacity:0.06;animation:orbFloat 20s ease-in-out infinite}
+.motion-mesh__blob:nth-child(1){width:400px;height:400px;background:rgba(255,255,255,0.2);top:-10%;left:-10%;animation-duration:18s}
+.motion-mesh__blob:nth-child(2){width:350px;height:350px;background:rgba(255,255,255,0.15);bottom:-5%;right:-5%;animation-duration:22s;animation-delay:5s}
+.motion-mesh__blob:nth-child(3){width:300px;height:300px;background:rgba(255,255,255,0.18);top:40%;left:50%;animation-duration:16s;animation-delay:10s}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
+
+/* Botões magnéticos (ver motion.js): remove "transform" da transição CSS
+   desses 2 botões, senão ela briga com o movimento do JS e fica com lag
+   duplicado. box-shadow/cor continuam animando normalmente no hover. */
+@media (pointer: fine) {
+  .hero-editorial__cta {
+    transition: background 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.5s cubic-bezier(0.16,1,0.3,1), color 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s cubic-bezier(0.16,1,0.3,1) !important;
+  }
+  .btn-cv {
+    transition: box-shadow 0.3s ease !important;
+  }
+}

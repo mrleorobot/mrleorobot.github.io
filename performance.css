@@ -1,0 +1,72 @@
+/* ═══════════════════════════════════════════════════════════════
+   PERFORMANCE OVERRIDE — Desativa efeitos pesados que travam notebooks
+   Este arquivo SOBRESCREVE regras do style.css com versões leves
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── 1. REMOVER TODOS BACKDROP-FILTER (culpado #1 do travamento) ─── */
+*{backdrop-filter:none!important}
+
+/* ─── 2. REMOVER BLUR PESADO (culpado #2) ─── */
+*{filter:none!important}
+
+/* ─── 3. SIMPLIFICAR BOX-SHADOW (culpado #3) ─── */
+*{box-shadow:none!important}
+.project-card,.design-card,.contact-panel,.cta-panel,.status-card,.narrative-box,.testimonial-card,.spotlight-card{box-shadow:0 4px 20px rgba(0,0,0,0.3)!important}
+.project-card:hover,.design-card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.4)!important}
+
+/* ─── 4. DESATIVAR ANIMAÇÕES NÃO-ESSENCIAIS ─── */
+.hero-motion-orb,.hero-motion-orb--1,.hero-motion-orb--2,.hero-motion-orb--3{animation:none!important;opacity:0.05!important}
+.motion-mesh,.motion-mesh__blob{animation:none!important;opacity:0.03!important}
+
+/* ─── 5. SIMPLIFICAR TRANSFORMS ─── */
+*{will-change:auto!important}
+
+/* ─── 6. REDUZIR KEYFRAMES ATIVAS ─── */
+@keyframes scroll-horizontal{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes scroll-horizontal-reverse{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ─── 7. SIMPLIFICAR HOVER STATES ─── */
+.project-card:hover,.design-card:hover{transform:translateY(-4px)!important}
+.motion-lift:hover{transform:translateY(-4px)!important}
+.btn-motion:hover{transform:translateY(-2px)!important}
+
+/* ─── 8. REMOVER EFEITOS DE BRILHO/SHINE COMPLEXOS ─── */
+.motion-shine::after{display:none!important}
+.motion-glow::before{display:none!important}
+.motion-spotlight::before{display:none!important}
+
+/* ─── 9. OTIMIZAR SCROLLBAR ─── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:2px}
+
+/* ─── 10. GARANTIR TEXTO LEGÍVEL SEM EFEITOS ─── */
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+
+/* ─── 11. NAV SIMPLES ─── */
+.nav-motion.is-scrolled{background:rgba(0,0,0,0.95)!important}
+
+/* ─── 12. CARDS SIMPLES ─── */
+.project-card,.design-card{transition:transform 0.25s ease,box-shadow 0.25s ease!important}
+
+
+/* ═══ MOBILE FIXES ═══ */
+
+/* 1. Esconder nav topo em mobile (< 768px) — bottom dock já existe */
+@media(max-width:768px){
+  .nav-links{display:none!important}
+  .nav-motion .logo{font-size:1rem!important}
+}
+
+/* 2. Prevenir zoom do iOS em inputs */
+input,textarea,select{font-size:16px!important}
+
+/* 3. Touch targets mínimos (Apple HIG) */
+a,button,.dock-item{min-height:44px;min-width:44px}
+
+/* 4. Overscroll behavior */
+html,body{overscroll-behavior:none}
+
+/* 5. Safe area para bottom dock (notch/iPhone X+) */
+.mobile-bottom-dock{padding-bottom:max(12px,env(safe-area-inset-bottom))}

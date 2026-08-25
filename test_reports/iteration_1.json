@@ -1,0 +1,22 @@
+{
+  "summary": "Verified Vite host-block bug fix on the vanilla-JS + Vite portfolio. Accessed via the alt preview URL (https://9bbfb185-9478-49ab-a05a-6e8eb81e476b.preview.emergentagent.com) because the user-reported host (design-excellence-68.cluster-5.preview.emergentcf.cloud) returns 403 at the Google ingress from this test environment (not a Vite issue). The page loads the actual portfolio — no 'Blocked request'/'is not allowed' text present. Hero heading 'LEONILSON' is visible with subtitle 'FRONT-END · DESIGN · TECNOLOGIA'. Top nav links (INÍCIO, SOBRE, HABILIDADES, PORTFÓLIO, CONTATO) and Download CV button are all rendered. All 10 expected section IDs (hero, sobre, tech-stack, soft-skills, suporte-gestao, projetos, projetos-design, game-dev, faq, cta-final) exist in the DOM. Cinematic loader had already dismissed after the 6s wait. Only console message is the pre-existing acceptable Mixed-Content warning about the mailto form. No JS errors.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "vite.config.ts sets server.allowedHosts=true and preview.allowedHosts=true — resolves the reported host-block. Consider using an explicit host allowlist in production for slightly tighter security, but true is acceptable for preview.",
+    "The user-reported host design-excellence-68.cluster-5.preview.emergentcf.cloud returned HTTP 403 at ingress from this sandbox (not a Vite-side error). Bug fix confirmed on the twin preview URL which serves the same container. Main agent may want to verify from the user side that the 403 is not a separate DNS/routing issue."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped)", "frontend": "100%"},
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Use the alt preview URL https://9bbfb185-9478-49ab-a05a-6e8eb81e476b.preview.emergentagent.com from this environment; the design-excellence-68... host is not reachable here (ingress 403). Navigate with wait_until='domcontentloaded' (Vite HMR websocket prevents networkidle) and wait ~5-6s for the cinematic loader to self-dismiss before asserting hero visibility.",
+  "rca of the issue": "Vite's default dev server rejects requests whose Host header is not in server.allowedHosts. Fix — setting server.allowedHosts=true (and preview.allowedHosts=true) in vite.config.ts — disables that host check and lets the preview proxy host reach the dev server. Verified: page renders portfolio; no 'Blocked request' banner."
+}
