@@ -831,13 +831,14 @@ nav.scrolled {
 .site-footer .footer-bottom {
   display: flex !important;
   align-items: center !important;
-  justify-content: space-between !important;
+  justify-content: center !important;
   gap: 1rem !important;
   padding-top: 1.45rem !important;
   font-family: "JetBrains Mono", monospace !important;
-  font-size: 0.66rem !important;
+  font-size: 0.75rem !important;
   line-height: 1.5 !important;
   letter-spacing: 0.06em !important;
+  text-align: center !important;
   color: rgba(255, 255, 255, 0.38) !important;
 }
 
@@ -900,8 +901,9 @@ nav.scrolled {
   }
 
   .site-footer .footer-bottom {
-    align-items: flex-start !important;
+    align-items: center !important;
     flex-direction: column !important;
+    text-align: center !important;
   }
 }
 
