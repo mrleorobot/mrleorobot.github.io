@@ -473,3 +473,107 @@ nav.scrolled {
     height: 100% !important;
   }
 }
+
+
+/* =========================================================
+   EDITORIAL MILESTONES — hierarquia visual das seções
+   ========================================================= */
+.trajectory-header,
+.projects-header,
+.ux-header,
+.tech-header,
+.gamedev-hud-header,
+.alumni-header,
+.faq-header,
+.footer-editorial {
+  position: relative;
+  isolation: isolate;
+}
+
+.editorial-index {
+  position: absolute;
+  top: clamp(-2.8rem, -3vw, -1.25rem);
+  right: 0;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(5rem, 12vw, 10rem);
+  font-weight: 800;
+  line-height: 0.72;
+  letter-spacing: -0.09em;
+  color: rgba(255, 255, 255, 0.045);
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.06);
+}
+
+.editorial-index::after {
+  content: "";
+  position: absolute;
+  right: 0.08em;
+  bottom: -0.55rem;
+  width: clamp(2.5rem, 7vw, 6rem);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.55), transparent);
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.65s;
+}
+
+.revealed .editorial-index::after,
+.editorial-index.revealed::after {
+  transform: scaleX(1);
+}
+
+.trajectory-header > *,
+.projects-header > *,
+.ux-header > *,
+.tech-header > *,
+.gamedev-hud-header > *,
+.alumni-header > *,
+.faq-header > *,
+.footer-editorial__top > * {
+  position: relative;
+  z-index: 1;
+}
+
+#projetos-design .ux-header__title,
+#soft-skills .alumni-header__title,
+#faq .faq-header__title,
+#game-dev .gamedev-hud-header h2 {
+  font-size: clamp(3.7rem, 8vw, 8rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.055em !important;
+  line-height: 0.86 !important;
+  text-wrap: balance;
+}
+
+#projetos-design .ux-header__subtitle,
+#soft-skills .alumni-header__subtitle,
+#faq .faq-header__subtitle,
+#game-dev .gamedev-hud-header .hud-subtitle {
+  max-width: 42rem;
+  font-size: clamp(0.72rem, 1.1vw, 0.9rem) !important;
+  line-height: 1.65 !important;
+  letter-spacing: 0.22em;
+}
+
+#cta-final .editorial-index {
+  top: clamp(-1.5rem, -2vw, -0.75rem);
+  right: 0;
+  font-size: clamp(4rem, 10vw, 8rem);
+}
+
+@media (max-width: 768px) {
+  .editorial-index {
+    top: -1.1rem;
+    right: 0;
+    font-size: clamp(3.6rem, 19vw, 6.2rem);
+  }
+
+  #projetos-design .ux-header__title,
+  #soft-skills .alumni-header__title,
+  #faq .faq-header__title,
+  #game-dev .gamedev-hud-header h2 {
+    font-size: clamp(3rem, 13vw, 4.8rem) !important;
+  }
+}
