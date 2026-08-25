@@ -1446,8 +1446,6 @@ function initSearchAndMenu() {
         grid.appendChild(clone);
       });
 */
-    }
-  });
 
   // Search Filter
   const searchInput = document.getElementById("searchInput");
