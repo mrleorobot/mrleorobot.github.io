@@ -473,3 +473,119 @@ nav.scrolled {
     height: 100% !important;
   }
 }
+
+
+/* =========================================================
+   HERO-SCALE SECTION TITLES
+   O próprio título é o marco visual — sem números decorativos.
+   ========================================================= */
+.section-title-kinetic,
+.section-title-kinetic.revealed {
+  clip-path: inset(0 0 0 0) !important;
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  overflow: visible !important;
+}
+
+#sobre .trajectory-header__title,
+#projetos .projects-header__title,
+#projetos-design .ux-header__title,
+#tech-stack .tech-header__title,
+#soft-skills .alumni-header__title,
+#faq .faq-header__title {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: clamp(4.25rem, 9.4vw, 9.5rem) !important;
+  font-weight: 900 !important;
+  line-height: 0.82 !important;
+  letter-spacing: -0.065em !important;
+  text-align: left !important;
+  text-transform: uppercase !important;
+  text-wrap: balance;
+  color: #ffffff !important;
+  background: none !important;
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  text-shadow: 0 0 64px rgba(255, 255, 255, 0.07);
+}
+
+#soft-skills .alumni-header__title,
+#faq .faq-header__title {
+  font-size: clamp(3.8rem, 7.7vw, 8rem) !important;
+}
+
+#game-dev .gamedev-hud-header h2 {
+  margin: 0 !important;
+  max-width: 11ch;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: clamp(3.4rem, 7vw, 7rem) !important;
+  font-weight: 900 !important;
+  line-height: 0.82 !important;
+  letter-spacing: -0.06em !important;
+  text-align: left !important;
+  text-transform: uppercase !important;
+  text-wrap: balance;
+  color: #ffffff !important;
+  text-shadow: 0 8px 48px rgba(0, 0, 0, 0.55);
+}
+
+#sobre .trajectory-header__title::after,
+#projetos .projects-header__title::after,
+#projetos-design .ux-header__title::after,
+#tech-stack .tech-header__title::after,
+#soft-skills .alumni-header__title::after,
+#faq .faq-header__title::after,
+#game-dev .gamedev-hud-header h2::after {
+  content: "";
+  display: block;
+  width: clamp(4rem, 8vw, 7rem);
+  height: 2px;
+  margin-top: clamp(1rem, 1.8vw, 1.5rem);
+  background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0.08) 100%);
+  transform-origin: left;
+}
+
+#projetos-design .ux-header,
+#soft-skills .alumni-header,
+#faq .faq-header {
+  align-items: flex-start !important;
+  max-width: none !important;
+  text-align: left !important;
+}
+
+#sobre .trajectory-header__subtitle,
+#projetos .projects-header__subtitle,
+#projetos-design .ux-header__subtitle,
+#tech-stack .tech-header__subtitle,
+#soft-skills .alumni-header__subtitle,
+#faq .faq-header__subtitle,
+#game-dev .gamedev-hud-header .hud-subtitle {
+  margin-top: clamp(1rem, 2vw, 1.6rem) !important;
+  max-width: 48rem;
+  text-align: left !important;
+  font-size: clamp(0.72rem, 1vw, 0.9rem) !important;
+  line-height: 1.65 !important;
+  letter-spacing: 0.2em !important;
+}
+
+@media (max-width: 768px) {
+  #sobre .trajectory-header__title,
+  #projetos .projects-header__title,
+  #projetos-design .ux-header__title,
+  #tech-stack .tech-header__title,
+  #soft-skills .alumni-header__title,
+  #faq .faq-header__title {
+    font-size: clamp(3.25rem, 14vw, 5.4rem) !important;
+    line-height: 0.86 !important;
+    letter-spacing: -0.055em !important;
+  }
+
+  #game-dev .gamedev-hud-header h2 {
+    font-size: clamp(3rem, 13vw, 5rem) !important;
+  }
+}
