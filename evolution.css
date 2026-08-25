@@ -640,9 +640,7 @@ nav.scrolled {
 .site-footer .footer-inner {
   display: grid !important;
   grid-template-columns: minmax(0, 1.55fr) minmax(17rem, 0.65fr) !important;
-  grid-template-areas:
-    "brand end"
-    "links end";
+  grid-template-areas: "brand end";
   column-gap: clamp(3rem, 7vw, 8rem) !important;
   row-gap: clamp(2rem, 3vw, 3rem) !important;
   align-items: end !important;
@@ -848,7 +846,6 @@ nav.scrolled {
     grid-template-columns: 1fr !important;
     grid-template-areas:
       "brand"
-      "links"
       "end";
     row-gap: 2.5rem !important;
   }
