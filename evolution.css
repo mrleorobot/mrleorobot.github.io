@@ -589,3 +589,331 @@ nav.scrolled {
     font-size: clamp(3rem, 13vw, 5rem) !important;
   }
 }
+
+/* =========================================================
+   FOOTER REBUILD — EDITORIAL CLOSING
+   O rodapé encerra a narrativa com a mesma escala da Hero.
+   Também neutraliza as regras globais de <nav> no footer.
+   ========================================================= */
+.site-footer {
+  display: block !important;
+  position: relative !important;
+  isolation: isolate;
+  overflow: hidden;
+  max-width: none !important;
+  margin: 0 !important;
+  padding:
+    clamp(4.5rem, 7vw, 7rem)
+    clamp(1.5rem, 5vw, 5rem)
+    max(2rem, env(safe-area-inset-bottom, 0px)) !important;
+  text-align: left !important;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.055), transparent 34%),
+    linear-gradient(180deg, #050505 0%, #020202 100%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.09) !important;
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.2;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 100% 72px, 72px 100%;
+  -webkit-mask-image: linear-gradient(90deg, #000, transparent 72%);
+  mask-image: linear-gradient(90deg, #000, transparent 72%);
+}
+
+.site-footer .footer-inner,
+.site-footer .footer-bottom {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1600px;
+  margin-inline: auto;
+}
+
+.site-footer .footer-inner {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.55fr) minmax(17rem, 0.65fr) !important;
+  grid-template-areas:
+    "brand end"
+    "links end";
+  column-gap: clamp(3rem, 7vw, 8rem) !important;
+  row-gap: clamp(2rem, 3vw, 3rem) !important;
+  align-items: end !important;
+  justify-content: stretch !important;
+  padding-bottom: clamp(3rem, 5vw, 5rem) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09) !important;
+}
+
+.site-footer .footer-brand {
+  grid-area: brand;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0.7rem !important;
+  min-width: 0;
+}
+
+.site-footer .footer-brand__name {
+  display: block !important;
+  max-width: 100%;
+  margin: 0 0 0.55rem !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: clamp(4.6rem, 10vw, 10rem) !important;
+  font-weight: 900 !important;
+  line-height: 0.78 !important;
+  letter-spacing: -0.075em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  color: #fff !important;
+  text-shadow: 0 0 72px rgba(255, 255, 255, 0.08);
+  transition: opacity 0.35s ease, letter-spacing 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.site-footer .footer-brand__name:hover {
+  opacity: 0.76 !important;
+  letter-spacing: -0.065em !important;
+}
+
+.site-footer .footer-brand__sub {
+  margin: 0 !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: clamp(0.68rem, 0.85vw, 0.78rem) !important;
+  font-weight: 650 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: rgba(255, 255, 255, 0.62) !important;
+}
+
+.site-footer .footer-brand__clock {
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.08em !important;
+  color: rgba(255, 255, 255, 0.38) !important;
+}
+
+.site-footer .footer-brand__social {
+  display: flex !important;
+  gap: 0.7rem !important;
+  margin-top: 0.9rem !important;
+}
+
+.site-footer .footer-brand__social a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.65rem !important;
+  height: 2.65rem !important;
+  color: rgba(255, 255, 255, 0.72) !important;
+  background: rgba(255, 255, 255, 0.025) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 999px !important;
+}
+
+.site-footer .footer-brand__social a:hover {
+  color: #050505 !important;
+  background: #fff !important;
+  border-color: #fff !important;
+  transform: translateY(-3px);
+}
+
+/* Reset completo: footer-nav é navegação sem ser o menu fixo do topo. */
+.site-footer .footer-nav,
+.site-footer .footer-nav.scrolled {
+  grid-area: links;
+  display: flex !important;
+  position: static !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  width: auto !important;
+  max-width: 31rem !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 0.8rem 1.75rem !important;
+  transform: none !important;
+  z-index: auto !important;
+  pointer-events: auto !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.site-footer .footer-nav a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1.5rem !important;
+  min-width: 11.5rem;
+  padding: 0.8rem 0 !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: 0.76rem !important;
+  font-weight: 650 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  color: rgba(255, 255, 255, 0.74) !important;
+  background: transparent !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  transition: color 0.3s ease, border-color 0.3s ease !important;
+}
+
+.site-footer .footer-nav a::after {
+  content: "\2197";
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.42);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+.site-footer .footer-nav a:hover {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.72);
+  transform: none !important;
+}
+
+.site-footer .footer-nav a:hover::after {
+  color: #fff;
+  transform: translate(3px, -3px);
+}
+
+.site-footer .footer-end {
+  grid-area: end;
+  display: flex !important;
+  flex-direction: column !important;
+  align-self: stretch !important;
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+  gap: 1.5rem !important;
+  padding-left: clamp(1.5rem, 3vw, 3.5rem);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.site-footer .footer-end__quote {
+  max-width: 18ch;
+  margin: 0 !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: clamp(1.2rem, 1.75vw, 1.8rem) !important;
+  font-weight: 430 !important;
+  font-style: normal !important;
+  line-height: 1.35 !important;
+  letter-spacing: -0.025em !important;
+  text-align: left !important;
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.site-footer .footer-end__quote em {
+  font-style: normal !important;
+}
+
+/* Já existe o botão flutuante global; evita a seta duplicada. */
+.site-footer .footer-end__top {
+  display: none !important;
+}
+
+.site-footer .footer-bottom {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1rem !important;
+  padding-top: 1.45rem !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 0.66rem !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.06em !important;
+  color: rgba(255, 255, 255, 0.38) !important;
+}
+
+@media (max-width: 900px) {
+  .site-footer .footer-inner {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      "brand"
+      "links"
+      "end";
+    row-gap: 2.5rem !important;
+  }
+
+  .site-footer .footer-brand__name {
+    font-size: clamp(4.2rem, 17vw, 8rem) !important;
+  }
+
+  .site-footer .footer-end {
+    min-height: 0;
+    padding: 2.25rem 0 0 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 0;
+  }
+
+  .site-footer .footer-end__quote {
+    max-width: 23ch;
+    font-size: clamp(1.2rem, 4vw, 1.65rem) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-footer {
+    padding:
+      4.25rem
+      1.25rem
+      calc(7rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .site-footer .footer-brand__name {
+    font-size: clamp(3.5rem, 17vw, 5.25rem) !important;
+    line-height: 0.82 !important;
+  }
+
+  .site-footer .footer-brand__sub {
+    max-width: 28ch;
+    line-height: 1.7 !important;
+  }
+
+  .site-footer .footer-nav,
+  .site-footer .footer-nav.scrolled {
+    width: 100% !important;
+    max-width: none !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.35rem !important;
+  }
+
+  .site-footer .footer-nav a {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .site-footer .footer-bottom {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer .footer-brand__name,
+  .site-footer .footer-brand__social a,
+  .site-footer .footer-nav a,
+  .site-footer .footer-nav a::after {
+    transition: none !important;
+  }
+}
+
