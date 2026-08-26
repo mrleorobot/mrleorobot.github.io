@@ -168,10 +168,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   body.classList.add("loading-locked");
 
+  // Mobile scroll watchdog: schedule this BEFORE optional canvas work.
+  // If Canvas/WebGL resources fail on a phone, the page must still unlock.
+  const releaseStuckScroll = () => {
+    body.classList.remove("loading-locked");
+    body.style.removeProperty("overflow");
+    document.documentElement.style.removeProperty("overflow");
+    document.documentElement.classList.remove(
+      "lenis",
+      "lenis-smooth",
+      "lenis-stopped",
+      "lenis-scrolling",
+    );
+    const activeLoader = document.getElementById("cinematic-loader");
+    if (activeLoader) activeLoader.remove();
+    body.classList.add("loader-complete");
+  };
+
+  window.setTimeout(() => {
+    if (body.classList.contains("loading-locked")) {
+      releaseStuckScroll();
+    }
+  }, 5200);
+
   // --- Lightweight canvas starfield (brighter, more visible) ---
   let animId = null;
   if (canvas) {
-    const ctx = canvas.getContext("2d");
+    let ctx = null;
+    try {
+      ctx = canvas.getContext("2d");
+    } catch (_) {
+      ctx = null;
+    }
+
+    if (!ctx) {
+      canvas.style.display = "none";
+    } else {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const w = (canvas.width = window.innerWidth * dpr);
     const h = (canvas.height = window.innerHeight * dpr);
@@ -208,6 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
       animId = requestAnimationFrame(drawStars);
     }
     animId = requestAnimationFrame(drawStars);
+    }
   }
 
   // --- Shooting star: big fall toward the brand name ---
@@ -285,6 +318,24 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.add("loader-complete");
     }
   }, 5000);
+});
+
+window.addEventListener("pageshow", (event) => {
+  if (!event.persisted) return;
+
+  const pageBody = document.body;
+  pageBody.classList.remove("loading-locked");
+  pageBody.classList.add("loader-complete");
+  pageBody.style.removeProperty("overflow");
+  document.documentElement.style.removeProperty("overflow");
+  document.documentElement.classList.remove(
+    "lenis",
+    "lenis-smooth",
+    "lenis-stopped",
+    "lenis-scrolling",
+  );
+  const staleLoader = document.getElementById("cinematic-loader");
+  if (staleLoader) staleLoader.remove();
 });
 
 // Garantir que a página recomece no topo ao recarregar (Melhora a percepção das animações de entrada)
