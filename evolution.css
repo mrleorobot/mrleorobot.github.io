@@ -385,13 +385,13 @@ body:not(.loading-locked) .ambient-orb {
 }
 
 /* ── 24. NAV ENHANCEMENTS ── */
-nav {
+nav.nav-motion {
   background: rgba(6, 6, 6, 0.7) !important;
   backdrop-filter: blur(30px) saturate(1.5) !important;
   -webkit-backdrop-filter: blur(30px) saturate(1.5) !important;
   border-bottom: 1px solid rgba(255,255,255,0.04) !important;
 }
-nav.scrolled {
+nav.nav-motion.scrolled {
   background: rgba(2, 4, 10, 0.85) !important;
   box-shadow: 0 4px 30px rgba(0,0,0,0.3) !important;
 }
@@ -593,7 +593,7 @@ nav.scrolled {
 /* =========================================================
    FOOTER REBUILD — EDITORIAL CLOSING
    O rodapé encerra a narrativa com a mesma escala da Hero.
-   Também neutraliza as regras globais de <nav> no footer.
+   Também neutraliza as regras globais de <nav.nav-motion> no footer.
    ========================================================= */
 .site-footer {
   display: block !important;
@@ -940,3 +940,62 @@ nav.scrolled {
   }
 }
 
+
+
+/* =========================================================
+   INVISIBLE CORE — SCROLL LOCK + ACCESSIBILITY
+   No default visual changes; appears only while locked/focused
+   or when the user explicitly requests reduced motion.
+   ========================================================= */
+html.is-scroll-locked,
+body.is-scroll-locked {
+  overflow: hidden !important;
+  touch-action: none !important;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.9rem;
+  left: 50%;
+  z-index: 10000000;
+  min-width: max-content;
+  padding: 0.8rem 1.1rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #050505;
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 999px;
+  transform: translate(-50%, calc(-100% - 2rem));
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translate(-50%, 0);
+  outline: 2px solid #ffffff !important;
+  outline-offset: 4px !important;
+}
+
+.project-thumbnail-wrapper[role="button"]:focus-visible,
+.design-tile [role="button"]:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.92) !important;
+  outline-offset: 5px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  #cinematic-loader {
+    display: none !important;
+  }
+
+  body.loading-locked {
+    overflow: auto !important;
+  }
+}

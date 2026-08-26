@@ -1,29 +1,73 @@
-<div align="center">
-  <h1>Leonilson Souza — Portfólio</h1>
-  <p>Site pessoal com Motion Design, PWA e 14 cases de projetos em front-end, UX/UI design e Power BI.</p>
-  <p><strong>Portfólio profissional com 14 projetos documentados.</strong></p>
-</div>
+# Leonilson Souza — Portfólio
 
-<div align="center">
-  <img src="https://img.shields.io/badge/Next.js-333333?style=flat-square" /> <img src="https://img.shields.io/badge/React-333333?style=flat-square" /> <img src="https://img.shields.io/badge/Tailwind-333333?style=flat-square" /> <img src="https://img.shields.io/badge/Motion-333333?style=flat-square" />
-</div>
+Portfólio profissional de Leonilson Souza, publicado em [mrleorobot.github.io](https://mrleorobot.github.io/).
 
-<br>
+A experiência atual é intencional: atmosfera cinematográfica, fundo escuro, loader estrelado, Hero tipográfica, títulos editoriais em grande escala, movimento e uma narrativa em nove capítulos. Alterações técnicas devem preservar esse contrato visual.
 
-## 🚀 Sobre
+## Stack real
 
-Site pessoal com Motion Design, PWA e 14 cases de projetos em front-end, UX/UI design e Power BI.
+O site é estático e não depende de framework em produção:
 
-**Resultado:** Portfólio profissional com 14 projetos documentados.
+- HTML semântico;
+- CSS responsivo;
+- JavaScript modular;
+- Canvas 2D para o loader e a Hero;
+- Lenis apenas em dispositivos compatíveis;
+- PWA com service worker e fallback offline;
+- GitHub Pages.
 
-## 🛠️ Tecnologias
+Os frameworks citados nos cards pertencem aos projetos apresentados, não à implementação deste portfólio.
 
-Next.js, React, Tailwind, Motion
+## Estrutura
 
-## 📁 Repositório
+| Caminho | Responsabilidade |
+| --- | --- |
+| `index.html` | Conteúdo, semântica, metadados e estrutura da página |
+| `portfolio.css` | Bundle CSS servido em produção |
+| `style.css` e demais camadas CSS | Fontes editáveis do bundle, na ordem documentada |
+| `script.js` | Loader, interações, modais e comportamento principal |
+| `hero-ink.js` | Canvas e atmosfera da Hero |
+| `projects.json` | Catálogo estruturado dos 14 projetos |
+| `manifest.json`, `sw.js`, `offline.html` | Instalação e funcionamento offline |
+| `qa/` | Testes reais em Chromium desktop e mobile |
+| `docs/` | Contrato visual, conteúdo e modelo de case |
 
-Parte do portfólio de <a href="https://mrleorobot.github.io">Leonilson Souza</a>.
+## Desenvolvimento local
 
-## 📝 Licença
+Requer Node.js 20 ou mais recente e Python 3 para o servidor estático.
 
-MIT © Leonilson Souza
+```bash
+python3 -m http.server 4173 --bind 127.0.0.1
+```
+
+Abra `http://127.0.0.1:4173`.
+
+## CSS
+
+O HTML carrega um único arquivo CSS para reduzir requisições, mas as camadas originais continuam separadas para manutenção. Não edite `portfolio.css` manualmente.
+
+```bash
+npm run build:css
+npm run check:css
+```
+
+A ordem de composição é preservada para que a cascata e o visual não mudem.
+
+## QA desktop e mobile
+
+```bash
+npm run qa:install
+npm run qa
+```
+
+A suíte verifica ordem e presença das seções, escala tipográfica, loader, rolagem desktop/mobile, imagens, links, IDs únicos, navegação por teclado, copyright, erros JavaScript e respostas locais. Também gera capturas completas para inspeção visual.
+
+O workflow `Portfolio QA` executa esses testes em cada push e pull request para `main`.
+
+## Conteúdo e credibilidade
+
+`projects.json` e os dados estruturados em Schema.org usam somente informações já publicadas nos cards. Nenhuma métrica nova foi inventada. Antes de alterar números públicos, consulte [docs/CONTENT-VERIFICATION.md](docs/CONTENT-VERIFICATION.md).
+
+## Regras de manutenção
+
+Leia [docs/VISUAL-CONTRACT.md](docs/VISUAL-CONTRACT.md) antes de mudar CSS, layout, animações, navegação ou comportamento de scroll.

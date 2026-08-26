@@ -127,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Revelar hero
         document.body.classList.add("loader-complete");
     body.classList.remove("loading-locked");
+    window.PortfolioScrollLock?.unlock("loader");
     return;
   }
 
@@ -136,6 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (prefersReducedMotion) {
     body.classList.remove("loading-locked");
+    window.PortfolioScrollLock?.unlock("loader");
     loader.remove();
         // Parar canvas do loader para não consumir CPU
         const loaderCanvas = document.getElementById("loader-stars-canvas");
@@ -152,6 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const alreadyShownThisSession = false; // sessionStorage removido — loader sempre aparece
   if (alreadyShownThisSession) {
     body.classList.remove("loading-locked");
+    window.PortfolioScrollLock?.unlock("loader");
     loader.remove();
         // Parar canvas do loader para não consumir CPU
         const loaderCanvas = document.getElementById("loader-stars-canvas");
@@ -167,11 +170,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // sessionStorage removido — loader sempre aparece
 
   body.classList.add("loading-locked");
+  window.PortfolioScrollLock?.lock("loader");
 
   // Mobile scroll watchdog: schedule this BEFORE optional canvas work.
   // If Canvas/WebGL resources fail on a phone, the page must still unlock.
   const releaseStuckScroll = () => {
     body.classList.remove("loading-locked");
+    window.PortfolioScrollLock?.unlock("loader");
     body.style.removeProperty("overflow");
     document.documentElement.style.removeProperty("overflow");
     document.documentElement.classList.remove(
@@ -286,6 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         setTimeout(() => {
           body.classList.remove("loading-locked");
+    window.PortfolioScrollLock?.unlock("loader");
           loader.remove();
         // Parar canvas do loader para não consumir CPU
         const loaderCanvas = document.getElementById("loader-stars-canvas");
@@ -306,6 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("cinematic-loader")) {
       if (animId) cancelAnimationFrame(animId);
       body.classList.remove("loading-locked");
+    window.PortfolioScrollLock?.unlock("loader");
       loader.remove();
         // Parar canvas do loader para não consumir CPU
         const loaderCanvas = document.getElementById("loader-stars-canvas");
@@ -323,6 +330,7 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("pageshow", (event) => {
   if (!event.persisted) return;
 
+  window.PortfolioScrollLock?.clear();
   const pageBody = document.body;
   pageBody.classList.remove("loading-locked");
   pageBody.classList.add("loader-complete");
@@ -3416,3 +3424,33 @@ document.addEventListener("DOMContentLoaded", initAllSwipeDots);
   });
 })();
 
+/* =========================================================
+   ACCESSIBLE MEDIA TRIGGERS
+   Keeps the existing pointer interaction and mirrors it for
+   keyboard users without changing the default appearance.
+   ========================================================= */
+function initAccessibleMediaTriggers() {
+  document.querySelectorAll(".project-thumbnail-wrapper").forEach((wrapper) => {
+    const trigger = wrapper.querySelector(".project-lightbox-trigger");
+    if (!trigger) return;
+
+    wrapper.setAttribute("role", "button");
+    wrapper.setAttribute("tabindex", "0");
+    if (!wrapper.hasAttribute("aria-label")) {
+      const label = trigger.getAttribute("alt") || "imagem do projeto";
+      wrapper.setAttribute("aria-label", `Ampliar ${label}`);
+    }
+
+    wrapper.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      trigger.click();
+    });
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initAccessibleMediaTriggers, { once: true });
+} else {
+  initAccessibleMediaTriggers();
+}

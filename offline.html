@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#06040d" />
+    <title>Sem conexão — Leonilson Souza</title>
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 2rem; color: #fff; background: #050505; font-family: Inter, system-ui, sans-serif; }
+      main { width: min(38rem, 100%); }
+      p:first-child { margin: 0 0 1rem; color: rgba(255,255,255,.45); font: 600 .72rem/1.2 monospace; letter-spacing: .2em; text-transform: uppercase; }
+      h1 { margin: 0 0 1rem; font-size: clamp(3rem, 12vw, 6rem); line-height: .88; letter-spacing: -.06em; text-transform: uppercase; }
+      p { color: rgba(255,255,255,.68); line-height: 1.7; }
+      nav { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+      a, button { min-height: 2.75rem; padding: .8rem 1rem; color: #fff; border: 1px solid rgba(255,255,255,.25); background: transparent; font: 700 .72rem/1 monospace; letter-spacing: .1em; text-decoration: none; text-transform: uppercase; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p>Portfólio · modo offline</p>
+      <h1>Sem conexão.</h1>
+      <p>A página principal pode continuar disponível pelo cache. Se esta tela apareceu, reconecte-se e tente novamente.</p>
+      <nav aria-label="Ações offline">
+        <button type="button" onclick="location.reload()">Tentar novamente</button>
+        <a href="./">Voltar ao início</a>
+      </nav>
+    </main>
+  </body>
+</html>

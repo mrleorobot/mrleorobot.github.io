@@ -1,0 +1,47 @@
+name: Portfolio QA
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  visual-and-functional:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify CSS bundle
+        run: npm run check:css
+      - name: Install QA dependencies
+        working-directory: qa
+        run: npm install --no-audit --no-fund
+      - name: Install Chromium
+        working-directory: qa
+        run: npx playwright install --with-deps chromium
+      - name: Test desktop and mobile
+        working-directory: qa
+        run: npm test
+      - name: Upload visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-qa-${{ github.run_number }}
+          path: |
+            test-results
+            playwright-report
+          if-no-files-found: ignore
+          retention-days: 14

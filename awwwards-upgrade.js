@@ -236,7 +236,11 @@
 
       document.body.appendChild(overlay);
       currentOverlay = overlay;
-      document.body.style.overflow = 'hidden';
+      if (window.PortfolioScrollLock) {
+        window.PortfolioScrollLock.lock('case-study');
+      } else {
+        document.body.style.overflow = 'hidden';
+      }
 
       requestAnimationFrame(() => {
         overlay.classList.add('is-active');
@@ -261,7 +265,11 @@
           currentOverlay.parentNode.removeChild(currentOverlay);
         }
         currentOverlay = null;
-        document.body.style.overflow = '';
+        if (window.PortfolioScrollLock) {
+          window.PortfolioScrollLock.unlock('case-study');
+        } else {
+          document.body.style.overflow = '';
+        }
         document.removeEventListener('keydown', onKeyDown);
         isAnimating = false;
       }, 700);

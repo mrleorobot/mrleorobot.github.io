@@ -1,3 +1,10 @@
+/* =========================================================
+   PORTFOLIO.CSS — GENERATED FILE
+   Visual contract: source order is preserved byte-for-byte
+   inside each section. Run: npm run build:css
+   ========================================================= */
+
+/* ===== SOURCE: style.css ===== */
 :root{--page-bg:#000000;--page-text:#ffffff;--bg-card:rgba(10,10,10,0.8);--border-card:rgba(255,255,255,0.08);--border-panel:rgba(255,255,255,0.04);--text-primary:#ffffff;--text-secondary:#888888;--primary-accent:#ffffff;--shadow-color:rgba(0,0,0,0.95)}
 *{margin:0;padding:0;box-sizing:border-box;cursor:auto}
 html,body{overflow-x:hidden;width:100%;position:relative;-webkit-text-size-adjust:100%}
@@ -1920,3 +1927,4895 @@ to{transform:rotate(360deg)}
 .ux-card__content{padding:1.2rem}
 }
 /* === TOGGLE DE IDIOMA === */
+
+/* ===== SOURCE: performance.css ===== */
+/* ═══════════════════════════════════════════════════════════════
+   PERFORMANCE OVERRIDE — Desativa efeitos pesados que travam notebooks
+   Este arquivo SOBRESCREVE regras do style.css com versões leves
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── 1. REMOVER TODOS BACKDROP-FILTER (culpado #1 do travamento) ─── */
+*{backdrop-filter:none!important}
+
+/* ─── 2. REMOVER BLUR PESADO (culpado #2) ─── */
+*{filter:none!important}
+
+/* ─── 3. SIMPLIFICAR BOX-SHADOW (culpado #3) ─── */
+*{box-shadow:none!important}
+.project-card,.design-card,.contact-panel,.cta-panel,.status-card,.narrative-box,.testimonial-card,.spotlight-card{box-shadow:0 4px 20px rgba(0,0,0,0.3)!important}
+.project-card:hover,.design-card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.4)!important}
+
+/* ─── 4. DESATIVAR ANIMAÇÕES NÃO-ESSENCIAIS ─── */
+.hero-motion-orb,.hero-motion-orb--1,.hero-motion-orb--2,.hero-motion-orb--3{animation:none!important;opacity:0.05!important}
+.motion-mesh,.motion-mesh__blob{animation:none!important;opacity:0.03!important}
+
+/* ─── 5. SIMPLIFICAR TRANSFORMS ─── */
+*{will-change:auto!important}
+
+/* ─── 6. REDUZIR KEYFRAMES ATIVAS ─── */
+@keyframes scroll-horizontal{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes scroll-horizontal-reverse{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ─── 7. SIMPLIFICAR HOVER STATES ─── */
+.project-card:hover,.design-card:hover{transform:translateY(-4px)!important}
+.motion-lift:hover{transform:translateY(-4px)!important}
+.btn-motion:hover{transform:translateY(-2px)!important}
+
+/* ─── 8. REMOVER EFEITOS DE BRILHO/SHINE COMPLEXOS ─── */
+.motion-shine::after{display:none!important}
+.motion-glow::before{display:none!important}
+.motion-spotlight::before{display:none!important}
+
+/* ─── 9. OTIMIZAR SCROLLBAR ─── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:2px}
+
+/* ─── 10. GARANTIR TEXTO LEGÍVEL SEM EFEITOS ─── */
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+
+/* ─── 11. NAV SIMPLES ─── */
+.nav-motion.is-scrolled{background:rgba(0,0,0,0.95)!important}
+
+/* ─── 12. CARDS SIMPLES ─── */
+.project-card,.design-card{transition:transform 0.25s ease,box-shadow 0.25s ease!important}
+
+
+/* ═══ MOBILE FIXES ═══ */
+
+/* 1. Esconder nav topo em mobile (< 768px) — bottom dock já existe */
+@media(max-width:768px){
+  .nav-links{display:none!important}
+  .nav-motion .logo{font-size:1rem!important}
+}
+
+/* 2. Prevenir zoom do iOS em inputs */
+input,textarea,select{font-size:16px!important}
+
+/* 3. Touch targets mínimos (Apple HIG) */
+a,button,.dock-item{min-height:44px;min-width:44px}
+
+/* 4. Overscroll behavior */
+html,body{overscroll-behavior:none}
+
+/* 5. Safe area para bottom dock (notch/iPhone X+) */
+.mobile-bottom-dock{padding-bottom:max(12px,env(safe-area-inset-bottom))}
+
+/* ===== SOURCE: css/ag-upgrade-2026.css ===== */
+/* ==========================================================================
+   MOBILE PREMIUM EXPERIENCE v2 — Experiência nativa mobile
+   Adicionado em 2026-08-19. Todas as regras abaixo SÓ ativam em ≤ 767px.
+   Desktop permanece 100% intocado.
+   ========================================================================== */
+
+/* ── Keyframes (fora da media query para compatibilidade) ── */
+@keyframes mobileMenuLinkSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes mobileFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobileHintPulse {
+  0%, 100% {
+    opacity: 0.25;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(4px);
+  }
+}
+
+@keyframes mobileColorPop {
+  from { filter: grayscale(100%); }
+  to   { filter: grayscale(0%); }
+}
+
+/* ==========================================================================
+   MOBILE CORE (max-width: 767px)
+   ========================================================================== */
+@media (max-width: 767px) {
+
+  /* Hamburger: escondido no mobile — o dock de navegação embaixo faz esse
+     papel agora (ver "MOBILE APP VIBE" mais abaixo neste arquivo). */
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     2. MENU OVERLAY FULLSCREEN PREMIUM
+     ────────────────────────────────────────────────────────────────────────── */
+  .nav-links {
+    background: rgba(0, 0, 0, 0.97) !important;
+    backdrop-filter: blur(40px) saturate(1.2) !important;
+    -webkit-backdrop-filter: blur(40px) saturate(1.2) !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    padding: 0 10% !important;
+    gap: 0.15rem !important;
+    transition:
+      opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0.45s !important;
+  }
+
+  /* Links iniciam invisíveis dentro do overlay */
+  .nav-links a:not(.btn-cv) {
+    opacity: 0;
+    transform: translateX(-20px);
+    font-size: clamp(2.2rem, 10.5vw, 3.2rem) !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.03em !important;
+    line-height: 1.25 !important;
+    padding: 0.55rem 0 !important;
+    color: rgba(255, 255, 255, 0.35) !important;
+    transition: color 0.3s ease !important;
+    position: relative;
+    border: none !important;
+    background: none !important;
+  }
+
+  .nav-links a:not(.btn-cv):hover,
+  .nav-links a:not(.btn-cv):active {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  /* Link ativo → branco + barra vertical à esquerda */
+  .nav-links a.active:not(.btn-cv) {
+    color: #fff !important;
+    background: none !important;
+    box-shadow: none !important;
+  }
+
+  .nav-links a.active:not(.btn-cv)::before {
+    content: '';
+    position: absolute;
+    left: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 55%;
+    background: #fff;
+    border-radius: 2px;
+  }
+
+  /* Stagger animation quando menu abre */
+  .nav-links.active a:not(.btn-cv) {
+    animation: mobileMenuLinkSlideIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .nav-links.active a:nth-child(1) { animation-delay: 0.06s; }
+  .nav-links.active a:nth-child(2) { animation-delay: 0.12s; }
+  .nav-links.active a:nth-child(3) { animation-delay: 0.18s; }
+  .nav-links.active a:nth-child(4) { animation-delay: 0.24s; }
+  .nav-links.active a:nth-child(5) { animation-delay: 0.30s; }
+
+  /* Reset das animações quando menu fecha (permite re-trigger) */
+  .nav-links:not(.active) a:not(.btn-cv) {
+    animation: none;
+  }
+
+  /* CV button com animação própria */
+  .nav-links .btn-cv {
+    opacity: 0;
+    transform: translateY(16px);
+    margin-top: 2.5rem !important;
+    align-self: flex-start !important;
+  }
+  .nav-links.active .btn-cv {
+    animation: mobileFadeInUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.38s forwards;
+  }
+  .nav-links:not(.active) .btn-cv {
+    animation: none;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     3. HERO MOBILE — Impacto visual centrado
+     ────────────────────────────────────────────────────────────────────────── */
+  #hero {
+    min-height: 100dvh !important;
+    padding-top: 80px !important;
+    padding-bottom: 2rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .hero-editorial {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    text-align: center !important;
+    padding: 0 clamp(1.25rem, 6vw, 2.5rem) !important;
+  }
+
+  /* Ocultar elementos laterais que não pertencem ao mobile */
+  .hero-side-indicator,
+  .hero-editorial__right,
+  .hero-section-marker {
+    display: none !important;
+  }
+
+  .hero-editorial__left {
+    justify-content: center !important;
+    gap: 0 !important;
+  }
+
+  .hero-editorial__content {
+    align-items: center !important;
+    gap: 0.5rem !important;
+  }
+
+.hero-masthead-meta {
+  font-family: "JetBrains Mono", "Space Grotesk", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.hero-masthead-meta .meta-divider {
+  width: 24px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+  .hero-editorial__name {
+    font-size: clamp(2.2rem, 11.5vw, 4.5rem) !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    line-height: 0.88 !important;
+    letter-spacing: -0.05em !important;
+  }
+
+  .hero-editorial__subtitle {
+    justify-content: center !important;
+    text-align: center !important;
+    flex-wrap: wrap !important;
+    gap: 0.3rem !important;
+    margin-top: 0.75rem !important;
+  }
+
+  .hero-editorial__desc {
+    text-align: center !important;
+    max-width: none !important;
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    margin-top: 0.5rem !important;
+  }
+
+  .hero-editorial__cta {
+    width: 100% !important;
+    max-width: 320px !important;
+    justify-content: center !important;
+    margin-top: 1rem !important;
+  }
+
+  .hero-editorial__cta a,
+  .hero-editorial__cta button {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .hero-editorial__bottom {
+    position: relative !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    padding: 0 1rem !important;
+    margin-top: 1.5rem !important;
+  }
+
+  .hero-editorial__location {
+    flex-direction: column !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 0.6rem !important;
+  }
+  .hero-location__city,
+  .hero-location__status {
+    white-space: nowrap !important;
+  }
+  .hero-location__divider {
+    width: 28px !important;
+    height: 1px !important;
+  }
+
+  /* Scroll CTA desnecessário no mobile */
+  .hero-scroll-cta {
+    display: none !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     4. SEÇÕES — Respiros e hierarquia visual consistente
+     ────────────────────────────────────────────────────────────────────────── */
+  section:not(#hero) {
+    padding: 4.5rem clamp(1.25rem, 5vw, 2rem) !important;
+  }
+
+  /* Separador visual sutil entre seções */
+  .section-reveal + .section-reveal {
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  /* Títulos de seção - tamanho controlado */
+  .section-title-kinetic,
+  .trajectory-header__title,
+  .tech-header__title,
+  .design-header h2,
+  .gamedev-header h2 {
+    font-size: clamp(2rem, 9vw, 2.75rem) !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.035em !important;
+  }
+
+  /* Parágrafos de intro */
+  .trajectory-header__lead,
+  .tech-header__lead,
+  .projects-header__intro p {
+    font-size: 0.92rem !important;
+    line-height: 1.7 !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     5. PROJETOS — Scroll-snap horizontal nativo
+     ────────────────────────────────────────────────────────────────────────── */
+  #projetos .projects-viewport {
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-padding: 0 8% !important;
+    gap: 1rem !important;
+    padding-bottom: 0.5rem !important;
+    /* Esconder scrollbar nativo */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  #projetos .projects-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  #projetos .project-card {
+    scroll-snap-align: center !important;
+    flex: 0 0 84vw !important;
+    max-width: 84vw !important;
+    border-radius: 12px !important;
+  }
+
+  /* Swipe hint via pseudo-elemento (zero mudança em HTML) */
+  #projetos .projects-header::after {
+    content: '← ARRASTE PARA VER →';
+    display: block;
+    grid-column: 1 / -1; /* .projects-header é display:grid (2 colunas) — sem
+       isso, esse ::after caía como item "fantasma" na coluna estreita do
+       botão "VER TODOS" */
+    width: 100%; /* existe uma 2ª regra .projects-header::after em
+       awwwards-upgrade.css (um traço decorativo, content:"", width:40px);
+       minha regra vence no "content" por especificidade (tenho #projetos),
+       mas eu nunca declarava "width" — então essa propriedade vazava da
+       outra regra e travava meu texto numa caixa de 40px, quebrando
+       palavra por palavra */
+    height: auto;
+    background: transparent; /* idem: a outra regra tem um background sutil pro traço */
+    margin-top: 0.75rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+    animation: mobileHintPulse 2.5s ease-in-out infinite;
+  }
+
+  /* Esconder botões prev/next no mobile (swipe é mais natural) */
+  #projetos .projects-nav {
+    display: none !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     6. CHROMATIC REVEAL NO SCROLL (CSS)
+     ────────────────────────────────────────────────────────────────────────── */
+
+  /* Projetos front-end: imagens P&B por padrão */
+  #projetos .project-card .project-thumbnail-image {
+    filter: grayscale(100%) !important;
+    transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  /* Revelação de cor quando centralizado na viewport */
+  #projetos .project-card.mobile-color-reveal .project-thumbnail-image {
+    filter: grayscale(0%) !important;
+  }
+
+  /* Design gallery mobile: mesma lógica */
+  .design-gallery-mobile-image img {
+    filter: grayscale(100%);
+    transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .design-gallery-mobile-item.mobile-color-reveal .design-gallery-mobile-image img {
+    filter: grayscale(0%);
+  }
+
+  /* Gamedev artwork */
+  .gamedev-artwork img {
+    filter: grayscale(100%);
+    transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .gamedev-artwork.mobile-color-reveal img {
+    filter: grayscale(0%);
+  }
+
+  /* Beyond Code photo */
+  .beyond-photo__media img {
+    transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  #suporte-gestao.mobile-color-reveal .beyond-photo__media img {
+    filter: grayscale(0%) !important;
+  }
+
+  /* Profile photo */
+  .profile-photo,
+  .profile-photo img {
+    transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     7. TOUCH FEEDBACK PREMIUM
+     ────────────────────────────────────────────────────────────────────────── */
+  .project-card:active,
+  .design-gallery-mobile-item:active,
+  .support-card:active {
+    transform: scale(0.97) !important;
+    transition: transform 0.12s ease !important;
+  }
+
+  .faq-question:active {
+    opacity: 0.7 !important;
+    transition: opacity 0.1s ease !important;
+  }
+
+  /* Áreas clicáveis: mínimo 44x44px (WCAG) */
+  .contact-channel,
+  .faq-question,
+  .feedback-filter-btn {
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     8. FORMULÁRIO DE CONTATO — iOS-safe + full-width
+     ────────────────────────────────────────────────────────────────────────── */
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select {
+    font-size: 16px !important; /* Previne zoom automático no iOS */
+    padding: 1rem 1.1rem !important;
+    border-radius: 6px !important;
+  }
+
+  .contact-form__submit {
+    width: 100% !important;
+    padding: 1.15rem !important;
+    font-size: 0.82rem !important;
+    letter-spacing: 2px !important;
+    border-radius: 6px !important;
+    min-height: 52px !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     9. SCROLL SNAP VERTICAL REFINADO
+     ────────────────────────────────────────────────────────────────────────── */
+  html {
+    scroll-behavior: smooth !important;
+  }
+
+  .section-reveal {
+    scroll-snap-align: start !important;
+    scroll-margin-top: 56px !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     10. TIMELINE MOBILE — mais compacta
+     ────────────────────────────────────────────────────────────────────────── */
+  .timeline-container {
+    padding: 0 !important;
+  }
+
+  .timeline-item {
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     11. FAQ — respiro e legibilidade
+     ────────────────────────────────────────────────────────────────────────── */
+  .faq-item {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .faq-question {
+    padding: 1.1rem 1rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  .faq-answer-wrapper {
+    padding: 0 1rem 1rem !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     12. STATUS CARDS & MOMENTO ATUAL
+     ────────────────────────────────────────────────────────────────────────── */
+  .status-container {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .status-card {
+    padding: 1.25rem !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     13. FOOTER — safe area
+     ────────────────────────────────────────────────────────────────────────── */
+  .site-footer,
+  footer {
+    padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     14. GPU PERF — desligar backdrop-filter pesado em cards
+     ────────────────────────────────────────────────────────────────────────── */
+  .project-card,
+  .support-card,
+  .status-card,
+  .timeline-content {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     15. PROGRESS BAR — oculta no mobile
+     ────────────────────────────────────────────────────────────────────────── */
+  .scroll-progress-container {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   02. SKILLS BENTO GRID (REDESIGN)
+   ========================================================================== */
+.skills-editorial {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding: 4rem 0;
+}
+
+.skills-editorial__header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skills-eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+}
+
+.skills-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: #ffffff;
+  margin: 0;
+}
+
+.skills-lead {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 500px;
+  margin: 0;
+}
+
+/* Bento Grid */
+.skills-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 991px) {
+  .skills-bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.skills-bento-card {
+  background: rgba(10, 10, 12, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, background 0.4s ease;
+}
+
+.skills-bento-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(18, 18, 22, 0.6);
+}
+
+.bento-card-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bento-icon {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+}
+
+.bento-card-top h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.bento-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tech-tag {
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.6rem 1rem;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================================
+   MOBILE BOTTOM DOCK
+   ========================================================================== */
+.mobile-bottom-dock {
+  display: none;
+  position: fixed;
+  bottom: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-bottom-dock {
+    display: block;
+  }
+}
+
+.dock-container {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(18, 18, 22, 0.85);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 100px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 56px;
+  height: 52px;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  border-radius: 100px;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dock-item svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dock-item span {
+  font-family: "Inter", sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+}
+
+.dock-item.active,
+.dock-item:active {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dock-item.active svg,
+.dock-item:active svg {
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   FOOTER EDITORIAL GIGANTE
+   ========================================================================== */
+.footer-editorial {
+  padding: 8rem 0 4rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 70vh;
+}
+
+.footer-editorial__top {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.footer-eyebrow-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-eyebrow-wrapper::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-giant-link {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 2rem;
+  transition: border-color 0.4s ease;
+  group: footer-link;
+}
+
+.footer-giant-link:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-giant-title {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.giant-word {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(4rem, 13vw, 15rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: #ffffff;
+  text-transform: uppercase;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+.footer-giant-link:hover .giant-word:nth-child(1) {
+  transform: translateX(20px);
+}
+.footer-giant-link:hover .giant-word:nth-child(2) {
+  transform: translateX(40px);
+}
+
+.footer-giant-arrow {
+  width: clamp(60px, 10vw, 120px);
+  height: clamp(60px, 10vw, 120px);
+  border-radius: 50%;
+  background: #ffffff;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1vw;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease;
+}
+
+.footer-giant-arrow svg {
+  width: 40%;
+  height: 40%;
+  transition: transform 0.4s ease;
+}
+
+.footer-giant-link:hover .footer-giant-arrow {
+  transform: scale(1.1) rotate(-45deg);
+  background: #e0e0e0;
+}
+
+/* Botões grandes de contato (LinkedIn/Email/GitHub/Dribbble/Behance),
+   logo abaixo do "VAMOS CONVERSAR". Reaproveita o componente
+   .contact-link/.icon-holder (já existia pronto no CSS, com hover de
+   levantar + inverter pra branco, só nunca tinha sido usado no HTML).
+   Aqui só troco o grid rígido de 2 colunas por um flex centralizado,
+   já que são 5 itens (ímpar). */
+.footer-editorial__channels {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  width: 100%;
+}
+
+.footer-editorial__channels .contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0;
+}
+
+.footer-editorial__channels .contact-link {
+  flex: 0 1 auto;
+  width: auto;
+}
+
+/* Ícones de Dribbble/Behance aqui são line-art (stroke), não o
+   glifo preenchido que o .contact-link.behance/.dribbble global
+   espera — sobrescrevo só nesse escopo pra manter consistência
+   visual com os outros ícones (LinkedIn/Email/GitHub). */
+.footer-editorial__channels .contact-link.behance svg,
+.footer-editorial__channels .contact-link.dribbble svg,
+.footer-editorial__channels .contact-link.behance:hover svg,
+.footer-editorial__channels .contact-link.dribbble:hover svg {
+  fill: none !important;
+  stroke: currentColor !important;
+}
+
+@media (max-width: 600px) {
+  .footer-editorial__channels .contact-link {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-editorial {
+    min-height: auto;
+    padding: 4rem 0 6rem 0; /* extra padding for dock */
+  }
+  .footer-giant-link {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .footer-giant-arrow {
+    align-self: flex-end;
+  }
+}
+
+/* ==========================================================================
+   08. TEXT SCRUBBING (PROGRESSIVE READING)
+   ========================================================================== */
+@supports (animation-timeline: view()) {
+  #sobre .about-grid__text p,
+  #suporte-gestao .support-header__lead {
+    color: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(to right, #ffffff, #ffffff) no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-size: 0% 100%;
+    animation: text-scrub linear forwards;
+    animation-timeline: view(y);
+    animation-range: entry 20% cover 50%;
+  }
+
+  @keyframes text-scrub {
+    to {
+      background-size: 100% 100%;
+    }
+  }
+}
+
+/* ==========================================================================
+   09. COMMAND PALETTE (CMD+K)
+   ========================================================================== */
+.cmd-k-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 15vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.cmd-k-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cmd-k-modal {
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  transform: scale(0.95);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.cmd-k-overlay.is-open .cmd-k-modal {
+  transform: scale(1);
+}
+
+.cmd-k-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 1rem;
+}
+
+.cmd-k-header svg {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.cmd-k-header input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 1.1rem;
+  outline: none;
+}
+
+.cmd-k-esc {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.cmd-k-body {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding: 1rem 0;
+}
+
+.cmd-k-group {
+  margin-bottom: 1rem;
+}
+
+.cmd-k-group-title {
+  display: block;
+  font-family: "Inter", sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 1.5rem;
+}
+
+.cmd-k-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.1s ease, color 0.1s ease;
+}
+
+.cmd-k-item:hover, .cmd-k-item.is-selected {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.cmd-k-icon {
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+/* Ensure the connecting lines are visible */
+.tech-lab__connections {
+  opacity: 1 !important;
+  display: block !important;
+}
+.tech-line {
+  stroke: rgba(255, 255, 255, 0.15) !important;
+  stroke-width: 1px;
+}
+.tech-line-pulse {
+  stroke: rgba(255, 255, 255, 0.8) !important;
+  stroke-width: 2px;
+}
+
+/* ==========================================================================
+   10. MOBILE STORY REELS & HERO STATEMENT
+   ========================================================================== */
+@media (max-width: 991px) {
+  /* Fix sticky split column bleed into mobile */
+  #projetos .project-card {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* HERO STATEMENT: Limpo e Tipográfico */
+  #hero {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 1.5rem;
+  }
+  
+  #hero-ink-canvas,
+  .hero-side-indicator {
+    display: none !important; /* Hide decorative elements to focus on type */
+  }
+
+  .hero-masthead-meta {
+    font-size: 0.6rem;
+    gap: 0.5rem;
+  }
+
+  /* STORY REELS (PROJETOS) removido — conflitava com o carrossel horizontal
+     final (ver "3. Horizontal Swiping" mais abaixo neste arquivo) */
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+  #hero, #projetos .project-card, #tech-stack, #sobre, #cta-final {
+    scroll-snap-align: start;
+  }
+}
+
+/* ==========================================================================
+   ORBITAL LAB UPGRADE (VETORES E ANIMAÇÕES)
+   ========================================================================== */
+/* Core "L" Breathing Glow */
+#tech-stack .tech-lab__core {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.05) !important;
+  animation: core-pulse 4s ease-in-out infinite alternate !important;
+}
+
+@keyframes core-pulse {
+  0% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.05); }
+  100% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1); }
+}
+
+/* Organic Floating for Nodes */
+@keyframes tech-node-drift {
+  0%, 100% { transform: translate(-50%, -50%) translate(0, 0); }
+  25% { transform: translate(-50%, -50%) translate(2px, -4px); }
+  50% { transform: translate(-50%, -50%) translate(-2px, -2px); }
+  75% { transform: translate(-50%, -50%) translate(-3px, 3px); }
+}
+
+/* Connecting Lines */
+#tech-stack .tech-line {
+  stroke: rgba(255, 255, 255, 0.08) !important;
+  stroke-width: 1.5px !important;
+  transition: stroke 0.3s ease, stroke-width 0.3s ease !important;
+}
+
+#tech-stack .tech-line--scanning,
+#tech-stack .tech-line--active {
+  stroke: rgba(255, 255, 255, 0.6) !important;
+  stroke-width: 2.5px !important;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.8)) !important;
+}
+
+#tech-stack .tech-line-pulse {
+  stroke: rgba(255, 255, 255, 0.9) !important;
+  stroke-width: 2.5px !important;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.8));
+}
+
+/* ==========================================================================
+   INFINITE MARQUEE SKILLS
+   ========================================================================== */
+.tech-marquee-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 4rem;
+  overflow: hidden; /* Hide horizontal scroll */
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  padding: 2rem 0;
+  position: relative;
+}
+
+/* Fades nas bordas */
+.tech-marquee-container::before,
+.tech-marquee-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 15vw;
+  z-index: 2;
+  pointer-events: none;
+}
+.tech-marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, #050505, transparent);
+}
+.tech-marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, #050505, transparent);
+}
+
+.tech-marquee {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+.tech-marquee__track {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: max-content;
+  padding-left: 2rem;
+  will-change: transform;
+}
+
+/* Animations */
+.tech-marquee__track--left {
+  animation: marquee-left 40s linear infinite;
+}
+.tech-marquee__track--right {
+  animation: marquee-right 40s linear infinite;
+}
+
+.tech-marquee:hover .tech-marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+/* Redesign nodes for Marquee */
+#tech-stack .tech-node {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  animation: none !important;
+  opacity: 1 !important;
+  display: flex !important;
+  flex-direction: row !important; /* Icon + text horizontally */
+  align-items: center !important;
+  gap: 1rem !important;
+  padding: 1rem 2rem !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 100px !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#tech-stack .tech-node:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(-4px) scale(1.02) !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+}
+
+#tech-stack .tech-node__icon {
+  width: 24px !important;
+  height: 24px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#tech-stack .tech-node__icon img,
+#tech-stack .tech-node__icon svg {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+  /* Vetor colorido original — sem filtro de monocromia */
+  filter: none !important;
+  opacity: 1 !important;
+  transition: all 0.3s ease !important;
+}
+
+#tech-stack .tech-node:hover .tech-node__icon img,
+#tech-stack .tech-node:hover .tech-node__icon svg {
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.5)) !important;
+}
+
+#tech-stack .tech-node__label {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  letter-spacing: 0.02em !important;
+  transition: color 0.3s ease !important;
+  opacity: 1 !important; /* Override old hide on mobile */
+  display: block !important;
+}
+
+#tech-stack .tech-node:hover .tech-node__label {
+  color: #ffffff !important;
+}
+
+
+
+/* ==========================================================================
+   UX/UI DESIGN (BENTO GALLERY)
+   ========================================================================== */
+#projetos-design {
+  padding: 8rem 0 4rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.design-editorial-header {
+  padding: 0 2rem;
+  margin-bottom: 4rem;
+  max-width: 800px;
+}
+
+.design-editorial-header__eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 1rem;
+}
+
+.design-editorial-header__title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  margin: 0 0 1.5rem;
+  color: #ffffff;
+}
+
+.design-editorial-header__lead {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+/* Grid Layout */
+.design-bento-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 300px;
+  grid-auto-flow: dense;
+  gap: 1.5rem;
+  padding: 0 2rem;
+}
+
+.design-bento-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0A0A0A;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+.design-bento-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Sizing Classes for Bento Grid */
+.bento-large { grid-column: span 2; grid-row: span 2; }
+.bento-tall  { grid-column: span 1; grid-row: span 2; }
+.bento-wide  { grid-column: span 2; grid-row: span 1; }
+.bento-small { grid-column: span 1; grid-row: span 1; }
+
+/* Posicionamento fixo por card no desktop.
+   O auto-placement (auto-fill + dense) deixava buracos vazios no grid
+   dependendo da largura exata da tela — por isso os cards apareciam
+   "jogados"/desalinhados. Com posições explícitas o encaixe é sempre
+   perfeito (3 colunas x 5 linhas, sem espaços sobrando), em qualquer
+   monitor. */
+@media (min-width: 992px) {
+  .design-bento-gallery .design-bento-card:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 3; }
+  .design-bento-gallery .design-bento-card:nth-child(2) { grid-column: 3 / 4; grid-row: 1 / 3; }
+  .design-bento-gallery .design-bento-card:nth-child(3) { grid-column: 1 / 3; grid-row: 3 / 4; }
+  .design-bento-gallery .design-bento-card:nth-child(4) { grid-column: 3 / 4; grid-row: 3 / 4; }
+  .design-bento-gallery .design-bento-card:nth-child(5) { grid-column: 1 / 2; grid-row: 4 / 6; }
+  .design-bento-gallery .design-bento-card:nth-child(6) { grid-column: 2 / 4; grid-row: 4 / 6; }
+}
+
+.design-bento-media {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+}
+
+.design-bento-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.design-bento-card:hover .design-bento-media img {
+  transform: scale(1.05);
+}
+
+.design-bento-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.design-bento-card:hover .design-bento-overlay {
+  opacity: 0.95;
+}
+
+.design-bento-content {
+  position: absolute;
+  bottom: 0; left: 0; width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 2;
+  transform: translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.design-bento-card:hover .design-bento-content {
+  transform: translateY(0);
+}
+
+.design-bento-category {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  padding: 4px 8px;
+  border-radius: 4px;
+  width: max-content;
+  margin-bottom: 0.5rem;
+}
+
+.design-bento-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.design-bento-desc {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.4s ease, max-height 0.4s ease;
+}
+
+.design-bento-card:hover .design-bento-desc {
+  opacity: 1;
+  max-height: 100px;
+}
+
+/* Mobile Fallback */
+@media (max-width: 991px) {
+  .design-bento-gallery {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 400px;
+    padding: 0 1.5rem;
+  }
+  .bento-large, .bento-tall, .bento-wide, .bento-small {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  .design-bento-content {
+    transform: translateY(0);
+  }
+  .design-bento-desc {
+    opacity: 1;
+    max-height: 100px;
+  }
+}
+
+/* ==========================================================================
+   INDIE GAME DEV (HUD LAYOUT)
+   ========================================================================== */
+#game-dev {
+  padding: 4rem 2rem 8rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.gamedev-hud-container {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 80vh;
+  display: flex;
+  align-items: flex-end;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.gamedev-hud-bg {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+}
+
+.gamedev-hud-bg img {
+  width: 100%; height: 100%; object-fit: cover;
+  image-rendering: pixelated; /* Perfect for pixel art */
+  transition: transform 10s linear;
+}
+
+.gamedev-hud-container:hover .gamedev-hud-bg img {
+  transform: scale(1.05);
+}
+
+.gamedev-hud-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to top, rgba(10,10,12,0.95) 0%, rgba(10,10,12,0.6) 40%, rgba(10,10,12,0.2) 100%);
+}
+
+.gamedev-hud-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+}
+
+.gamedev-hud-header {
+  flex: 1;
+}
+
+.hud-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 6px 12px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.hud-dot {
+  width: 6px; height: 6px;
+  background: #10B981;
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.gamedev-hud-header h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  margin: 0 0 0.5rem;
+}
+
+.hud-subtitle {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.gamedev-hud-panel {
+  flex: 0 0 450px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 2.5rem;
+}
+
+.gamedev-hud-panel h3 {
+  font-family: "Inter", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 1rem;
+}
+
+.gamedev-hud-panel p {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.gamedev-hud-panel strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+@media (max-width: 991px) {
+  #game-dev { padding: 0; }
+  .gamedev-hud-container {
+    border-radius: 0; border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 100dvh;
+  }
+  .gamedev-hud-content {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2rem 1.5rem 6rem;
+  }
+  .gamedev-hud-panel {
+    flex: auto;
+    width: 100%;
+    background: transparent;
+    border: none;
+    backdrop-filter: none;
+    padding: 0;
+  }
+}
+
+/* Fix timing for "PORTFOLIO" text */
+.cinematic-brand p {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease !important;
+  transition-delay: 0.7s !important; /* Wait for Leonilson letters to cascade */
+}
+.cinematic-brand.show p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cinematic-brand p::after {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition-delay: 1.1s !important; /* Line expands after Portfolio fades in */
+}
+
+/* Ensure background color is exact black */
+.cinematic-curtain {
+  background-color: var(--page-bg) !important;
+}
+
+/* ==========================================================================
+   MOBILE REVIEW FIXES
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* 1. Habilidades / Marquee Infinito (Ajuste de tamanho) */
+  #tech-stack .tech-node {
+    padding: 0.6rem 1.2rem !important;
+    gap: 0.75rem !important;
+  }
+  #tech-stack .tech-node__icon {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  #tech-stack .tech-node__label {
+    font-size: 0.9rem !important;
+  }
+  .tech-marquee-container {
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+
+  /* 2. Galeria UX/UI (Bento Grid Mobile) */
+  .design-bento-gallery {
+    grid-auto-rows: 60vh !important; /* Em vez de 400px fixos, proporção da tela */
+    gap: 1rem !important;
+  }
+  .design-editorial-header__title {
+    font-size: clamp(2.5rem, 10vw, 4rem) !important;
+  }
+  .design-bento-title {
+    font-size: 1.2rem !important;
+  }
+  .design-bento-desc {
+    font-size: 0.8rem !important;
+  }
+
+  /* 3. Game Dev HUD (Ajustes finos de padding) */
+  .gamedev-hud-header h2 {
+    font-size: clamp(2.5rem, 12vw, 4rem) !important;
+  }
+  .gamedev-hud-panel {
+    padding: 1.5rem !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(8px) !important;
+    border-radius: 12px !important;
+  }
+  .gamedev-hud-panel h3 {
+    font-size: 1.1rem !important;
+  }
+  .gamedev-hud-panel p {
+    font-size: 0.85rem !important;
+  }
+
+  /* 4. Snap Scrolling: Adicionando as novas seções ao radar do scroll */
+  #game-dev,
+  #projetos-design .design-bento-card {
+    scroll-snap-align: start;
+  }
+}
+
+/* ==========================================================================
+   SUPORTE & GESTÃO (SYSTEM DASHBOARD)
+   ========================================================================== */
+#suporte-gestao {
+  padding: 8rem 2rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.support-dashboard {
+  background: #050505;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 4rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 100px rgba(255,255,255,0.02);
+}
+
+/* Subtle grid background */
+.support-dashboard::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.support-header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 4rem;
+  max-width: 600px;
+}
+
+.support-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  color: #a0aec0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.support-header h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  margin: 0 0 1rem;
+}
+
+.support-header p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+.support-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.support-widget {
+  background: rgba(15, 15, 18, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  animation-delay: var(--d);
+}
+
+.support-widget:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.widget-icon {
+  width: 40px; height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.widget-id {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.widget-body h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 0.8rem;
+}
+
+.widget-body p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+  margin: 0 0 2rem;
+}
+
+.widget-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.progress-bar {
+  width: 100%; height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.widget-footer span {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+  align-self: flex-end;
+}
+
+@media (max-width: 768px) {
+  #suporte-gestao { padding: 4rem 1.5rem; }
+  .support-dashboard { padding: 2rem 1.5rem; border-radius: 16px; }
+  .support-header h2 { font-size: 2.5rem; }
+}
+
+/* ==========================================================================
+   MURAL DE DEPOIMENTOS (PREMIUM TWEAKS)
+   ========================================================================== */
+.mural-card.spotlight-card {
+  background: rgba(15, 15, 18, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-radius: 16px !important;
+  padding: 2.5rem !important;
+  min-width: 380px !important;
+  max-width: 420px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease !important;
+}
+
+.mural-card.spotlight-card:hover {
+  transform: translateY(-8px) scale(1.02) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  z-index: 10;
+}
+
+.mural-text {
+  font-family: "Inter", sans-serif !important;
+  font-size: 1.05rem !important;
+  line-height: 1.6 !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  font-style: italic !important;
+  margin-top: 1.5rem !important;
+}
+
+/* Pause Marquee on Hover */
+.kurz-marquee-container:hover .kurz-grid {
+  animation-play-state: paused !important;
+}
+
+/* Hide scrollbar just in case */
+.kurz-marquee-container::-webkit-scrollbar {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .mural-card.spotlight-card {
+    min-width: 300px !important;
+    max-width: 300px !important;
+    padding: 1.5rem !important;
+  }
+  .mural-text {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* ==========================================================================
+   MOBILE NOSTALGIA: IDEIAS DE 13 DIAS ATRÁS APLICADAS APENAS NO MOBILE
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  
+  /* ── 1. TRAJETÓRIA: NUMERADOR FANTASMA + DESIGN EDITORIAL DE DATAS ── */
+  #sobre .timeline-track {
+    grid-template-columns: 1fr !important; /* Força 1 coluna */
+    gap: 0 !important;
+    counter-reset: momento;
+  }
+
+  #sobre .timeline-item {
+    counter-increment: momento;
+    position: relative !important;
+    padding: 2.5rem 0 2.5rem 0 !important;
+    border-top: none !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Esconde o ícone gráfico no mobile (foco puramente tipográfico) */
+  #sobre .timeline-icon {
+    display: none !important;
+  }
+
+  /* Divisor em degradê elegante (só entre itens) */
+  #sobre .timeline-item + .timeline-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0.03) 70%,
+      transparent 100%
+    );
+  }
+
+  /* O famoso numerador "Momento 01/02/03" antes da data */
+  #sobre .timeline-date::before {
+    content: "Momento " counter(momento, decimal-leading-zero);
+    display: block;
+    font-family: "JetBrains Mono", monospace !important;
+    font-size: 0.65rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* Data vira o elemento gráfico central gigante */
+  #sobre .timeline-date {
+    display: block !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  #sobre .timeline-date__year {
+    font-family: "Space Grotesk", sans-serif !important;
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    color: #ffffff !important;
+    text-shadow: 0 4px 20px rgba(255, 255, 255, 0.1) !important;
+    display: inline-block;
+  }
+
+  #sobre .timeline-date__range {
+    display: block;
+    font-family: "Inter", sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.3rem;
+  }
+
+  #sobre .timeline-title {
+    font-size: 1.3rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* ── 2. HABILIDADES: NUVEM DE TAGS ESTÁTICA EM VEZ DE MARQUEE ── */
+  /* No mobile, o marquee infinito pode ser rápido demais de ler ou dar tontura, 
+     a nuvem de tags fixa no centro funciona super bem (como há 13 dias) */
+  .tech-marquee-container {
+    animation: none !important;
+    transform: none !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  /* O fade nas bordas (::before/::after) existe pra disfarçar o ponto de
+     loop de um scroll infinito. Como no mobile isso vira uma nuvem estática
+     (sem scroll), o fade só ficava cortando/escurecendo pills que deveriam
+     estar 100% visíveis — desligado aqui. */
+  .tech-marquee-container::before,
+  .tech-marquee-container::after {
+    display: none !important;
+  }
+  
+  .tech-marquee {
+    animation: none !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+  }
+
+  /* O elemento que de fato precisa quebrar linha é .tech-marquee__track —
+     ele tem width:max-content (pensado pra virar uma faixa larga animada
+     via transform no desktop). Sem isso, mesmo com .tech-marquee em
+     flex-wrap, o track continuava sendo uma faixa única de ~3600px
+     (seu único filho), e por estar centralizada isso jogava boa parte
+     do conteúdo pra fora dos dois lados da tela (ex: 'Figma' e 'Linux'
+     cortados nas bordas). */
+  .tech-marquee__track {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    gap: 0.75rem !important;
+    animation: none !important;
+    will-change: auto !important;
+  }
+
+  /* Cada track duplica os itens (12 e 11, respectivamente) pra dar loop
+     infinito sem costura no desktop. Na grade estática do mobile isso
+     mostraria cada tecnologia 2x — escondida a segunda metade aqui. */
+  #tech-stack .tech-marquee__track--left > *:nth-child(n + 13) {
+    display: none !important;
+  }
+  #tech-stack .tech-marquee__track--right > *:nth-child(n + 12) {
+    display: none !important;
+  }
+
+  /* Oculta a duplicação do marquee necessária pro infinito rodar */
+  .tech-marquee[aria-hidden="true"] {
+    display: none !important;
+  }
+
+
+  /* Ajuste das pílulas para a nuvem de tags */
+  #tech-stack .tech-node {
+    position: relative !important; /* label abaixo é position:absolute, precisa de uma referência */
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.5rem 1rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    flex: 0 0 auto !important; /* Não deixa esticar */
+  }
+
+  /* A label é position:absolute (pensada pro layout orbital desktop,
+     flutuando abaixo do ícone via top:calc(100%+...)). Quando o node
+     virou position:static/relative aqui, a label ficava sem referência
+     de tamanho e efetivamente sumia da pílula — corrigido pra fluxo
+     normal, ao lado do ícone. */
+  #tech-stack .tech-node__label {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* ==========================================================================
+   PERFORMANCE FIX (MOBILE)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Desativa backdrop-filter (blur) em telas pequenas para não travar a GPU */
+  .design-bento-card,
+  .project-card,
+  .gamedev-hud-panel,
+  .support-widget,
+  .mural-card.spotlight-card,
+  .faq-item {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  
+  /* Substitui o blur por fundos sólidos equivalentes */
+  .design-bento-card { background: #111111 !important; }
+  .gamedev-hud-panel { background: rgba(0, 0, 0, 0.9) !important; }
+  .support-widget { background: #151518 !important; }
+  .mural-card.spotlight-card { background: #111111 !important; }
+}
+
+
+
+/* ==========================================================================
+   EXTREME PERFORMANCE MODE (DESKTOP & MOBILE)
+   ========================================================================== */
+/* Desativa blur (backdrop-filter) globalmente para garantir 60fps lisos */
+.design-bento-card,
+.project-card,
+.gamedev-hud-panel,
+.support-widget,
+.mural-card.spotlight-card,
+.faq-item,
+.cmd-k-overlay,
+.mobile-bottom-dock {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Compensar a perda do vidro com pretos sólidos/translúcidos refinados */
+.design-bento-card { background: #0c0c0e !important; border: 1px solid rgba(255,255,255,0.06) !important; }
+.gamedev-hud-panel { background: rgba(5, 5, 8, 0.95) !important; }
+.support-widget { background: #0a0a0c !important; }
+.mural-card.spotlight-card { background: #0c0c0e !important; box-shadow: 0 10px 40px rgba(0,0,0,0.8) !important; }
+.faq-item { background: rgba(255, 255, 255, 0.02) !important; }
+
+/* Simplifica a animação do Loader (Remove opacidades complexas) */
+#cinematic-loader {
+  will-change: transform, opacity;
+}
+
+/* Fix Loader Background and Smooth Fade Out */
+#cinematic-loader {
+  background: #000000 !important;
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.2s !important;
+}
+
+#cinematic-loader.reveal {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* ==========================================================================
+   FASE 1: UPGRADE AWWWARDS BR (OUTLINE HOVER E RUÍDO CINEMATOGRÁFICO)
+   ========================================================================== */
+
+/* 1. Ruído Cinematográfico Estático (Film Grain)
+   Extremamente leve, usando SVG in-line em vez de imagem pesada.
+   Opacidade mínima apenas para dar textura ao preto chapado. */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999998; /* Fica abaixo apenas do cursor/loader */
+  opacity: 0.035; /* Ajuste finíssimo para não poluir, só dar textura */
+  
+}
+
+/* 2. Efeito Typographic Outline Hover nos Projetos (Tendência Brutalista)
+   Ao passar o mouse no card do projeto, o título fica vazado (só o contorno). */
+.project-card .project-card__title {
+  transition: color 0.3s ease, -webkit-text-stroke 0.3s ease;
+}
+
+.project-card:hover .project-card__title {
+  color: transparent !important;
+  -webkit-text-stroke: 1.5px var(--text-primary);
+}
+
+.design-bento-card .design-bento-title {
+  transition: color 0.3s ease, -webkit-text-stroke 0.3s ease;
+}
+
+.design-bento-card:hover .design-bento-title {
+  color: transparent !important;
+  -webkit-text-stroke: 1px var(--text-primary);
+}
+
+/* ==========================================================================
+   OTIMIZAÇÃO EXTREMA DE GPU E CPU (FIX TRAVAMENTO DESKTOP)
+   ========================================================================== */
+/* Força o navegador a jogar os elementos pesados pra placa de vídeo */
+.tech-marquee__track--left,
+.tech-marquee__track--right,
+.kurz-grid,
+.projects-viewport {
+  will-change: transform;
+  transform: translateZ(0); /* Hack de aceleração de hardware */
+  -webkit-transform: translateZ(0);
+}
+
+/* Desativa box-shadows gigantescos que causam repaint a cada frame */
+#tech-stack .tech-lab__core {
+  animation: none !important;
+  box-shadow: none !important;
+}
+
+#soft-skills .mural-card.spotlight-card {
+  box-shadow: none !important;
+}
+
+/* Reduzir drasticamente o custo do Film Grain (Ruído) */
+body::after {
+  /* O SVG Filter "feTurbulence" processa em tempo real e MATA placas de vídeo fracas! */
+  /* Substituindo por uma imagem em base64 pré-renderizada super leve */
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMrO1bAAAACHRSTlMABgYLCw8PD0B8838AAABhSURBVDjLzZNRDoAgDEQp3P8un2WwaRswm/iTEoXHS6PtzK0L1ZkL2Rkr2Rgr2Rcr2Rer2Rer2Rer2Rer2Rer2Rer2Rer2Rer2Rer2Rer2Rer2Rer2Rer2Rer2Rer2Rer2Rcr9AE5W//jLwAAAABJRU5ErkJggg==") !important;
+  opacity: 0.05 !important;
+  background-size: 80px !important;
+}
+
+/* ==========================================================================
+   MOBILE APP VIBE (INSPIRAÇÃO AWWWARDS BR)
+   Transforma o mobile em um app nativo (iOS/Android feel)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* 1. Morte ao Menu Hamburguer de "Site Web" */
+  header#header, .hamburger {
+    display: none !important;
+  }
+
+  /* 2. O Dock de Navegação Nativo no Rodapé */
+  /* Blindado com !important em top/left/right/width/justify-content/
+     align-items/height: existe uma regra genérica de tag (`nav, nav.scrolled`,
+     em style.css) pensada só pro menu do topo, mas que também bate nesse
+     elemento por ele também ser um <nav>. Sem essa blindagem, ela força
+     top:0 + width:100%, esticando o dock quase pra tela inteira e jogando
+     os ícones pro meio da tela em vez de uma pílula grudada embaixo. */
+  .mobile-bottom-dock {
+    display: flex !important;
+    position: fixed !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: 2vh !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: max-content !important;
+    height: auto !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background: rgba(10, 10, 12, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 0.8rem 1.5rem;
+    gap: 2rem;
+    z-index: 999999;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+  }
+  
+  .dock-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    font-size: 0.65rem;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    gap: 6px;
+    transition: color 0.2s ease;
+  }
+  
+  .dock-item:active, .dock-item:focus {
+    color: #ffffff;
+  }
+  
+  .dock-item svg {
+    width: 22px;
+    height: 22px;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    fill: none;
+  }
+
+  /* 3. Horizontal Swiping (O Fim da Rolagem Infinita para Baixo) */
+  /* Secao Dev */
+  #projetos .projects-viewport {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    gap: 1.25rem !important;
+    padding: 1rem 1rem 4rem 1rem !important; /* Espaço pro dock no final */
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  #projetos .projects-viewport::-webkit-scrollbar { display: none; }
+  
+  #projetos .project-card {
+    flex: 0 0 88vw !important; /* Cartão largo, deixa uma espiadinha do próximo */
+    scroll-snap-align: center;
+    margin: 0 !important;
+  }
+
+  /* Secao UX/UI */
+  .design-bento-gallery {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    gap: 1.25rem !important;
+    padding: 1rem 1rem 4rem 1rem !important;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .design-bento-gallery::-webkit-scrollbar { display: none; }
+  
+  .design-bento-card {
+    flex: 0 0 88vw !important;
+    height: 60vh !important;
+    scroll-snap-align: center;
+    margin: 0 !important;
+  }
+
+  /* 4. Títulos Estilo "iOS Sticky Header" */
+  .design-editorial-header {
+    position: sticky;
+    top: 0;
+    background: var(--page-bg);
+    z-index: 10;
+    padding: 1.5rem 1rem !important;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  /* Ajuste no body para o Dock não comer conteúdo do rodapé */
+  body {
+    padding-bottom: 100px;
+  }
+}
+
+/* ==========================================================================
+   INTERAÇÕES NATIVAS MOBILE — Bottom Sheet + Indicadores de Swipe
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* --- Bottom Sheet (converte o modal de detalhes do projeto) --- */
+  .custom-modal.lightbox {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 90vh !important;
+    margin: 0 !important;
+    border-radius: 20px 20px 0 0 !important;
+    border-bottom: none !important;
+    transform: translateY(100%) !important;
+    transition:
+      transform 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+      opacity 0.4s ease !important;
+  }
+
+  .custom-modal.lightbox[open] {
+    transform: translateY(0) !important;
+  }
+
+  .custom-modal.lightbox.sheet-dragging {
+    transition: none !important;
+  }
+
+  .sheet-handle {
+    display: block;
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.25);
+    margin: 0.7rem auto 0.2rem;
+    flex-shrink: 0;
+  }
+
+  .lightbox-content {
+    display: flex !important;
+    flex-direction: column !important;
+    max-height: 90vh;
+  }
+
+  .lightbox-wrapper {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .lightbox-content .fechar-modal {
+    top: 0.85rem;
+  }
+
+  /* --- Indicadores de página (dots) dos carrosséis --- */
+  .swipe-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0 0.75rem;
+  }
+
+  .swipe-dots__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 0;
+    transition: all 0.25s ease;
+  }
+
+  .swipe-dots__dot.is-active {
+    background: #ffffff;
+    width: 18px;
+    border-radius: 3px;
+  }
+}
+
+@media (min-width: 769px) {
+  .swipe-dots {
+    display: none;
+  }
+  .sheet-handle {
+    display: none;
+  }
+}
+
+
+/* ==========================================================================
+   DIVISÓRIAS DE SEÇÃO — linha fina que some nas pontas (fade via mask)
+   Elemento real (não ::before), porque várias seções já usam ::before/
+   ::after pra efeitos de glow radial próprios — um pseudo-elemento meu
+   ficaria escondido atrás deles.
+   ========================================================================== */
+.section-divider {
+  display: block;
+  width: min(88%, 900px);
+  height: 1px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.09);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   HABILIDADES — apenas ícone, tooltip com o nome no hover/foco
+   Substitui de vez o modelo anterior (ícone + nome sempre visível), que
+   também sofria com o acúmulo de CSS conflitante de layouts antigos
+   (órbita, cards). Fonte única de verdade pros ícones do marquee.
+   ========================================================================== */
+#tech-stack .tech-node__label {
+  display: none !important;
+}
+
+#tech-stack .tech-node {
+  position: relative !important;
+  flex-direction: row !important;
+  width: 64px !important;
+  height: 64px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 0 !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important,
+    border-color 0.3s ease !important,
+    background 0.3s ease !important;
+}
+
+#tech-stack .tech-node__icon {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 17px !important;
+  margin: 0 !important;
+  border: none !important;
+  background: none !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#tech-stack .tech-node__icon img,
+#tech-stack .tech-node__icon svg {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  opacity: 1 !important;
+  filter: none !important;
+  transition: opacity 0.3s ease !important;
+}
+
+#tech-stack .tech-node:hover,
+#tech-stack .tech-node:focus-visible {
+  transform: translateY(-5px) scale(1.08) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+#tech-stack .tech-node:hover .tech-node__icon img,
+#tech-stack .tech-node:hover .tech-node__icon svg,
+#tech-stack .tech-node:focus-visible .tech-node__icon img,
+#tech-stack .tech-node:focus-visible .tech-node__icon svg {
+  opacity: 1 !important;
+}
+
+/* Tooltip via data-tooltip (já presente em todo item no HTML) */
+#tech-stack .tech-node::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: #000000;
+  color: #ffffff;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 30;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+#tech-stack .tech-node:hover::after,
+#tech-stack .tech-node:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 768px) {
+  #tech-stack .tech-node {
+    width: 52px !important;
+    height: 52px !important;
+  }
+  #tech-stack .tech-node__icon {
+    padding: 13px !important;
+  }
+  /* Sem hover em touch: tooltip não faz sentido no mobile */
+  #tech-stack .tech-node::after {
+    display: none !important;
+  }
+}
+
+/* ===== SOURCE: polish.css ===== */
+/* ==========================================================================
+   POLISH LAYER — Awwwards-grade refinement (monochrome + chromatic reveals)
+   Additive only. Preserves all existing content & structure.
+   Desktop = max wow. Mobile / reduced-motion = fluidity first.
+   ========================================================================== */
+
+:root {
+  --pl-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --pl-line: rgba(255, 255, 255, 0.1);
+}
+
+/* ---- Global refinement --------------------------------------------------- */
+::selection {
+  background: #ffffff;
+  color: #000000;
+}
+::-moz-selection {
+  background: #ffffff;
+  color: #000000;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom monochrome scrollbar */
+@media (min-width: 992px) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  *::-webkit-scrollbar-track {
+    background: #050505;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    border: 2px solid #050505;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* Smoother reveal choreography (kept compatible with existing .revealed) */
+.reveal-item {
+  will-change: opacity, transform, filter;
+}
+
+/* Refined kinetic section titles — deeper hierarchy, tighter tracking */
+.section-title-kinetic {
+  letter-spacing: -0.03em !important;
+}
+.section-title-kinetic > span[aria-hidden="true"] {
+  display: inline-block;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #ffffff 55%,
+    rgba(255, 255, 255, 0.55) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Eyebrows: consistent editorial micro-label with a leading tick */
+.trajectory-header__eyebrow,
+.tech-header__eyebrow,
+.projects-header__eyebrow,
+.design-header__eyebrow,
+.gamedev-header__eyebrow,
+.beyond-header__eyebrow,
+.mural-editorial-header__eyebrow,
+.contact-header__eyebrow {
+  position: relative;
+  padding-left: 2.6rem;
+}
+.trajectory-header__eyebrow::before,
+.tech-header__eyebrow::before,
+.projects-header__eyebrow::before,
+.design-header__eyebrow::before,
+.gamedev-header__eyebrow::before,
+.beyond-header__eyebrow::before,
+.mural-editorial-header__eyebrow::before,
+.contact-header__eyebrow::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 2rem;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.45);
+  transform-origin: left center;
+  animation: pl-tick 3.2s var(--pl-ease) infinite;
+}
+@keyframes pl-tick {
+  0%, 100% { transform: scaleX(0.6); opacity: 0.5; }
+  50% { transform: scaleX(1); opacity: 1; }
+}
+
+/* =========================================================================
+   SIGNATURE — CHROMATIC REVEAL
+   Monochrome by default; real project/design/game/profile imagery blooms
+   into full colour on hover (desktop) or when scrolled into view (touch).
+   ========================================================================= */
+@media (hover: hover) and (pointer: fine) {
+  #projetos .project-card .project-thumbnail-image,
+  #projetos-design .design-tile .design-tile__media img,
+  #game-dev .gamedev-artwork .gamedev-artwork__img,
+  #sobre .profile-frame img {
+    filter: grayscale(1) contrast(1.04) brightness(0.9) !important;
+    transition:
+      filter 0.85s var(--pl-ease),
+      transform 1.1s var(--pl-ease) !important;
+    will-change: filter, transform;
+  }
+
+  #projetos .project-card:hover .project-thumbnail-image,
+  #projetos-design .design-tile:hover .design-tile__media img,
+  #game-dev .gamedev-artwork:hover .gamedev-artwork__img,
+  #sobre .profile-frame:hover img {
+    filter: grayscale(0) contrast(1.02) brightness(1.02)
+      saturate(1.08) !important;
+    transform: scale(1.05) !important;
+  }
+}
+
+/* Touch devices: show colour, no hover dependency (fluid, honest previews) */
+@media (hover: none) {
+  #projetos .project-card .project-thumbnail-image,
+  #projetos-design .design-tile .design-tile__media img,
+  #game-dev .gamedev-artwork .gamedev-artwork__img {
+    filter: grayscale(0) contrast(1.02) !important;
+    transition: filter 0.6s var(--pl-ease) !important;
+  }
+}
+
+/* Subtle mono→light aperture ring on media frames while hovering */
+@media (hover: hover) and (pointer: fine) {
+  #projetos .project-card__media,
+  #projetos-design .design-tile__media,
+  #game-dev .gamedev-artwork__frame {
+    position: relative;
+    overflow: hidden;
+  }
+  #projetos .project-card__media::after,
+  #projetos-design .design-tile__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0);
+    transition: box-shadow 0.6s var(--pl-ease);
+    z-index: 4;
+  }
+  #projetos .project-card:hover .project-card__media::after,
+  #projetos-design .design-tile:hover .design-tile__media::after {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  }
+}
+
+/* =========================================================================
+   BUTTONS & LINKS — organic microinteractions
+   ========================================================================= */
+.btn-arcane,
+.hero-editorial__cta,
+.contact-form__submit,
+.projects-cta-all,
+.tech-aside__cta,
+.alumni-block__cta {
+  will-change: transform;
+}
+
+/* Magnetic base — JS nudges via --mx/--my, CSS eases it back */
+.pl-magnetic {
+  transition: transform 0.4s var(--pl-ease);
+  transform: translate(var(--mx, 0px), var(--my, 0px));
+}
+
+/* Animated underline sweep for text links */
+.link-text,
+.contact-channel__value.link-text {
+  position: relative;
+  display: inline-block;
+}
+.link-text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.5s var(--pl-ease);
+}
+.contact-channel:hover .link-text::after,
+.link-text:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* Nav links: refined ink underline instead of pill jump */
+@media (min-width: 992px) {
+  .nav-links a.nav-tab-link {
+    position: relative;
+    overflow: hidden;
+  }
+  .nav-links a.nav-tab-link::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 6px;
+    height: 1px;
+    background: #ffffff;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.45s var(--pl-ease);
+  }
+  .nav-links a.nav-tab-link:hover::after,
+  .nav-links a.nav-tab-link.active::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Floating action buttons — cleaner, monochrome, responsive press */
+.btn-flutuante,
+.theme-toggle-btn {
+  transition:
+    transform 0.4s var(--pl-ease),
+    background-color 0.4s var(--pl-ease),
+    border-color 0.4s var(--pl-ease),
+    color 0.4s var(--pl-ease) !important;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-flutuante:hover,
+  .theme-toggle-btn:hover {
+    transform: translateY(-3px) scale(1.06);
+  }
+}
+
+/* =========================================================================
+   CUSTOM CURSOR (desktop only)
+   ========================================================================= */
+.pl-cursor,
+.pl-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 100000;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.pl-cursor {
+  width: 7px;
+  height: 7px;
+  background: #ffffff;
+  transform: translate(-50%, -50%);
+}
+.pl-cursor-ring {
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transform: translate(-50%, -50%);
+  transition:
+    opacity 0.3s ease,
+    width 0.3s var(--pl-ease),
+    height 0.3s var(--pl-ease),
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+body.pl-cursor-active .pl-cursor,
+body.pl-cursor-active .pl-cursor-ring {
+  opacity: 1;
+}
+body.pl-cursor-hover .pl-cursor-ring {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.06);
+}
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+  body.pl-has-cursor,
+  body.pl-has-cursor a,
+  body.pl-has-cursor button,
+  body.pl-has-cursor [role="button"] {
+    cursor: none !important;
+  }
+}
+
+/* =========================================================================
+   ATMOSPHERE — refined grain + edge vignette for cinematic depth
+   ========================================================================= */
+.noise-overlay {
+  opacity: 0.04 !important;
+  mix-blend-mode: overlay;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+}
+
+/* =========================================================================
+   LOADER — tighter, more elegant brand treatment
+   ========================================================================= */
+.cinematic-brand h1 {
+  letter-spacing: 0.02em;
+}
+.cinematic-brand .brand-letter {
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.25);
+}
+.cinematic-brand p {
+  letter-spacing: 0.6em;
+  opacity: 0.55;
+}
+
+/* =========================================================================
+   MOBILE FLUIDITY — trim heavy compositing, keep motion light & smooth
+   ========================================================================= */
+@media (max-width: 768px) {
+  body::after { display: none; }
+
+  /* Lighter reveal so scroll stays buttery on mobile GPUs */
+  .reveal-item {
+    filter: none !important;
+    transform: translateY(16px) !important;
+    transition:
+      opacity 0.7s var(--pl-ease),
+      transform 0.7s var(--pl-ease) !important;
+  }
+  .reveal-item.revealed {
+    transform: translateY(0) !important;
+  }
+
+  .section-title-kinetic > span[aria-hidden="true"] {
+    -webkit-text-fill-color: #ffffff;
+    background: none;
+  }
+}
+
+/* =========================================================================
+   REDUCED MOTION — respect user preference fully
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .pl-tick,
+  .trajectory-header__eyebrow::before,
+  .tech-header__eyebrow::before,
+  .projects-header__eyebrow::before,
+  .design-header__eyebrow::before,
+  .gamedev-header__eyebrow::before,
+  .beyond-header__eyebrow::before,
+  .mural-editorial-header__eyebrow::before,
+  .contact-header__eyebrow::before {
+    animation: none !important;
+  }
+  .pl-cursor,
+  .pl-cursor-ring { display: none !important; }
+  * { scroll-behavior: auto !important; }
+}
+
+/* ===== SOURCE: awwwards-upgrade.css ===== */
+/* =========================================================
+   CRITICAL FIX — NAV VISIBILITY
+   ========================================================= */
+nav.nav-motion, header {
+  z-index: 10001;
+  position: relative;
+}
+.nav-links {
+  z-index: 10002;
+}
+.logo {
+  z-index: 10003;
+}
+.scroll-progress-container {
+  z-index: 10004;
+}
+
+/* =========================================================
+   AWWWARDS EVOLUTION — MRLEOROBOT (Ultra-Optimized)
+   GPU-only transforms. Zero backdrop-filter. Zero clip-path.
+   ========================================================= */
+
+/* ─── 1. SMOOTH SCROLL ─── */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+
+/* ─── 2. HERO TYPOGRAPHY ─── */
+.hero-editorial__name {
+  font-size: clamp(3.2rem, 10vw, 9.5rem);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+.hero-editorial__name span[aria-hidden="true"] {
+  display: block;
+  transform: translateY(105%);
+  animation: heroNameUp 1.2s cubic-bezier(.16,1,.3,1) forwards;
+  animation-delay: 0.9s;
+}
+@keyframes heroNameUp {
+  to { transform: translateY(0); }
+}
+.hero-editorial__subtitle {
+  font-size: clamp(0.9rem, 1.8vw, 1.35rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  margin-top: 1.2rem;
+}
+.hero-editorial__subtitle .ink-reveal--word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: wordFade 0.8s ease forwards;
+}
+@keyframes wordFade {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── 3. SECTION REVEAL — opacity + translateY (GPU) ─── */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(.16,1,.3,1),
+              transform 0.8s cubic-bezier(.16,1,.3,1);
+}
+.section-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── 4. PROJECT CARDS — scale + opacity (GPU, sem clip-path) ─── */
+.project-card__media {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 1s cubic-bezier(.16,1,.3,1),
+              transform 1s cubic-bezier(.16,1,.3,1);
+}
+.project-card__media.is-revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+.project-card {
+  transition: transform 0.4s cubic-bezier(.16,1,.3,1),
+              box-shadow 0.4s ease;
+}
+.project-card:hover {
+  box-shadow: 0 0 40px rgba(255,255,255,0.04);
+}
+.project-card__media img {
+  transition: transform 0.8s cubic-bezier(.16,1,.3,1);
+  will-change: transform;
+}
+.project-card:hover .project-card__media img {
+  transform: scale(1.04);
+}
+.project-card__tech-tag {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(.16,1,.3,1);
+}
+.project-card.is-revealed .project-card__tech-tag {
+  opacity: 1;
+  transform: translateY(0);
+}
+.project-card.is-revealed .project-card__tech-tag:nth-child(1) { transition-delay: 0.2s; }
+.project-card.is-revealed .project-card__tech-tag:nth-child(2) { transition-delay: 0.3s; }
+.project-card.is-revealed .project-card__tech-tag:nth-child(3) { transition-delay: 0.4s; }
+.project-card.is-revealed .project-card__tech-tag:nth-child(4) { transition-delay: 0.5s; }
+.project-card.is-revealed .project-card__tech-tag:nth-child(5) { transition-delay: 0.6s; }
+
+/* ─── 5. EDITORIAL LINKS ─── */
+.editorial-link {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+.editorial-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(.16,1,.3,1);
+}
+.editorial-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ─── 6. SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.35); }
+
+/* ─── 7. NOISE GRAIN — CSS-only, sem animation pesada ─── */
+.noise-overlay {
+  opacity: 0.03;
+}
+
+/* ─── 8. HERO CTA SHINE ─── */
+.hero-editorial__cta .btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+.hero-editorial__cta .btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.08) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+.hero-editorial__cta .btn-primary:hover::before {
+  transform: translateX(100%);
+}
+
+/* ─── 9. TIMELINE ENTRANCE ─── */
+.timeline-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1);
+}
+.timeline-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── 10. SKILL TAGS ─── */
+.skill-tag {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(.16,1,.3,1), background 0.3s;
+}
+.skill-tag.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── 11. TESTIMONIAL CARDS ─── */
+.testimonial-card {
+  transition: transform 0.5s cubic-bezier(.16,1,.3,1), box-shadow 0.5s ease;
+}
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+/* ─── 12. FOOTER LINKS ─── */
+.footer-links a {
+  position: relative;
+}
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(.16,1,.3,1);
+}
+.footer-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ─── 13. PROJECTS HEADER ─── */
+/* O efeito de revelar letra-por-letra dependia de uma classe (.is-visible)
+   que nenhum JS nunca adiciona a este elemento especificamente — só o
+   #projetos (seção inteira) recebe essa classe. Resultado: o texto ficava
+   opacity:0 pra sempre, e só a section-title-kinetic/reveal-item (que já
+   funcionam) tomavam conta da revelação normal do título. */
+
+.projects-header__subtitle {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease 0.4s, transform 0.8s cubic-bezier(.16,1,.3,1) 0.4s;
+}
+.projects-header__subtitle.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── 14. CTA SHINE ─── */
+.projects-cta-all {
+  position: relative;
+  overflow: hidden;
+}
+.projects-cta-all::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.8s ease;
+  pointer-events: none;
+}
+.projects-cta-all:hover::after {
+  transform: translateX(100%);
+}
+
+/* ─── 15. DESCRIÇÃO FADE ─── */
+.project-card__desc {
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+}
+.project-card:hover .project-card__desc {
+  opacity: 1;
+}
+
+/* =========================================================
+   LOADER V2 — CSS Puro, GPU-accelerated
+   ========================================================= */
+
+/* Esconder canvas do loader antigo (pesado) */
+#loader-stars-canvas {
+  display: none !important;
+}
+
+/* Background do loader */
+#cinematic-loader {
+  background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 70%);
+}
+
+/* Brilho sutil no fundo */
+#cinematic-loader::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(255,255,255,0.03) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.02) 0%, transparent 40%);
+  animation: loaderGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes loaderGlow {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Letras do nome com glow */
+#cinematic-loader .brand-letter {
+  text-shadow: 0 0 20px rgba(255,255,255,0.15);
+  animation: letterGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes letterGlow {
+  0% { text-shadow: 0 0 20px rgba(255,255,255,0.1); }
+  100% { text-shadow: 0 0 30px rgba(255,255,255,0.25); }
+}
+
+/* =========================================================
+   CASE STUDY OVERLAY
+   ========================================================= */
+
+.project-case-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(.16,1,.3,1);
+}
+.project-case-overlay.is-active {
+  pointer-events: all;
+  opacity: 1;
+}
+.project-case-overlay__bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+}
+.project-case-overlay__image {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity 1s cubic-bezier(.16,1,.3,1) 0.15s,
+              transform 1.2s cubic-bezier(.16,1,.3,1) 0.3s;
+}
+.project-case-overlay.is-active .project-case-overlay__image {
+  opacity: 1;
+  transform: scale(1);
+}
+.project-case-overlay__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4);
+}
+.project-case-overlay__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, 
+    rgba(0,0,0,0.2) 0%, 
+    rgba(0,0,0,0.6) 50%, 
+    rgba(0,0,0,0.9) 100%);
+}
+.project-case-overlay__content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  width: 90%;
+  padding: 2rem;
+  text-align: center;
+}
+.project-case-overlay__title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #fff;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(.16,1,.3,1) 0.4s,
+              transform 0.7s cubic-bezier(.16,1,.3,1) 0.4s;
+}
+.project-case-overlay.is-active .project-case-overlay__title {
+  opacity: 1;
+  transform: translateY(0);
+}
+.project-case-overlay__desc {
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  line-height: 1.7;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(.16,1,.3,1) 0.55s,
+              transform 0.6s cubic-bezier(.16,1,.3,1) 0.55s;
+}
+.project-case-overlay.is-active .project-case-overlay__desc {
+  opacity: 1;
+  transform: translateY(0);
+}
+.project-case-overlay__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(.16,1,.3,1) 0.65s,
+              transform 0.6s cubic-bezier(.16,1,.3,1) 0.65s;
+}
+.project-case-overlay.is-active .project-case-overlay__tech {
+  opacity: 1;
+  transform: translateY(0);
+}
+.project-case-overlay__tech-tag {
+  padding: 0.35rem 0.9rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.05);
+}
+.project-case-overlay__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2.5rem;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 100px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(.16,1,.3,1) 0.75s,
+              transform 0.6s cubic-bezier(.16,1,.3,1) 0.75s,
+              background 0.3s ease, border-color 0.3s ease;
+}
+.project-case-overlay.is-active .project-case-overlay__cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+.project-case-overlay__cta:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.6);
+}
+.project-case-overlay__close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: scale(0.8) rotate(-90deg);
+  transition: opacity 0.5s cubic-bezier(.16,1,.3,1) 0.5s,
+              transform 0.5s cubic-bezier(.16,1,.3,1) 0.5s,
+              background 0.3s ease, border-color 0.3s ease;
+}
+.project-case-overlay.is-active .project-case-overlay__close {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+.project-case-overlay__close:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.5);
+  transform: scale(1.1) rotate(90deg);
+}
+.project-case-overlay__close svg {
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+/* =========================================================
+   MOBILE EXPERIENCE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .nav-links {
+    background: rgba(3, 3, 3, 0.98);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(-20px) scale(0.98);
+  }
+  .nav-links.active {
+    transform: translateY(0) scale(1);
+  }
+  .nav-links a:not(.btn-cv) {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.3s ease;
+  }
+  .nav-links.active a:not(.btn-cv) {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .nav-links.active a:not(.btn-cv):nth-child(1) { transition-delay: 0.1s; }
+  .nav-links.active a:not(.btn-cv):nth-child(2) { transition-delay: 0.18s; }
+  .nav-links.active a:not(.btn-cv):nth-child(3) { transition-delay: 0.26s; }
+  .nav-links.active a:not(.btn-cv):nth-child(4) { transition-delay: 0.34s; }
+  .nav-links.active a:not(.btn-cv):nth-child(5) { transition-delay: 0.42s; }
+  .nav-links .btn-cv {
+    margin-top: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.5s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+  }
+  .nav-links.active .btn-cv {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mobile-bottom-dock {
+    background: rgba(6, 6, 6, 0.85);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
+    padding-bottom: env(safe-area-inset-bottom, 8px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mobile-bottom-dock.is-hidden {
+    transform: translateY(120%);
+  }
+  .dock-item {
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+  }
+  .dock-item:active {
+    transform: scale(0.92);
+  }
+  .dock-item.active::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    animation: dockPulse 2s ease-in-out infinite;
+  }
+  @keyframes dockPulse {
+    0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+    50% { opacity: 1; transform: translateX(-50%) scale(1.3); }
+  }
+
+  #hero {
+    min-height: 100dvh;
+    padding-top: 80px;
+  }
+  .hero-editorial__subtitle {
+    font-size: clamp(0.7rem, 3vw, 0.9rem);
+    letter-spacing: 0.25em;
+  }
+  .hero-editorial__cta .btn-primary {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+    padding: 1rem 2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+  }
+
+  .projects-viewport {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .projects-viewport::-webkit-scrollbar {
+    display: none;
+  }
+  .project-card {
+    scroll-snap-align: center;
+    flex: 0 0 85%;
+    max-width: 340px;
+  }
+  .projects-header::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+    margin: 1rem auto 0;
+    animation: swipeHint 2s ease-in-out infinite;
+  }
+  @keyframes swipeHint {
+    0%, 100% { transform: translateX(-8px); opacity: 0.3; }
+    50% { transform: translateX(8px); opacity: 0.7; }
+  }
+
+  .timeline-item {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .timeline-item.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @keyframes techBreathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  .tech-lab__orbit .tech-node {
+    animation: techBreathe 4s ease-in-out infinite;
+  }
+  .tech-lab__orbit .tech-node:nth-child(2n) { animation-delay: 0.5s; }
+  .tech-lab__orbit .tech-node:nth-child(3n) { animation-delay: 1s; }
+  .tech-lab__orbit .tech-node:nth-child(4n) { animation-delay: 1.5s; }
+
+  .testimonial-card {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease, box-shadow 0.5s ease;
+  }
+  .testimonial-card.active {
+    transform: scale(1.02);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .scroll-progress-bar {
+    height: 2px;
+    background: linear-gradient(90deg, #fff, rgba(255,255,255,0.3));
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  }
+
+  .hamburger {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hamburger:active {
+    transform: scale(0.9);
+  }
+
+  .footer-links a {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .footer.is-visible .footer-links a {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .footer.is-visible .footer-links a:nth-child(1) { transition-delay: 0.1s; }
+  .footer.is-visible .footer-links a:nth-child(2) { transition-delay: 0.15s; }
+  .footer.is-visible .footer-links a:nth-child(3) { transition-delay: 0.2s; }
+  .footer.is-visible .footer-links a:nth-child(4) { transition-delay: 0.25s; }
+  .footer.is-visible .footer-links a:nth-child(5) { transition-delay: 0.3s; }
+
+  .project-case-overlay__content {
+    padding: 1.5rem;
+    width: 95%;
+  }
+  .project-case-overlay__title {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+  }
+  .project-case-overlay__close {
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ─── REDUCED MOTION ─── */
+@media (prefers-reduced-motion: reduce) {
+  .section-reveal, .timeline-item, .skill-tag { 
+    opacity: 1; 
+    transform: none; 
+    transition: none; 
+  }
+  .hero-editorial__name span[aria-hidden="true"] { 
+    animation: none; 
+    transform: none; 
+  }
+  .project-card__media, .project-card__media img { 
+    transition: none; 
+  }
+  .noise-overlay { animation: none; }
+  .hero-editorial__subtitle .ink-reveal--word {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .projects-header__title span { transform: none; opacity: 1; transition: none; }
+  .projects-header__subtitle { opacity: 1; transform: none; transition: none; }
+  #loader-stars-canvas { display: none; }
+  .dock-item.active::before { animation: none; }
+  .projects-header::after { animation: none; }
+  .tech-lab__orbit .tech-node { animation: none; }
+}
+
+
+/* =========================================================
+   LOADER + HERO REVEAL SEQUENCE
+   ========================================================= */
+
+/* Hero escondida enquanto loader está ativo */
+body.loading-locked #hero {
+  opacity: 0;
+  visibility: hidden;
+  transition: none;
+}
+
+/* Hero revelada suavemente após loader */
+body.loader-complete #hero {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1.5s cubic-bezier(.16,1,.3,1), visibility 0s;
+}
+
+/* Estrela cadente: ver definição única e completa mais abaixo neste arquivo */
+
+/* Hero canvas de estrelas — continua animado */
+#hero-ink-canvas {
+  opacity: 0.6;
+  transition: opacity 1s ease;
+}
+
+body.loader-complete #hero-ink-canvas {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   ESTRELA CADENTE DO LOADER — versão única e definitiva
+   Rastro longo + cabeça brilhante, caindo em diagonal antes de revelar o nome.
+   ========================================================================== */
+.loader-shooting-star__trail {
+  position: absolute;
+  width: clamp(160px, 22vw, 320px);
+  height: 3px;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 12%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.9) 85%,
+    #ffffff 100%
+  );
+  border-radius: 999px;
+  opacity: 0;
+  transform: rotate(35deg);
+  filter: blur(0.4px);
+}
+
+.loader-shooting-star__trail::after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  width: clamp(7px, 1.4vw, 11px);
+  height: clamp(7px, 1.4vw, 11px);
+  transform: translateY(-50%);
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow:
+    0 0 14px 3px rgba(255, 255, 255, 0.95),
+    0 0 34px 10px rgba(255, 255, 255, 0.55),
+    0 0 70px 22px rgba(255, 255, 255, 0.2);
+}
+
+.loader-shooting-star__trail.animate {
+  animation: loader-star-fall 1.3s cubic-bezier(0.45, 0, 0.4, 1) forwards;
+}
+
+@keyframes loader-star-fall {
+  0% {
+    opacity: 0;
+    transform: rotate(35deg) translateX(-60px) scale(0.7);
+  }
+  14% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(35deg) translateX(min(80vw, 780px)) scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-shooting-star__trail.animate {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* ===== SOURCE: motion.css ===== */
+/* MOTION DESIGN SYSTEM — Performance Optimized */
+:root{--ease-out-expo:cubic-bezier(0.16,1,0.3,1);--dur-fast:0.3s;--dur-slow:0.6s}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Scroll-triggered */
+.motion-on-scroll{opacity:0;transform:translateY(30px);transition:opacity var(--dur-slow) var(--ease-out-expo),transform var(--dur-slow) var(--ease-out-expo)}
+.motion-on-scroll.is-visible{opacity:1;transform:translateY(0)}
+.motion-on-scroll[data-motion="scale-in"]{transform:scale(0.95)}
+.motion-on-scroll[data-motion="scale-in"].is-visible{transform:scale(1)}
+
+/* Stagger */
+.motion-stagger > *{opacity:0;transform:translateY(20px);transition:opacity .5s var(--ease-out-expo),transform .5s var(--ease-out-expo)}
+.motion-stagger.is-visible > *:nth-child(1){transition-delay:0s}
+.motion-stagger.is-visible > *:nth-child(2){transition-delay:.08s}
+.motion-stagger.is-visible > *:nth-child(3){transition-delay:.16s}
+.motion-stagger.is-visible > *:nth-child(4){transition-delay:.24s}
+.motion-stagger.is-visible > *:nth-child(5){transition-delay:.32s}
+.motion-stagger.is-visible > *:nth-child(6){transition-delay:.4s}
+.motion-stagger.is-visible > * > *{opacity:1;transform:translateY(0)}
+
+/* Hero orbs — simplificado, sem blur pesado */
+.hero-motion-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.hero-motion-orb{position:absolute;border-radius:50%;opacity:0.08;pointer-events:none;will-change:transform}
+.hero-motion-orb--1{width:300px;height:300px;background:rgba(255,255,255,0.15);top:10%;left:10%;animation:orbFloat 12s ease-in-out infinite}
+.hero-motion-orb--2{width:250px;height:250px;background:rgba(255,255,255,0.1);bottom:20%;right:15%;animation:orbFloat 10s ease-in-out infinite 2s}
+.hero-motion-orb--3{width:200px;height:200px;background:rgba(255,255,255,0.12);top:50%;left:60%;animation:orbFloat 14s ease-in-out infinite 4s}
+@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+
+/* Micro-interactions — sem backdrop-filter */
+.motion-lift{transition:transform var(--dur-fast) var(--ease-out-expo)}
+.motion-lift:hover{transform:translateY(-6px)}
+
+.motion-shine{position:relative;overflow:hidden}
+.motion-shine::after{content:"";position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);transition:left .6s}
+.motion-shine:hover::after{left:150%}
+
+/* Spotlight — simplificado */
+.motion-spotlight{position:relative;overflow:hidden}
+.motion-spotlight::before{content:"";position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.06) 0%,transparent 70%);transform:translate(-50%,-50%);pointer-events:none;opacity:0;transition:opacity .3s;left:var(--spotlight-x,50%);top:var(--spotlight-y,50%)}
+.motion-spotlight:hover::before{opacity:1}
+
+/* Nav scroll */
+.nav-motion{transition:background .3s,padding .3s}
+.nav-motion.is-scrolled{background:rgba(0,0,0,0.9);padding:.6rem 5%}
+
+/* Image reveal */
+.motion-img-reveal{position:relative;overflow:hidden}
+.motion-img-reveal::before{content:"";position:absolute;inset:0;background:#000;z-index:2;transform:translateX(0);transition:transform .8s var(--ease-out-expo)}
+.motion-img-reveal.is-visible::before{transform:translateX(100%)}
+.motion-img-reveal img{transform:scale(1.1);transition:transform .8s var(--ease-out-expo)}
+.motion-img-reveal.is-visible img{transform:scale(1)}
+
+/* Button */
+.btn-motion{transition:transform .2s,box-shadow .2s}
+.btn-motion:hover{transform:translateY(-2px)}
+
+/* 3D Tilt — só em desktop com pointer fine */
+@media(pointer:fine){
+.motion-tilt{transform-style:preserve-3d;transition:transform .2s}
+.motion-tilt:hover{transform:perspective(1000px) rotateY(5deg) rotateX(-5deg)}
+}
+
+/* Mesh — sem blur, opacidade baixa */
+.motion-mesh{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.motion-mesh__blob{position:absolute;border-radius:50%;opacity:0.06;animation:orbFloat 20s ease-in-out infinite}
+.motion-mesh__blob:nth-child(1){width:400px;height:400px;background:rgba(255,255,255,0.2);top:-10%;left:-10%;animation-duration:18s}
+.motion-mesh__blob:nth-child(2){width:350px;height:350px;background:rgba(255,255,255,0.15);bottom:-5%;right:-5%;animation-duration:22s;animation-delay:5s}
+.motion-mesh__blob:nth-child(3){width:300px;height:300px;background:rgba(255,255,255,0.18);top:40%;left:50%;animation-duration:16s;animation-delay:10s}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
+
+/* Botões magnéticos (ver motion.js): remove "transform" da transição CSS
+   desses 2 botões, senão ela briga com o movimento do JS e fica com lag
+   duplicado. box-shadow/cor continuam animando normalmente no hover. */
+@media (pointer: fine) {
+  .hero-editorial__cta {
+    transition: background 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.5s cubic-bezier(0.16,1,0.3,1), color 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s cubic-bezier(0.16,1,0.3,1) !important;
+  }
+  .btn-cv {
+    transition: box-shadow 0.3s ease !important;
+  }
+}
+
+/* ===== SOURCE: evolution.css ===== */
+/* ═══════════════════════════════════════════
+   EVOLUTION.CSS — Aesthetic Upgrade v2.1
+   Monocromático preto e branco com aurora sutil,
+   magnetic buttons, timeline line draw, section
+   entrance animations, section markers grandes.
+   ═══════════════════════════════════════════ */
+
+/* ── 1. AURORA MESH GRADIENT — Monocromático sutil ── */
+#aurora-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+body:not(.loading-locked) #aurora-canvas {
+  opacity: 1;
+}
+
+/* ── 2. CURSOR GLOW / SPOTLIGHT ── */
+#cursor-glow {
+  position: fixed;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.035) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+  mix-blend-mode: screen;
+}
+@media (pointer: coarse) {
+  #cursor-glow { display: none !important; }
+}
+
+/* ── 3. MAGNETIC BUTTONS ── */
+.magnetic-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.magnetic-btn::after {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: inherit;
+  pointer-events: auto;
+}
+
+/* ── 4. SPOTLIGHT CARD HOVER ── */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  top: var(--mouse-y, 50%);
+  left: var(--mouse-x, 50%);
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* ── 5. 3D TILT CARDS ── */
+.tilt-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.1s ease-out;
+}
+
+/* ── 6. SCROLL VELOCITY SKEW ── */
+.velocity-skew {
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* ── 7. VIGNETTE OVERLAY ── */
+#vignette-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.45) 100%);
+  opacity: 0.6;
+  transition: opacity 0.5s ease;
+}
+
+/* ── 8. NOISE TEXTURE OVERLAY ── */
+#noise-texture {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9996;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ── 9. AMBIENT ORBS — Monocromáticos ── */
+.ambient-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+body:not(.loading-locked) .ambient-orb {
+  opacity: 0.12;
+}
+.ambient-orb--1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%);
+  top: 10%; right: -10%;
+  animation: orbFloat1 22s ease-in-out infinite;
+}
+.ambient-orb--2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(200,200,200,0.2), transparent 70%);
+  bottom: 20%; left: -5%;
+  animation: orbFloat2 28s ease-in-out infinite;
+}
+.ambient-orb--3 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(150,150,150,0.15), transparent 70%);
+  top: 50%; left: 30%;
+  animation: orbFloat3 20s ease-in-out infinite;
+}
+@keyframes orbFloat1 {
+  0%,100%{transform:translate(0,0)scale(1)}
+  33%{transform:translate(-30px,40px)scale(1.1)}
+  66%{transform:translate(20px,-30px)scale(0.95)}
+}
+@keyframes orbFloat2 {
+  0%,100%{transform:translate(0,0)scale(1)}
+  50%{transform:translate(40px,-50px)scale(1.15)}
+}
+@keyframes orbFloat3 {
+  0%,100%{transform:translate(0,0)scale(1)}
+  25%{transform:translate(-20px,30px)scale(1.05)}
+  75%{transform:translate(30px,-20px)scale(0.9)}
+}
+
+/* ── 10. SMOOTH REVEAL WITH STAGGER ── */
+.reveal-stagger {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-stagger.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── 11. SECTION ENTRANCE — Wipe + Scale ── */
+.section-entrance {
+  opacity: 0;
+  transform: scale(0.97) translateY(30px);
+  filter: blur(8px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.section-entrance.revealed {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  filter: blur(0);
+}
+
+/* ── 12. SECTION DIVIDER LINE ANIMATION ── */
+.section-divider-animated {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  margin: 0 auto 3rem;
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.section-divider-animated.revealed {
+  width: 60%;
+}
+
+/* ── 13. SECTION MARKER — Grande e elegante ── */
+.section-marker-large {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+.section-marker-large__num {
+  color: rgba(255,255,255,0.6);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.section-marker-large::after {
+  content: "";
+  display: inline-block;
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.2), transparent);
+  margin-left: 0.3rem;
+}
+
+/* ── 14. TIMELINE LINE DRAW ── */
+.timeline-item {
+  position: relative;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 2px; height: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+  transition: height 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.timeline-item.revealed::before {
+  height: 100%;
+}
+
+/* ── 15. HOVER GLOW BORDER ── */
+.glow-border {
+  position: relative;
+}
+.glow-border::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent 50%, rgba(255,255,255,0.05));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+.glow-border:hover::after {
+  opacity: 1;
+}
+
+/* ── 16. LIQUID MORPH BUTTON ── */
+.liquid-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.liquid-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+.liquid-btn:hover::before {
+  width: 300%;
+  height: 300%;
+}
+
+/* ── 17. SHIMMER EFFECT ── */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+  animation: shimmerSweep 5s ease-in-out infinite;
+}
+@keyframes shimmerSweep {
+  0% { left: -100%; }
+  50%, 100% { left: 200%; }
+}
+
+/* ── 18. DEPTH SHADOW CARDS ── */
+.depth-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.depth-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* ── 19. HERO ENHANCEMENTS ── */
+.hero-editorial__name {
+  text-shadow:
+    0 0 40px rgba(255,255,255,0.08),
+    0 0 80px rgba(255,255,255,0.04);
+}
+.hero-editorial__cta {
+  position: relative;
+  overflow: hidden;
+}
+.hero-editorial__cta::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-editorial__cta:hover::after {
+  left: 100%;
+}
+
+/* ── 20. PROJECT CARD ENHANCEMENTS ── */
+.project-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+.project-card .project-thumbnail-wrapper {
+  overflow: hidden;
+  border-radius: inherit;
+}
+.project-card .project-thumbnail-wrapper img {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s ease;
+}
+.project-card:hover .project-thumbnail-wrapper img {
+  transform: scale(1.08);
+  filter: brightness(1.1);
+}
+
+/* ── 21. TESTIMONIAL CARD ENHANCEMENTS ── */
+.testimonial-card {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+}
+
+/* ── 22. FAQ ENHANCEMENTS ── */
+.faq-item {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.faq-item:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+/* ── 23. CONTACT SECTION ENHANCEMENTS ── */
+.contact-link {
+  position: relative;
+  transition: all 0.3s ease;
+}
+.contact-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: rgba(255,255,255,0.5);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.contact-link:hover::after {
+  width: 100%;
+}
+
+/* ── 24. NAV ENHANCEMENTS ── */
+nav.nav-motion {
+  background: rgba(6, 6, 6, 0.7) !important;
+  backdrop-filter: blur(30px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(1.5) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.04) !important;
+}
+nav.nav-motion.scrolled {
+  background: rgba(2, 4, 10, 0.85) !important;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.3) !important;
+}
+
+/* ── 25. SCROLLBAR STYLING ── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+/* ── 26. SELECTION STYLING ── */
+::selection {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+/* ── 27. SCROLL PROGRESS GLOW ── */
+.scroll-progress-bar {
+  box-shadow: 0 0 10px rgba(255,255,255,0.2), 0 0 20px rgba(255,255,255,0.08) !important;
+}
+
+/* ── 28. SECTION TITLE ENTRANCE ── */
+.section-title-entrance {
+  opacity: 0;
+  transform: translateY(30px) rotateX(10deg);
+  transform-origin: bottom;
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.section-title-entrance.revealed {
+  opacity: 1;
+  transform: translateY(0) rotateX(0);
+}
+
+/* ── 29. WORD BY WORD REVEAL ── */
+.word-reveal {
+  overflow: hidden;
+  display: inline-block;
+}
+.word-reveal span {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.word-reveal.revealed span {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ── 30. REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  .ambient-orb,
+  .shimmer::after {
+    animation: none !important;
+  }
+  .reveal-stagger,
+  .section-entrance,
+  .section-title-entrance,
+  .word-reveal span {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .section-divider-animated {
+    width: 60% !important;
+  }
+  .timeline-item::before {
+    height: 100% !important;
+  }
+}
+
+
+/* =========================================================
+   HERO-SCALE SECTION TITLES
+   O próprio título é o marco visual — sem números decorativos.
+   ========================================================= */
+.section-title-kinetic,
+.section-title-kinetic.revealed {
+  clip-path: inset(0 0 0 0) !important;
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  overflow: visible !important;
+}
+
+#sobre .trajectory-header__title,
+#projetos .projects-header__title,
+#projetos-design .ux-header__title,
+#tech-stack .tech-header__title,
+#soft-skills .alumni-header__title,
+#faq .faq-header__title {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: clamp(4.25rem, 9.4vw, 9.5rem) !important;
+  font-weight: 900 !important;
+  line-height: 0.82 !important;
+  letter-spacing: -0.065em !important;
+  text-align: left !important;
+  text-transform: uppercase !important;
+  text-wrap: balance;
+  color: #ffffff !important;
+  background: none !important;
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  text-shadow: 0 0 64px rgba(255, 255, 255, 0.07);
+}
+
+#soft-skills .alumni-header__title,
+#faq .faq-header__title {
+  font-size: clamp(3.8rem, 7.7vw, 8rem) !important;
+}
+
+#game-dev .gamedev-hud-header h2 {
+  margin: 0 !important;
+  max-width: 11ch;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: clamp(3.4rem, 7vw, 7rem) !important;
+  font-weight: 900 !important;
+  line-height: 0.82 !important;
+  letter-spacing: -0.06em !important;
+  text-align: left !important;
+  text-transform: uppercase !important;
+  text-wrap: balance;
+  color: #ffffff !important;
+  text-shadow: 0 8px 48px rgba(0, 0, 0, 0.55);
+}
+
+#sobre .trajectory-header__title::after,
+#projetos .projects-header__title::after,
+#projetos-design .ux-header__title::after,
+#tech-stack .tech-header__title::after,
+#soft-skills .alumni-header__title::after,
+#faq .faq-header__title::after,
+#game-dev .gamedev-hud-header h2::after {
+  content: "";
+  display: block;
+  width: clamp(4rem, 8vw, 7rem);
+  height: 2px;
+  margin-top: clamp(1rem, 1.8vw, 1.5rem);
+  background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0.08) 100%);
+  transform-origin: left;
+}
+
+#projetos-design .ux-header,
+#soft-skills .alumni-header,
+#faq .faq-header {
+  align-items: flex-start !important;
+  max-width: none !important;
+  text-align: left !important;
+}
+
+#sobre .trajectory-header__subtitle,
+#projetos .projects-header__subtitle,
+#projetos-design .ux-header__subtitle,
+#tech-stack .tech-header__subtitle,
+#soft-skills .alumni-header__subtitle,
+#faq .faq-header__subtitle,
+#game-dev .gamedev-hud-header .hud-subtitle {
+  margin-top: clamp(1rem, 2vw, 1.6rem) !important;
+  max-width: 48rem;
+  text-align: left !important;
+  font-size: clamp(0.72rem, 1vw, 0.9rem) !important;
+  line-height: 1.65 !important;
+  letter-spacing: 0.2em !important;
+}
+
+@media (max-width: 768px) {
+  #sobre .trajectory-header__title,
+  #projetos .projects-header__title,
+  #projetos-design .ux-header__title,
+  #tech-stack .tech-header__title,
+  #soft-skills .alumni-header__title,
+  #faq .faq-header__title {
+    font-size: clamp(3.25rem, 14vw, 5.4rem) !important;
+    line-height: 0.86 !important;
+    letter-spacing: -0.055em !important;
+  }
+
+  #game-dev .gamedev-hud-header h2 {
+    font-size: clamp(3rem, 13vw, 5rem) !important;
+  }
+}
+
+/* =========================================================
+   FOOTER REBUILD — EDITORIAL CLOSING
+   O rodapé encerra a narrativa com a mesma escala da Hero.
+   Também neutraliza as regras globais de <nav.nav-motion> no footer.
+   ========================================================= */
+.site-footer {
+  display: block !important;
+  position: relative !important;
+  isolation: isolate;
+  overflow: hidden;
+  max-width: none !important;
+  margin: 0 !important;
+  padding:
+    clamp(4.5rem, 7vw, 7rem)
+    clamp(1.5rem, 5vw, 5rem)
+    max(2rem, env(safe-area-inset-bottom, 0px)) !important;
+  text-align: left !important;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.055), transparent 34%),
+    linear-gradient(180deg, #050505 0%, #020202 100%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.09) !important;
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.2;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 100% 72px, 72px 100%;
+  -webkit-mask-image: linear-gradient(90deg, #000, transparent 72%);
+  mask-image: linear-gradient(90deg, #000, transparent 72%);
+}
+
+.site-footer .footer-inner,
+.site-footer .footer-bottom {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1600px;
+  margin-inline: auto;
+}
+
+.site-footer .footer-inner {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.55fr) minmax(17rem, 0.65fr) !important;
+  grid-template-areas: "brand end";
+  column-gap: clamp(3rem, 7vw, 8rem) !important;
+  row-gap: clamp(2rem, 3vw, 3rem) !important;
+  align-items: end !important;
+  justify-content: stretch !important;
+  padding-bottom: clamp(3rem, 5vw, 5rem) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09) !important;
+}
+
+.site-footer .footer-brand {
+  grid-area: brand;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0.7rem !important;
+  min-width: 0;
+}
+
+.site-footer .footer-brand__name {
+  display: block !important;
+  max-width: 100%;
+  margin: 0 0 0.55rem !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: clamp(4.6rem, 10vw, 10rem) !important;
+  font-weight: 900 !important;
+  line-height: 0.78 !important;
+  letter-spacing: -0.075em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  color: #fff !important;
+  text-shadow: 0 0 72px rgba(255, 255, 255, 0.08);
+  transition: opacity 0.35s ease, letter-spacing 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.site-footer .footer-brand__name:hover {
+  opacity: 0.76 !important;
+  letter-spacing: -0.065em !important;
+}
+
+.site-footer .footer-brand__sub {
+  margin: 0 !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: clamp(0.68rem, 0.85vw, 0.78rem) !important;
+  font-weight: 650 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: rgba(255, 255, 255, 0.62) !important;
+}
+
+.site-footer .footer-brand__clock {
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.08em !important;
+  color: rgba(255, 255, 255, 0.38) !important;
+}
+
+.site-footer .footer-brand__social {
+  display: flex !important;
+  gap: 0.7rem !important;
+  margin-top: 0.9rem !important;
+}
+
+.site-footer .footer-brand__social a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.65rem !important;
+  height: 2.65rem !important;
+  color: rgba(255, 255, 255, 0.72) !important;
+  background: rgba(255, 255, 255, 0.025) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 999px !important;
+}
+
+.site-footer .footer-brand__social a:hover {
+  color: #050505 !important;
+  background: #fff !important;
+  border-color: #fff !important;
+  transform: translateY(-3px);
+}
+
+/* Reset completo: footer-nav é navegação sem ser o menu fixo do topo. */
+.site-footer .footer-nav,
+.site-footer .footer-nav.scrolled {
+  grid-area: links;
+  display: flex !important;
+  position: static !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  width: auto !important;
+  max-width: 31rem !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 0.8rem 1.75rem !important;
+  transform: none !important;
+  z-index: auto !important;
+  pointer-events: auto !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.site-footer .footer-nav a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1.5rem !important;
+  min-width: 11.5rem;
+  padding: 0.8rem 0 !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: 0.76rem !important;
+  font-weight: 650 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  color: rgba(255, 255, 255, 0.74) !important;
+  background: transparent !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  transition: color 0.3s ease, border-color 0.3s ease !important;
+}
+
+.site-footer .footer-nav a::after {
+  content: "\2197";
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.42);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+.site-footer .footer-nav a:hover {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.72);
+  transform: none !important;
+}
+
+.site-footer .footer-nav a:hover::after {
+  color: #fff;
+  transform: translate(3px, -3px);
+}
+
+.site-footer .footer-end {
+  grid-area: end;
+  display: flex !important;
+  flex-direction: column !important;
+  align-self: stretch !important;
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+  gap: 1.5rem !important;
+  padding-left: clamp(1.5rem, 3vw, 3.5rem);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.site-footer .footer-end__quote {
+  max-width: 18ch;
+  margin: 0 !important;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-size: clamp(1.2rem, 1.75vw, 1.8rem) !important;
+  font-weight: 430 !important;
+  font-style: normal !important;
+  line-height: 1.35 !important;
+  letter-spacing: -0.025em !important;
+  text-align: left !important;
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.site-footer .footer-end__quote em {
+  font-style: normal !important;
+}
+
+/* Já existe o botão flutuante global; evita a seta duplicada. */
+.site-footer .footer-end__top {
+  display: none !important;
+}
+
+.site-footer .footer-bottom {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1rem !important;
+  padding-top: 1.45rem !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 0.75rem !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.06em !important;
+  text-align: center !important;
+  color: rgba(255, 255, 255, 0.38) !important;
+}
+
+@media (max-width: 900px) {
+  .site-footer .footer-inner {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      "brand"
+      "end";
+    row-gap: 2.5rem !important;
+  }
+
+  .site-footer .footer-brand__name {
+    font-size: clamp(4.2rem, 17vw, 8rem) !important;
+  }
+
+  .site-footer .footer-end {
+    min-height: 0;
+    padding: 2.25rem 0 0 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 0;
+  }
+
+  .site-footer .footer-end__quote {
+    max-width: 23ch;
+    font-size: clamp(1.2rem, 4vw, 1.65rem) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-footer {
+    padding:
+      4.25rem
+      1.25rem
+      calc(7rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .site-footer .footer-brand__name {
+    font-size: clamp(3.5rem, 17vw, 5.25rem) !important;
+    line-height: 0.82 !important;
+  }
+
+  .site-footer .footer-brand__sub {
+    max-width: 28ch;
+    line-height: 1.7 !important;
+  }
+
+  .site-footer .footer-nav,
+  .site-footer .footer-nav.scrolled {
+    width: 100% !important;
+    max-width: none !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.35rem !important;
+  }
+
+  .site-footer .footer-nav a {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .site-footer .footer-bottom {
+    align-items: center !important;
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer .footer-brand__name,
+  .site-footer .footer-brand__social a,
+  .site-footer .footer-nav a,
+  .site-footer .footer-nav a::after {
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   MOBILE NATIVE SCROLL RECOVERY
+   Native vertical gestures take priority over scroll effects.
+   ========================================================= */
+@media (max-width: 768px), (pointer: coarse) {
+  html {
+    scroll-snap-type: none !important;
+    overscroll-behavior-y: auto !important;
+    touch-action: pan-y !important;
+  }
+
+  body {
+    overscroll-behavior-y: auto !important;
+  }
+
+  body:not(.loading-locked) {
+    touch-action: pan-y !important;
+  }
+
+  #cinematic-loader {
+    touch-action: none !important;
+  }
+}
+
+
+
+/* =========================================================
+   INVISIBLE CORE — SCROLL LOCK + ACCESSIBILITY
+   No default visual changes; appears only while locked/focused
+   or when the user explicitly requests reduced motion.
+   ========================================================= */
+html.is-scroll-locked,
+body.is-scroll-locked {
+  overflow: hidden !important;
+  touch-action: none !important;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.9rem;
+  left: 50%;
+  z-index: 10000000;
+  min-width: max-content;
+  padding: 0.8rem 1.1rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #050505;
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 999px;
+  transform: translate(-50%, calc(-100% - 2rem));
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translate(-50%, 0);
+  outline: 2px solid #ffffff !important;
+  outline-offset: 4px !important;
+}
+
+.project-thumbnail-wrapper[role="button"]:focus-visible,
+.design-tile [role="button"]:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.92) !important;
+  outline-offset: 5px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  #cinematic-loader {
+    display: none !important;
+  }
+
+  body.loading-locked {
+    overflow: auto !important;
+  }
+}

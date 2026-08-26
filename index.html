@@ -14,7 +14,7 @@
     />
 
     <!-- PWA: instalável como app no celular -->
-    <link rel="manifest" href="./manifest.json?v=20260822s" />
+    <link rel="manifest" href="./manifest.json?v=20260826upgrade1" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -31,9 +31,12 @@
       content="Leonilson Souza, Desenvolvedor Front-end, UX/UI Design, Power BI, DAX, TDAH acessibilidade, React, Web Design, Natal RN, Suporte Técnico, Consultoria em Tecnologia"
     />
     <meta name="author" content="Leonilson Souza" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#06040d" />
     <link rel="canonical" href="https://mrleorobot.github.io/" />
+    <link rel="alternate" type="application/json" href="./projects.json" title="Projetos de Leonilson Souza" />
     <!-- Ajuste o domínio depois -->
 
     <!-- Open Graph / Facebook -->
@@ -59,6 +62,11 @@
     <meta property="og:image:height" content="630" />
 
     <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Leonilson Souza — Front-end, UX/UI e Power BI" />
+    <meta name="twitter:description" content="Portfólio de Leonilson Souza: experiências digitais, interfaces acessíveis e soluções orientadas por dados." />
+    <meta name="twitter:image" content="https://mrleorobot.github.io/og-image.jpg" />
+    <meta name="twitter:image:alt" content="Portfólio de Leonilson Souza" />
     
     
 
@@ -76,30 +84,290 @@
       rel="stylesheet"
     />
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org/",
-        "@type": "Person",
-        "name": "Leonilson Souza",
-        "jobTitle": "Desenvolvedor Front-end, UX/UI Designer e especialista em Power BI",
-        "url": "https://mrleorobot.github.io/",
-        "sameAs": [
-          "https://github.com/mrleorobot",
-          "https://www.linkedin.com/in/leonilsonsouza",
-          "https://mrleorobot.github.io"
-        ]
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://mrleorobot.github.io/#person",
+      "name": "Leonilson Souza",
+      "jobTitle": "Desenvolvedor Front-end, UX/UI Designer e especialista em Power BI",
+      "url": "https://mrleorobot.github.io/",
+      "sameAs": [
+        "https://github.com/mrleorobot",
+        "https://www.linkedin.com/in/leonilsonsouza"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://mrleorobot.github.io/#website",
+      "url": "https://mrleorobot.github.io/",
+      "name": "Leonilson Souza — Portfólio",
+      "inLanguage": [
+        "pt-BR",
+        "en"
+      ],
+      "author": {
+        "@id": "https://mrleorobot.github.io/#person"
       }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://mrleorobot.github.io/#projetos",
+      "name": "Projetos em destaque",
+      "numberOfItems": 14,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "DashBoard de Inventário",
+            "description": "Painel de controle de estoque com alertas inteligentes de produtos em baixa, analytics em tempo real de vendas e exportação automatizada de relatórios. Reduziu perdas por falta de produto em 40%.",
+            "image": "https://mrleorobot.github.io/placeholder-dashboard.jpg",
+            "url": "https://dashboard-de-inventario.vercel.app/",
+            "keywords": "Next.js, TypeScript, Framer Motion",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Refúgio Sereno",
+            "description": "Aplicativo de produtividade gamificado para neurodivergentes (TDAH), com sugestões de IA para foco e sincronização em tempo real entre dispositivos. Aumentou a conclusão de tarefas em 65% entre usuários beta.",
+            "image": "https://mrleorobot.github.io/placeholder-refugio.jpg",
+            "url": "https://refugiosereno.vercel.app/",
+            "keywords": "React, Firebase, Gemini API",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Portal Corporativo",
+            "description": "Intranet completa com módulos de treinamento, holerite digital, avaliação de desempenho, gestão de benefícios e férias. Centralizou 8 processos HR em uma única plataforma.",
+            "image": "https://mrleorobot.github.io/placeholder-portal.jpg",
+            "url": "https://portal-corporativo.vercel.app/",
+            "keywords": "Next.js, React Hook Form, Zustand",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Dsol AI",
+            "description": "Tutor educacional com IA generativa, chat com renderização em Markdown e exportação de conversas em PDF. Suporta 3 idiomas e já respondeu 12.000+ dúvidas de estudantes.",
+            "image": "https://mrleorobot.github.io/placeholder-chat-ia.jpg",
+            "url": "https://dsol-ai.vercel.app/",
+            "keywords": "React, Firebase, Gemini API",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "ONE THING",
+            "description": "Experiência web experimental explorando tipografia variável, espaço negativo e micro-interações de 60fps. Estudo de caso publicado no Dribbble com 2.300+ curtidas.",
+            "image": "https://mrleorobot.github.io/screenshot-onething.jpg",
+            "url": "https://one-thing-alive.vercel.app/",
+            "keywords": "Vite, Framer Motion",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Komorebi",
+            "description": "Landing page premium para torrefação artesanal de café, com design atmosférico inspirado na estética japonesa. Aumentou a taxa de conversão de visitantes em 3x.",
+            "image": "https://mrleorobot.github.io/screenshot-komorebi.jpg",
+            "url": "https://komorebi-gray.vercel.app/",
+            "keywords": "React, Vite",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "MEMORY.EXE",
+            "description": "Narrativa interativa experimental em PT-BR e EN, inspirada em jogos de PS1 e creepypastas dos anos 90. 8.000+ jogadas no primeiro mês, destaque na itch.io.",
+            "image": "https://mrleorobot.github.io/screenshot-memoryexe.jpg",
+            "url": "https://memory-archive-project.vercel.app/",
+            "keywords": "Vite, JavaScript",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Hanamori",
+            "description": "Landing page ilustrada com paisagens pintadas à mão, florestas e criaturas mágicas. Toda a arte e animação foram criadas com CSS puro — zero imagens externas.",
+            "image": "https://mrleorobot.github.io/screenshot-hanamori.jpg",
+            "url": "https://hanamori.vercel.app/",
+            "keywords": "Vite, CSS Art",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "AURVM",
+            "description": "E-commerce de joalheria autoral em ouro 18k e pedras raras, com galeria 3D de peças únicas esculpidas à mão. Média de 4:30 min de permanência na página.",
+            "image": "https://mrleorobot.github.io/screenshot-aurvm.jpg",
+            "url": "https://haute-luxe-glow.vercel.app/",
+            "keywords": "React, Vite",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "LedgerIQ",
+            "description": "Sistema de auditoria financeira com extração automática de dados de notas fiscais via IA. Reduziu o tempo de processamento de documentos de 4h para 15 min.",
+            "image": "https://image.thum.io/get/width/800/crop/500/noanimate/https://find-seven-psi.vercel.app/",
+            "url": "https://find-seven-psi.vercel.app/",
+            "keywords": "Next.js, Gemini API",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 11,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Mentor de Estágio",
+            "description": "Plataforma de mentoria e organização acadêmica para estagiários, com cronogramas, checklists de documentação e canal direto com mentores. 340+ estagiários ativos.",
+            "image": "https://image.thum.io/get/width/800/crop/500/noanimate/https://estagio-steel.vercel.app/",
+            "url": "https://estagio-steel.vercel.app/",
+            "keywords": "Next.js, React",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 12,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "DevElite",
+            "description": "Landing page de mentoria em tecnologia com foco em carreira e posicionamento profissional. Copy direto e técnico, taxa de conversão de 8.2% em campanhas orgânicas.",
+            "image": "https://image.thum.io/get/width/800/crop/500/noanimate/https://develite-lemon.vercel.app/",
+            "url": "https://develite-lemon.vercel.app/",
+            "keywords": "Next.js, TypeScript",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 13,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "MÉMOIRE",
+            "description": "Site de perfumaria autoral com design sensorial e experiência imersiva. Cada fragrância tem uma narrativa visual única. Tempo médio de sessão: 5 minutos.",
+            "image": "https://image.thum.io/get/width/800/crop/500/noanimate/https://memoire-nine-psi.vercel.app/",
+            "url": "https://memoire-nine-psi.vercel.app/",
+            "keywords": "JavaScript, CSS",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 14,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Nocturne Studio",
+            "description": "Portfólio de estúdio indie de animação e jogos com estética Cozy Night. Reúne 6 projetos publicados, 15.000+ downloads e comunidade de 2.400+ fãs.",
+            "image": "https://image.thum.io/get/width/800/crop/500/noanimate/https://cozy-night-studio-landing.vercel.app/",
+            "url": "https://cozy-night-studio-landing.vercel.app/",
+            "keywords": "Vite, React",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
     </script>
-    <link rel="stylesheet" href="./style.css?v=20260822s" />
-    <link rel="stylesheet" href="./performance.css?v=20260822s" />
-    <link rel="stylesheet" href="./css/ag-upgrade-2026.css?v=20260822s" />
-    <link rel="stylesheet" href="./polish.css?v=20260822s" />
-    <link rel="stylesheet" href="./awwwards-upgrade.css?v=20260822s" />
+    <link rel="stylesheet" href="./portfolio.css?v=20260826upgrade1" />
+    
+    
+    
+    
+    <script>
+      (() => {
+        const owners = new Set();
+        const sync = () => {
+          const locked = owners.size > 0;
+          document.documentElement.classList.toggle("is-scroll-locked", locked);
+          document.body?.classList.toggle("is-scroll-locked", locked);
+        };
+        window.PortfolioScrollLock = Object.freeze({
+          lock(owner = "anonymous") { owners.add(owner); sync(); },
+          unlock(owner = "anonymous") { owners.delete(owner); sync(); },
+          clear() { owners.clear(); sync(); },
+          isLocked() { return owners.size > 0; },
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+          sync();
+          const skipLink = document.querySelector(".skip-link");
+          const main = document.getElementById("main-content");
+          skipLink?.addEventListener("click", () => {
+            requestAnimationFrame(() => main?.focus({ preventScroll: true }));
+          });
+        }, { once: true });
+      })();
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
-    <script src="./awwwards-upgrade.js?v=20260825mobile1" defer></script>
-      <link rel="stylesheet" href="./motion.css?v=20260822s" />
-    <link rel="stylesheet" href="./evolution.css?v=20260825mobile1" />
+    <script src="./awwwards-upgrade.js?v=20260826upgrade1" defer></script>
+      
+    
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Pular para o conteúdo principal</a>
     <!-- CINEMATIC LOADER -->
     <div id="cinematic-loader">
       <canvas id="loader-stars-canvas" aria-hidden="true"></canvas>
@@ -107,7 +375,7 @@
         <div class="loader-shooting-star__trail"></div>
       </div>
       <div class="cinematic-brand" id="cinematic-brand">
-        <h1 aria-label="Leonilson">
+        <h1 aria-hidden="true" role="presentation">
           <span class="brand-letter">L</span><span class="brand-letter">e</span><span class="brand-letter">o</span><span class="brand-letter">n</span><span class="brand-letter">i</span><span class="brand-letter">l</span><span class="brand-letter">s</span><span class="brand-letter">o</span><span class="brand-letter">n</span>
         </h1>
       </div>
@@ -249,7 +517,7 @@
       </nav>
     </header>
 
-    <main role="main">
+    <main id="main-content" role="main" tabindex="-1">
       <div class="hero-master-wrapper">
 
         <section id="hero">
@@ -500,7 +768,7 @@
                     <img
                       src="./logo-etep.png"
                       alt="Logo ETEP"
-                      class="status-logo status-logo-etep"
+                      class="status-logo status-logo-etep" decoding="async" loading="lazy"
                     />
                   </div>
                   <div class="status-info">
@@ -519,7 +787,7 @@
                     <img
                       src="./logo-esteadeb.png"
                       alt="Logo ESTEADEB"
-                      class="status-logo status-logo-esteadeb"
+                      class="status-logo status-logo-esteadeb" decoding="async" loading="lazy"
                     />
                   </div>
                   <div class="status-info">
@@ -580,9 +848,9 @@
           <!-- Vitrine editorial: 4 projetos reais -->
           <div class="projects-track" id="projects-track">
             <div class="projects-viewport" id="projects-viewport" role="list">
-<article class="project-card design-card reveal-item stagger-1 motion-lift motion-glow" role="listitem">
+<article class="project-card design-card reveal-item stagger-1 motion-lift motion-glow" id="projeto-dashboard-de-inventario" data-project-id="dashboard-de-inventario" role="listitem" aria-labelledby="projeto-dashboard-de-inventario-titulo" aria-describedby="projeto-dashboard-de-inventario-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ampliar Imagem">
+                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ampliar Imagem" role="button" tabindex="0" aria-label="Ampliar Miniatura do Dashboard de Inventário">
                     <span class="thumbnail-grid-icon" aria-hidden="true">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                         <circle cx="2" cy="2" r="1.3"></circle><circle cx="8" cy="2" r="1.3"></circle><circle cx="14" cy="2" r="1.3"></circle>
@@ -596,7 +864,7 @@
                       class="project-lightbox-trigger project-thumbnail-image"
                       loading="lazy"
                       width="800"
-                      height="500"
+                      height="500" decoding="async"
                     />
                     <div class="project-thumbnail-overlay">
                       <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -615,10 +883,10 @@
                     <span class="project-card__tech-tag">TypeScript</span>
                     <span class="project-card__tech-tag project-card__tech-tag--accent">Framer Motion</span>
                   </div>
-                  <h3 class="project-card__title">
+                  <h3 class="project-card__title" id="projeto-dashboard-de-inventario-titulo">
                     <span translate="no" class="notranslate">DashBoard de Inventário</span>
                   </h3>
-                  <p class="project-card__desc">Painel de controle de estoque com alertas inteligentes de produtos em baixa, analytics em tempo real de vendas e exportação automatizada de relatórios. Reduziu perdas por falta de produto em 40%.</p>
+                  <p class="project-card__desc" id="projeto-dashboard-de-inventario-descricao">Painel de controle de estoque com alertas inteligentes de produtos em baixa, analytics em tempo real de vendas e exportação automatizada de relatórios. Reduziu perdas por falta de produto em 40%.</p>
                   <a
                     href="https://dashboard-de-inventario.vercel.app/"
                     target="_blank"
@@ -634,9 +902,9 @@
                   </a>
                 </div>
               </article>
-<article class="project-card design-card reveal-item stagger-2 motion-lift motion-glow" role="listitem">
+<article class="project-card design-card reveal-item stagger-2 motion-lift motion-glow" id="projeto-refugio-sereno" data-project-id="refugio-sereno" role="listitem" aria-labelledby="projeto-refugio-sereno-titulo" aria-describedby="projeto-refugio-sereno-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ampliar Imagem">
+                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ampliar Imagem" role="button" tabindex="0" aria-label="Ampliar Miniatura do Refúgio Sereno">
                     <span class="thumbnail-grid-icon" aria-hidden="true">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                         <circle cx="2" cy="2" r="1.3"></circle><circle cx="8" cy="2" r="1.3"></circle><circle cx="14" cy="2" r="1.3"></circle>
@@ -650,7 +918,7 @@
                       class="project-lightbox-trigger project-thumbnail-image"
                       loading="lazy"
                       width="800"
-                      height="500"
+                      height="500" decoding="async"
                     />
                     <div class="project-thumbnail-overlay">
                       <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -669,8 +937,8 @@
                     <span class="project-card__tech-tag project-card__tech-tag--accent">Firebase</span>
                     <span class="project-card__tech-tag project-card__tech-tag--accent">Gemini API</span>
                   </div>
-                  <h3 class="project-card__title">Refúgio Sereno</h3>
-                  <p class="project-card__desc">Aplicativo de produtividade gamificado para neurodivergentes (TDAH), com sugestões de IA para foco e sincronização em tempo real entre dispositivos. Aumentou a conclusão de tarefas em 65% entre usuários beta.</p>
+                  <h3 class="project-card__title" id="projeto-refugio-sereno-titulo">Refúgio Sereno</h3>
+                  <p class="project-card__desc" id="projeto-refugio-sereno-descricao">Aplicativo de produtividade gamificado para neurodivergentes (TDAH), com sugestões de IA para foco e sincronização em tempo real entre dispositivos. Aumentou a conclusão de tarefas em 65% entre usuários beta.</p>
                   <a
                     href="https://refugiosereno.vercel.app/"
                     target="_blank"
@@ -686,9 +954,9 @@
                   </a>
                 </div>
               </article>
-<article class="project-card design-card reveal-item stagger-3 motion-lift motion-glow" role="listitem">
+<article class="project-card design-card reveal-item stagger-3 motion-lift motion-glow" id="projeto-portal-corporativo" data-project-id="portal-corporativo" role="listitem" aria-labelledby="projeto-portal-corporativo-titulo" aria-describedby="projeto-portal-corporativo-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ampliar Imagem">
+                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ampliar Imagem" role="button" tabindex="0" aria-label="Ampliar Miniatura do Portal Corporativo">
                     <span class="thumbnail-grid-icon" aria-hidden="true">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                         <circle cx="2" cy="2" r="1.3"></circle><circle cx="8" cy="2" r="1.3"></circle><circle cx="14" cy="2" r="1.3"></circle>
@@ -702,7 +970,7 @@
                       class="project-lightbox-trigger project-thumbnail-image"
                       loading="lazy"
                       width="800"
-                      height="500"
+                      height="500" decoding="async"
                     />
                     <div class="project-thumbnail-overlay">
                       <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -721,8 +989,8 @@
                     <span class="project-card__tech-tag">React Hook Form</span>
                     <span class="project-card__tech-tag project-card__tech-tag--accent">Zustand</span>
                   </div>
-                  <h3 class="project-card__title">Portal Corporativo</h3>
-                  <p class="project-card__desc">Intranet completa com módulos de treinamento, holerite digital, avaliação de desempenho, gestão de benefícios e férias. Centralizou 8 processos HR em uma única plataforma.</p>
+                  <h3 class="project-card__title" id="projeto-portal-corporativo-titulo">Portal Corporativo</h3>
+                  <p class="project-card__desc" id="projeto-portal-corporativo-descricao">Intranet completa com módulos de treinamento, holerite digital, avaliação de desempenho, gestão de benefícios e férias. Centralizou 8 processos HR em uma única plataforma.</p>
                   <a
                     href="https://portal-corporativo.vercel.app/"
                     target="_blank"
@@ -738,9 +1006,9 @@
                   </a>
                 </div>
               </article>
-<article class="project-card design-card reveal-item stagger-1 motion-lift motion-glow" role="listitem">
+<article class="project-card design-card reveal-item stagger-1 motion-lift motion-glow" id="projeto-dsol-ai" data-project-id="dsol-ai" role="listitem" aria-labelledby="projeto-dsol-ai-titulo" aria-describedby="projeto-dsol-ai-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ampliar Imagem">
+                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ampliar Imagem" role="button" tabindex="0" aria-label="Ampliar Miniatura do Dsol AI">
                     <span class="thumbnail-grid-icon" aria-hidden="true">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                         <circle cx="2" cy="2" r="1.3"></circle><circle cx="8" cy="2" r="1.3"></circle><circle cx="14" cy="2" r="1.3"></circle>
@@ -754,7 +1022,7 @@
                       class="project-lightbox-trigger project-thumbnail-image"
                       loading="lazy"
                       width="800"
-                      height="500"
+                      height="500" decoding="async"
                     />
                     <div class="project-thumbnail-overlay">
                       <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -773,8 +1041,8 @@
                     <span class="project-card__tech-tag project-card__tech-tag--accent">Firebase</span>
                     <span class="project-card__tech-tag project-card__tech-tag--accent">Gemini API</span>
                   </div>
-                  <h3 class="project-card__title">Dsol AI</h3>
-                  <p class="project-card__desc">Tutor educacional com IA generativa, chat com renderização em Markdown e exportação de conversas em PDF. Suporta 3 idiomas e já respondeu 12.000+ dúvidas de estudantes.</p>
+                  <h3 class="project-card__title" id="projeto-dsol-ai-titulo">Dsol AI</h3>
+                  <p class="project-card__desc" id="projeto-dsol-ai-descricao">Tutor educacional com IA generativa, chat com renderização em Markdown e exportação de conversas em PDF. Suporta 3 idiomas e já respondeu 12.000+ dúvidas de estudantes.</p>
                   <a
                     href="https://dsol-ai.vercel.app/"
                     target="_blank"
@@ -790,9 +1058,9 @@
                   </a>
                 </div>
               </article>
-<article class="project-card design-card reveal-item stagger-2 motion-lift motion-glow" role="listitem">
+<article class="project-card design-card reveal-item stagger-2 motion-lift motion-glow" id="projeto-one-thing" data-project-id="one-thing" role="listitem" aria-labelledby="projeto-one-thing-titulo" aria-describedby="projeto-one-thing-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver ONE THING">
+                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver ONE THING" role="button" tabindex="0" aria-label="Ampliar Screenshot do projeto ONE THING">
                     <span class="thumbnail-grid-icon" aria-hidden="true">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                         <circle cx="2" cy="2" r="1.3"></circle><circle cx="8" cy="2" r="1.3"></circle><circle cx="14" cy="2" r="1.3"></circle>
@@ -806,7 +1074,7 @@
                       class="project-lightbox-trigger project-thumbnail-image"
                       loading="lazy"
                       width="800"
-                      height="500"
+                      height="500" decoding="async"
                     />
                     <div class="project-thumbnail-overlay">
                       <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -824,8 +1092,8 @@
                     <span class="project-card__tech-tag">Vite</span>
                     <span class="project-card__tech-tag project-card__tech-tag--accent">Framer Motion</span>
                   </div>
-                  <h3 class="project-card__title">ONE THING</h3>
-                  <p class="project-card__desc">Experiência web experimental explorando tipografia variável, espaço negativo e micro-interações de 60fps. Estudo de caso publicado no Dribbble com 2.300+ curtidas.</p>
+                  <h3 class="project-card__title" id="projeto-one-thing-titulo">ONE THING</h3>
+                  <p class="project-card__desc" id="projeto-one-thing-descricao">Experiência web experimental explorando tipografia variável, espaço negativo e micro-interações de 60fps. Estudo de caso publicado no Dribbble com 2.300+ curtidas.</p>
                   <a
                     href="https://one-thing-alive.vercel.app/"
                     target="_blank"
@@ -841,9 +1109,9 @@
                   </a>
                 </div>
               </article>
-<article class="project-card design-card reveal-item stagger-3 motion-lift motion-glow" role="listitem">
+<article class="project-card design-card reveal-item stagger-3 motion-lift motion-glow" id="projeto-komorebi" data-project-id="komorebi" role="listitem" aria-labelledby="projeto-komorebi-titulo" aria-describedby="projeto-komorebi-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver Komorebi">
+                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver Komorebi" role="button" tabindex="0" aria-label="Ampliar Screenshot do projeto Komorebi">
                     <span class="thumbnail-grid-icon" aria-hidden="true">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                         <circle cx="2" cy="2" r="1.3"></circle><circle cx="8" cy="2" r="1.3"></circle><circle cx="14" cy="2" r="1.3"></circle>
@@ -857,7 +1125,7 @@
                       class="project-lightbox-trigger project-thumbnail-image"
                       loading="lazy"
                       width="800"
-                      height="500"
+                      height="500" decoding="async"
                     />
                     <div class="project-thumbnail-overlay">
                       <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -875,8 +1143,8 @@
                     <span class="project-card__tech-tag">React</span>
                     <span class="project-card__tech-tag">Vite</span>
                   </div>
-                  <h3 class="project-card__title">Komorebi</h3>
-                  <p class="project-card__desc">Landing page premium para torrefação artesanal de café, com design atmosférico inspirado na estética japonesa. Aumentou a taxa de conversão de visitantes em 3x.</p>
+                  <h3 class="project-card__title" id="projeto-komorebi-titulo">Komorebi</h3>
+                  <p class="project-card__desc" id="projeto-komorebi-descricao">Landing page premium para torrefação artesanal de café, com design atmosférico inspirado na estética japonesa. Aumentou a taxa de conversão de visitantes em 3x.</p>
                   <a
                     href="https://komorebi-gray.vercel.app/"
                     target="_blank"
@@ -892,9 +1160,9 @@
                   </a>
                 </div>
               </article>
-<article class="project-card design-card reveal-item stagger-1 motion-lift motion-glow" role="listitem">
+<article class="project-card design-card reveal-item stagger-1 motion-lift motion-glow" id="projeto-memory-exe" data-project-id="memory-exe" role="listitem" aria-labelledby="projeto-memory-exe-titulo" aria-describedby="projeto-memory-exe-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver MEMORY.EXE">
+                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver MEMORY.EXE" role="button" tabindex="0" aria-label="Ampliar Screenshot do projeto MEMORY.EXE">
                     <span class="thumbnail-grid-icon" aria-hidden="true">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                         <circle cx="2" cy="2" r="1.3"></circle><circle cx="8" cy="2" r="1.3"></circle><circle cx="14" cy="2" r="1.3"></circle>
@@ -908,7 +1176,7 @@
                       class="project-lightbox-trigger project-thumbnail-image"
                       loading="lazy"
                       width="800"
-                      height="500"
+                      height="500" decoding="async"
                     />
                     <div class="project-thumbnail-overlay">
                       <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -926,8 +1194,8 @@
                     <span class="project-card__tech-tag">Vite</span>
                     <span class="project-card__tech-tag project-card__tech-tag--accent">JavaScript</span>
                   </div>
-                  <h3 class="project-card__title">MEMORY.EXE</h3>
-                  <p class="project-card__desc">Narrativa interativa experimental em PT-BR e EN, inspirada em jogos de PS1 e creepypastas dos anos 90. 8.000+ jogadas no primeiro mês, destaque na itch.io.</p>
+                  <h3 class="project-card__title" id="projeto-memory-exe-titulo">MEMORY.EXE</h3>
+                  <p class="project-card__desc" id="projeto-memory-exe-descricao">Narrativa interativa experimental em PT-BR e EN, inspirada em jogos de PS1 e creepypastas dos anos 90. 8.000+ jogadas no primeiro mês, destaque na itch.io.</p>
                   <a
                     href="https://memory-archive-project.vercel.app/"
                     target="_blank"
@@ -943,9 +1211,9 @@
                   </a>
                 </div>
               </article>
-<article class="project-card design-card reveal-item stagger-2 motion-lift motion-glow" role="listitem">
+<article class="project-card design-card reveal-item stagger-2 motion-lift motion-glow" id="projeto-hanamori" data-project-id="hanamori" role="listitem" aria-labelledby="projeto-hanamori-titulo" aria-describedby="projeto-hanamori-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver Hanamori">
+                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver Hanamori" role="button" tabindex="0" aria-label="Ampliar Screenshot do projeto Hanamori">
                     <span class="thumbnail-grid-icon" aria-hidden="true">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                         <circle cx="2" cy="2" r="1.3"></circle><circle cx="8" cy="2" r="1.3"></circle><circle cx="14" cy="2" r="1.3"></circle>
@@ -959,7 +1227,7 @@
                       class="project-lightbox-trigger project-thumbnail-image"
                       loading="lazy"
                       width="800"
-                      height="500"
+                      height="500" decoding="async"
                     />
                     <div class="project-thumbnail-overlay">
                       <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -977,8 +1245,8 @@
                     <span class="project-card__tech-tag">Vite</span>
                     <span class="project-card__tech-tag project-card__tech-tag--accent">CSS Art</span>
                   </div>
-                  <h3 class="project-card__title">Hanamori</h3>
-                  <p class="project-card__desc">Landing page ilustrada com paisagens pintadas à mão, florestas e criaturas mágicas. Toda a arte e animação foram criadas com CSS puro — zero imagens externas.</p>
+                  <h3 class="project-card__title" id="projeto-hanamori-titulo">Hanamori</h3>
+                  <p class="project-card__desc" id="projeto-hanamori-descricao">Landing page ilustrada com paisagens pintadas à mão, florestas e criaturas mágicas. Toda a arte e animação foram criadas com CSS puro — zero imagens externas.</p>
                   <a
                     href="https://hanamori.vercel.app/"
                     target="_blank"
@@ -994,9 +1262,9 @@
                   </a>
                 </div>
               </article>
-<article class="project-card design-card reveal-item stagger-3 motion-lift motion-glow" role="listitem">
+<article class="project-card design-card reveal-item stagger-3 motion-lift motion-glow" id="projeto-aurvm" data-project-id="aurvm" role="listitem" aria-labelledby="projeto-aurvm-titulo" aria-describedby="projeto-aurvm-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver AURVM">
+                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver AURVM" role="button" tabindex="0" aria-label="Ampliar Screenshot do projeto AURVM">
                     <span class="thumbnail-grid-icon" aria-hidden="true">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                         <circle cx="2" cy="2" r="1.3"></circle><circle cx="8" cy="2" r="1.3"></circle><circle cx="14" cy="2" r="1.3"></circle>
@@ -1010,7 +1278,7 @@
                       class="project-lightbox-trigger project-thumbnail-image"
                       loading="lazy"
                       width="800"
-                      height="500"
+                      height="500" decoding="async"
                     />
                     <div class="project-thumbnail-overlay">
                       <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1028,8 +1296,8 @@
                     <span class="project-card__tech-tag">React</span>
                     <span class="project-card__tech-tag">Vite</span>
                   </div>
-                  <h3 class="project-card__title">AURVM</h3>
-                  <p class="project-card__desc">E-commerce de joalheria autoral em ouro 18k e pedras raras, com galeria 3D de peças únicas esculpidas à mão. Média de 4:30 min de permanência na página.</p>
+                  <h3 class="project-card__title" id="projeto-aurvm-titulo">AURVM</h3>
+                  <p class="project-card__desc" id="projeto-aurvm-descricao">E-commerce de joalheria autoral em ouro 18k e pedras raras, com galeria 3D de peças únicas esculpidas à mão. Média de 4:30 min de permanência na página.</p>
                   <a
                     href="https://haute-luxe-glow.vercel.app/"
                     target="_blank"
@@ -1045,7 +1313,7 @@
                   </a>
                 </div>
               </article>
-<article class="project-card design-card reveal-item stagger-1 motion-lift motion-glow" role="listitem">
+<article class="project-card design-card reveal-item stagger-1 motion-lift motion-glow" id="projeto-ledgeriq" data-project-id="ledgeriq" role="listitem" aria-labelledby="projeto-ledgeriq-titulo" aria-describedby="projeto-ledgeriq-descricao">
                 <div class="project-card__media">
                   <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver LedgerIQ">
                     <img
@@ -1055,7 +1323,7 @@
                       loading="lazy"
                       onerror="this.onerror=null;this.closest('.project-card__media').classList.add('thumb-fallback')"
                       width="800"
-                      height="500"
+                      height="500" decoding="async"
                     />
                   </div>
                 </div>
@@ -1064,8 +1332,8 @@
                     <span class="project-card__tech-tag">Next.js</span>
                     <span class="project-card__tech-tag project-card__tech-tag--accent">Gemini API</span>
                   </div>
-                  <h3 class="project-card__title">LedgerIQ</h3>
-                  <p class="project-card__desc">Sistema de auditoria financeira com extração automática de dados de notas fiscais via IA. Reduziu o tempo de processamento de documentos de 4h para 15 min.</p>
+                  <h3 class="project-card__title" id="projeto-ledgeriq-titulo">LedgerIQ</h3>
+                  <p class="project-card__desc" id="projeto-ledgeriq-descricao">Sistema de auditoria financeira com extração automática de dados de notas fiscais via IA. Reduziu o tempo de processamento de documentos de 4h para 15 min.</p>
                   <a
                     href="https://find-seven-psi.vercel.app/"
                     target="_blank"
@@ -1081,7 +1349,7 @@
                   </a>
                 </div>
               </article>
-<article class="project-card design-card reveal-item stagger-2 motion-lift motion-glow" role="listitem">
+<article class="project-card design-card reveal-item stagger-2 motion-lift motion-glow" id="projeto-mentor-de-estagio" data-project-id="mentor-de-estagio" role="listitem" aria-labelledby="projeto-mentor-de-estagio-titulo" aria-describedby="projeto-mentor-de-estagio-descricao">
                 <div class="project-card__media">
                   <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver Mentor de Estágio">
                     <img
@@ -1091,7 +1359,7 @@
                       loading="lazy"
                       onerror="this.onerror=null;this.closest('.project-card__media').classList.add('thumb-fallback')"
                       width="800"
-                      height="500"
+                      height="500" decoding="async"
                     />
                   </div>
                 </div>
@@ -1100,8 +1368,8 @@
                     <span class="project-card__tech-tag">Next.js</span>
                     <span class="project-card__tech-tag">React</span>
                   </div>
-                  <h3 class="project-card__title">Mentor de Estágio</h3>
-                  <p class="project-card__desc">Plataforma de mentoria e organização acadêmica para estagiários, com cronogramas, checklists de documentação e canal direto com mentores. 340+ estagiários ativos.</p>
+                  <h3 class="project-card__title" id="projeto-mentor-de-estagio-titulo">Mentor de Estágio</h3>
+                  <p class="project-card__desc" id="projeto-mentor-de-estagio-descricao">Plataforma de mentoria e organização acadêmica para estagiários, com cronogramas, checklists de documentação e canal direto com mentores. 340+ estagiários ativos.</p>
                   <a
                     href="https://estagio-steel.vercel.app/"
                     target="_blank"
@@ -1117,7 +1385,7 @@
                   </a>
                 </div>
               </article>
-<article class="project-card design-card reveal-item stagger-3 motion-lift motion-glow" role="listitem">
+<article class="project-card design-card reveal-item stagger-3 motion-lift motion-glow" id="projeto-develite" data-project-id="develite" role="listitem" aria-labelledby="projeto-develite-titulo" aria-describedby="projeto-develite-descricao">
                 <div class="project-card__media">
                   <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver DevElite">
                     <img
@@ -1127,7 +1395,7 @@
                       loading="lazy"
                       onerror="this.onerror=null;this.closest('.project-card__media').classList.add('thumb-fallback')"
                       width="800"
-                      height="500"
+                      height="500" decoding="async"
                     />
                   </div>
                 </div>
@@ -1136,8 +1404,8 @@
                     <span class="project-card__tech-tag">Next.js</span>
                     <span class="project-card__tech-tag project-card__tech-tag--accent">TypeScript</span>
                   </div>
-                  <h3 class="project-card__title">DevElite</h3>
-                  <p class="project-card__desc">Landing page de mentoria em tecnologia com foco em carreira e posicionamento profissional. Copy direto e técnico, taxa de conversão de 8.2% em campanhas orgânicas.</p>
+                  <h3 class="project-card__title" id="projeto-develite-titulo">DevElite</h3>
+                  <p class="project-card__desc" id="projeto-develite-descricao">Landing page de mentoria em tecnologia com foco em carreira e posicionamento profissional. Copy direto e técnico, taxa de conversão de 8.2% em campanhas orgânicas.</p>
                   <a
                     href="https://develite-lemon.vercel.app/"
                     target="_blank"
@@ -1153,7 +1421,7 @@
                   </a>
                 </div>
               </article>
-<article class="project-card design-card reveal-item stagger-1 motion-lift motion-glow" role="listitem">
+<article class="project-card design-card reveal-item stagger-1 motion-lift motion-glow" id="projeto-memoire" data-project-id="memoire" role="listitem" aria-labelledby="projeto-memoire-titulo" aria-describedby="projeto-memoire-descricao">
                 <div class="project-card__media">
                   <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver MÉMOIRE">
                     <img
@@ -1163,7 +1431,7 @@
                       loading="lazy"
                       onerror="this.onerror=null;this.closest('.project-card__media').classList.add('thumb-fallback')"
                       width="800"
-                      height="500"
+                      height="500" decoding="async"
                     />
                   </div>
                 </div>
@@ -1172,8 +1440,8 @@
                     <span class="project-card__tech-tag">JavaScript</span>
                     <span class="project-card__tech-tag">CSS</span>
                   </div>
-                  <h3 class="project-card__title">MÉMOIRE</h3>
-                  <p class="project-card__desc">Site de perfumaria autoral com design sensorial e experiência imersiva. Cada fragrância tem uma narrativa visual única. Tempo médio de sessão: 5 minutos.</p>
+                  <h3 class="project-card__title" id="projeto-memoire-titulo">MÉMOIRE</h3>
+                  <p class="project-card__desc" id="projeto-memoire-descricao">Site de perfumaria autoral com design sensorial e experiência imersiva. Cada fragrância tem uma narrativa visual única. Tempo médio de sessão: 5 minutos.</p>
                   <a
                     href="https://memoire-nine-psi.vercel.app/"
                     target="_blank"
@@ -1189,7 +1457,7 @@
                   </a>
                 </div>
               </article>
-<article class="project-card design-card reveal-item stagger-2 motion-lift motion-glow" role="listitem">
+<article class="project-card design-card reveal-item stagger-2 motion-lift motion-glow" id="projeto-nocturne-studio" data-project-id="nocturne-studio" role="listitem" aria-labelledby="projeto-nocturne-studio-titulo" aria-describedby="projeto-nocturne-studio-descricao">
                 <div class="project-card__media">
                   <div class="project-thumbnail-wrapper motion-img-reveal" title="Ver Nocturne Studio">
                     <img
@@ -1199,7 +1467,7 @@
                       loading="lazy"
                       onerror="this.onerror=null;this.closest('.project-card__media').classList.add('thumb-fallback')"
                       width="800"
-                      height="500"
+                      height="500" decoding="async"
                     />
                   </div>
                 </div>
@@ -1208,8 +1476,8 @@
                     <span class="project-card__tech-tag">Vite</span>
                     <span class="project-card__tech-tag project-card__tech-tag--accent">React</span>
                   </div>
-                  <h3 class="project-card__title">Nocturne Studio</h3>
-                  <p class="project-card__desc">Portfólio de estúdio indie de animação e jogos com estética Cozy Night. Reúne 6 projetos publicados, 15.000+ downloads e comunidade de 2.400+ fãs.</p>
+                  <h3 class="project-card__title" id="projeto-nocturne-studio-titulo">Nocturne Studio</h3>
+                  <p class="project-card__desc" id="projeto-nocturne-studio-descricao">Portfólio de estúdio indie de animação e jogos com estética Cozy Night. Reúne 6 projetos publicados, 15.000+ downloads e comunidade de 2.400+ fãs.</p>
                   <a
                     href="https://cozy-night-studio-landing.vercel.app/"
                     target="_blank"
@@ -1258,7 +1526,7 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
       <div class="ux-card__media">
-        <img src="./mockup-convite.jpg" alt="Mockup Convite Digital" loading="lazy" class="project-lightbox-trigger" />
+        <img src="./mockup-convite.jpg" alt="Mockup Convite Digital" loading="lazy" class="project-lightbox-trigger" decoding="async" />
         <div class="ux-card__overlay"></div>
       </div>
       <div class="ux-card__content">
@@ -1276,7 +1544,7 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
       <div class="ux-card__media">
-        <img src="./mockup-hamburgueria.png" alt="Mockup Menu Digital" loading="lazy" class="project-lightbox-trigger" />
+        <img src="./mockup-hamburgueria.png" alt="Mockup Menu Digital" loading="lazy" class="project-lightbox-trigger" decoding="async" />
         <div class="ux-card__overlay"></div>
       </div>
       <div class="ux-card__content">
@@ -1294,7 +1562,7 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
       <div class="ux-card__media">
-        <img src="./mockup-logo.png" alt="Mockup Branding LDS Magazine" loading="lazy" class="project-lightbox-trigger" />
+        <img src="./mockup-logo.png" alt="Mockup Branding LDS Magazine" loading="lazy" class="project-lightbox-trigger" decoding="async" />
         <div class="ux-card__overlay"></div>
       </div>
       <div class="ux-card__content">
@@ -1312,7 +1580,7 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
       <div class="ux-card__media">
-        <img src="./mockup-editorial.jpg" alt="Mockup Editorial LDS Magazine" loading="lazy" class="project-lightbox-trigger" />
+        <img src="./mockup-editorial.jpg" alt="Mockup Editorial LDS Magazine" loading="lazy" class="project-lightbox-trigger" decoding="async" />
         <div class="ux-card__overlay"></div>
       </div>
       <div class="ux-card__content">
@@ -1330,7 +1598,7 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
       <div class="ux-card__media">
-        <img src="./mockup-pixelart.jpg" alt="Mockup Pixel Art Creative C." loading="lazy" class="project-lightbox-trigger" />
+        <img src="./mockup-pixelart.jpg" alt="Mockup Pixel Art Creative C." loading="lazy" class="project-lightbox-trigger" decoding="async" />
         <div class="ux-card__overlay"></div>
       </div>
       <div class="ux-card__content">
@@ -1348,7 +1616,7 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
       <div class="ux-card__media">
-        <img src="./mockup-psicologia.jpg" alt="Estudo Psicologia das Cores" loading="lazy" class="project-lightbox-trigger" />
+        <img src="./mockup-psicologia.jpg" alt="Estudo Psicologia das Cores" loading="lazy" class="project-lightbox-trigger" decoding="async" />
         <div class="ux-card__overlay"></div>
       </div>
       <div class="ux-card__content">
@@ -1398,37 +1666,37 @@
                 <div class="tech-marquee__track tech-marquee__track--left">
                    <div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 32%; --ny: 32%; --nd: 0s;" data-tech-id="html" data-tooltip="HTML5 & CSS3">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">HTML/CSS</span>
               </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 50%; --ny: 22%; --nd: 0.05s;" data-tech-id="js" data-tooltip="JavaScript">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">JavaScript</span>
               </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 68%; --ny: 32%; --nd: 0.1s;" data-tech-id="vscode" data-tooltip="VS Code">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">VS Code</span>
               </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 32%; --ny: 68%; --nd: 0.15s;" data-tech-id="photoshop" data-tooltip="Photoshop">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg" alt="Photoshop" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg" alt="Photoshop" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Photoshop</span>
               </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 50%; --ny: 78%; --nd: 0.2s;" data-tech-id="figma" data-tooltip="Figma">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" alt="Figma" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" alt="Figma" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Figma</span>
               </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 68%; --ny: 68%; --nd: 0.25s;" data-tech-id="git" data-tooltip="Git & GitHub">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git &amp; GitHub" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git &amp; GitHub" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Git &amp; GitHub</span>
               </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 20%; --ny: 12%; --nd: 0.3s;" data-tech-id="linux" data-tooltip="Linux">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Linux</span>
               </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 42%; --ny: 8%; --nd: 0.32s;" data-tech-id="redes" data-tooltip="Redes">
@@ -1459,7 +1727,7 @@
                 <span class="tech-node__label">Claude AI</span>
               </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 10%; --ny: 30%; --nd: 0.38s;" data-tech-id="java" data-tooltip="Java">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Java</span>
               </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 90%; --ny: 22%; --nd: 0.4s;" data-tech-id="vercel" data-tooltip="Vercel">
@@ -1467,42 +1735,42 @@
                   <svg class="logo-filled" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" style="color: #ffffff; filter: drop-shadow(0 0 3px rgba(255,255,255,0.4));"><path d="M12 2L2 22h20L12 2z"/></svg>
                 </span>
                 <span class="tech-node__label">Vercel</span>
-              </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 32%; --ny: 32%; --nd: 0s;" data-tech-id="html" data-tooltip="HTML5 & CSS3">
+              </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 32%; --ny: 32%; --nd: 0s;" data-tech-id="html-2" data-tooltip="HTML5 & CSS3">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">HTML/CSS</span>
-              </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 50%; --ny: 22%; --nd: 0.05s;" data-tech-id="js" data-tooltip="JavaScript">
+              </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 50%; --ny: 22%; --nd: 0.05s;" data-tech-id="js-2" data-tooltip="JavaScript">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">JavaScript</span>
-              </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 68%; --ny: 32%; --nd: 0.1s;" data-tech-id="vscode" data-tooltip="VS Code">
+              </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 68%; --ny: 32%; --nd: 0.1s;" data-tech-id="vscode-2" data-tooltip="VS Code">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">VS Code</span>
-              </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 32%; --ny: 68%; --nd: 0.15s;" data-tech-id="photoshop" data-tooltip="Photoshop">
+              </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 32%; --ny: 68%; --nd: 0.15s;" data-tech-id="photoshop-2" data-tooltip="Photoshop">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg" alt="Photoshop" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg" alt="Photoshop" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Photoshop</span>
-              </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 50%; --ny: 78%; --nd: 0.2s;" data-tech-id="figma" data-tooltip="Figma">
+              </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 50%; --ny: 78%; --nd: 0.2s;" data-tech-id="figma-2" data-tooltip="Figma">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" alt="Figma" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" alt="Figma" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Figma</span>
-              </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 68%; --ny: 68%; --nd: 0.25s;" data-tech-id="git" data-tooltip="Git & GitHub">
+              </div><div class="tech-node tech-node--core kurz-skill-card skill-core reveal-item" style="--nx: 68%; --ny: 68%; --nd: 0.25s;" data-tech-id="git-2" data-tooltip="Git & GitHub">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git &amp; GitHub" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git &amp; GitHub" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Git &amp; GitHub</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 20%; --ny: 12%; --nd: 0.3s;" data-tech-id="linux" data-tooltip="Linux">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 20%; --ny: 12%; --nd: 0.3s;" data-tech-id="linux-2" data-tooltip="Linux">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Linux</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 42%; --ny: 8%; --nd: 0.32s;" data-tech-id="redes" data-tooltip="Redes">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 42%; --ny: 8%; --nd: 0.32s;" data-tech-id="redes-2" data-tooltip="Redes">
                 <span class="tech-node__icon">
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #ffffff">
                     <rect x="16" y="16" width="6" height="6" rx="1" fill="rgba(255,255,255,0.1)"></rect>
@@ -1512,7 +1780,7 @@
                   </svg>
                 </span>
                 <span class="tech-node__label">Redes</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 58%; --ny: 8%; --nd: 0.34s;" data-tech-id="ia" data-tooltip="Inteligência Artificial">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 58%; --ny: 8%; --nd: 0.34s;" data-tech-id="ia-2" data-tooltip="Inteligência Artificial">
                 <span class="tech-node__icon">
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #ffffff">
                     <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" fill="rgba(255,255,255,0.1)"/>
@@ -1521,19 +1789,19 @@
                   </svg>
                 </span>
                 <span class="tech-node__label">IA</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 80%; --ny: 12%; --nd: 0.36s;" data-tech-id="claude" data-tooltip="Claude AI">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 80%; --ny: 12%; --nd: 0.36s;" data-tech-id="claude-2" data-tooltip="Claude AI">
                 <span class="tech-node__icon">
                   <svg class="logo-filled" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" style="color: #D97757">
                     <path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/>
                   </svg>
                 </span>
                 <span class="tech-node__label">Claude AI</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 10%; --ny: 30%; --nd: 0.38s;" data-tech-id="java" data-tooltip="Java">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 10%; --ny: 30%; --nd: 0.38s;" data-tech-id="java-2" data-tooltip="Java">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Java</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 90%; --ny: 22%; --nd: 0.4s;" data-tech-id="vercel" data-tooltip="Vercel">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 90%; --ny: 22%; --nd: 0.4s;" data-tech-id="vercel-2" data-tooltip="Vercel">
                 <span class="tech-node__icon">
                   <svg class="logo-filled" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" style="color: #ffffff; filter: drop-shadow(0 0 3px rgba(255,255,255,0.4));"><path d="M12 2L2 22h20L12 2z"/></svg>
                 </span>
@@ -1547,17 +1815,17 @@
                 <div class="tech-marquee__track tech-marquee__track--right">
                    <div class="tech-node kurz-skill-card reveal-item" style="--nx: 7%; --ny: 50%; --nd: 0.42s;" data-tech-id="python" data-tooltip="Python">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Python</span>
               </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 93%; --ny: 50%; --nd: 0.44s;" data-tech-id="firebase" data-tooltip="Firebase">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg" alt="Firebase" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg" alt="Firebase" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Firebase</span>
               </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 10%; --ny: 70%; --nd: 0.46s;" data-tech-id="php" data-tooltip="PHP">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt="PHP" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt="PHP" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">PHP</span>
               </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 90%; --ny: 68%; --nd: 0.48s;" data-tech-id="v0" data-tooltip="v0 by Vercel">
@@ -1578,17 +1846,17 @@
                 <span class="tech-node__label">InfoSec</span>
               </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 27%; --ny: 90%; --nd: 0.52s;" data-tech-id="illustrator" data-tooltip="Illustrator">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-plain.svg" alt="Illustrator" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-plain.svg" alt="Illustrator" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Illustrator</span>
               </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 43%; --ny: 92%; --nd: 0.54s;" data-tech-id="premiere" data-tooltip="Premiere Pro">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg" alt="Premiere Pro" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg" alt="Premiere Pro" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Premiere Pro</span>
               </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 58%; --ny: 90%; --nd: 0.56s;" data-tech-id="canva" data-tooltip="Canva">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg" alt="Canva" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg" alt="Canva" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Canva</span>
               </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 74%; --ny: 90%; --nd: 0.58s;" data-tech-id="corel" data-tooltip="Corel Draw">
@@ -1621,22 +1889,22 @@
                   </svg>
                 </span>
                 <span class="tech-node__label">Power BI</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 7%; --ny: 50%; --nd: 0.42s;" data-tech-id="python" data-tooltip="Python">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 7%; --ny: 50%; --nd: 0.42s;" data-tech-id="python-2" data-tooltip="Python">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Python</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 93%; --ny: 50%; --nd: 0.44s;" data-tech-id="firebase" data-tooltip="Firebase">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 93%; --ny: 50%; --nd: 0.44s;" data-tech-id="firebase-2" data-tooltip="Firebase">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg" alt="Firebase" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg" alt="Firebase" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Firebase</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 10%; --ny: 70%; --nd: 0.46s;" data-tech-id="php" data-tooltip="PHP">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 10%; --ny: 70%; --nd: 0.46s;" data-tech-id="php-2" data-tooltip="PHP">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt="PHP" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt="PHP" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">PHP</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 90%; --ny: 68%; --nd: 0.48s;" data-tech-id="v0" data-tooltip="v0 by Vercel">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 90%; --ny: 68%; --nd: 0.48s;" data-tech-id="v0-2" data-tooltip="v0 by Vercel">
                 <span class="tech-node__icon">
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #ffffff; filter: drop-shadow(0 0 3px rgba(255,255,255,0.3));">
                     <path d="M4 4.5l6 14 6-14"/>
@@ -1644,7 +1912,7 @@
                   </svg>
                 </span>
                 <span class="tech-node__label">v0 by Vercel</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 10%; --ny: 90%; --nd: 0.5s;" data-tech-id="infosec" data-tooltip="Segurança da Informação">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 10%; --ny: 90%; --nd: 0.5s;" data-tech-id="infosec-2" data-tooltip="Segurança da Informação">
                 <span class="tech-node__icon">
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #ffffff">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(255,255,255,0.1)"></path>
@@ -1652,22 +1920,22 @@
                   </svg>
                 </span>
                 <span class="tech-node__label">InfoSec</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 27%; --ny: 90%; --nd: 0.52s;" data-tech-id="illustrator" data-tooltip="Illustrator">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 27%; --ny: 90%; --nd: 0.52s;" data-tech-id="illustrator-2" data-tooltip="Illustrator">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-plain.svg" alt="Illustrator" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-plain.svg" alt="Illustrator" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Illustrator</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 43%; --ny: 92%; --nd: 0.54s;" data-tech-id="premiere" data-tooltip="Premiere Pro">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 43%; --ny: 92%; --nd: 0.54s;" data-tech-id="premiere-2" data-tooltip="Premiere Pro">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg" alt="Premiere Pro" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg" alt="Premiere Pro" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Premiere Pro</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 58%; --ny: 90%; --nd: 0.56s;" data-tech-id="canva" data-tooltip="Canva">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 58%; --ny: 90%; --nd: 0.56s;" data-tech-id="canva-2" data-tooltip="Canva">
                 <span class="tech-node__icon">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg" alt="Canva" loading="lazy" />
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg" alt="Canva" loading="lazy" decoding="async" />
                 </span>
                 <span class="tech-node__label">Canva</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 74%; --ny: 90%; --nd: 0.58s;" data-tech-id="corel" data-tooltip="Corel Draw">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 74%; --ny: 90%; --nd: 0.58s;" data-tech-id="corel-2" data-tooltip="Corel Draw">
                 <span class="tech-node__icon">
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: #61A706">
                     <path d="M12 2C8 2 5 5 5 9c0 3.5 3 6.5 7 11 4-4.5 7-7.5 7-11 0-4-3-7-7-7z" fill="rgba(97,167,6,0.15)"/>
@@ -1678,7 +1946,7 @@
                   </svg>
                 </span>
                 <span class="tech-node__label">Corel Draw</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 88%; --ny: 92%; --nd: 0.6s;" data-tech-id="seo" data-tooltip="SEO">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 88%; --ny: 92%; --nd: 0.6s;" data-tech-id="seo-2" data-tooltip="SEO">
                 <span class="tech-node__icon">
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #ffffff">
                     <circle cx="11" cy="11" r="8" fill="rgba(255,255,255,0.1)"></circle>
@@ -1688,7 +1956,7 @@
                   </svg>
                 </span>
                 <span class="tech-node__label">SEO</span>
-              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 95%; --ny: 78%; --nd: 0.62s;" data-tech-id="powerbi" data-tooltip="Power BI">
+              </div><div class="tech-node kurz-skill-card reveal-item" style="--nx: 95%; --ny: 78%; --nd: 0.62s;" data-tech-id="powerbi-2" data-tooltip="Power BI">
                 <span class="tech-node__icon">
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="none" style="color: #F2C811">
                     <rect x="3" y="14" width="4" height="7" rx="1" fill="#F2C811" fill-opacity="0.55"></rect>
@@ -1712,7 +1980,7 @@
             <div class="gamedev-hud-bg">
                <picture>
                   <source srcset="./pixelart-gamedev.webp" type="image/webp" />
-                  <img src="./pixelart-gamedev.png" alt="Pixel Art Setup" loading="lazy" />
+                  <img src="./pixelart-gamedev.png" alt="Pixel Art Setup" loading="lazy" decoding="async" />
                </picture>
                <div class="gamedev-hud-overlay"></div>
             </div>
@@ -2200,13 +2468,9 @@
       </div>
     </footer>
 
-    <script
-      defer=""
-    ></script>
-    <script
-      defer=""
-    ></script>
-    <script type="module" src="./script.js?v=20260825mobile1"></script>
+    
+    
+    <script type="module" src="./script.js?v=20260826upgrade1"></script>
     <script type="module" src="./hero-ink.js?v=20260822s"></script>
 
     <!-- BOTÃO COMPARTILHAR -->
@@ -2338,7 +2602,7 @@
         ×
       </button>
       <button class="fullscreen-img-container" data-close-modal aria-label="Fechar modal de tela cheia" style="background:transparent; border:none; padding:0; width:100%; height:100%; cursor:pointer;">
-        <img id="fullscreen-img" src="" alt="Tela Cheia" />
+        <img id="fullscreen-img" src="" alt="Tela Cheia" decoding="async" />
       </button>
     </dialog>
 
@@ -2354,7 +2618,7 @@
         </button>
         <div class="lightbox-wrapper" id="lightbox-wrapper">
           <div class="lightbox-image-side">
-            <img id="lightbox-img" src="" alt="Imagem Ampliada" />
+            <img id="lightbox-img" src="" alt="Imagem Ampliada" decoding="async" />
           </div>
           <div class="lightbox-info-side" id="lightbox-info-side">
             <span id="lightbox-category" class="lightbox-category"
@@ -2455,8 +2719,15 @@
       <script src="./motion.js?v=20260822s"></script>
     <script src="./evolution.js?v=20260825" defer></script>
       <script>
-      if('serviceWorker' in navigator){
-        navigator.serviceWorker.register('./sw.js').catch(()=>{});
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", async () => {
+          try {
+            const registration = await navigator.serviceWorker.register("./sw.js?v=20260826upgrade1");
+            registration.update();
+          } catch {
+            // The portfolio remains fully functional without offline caching.
+          }
+        }, { once: true });
       }
     </script>
   </body>

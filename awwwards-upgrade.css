@@ -1,7 +1,7 @@
 /* =========================================================
    CRITICAL FIX — NAV VISIBILITY
    ========================================================= */
-nav, header {
+nav.nav-motion, header {
   z-index: 10001;
   position: relative;
 }

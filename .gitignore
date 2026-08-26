@@ -5,3 +5,10 @@ credentials.json
 *.pem
 *.key
 .credentials
+
+node_modules/
+qa/node_modules/
+test-results/
+playwright-report/
+qa-artifacts/
+.DS_Store

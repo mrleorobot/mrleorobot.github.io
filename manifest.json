@@ -1,14 +1,42 @@
 {
+  "id": "./",
   "name": "Leonilson Souza — Portfólio",
   "short_name": "Leo Souza",
   "description": "Portfólio de Leonilson Souza, Desenvolvedor Front-end, UX/UI Design e Power BI, sediado em Natal/RN.",
-  "start_url": "./index.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "background_color": "#06040d",
   "theme_color": "#06040d",
   "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": [
+    "portfolio",
+    "design",
+    "developer",
+    "productivity"
+  ],
+  "shortcuts": [
+    {
+      "name": "Ver projetos",
+      "short_name": "Projetos",
+      "description": "Abrir os projetos em destaque",
+      "url": "./#projetos"
+    },
+    {
+      "name": "Vamos conversar",
+      "short_name": "Contato",
+      "description": "Abrir a área de contato",
+      "url": "./#cta-final"
+    },
+    {
+      "name": "Abrir currículo",
+      "short_name": "Currículo",
+      "description": "Abrir o currículo em PDF",
+      "url": "./curriculo.pdf"
+    }
+  ],
   "icons": [
     {
       "src": "./icon-192.png",
