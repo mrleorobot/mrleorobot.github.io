@@ -10,10 +10,11 @@ Este documento registra a decisão editorial vigente: upgrades técnicos devem p
 4. Os títulos das seções permanecem em escala próxima à Hero, em caixa alta, com forte peso e presença editorial.
 5. Cabeçalhos de seção usam apenas título monumental e subtítulo menor; marcadores numéricos como `01`, `02` e equivalentes não fazem parte da linguagem visual.
 6. A Trajetória apresenta um único ano em foco por vez, navegação acessível entre 2023–2026, ciclo automático de 10 segundos com pausa e aurora mesh monocromática.
-7. A ordem narrativa é: Hero, Trajetória, Projetos, UX/UI Design, Tecnologias, Game Dev, Comunidade, FAQ e Vamos conversar.
-8. Cards, imagens, mockups, Pixel Art, microinterações e transições existentes permanecem disponíveis.
-9. O rodapé mantém marca à esquerda, citação à direita e copyright centralizado.
-10. No mobile, o dock inferior e a rolagem vertical nativa permanecem funcionais.
+7. A aurora ambiente conecta Hero e Trajetória, aparece de forma localizada no hover/foco de Projetos e encerra a narrativa atrás de “Vamos conversar”; a intensidade deve preservar o preto como cor dominante.
+8. A ordem narrativa é: Hero, Trajetória, Projetos, UX/UI Design, Tecnologias, Game Dev, Comunidade, FAQ e Vamos conversar.
+9. Cards, imagens, mockups, Pixel Art, microinterações e transições existentes permanecem disponíveis.
+10. O rodapé mantém marca à esquerda, citação à direita e copyright centralizado.
+11. No mobile, o dock inferior e a rolagem vertical nativa permanecem funcionais.
 
 ## Invariantes de comportamento
 
@@ -24,6 +25,7 @@ Este documento registra a decisão editorial vigente: upgrades técnicos devem p
 - `prefers-reduced-motion` deve remover movimento sem ocultar conteúdo.
 - Elementos acionáveis por clique também precisam funcionar por teclado.
 - O ciclo automático da Trajetória só roda enquanto a seção está visível; deve parar em aba oculta, respeitar `prefers-reduced-motion` e sempre oferecer pausa manual.
+- Auroras decorativas devem usar `aria-hidden`, ficar estáticas em `prefers-reduced-motion` e não manter hover ativo em dispositivos coarse/touch.
 
 ## Cascata CSS
 

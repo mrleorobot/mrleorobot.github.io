@@ -72,6 +72,8 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   const trajectory = page.locator("[data-trajectory-root]");
   await expect(trajectory).toHaveCount(1);
   await expect(trajectory.locator('[role="tab"]')).toHaveCount(4);
+  await expect(page.locator("#sobre .ambient-aurora--bridge")).toHaveAttribute("aria-hidden", "true");
+  await expect(page.locator("#cta-final .ambient-aurora--closing")).toHaveAttribute("aria-hidden", "true");
   await expect(page.locator("#sobre .trajectory-header__eyebrow")).toHaveCount(0);
   expect(await page.locator("#sobre .trajectory-header").innerText()).not.toMatch(/(^|\n)\s*0[1-9]\b/);
   await expect(trajectory).toHaveAttribute("data-active-year", "2023");
@@ -95,6 +97,12 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
 
   const projectArticles = page.locator("article[data-project-id]");
   await expect(projectArticles).toHaveCount(14);
+  const projectAurora = await projectArticles.first().evaluate((element) => {
+    const style = getComputedStyle(element, "::before");
+    return { content: style.content, backgroundImage: style.backgroundImage };
+  });
+  expect(projectAurora.content).not.toBe("none");
+  expect(projectAurora.backgroundImage).toContain("radial-gradient");
   const projectTriggers = page.locator('.project-thumbnail-wrapper[role="button"]');
   await expect(projectTriggers).toHaveCount(9);
   for (const trigger of await projectTriggers.all()) {

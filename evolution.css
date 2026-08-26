@@ -474,6 +474,300 @@ nav.nav-motion.scrolled {
   }
 }
 
+/* ═══════════════════════════════════════════════════════════
+   AMBIENT AURORA SYSTEM — BRIDGE, PROJECTS & CLOSING 2026
+   ═══════════════════════════════════════════════════════════ */
+
+.ambient-aurora {
+  position: absolute;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  opacity: 0.72;
+  filter: saturate(0);
+}
+
+.ambient-aurora__mesh {
+  --aurora-x-0: 0%;
+  --aurora-y-0: 0%;
+  --aurora-x-1: 8%;
+  --aurora-y-1: 6%;
+  --aurora-x-2: -4%;
+  --aurora-y-2: 12%;
+  --aurora-scale-0: 0.82;
+  --aurora-scale-1: 1.04;
+  --aurora-scale-2: 0.92;
+  --aurora-rotate-0: -6deg;
+  --aurora-rotate-1: 4deg;
+  --aurora-rotate-2: 9deg;
+  --aurora-opacity-0: 0.28;
+  --aurora-opacity-1: 0.56;
+  --aurora-opacity-2: 0.38;
+  position: absolute;
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 36% 38%, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.13) 18%, rgba(255, 255, 255, 0.035) 42%, transparent 69%),
+    radial-gradient(circle at 66% 62%, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.045) 34%, transparent 68%);
+  mix-blend-mode: screen;
+  filter: blur(clamp(3.5rem, 7vw, 7rem));
+  animation: ambient-aurora-drift 22s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes ambient-aurora-drift {
+  0% {
+    opacity: var(--aurora-opacity-0);
+    transform: translate3d(var(--aurora-x-0), var(--aurora-y-0), 0) scale(var(--aurora-scale-0)) rotate(var(--aurora-rotate-0));
+  }
+  50% {
+    opacity: var(--aurora-opacity-1);
+    transform: translate3d(var(--aurora-x-1), var(--aurora-y-1), 0) scale(var(--aurora-scale-1)) rotate(var(--aurora-rotate-1));
+  }
+  100% {
+    opacity: var(--aurora-opacity-2);
+    transform: translate3d(var(--aurora-x-2), var(--aurora-y-2), 0) scale(var(--aurora-scale-2)) rotate(var(--aurora-rotate-2));
+  }
+}
+
+/* Aurora que costura o fim da Hero ao início da Trajetória. */
+#sobre .ambient-aurora--bridge {
+  top: -13rem;
+  right: 0;
+  left: 0;
+  height: 35rem;
+  opacity: 0.62;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 74%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 74%, transparent 100%);
+}
+
+#sobre .ambient-aurora__mesh--bridge-left {
+  --aurora-x-0: -12%;
+  --aurora-y-0: 4%;
+  --aurora-x-1: 12%;
+  --aurora-y-1: 16%;
+  --aurora-x-2: 28%;
+  --aurora-y-2: -3%;
+  --aurora-scale-0: 0.74;
+  --aurora-scale-1: 1.02;
+  --aurora-scale-2: 0.88;
+  --aurora-opacity-0: 0.25;
+  --aurora-opacity-1: 0.5;
+  --aurora-opacity-2: 0.34;
+  top: -12rem;
+  left: -10%;
+  width: clamp(38rem, 66vw, 68rem);
+  animation-duration: 24s;
+}
+
+#sobre .ambient-aurora__mesh--bridge-right {
+  --aurora-x-0: 12%;
+  --aurora-y-0: -10%;
+  --aurora-x-1: -16%;
+  --aurora-y-1: 14%;
+  --aurora-x-2: -4%;
+  --aurora-y-2: 25%;
+  --aurora-scale-0: 0.68;
+  --aurora-scale-1: 0.94;
+  --aurora-scale-2: 0.78;
+  --aurora-opacity-0: 0.18;
+  --aurora-opacity-1: 0.42;
+  --aurora-opacity-2: 0.26;
+  top: -15rem;
+  right: -14%;
+  width: clamp(34rem, 58vw, 60rem);
+  animation-duration: 29s;
+  animation-delay: -8s;
+}
+
+#sobre > .trajectory-header,
+#sobre > .trajectory-experience,
+#sobre > .momento-atual {
+  position: relative;
+  z-index: 2;
+}
+
+/* Aurora localizada: aparece somente no projeto em interação. */
+#projetos .project-card::before {
+  content: "";
+  display: block !important;
+  position: absolute;
+  inset: -24%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 38%;
+  background:
+    radial-gradient(circle at 28% 34%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.065) 24%, transparent 58%),
+    radial-gradient(circle at 78% 72%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.025) 32%, transparent 64%);
+  mix-blend-mode: screen;
+  filter: blur(2.2rem) saturate(0);
+  opacity: 0;
+  transform: translate3d(-8%, 7%, 0) scale(0.72) rotate(-8deg);
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#projetos .project-card > .project-card__media,
+#projetos .project-card > .project-card__body {
+  position: relative;
+  z-index: 1;
+}
+
+#projetos .project-card__media::before {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 32% 38%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.09) 23%, transparent 57%),
+    radial-gradient(circle at 76% 68%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.035) 32%, transparent 66%);
+  mix-blend-mode: screen;
+  filter: blur(1.5rem) saturate(0);
+  opacity: 0;
+  transform: translate3d(-10%, 8%, 0) scale(0.78) rotate(-7deg);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#projetos .project-thumbnail-overlay {
+  z-index: 3;
+}
+
+#projetos .thumbnail-grid-icon,
+#projetos .project-scroll-indicator {
+  z-index: 4;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #projetos .project-card:hover::before,
+  #projetos .project-card:focus-within::before {
+    opacity: 0.82;
+    animation: project-local-aurora 6.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+  }
+
+  #projetos .project-card:hover .project-card__media::before,
+  #projetos .project-card:focus-within .project-card__media::before {
+    opacity: 0.58;
+    transform: translate3d(8%, -4%, 0) scale(1.05) rotate(5deg);
+  }
+}
+
+@keyframes project-local-aurora {
+  0% { transform: translate3d(-8%, 7%, 0) scale(0.76) rotate(-8deg); }
+  52% { transform: translate3d(7%, -5%, 0) scale(1.05) rotate(4deg); }
+  100% { transform: translate3d(15%, 6%, 0) scale(0.9) rotate(9deg); }
+}
+
+/* Aurora de fechamento atrás do CTA monumental. */
+#cta-final .ambient-aurora--closing {
+  inset: 0;
+  opacity: 0.76;
+  -webkit-mask-image: radial-gradient(ellipse 88% 78% at 50% 48%, #000 0%, #000 52%, transparent 100%);
+  mask-image: radial-gradient(ellipse 88% 78% at 50% 48%, #000 0%, #000 52%, transparent 100%);
+}
+
+#cta-final .ambient-aurora__mesh--closing-main {
+  --aurora-x-0: -8%;
+  --aurora-y-0: 8%;
+  --aurora-x-1: 14%;
+  --aurora-y-1: -4%;
+  --aurora-x-2: 25%;
+  --aurora-y-2: 14%;
+  --aurora-scale-0: 0.7;
+  --aurora-scale-1: 1.02;
+  --aurora-scale-2: 0.86;
+  --aurora-opacity-0: 0.24;
+  --aurora-opacity-1: 0.54;
+  --aurora-opacity-2: 0.34;
+  top: 6%;
+  left: -8%;
+  width: clamp(40rem, 70vw, 72rem);
+  animation-duration: 26s;
+}
+
+#cta-final .ambient-aurora__mesh--closing-orbit {
+  --aurora-x-0: 9%;
+  --aurora-y-0: -12%;
+  --aurora-x-1: -18%;
+  --aurora-y-1: 12%;
+  --aurora-x-2: -7%;
+  --aurora-y-2: 28%;
+  --aurora-scale-0: 0.62;
+  --aurora-scale-1: 0.92;
+  --aurora-scale-2: 0.74;
+  --aurora-opacity-0: 0.17;
+  --aurora-opacity-1: 0.4;
+  --aurora-opacity-2: 0.24;
+  top: 12%;
+  right: -12%;
+  width: clamp(34rem, 58vw, 60rem);
+  animation-duration: 31s;
+  animation-delay: -11s;
+}
+
+#cta-final > .section-divider,
+#cta-final > .footer-editorial {
+  position: relative;
+  z-index: 2;
+}
+
+#cta-final.revealed .footer-giant-title {
+  text-shadow: 0 0 4rem rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 640px) {
+  #sobre .ambient-aurora--bridge {
+    top: -9rem;
+    height: 27rem;
+    opacity: 0.5;
+  }
+
+  #sobre .ambient-aurora__mesh--bridge-left,
+  #sobre .ambient-aurora__mesh--bridge-right {
+    width: 36rem;
+    filter: blur(4.8rem);
+  }
+
+  #cta-final .ambient-aurora--closing {
+    opacity: 0.6;
+  }
+
+  #cta-final .ambient-aurora__mesh--closing-main,
+  #cta-final .ambient-aurora__mesh--closing-orbit {
+    width: 38rem;
+    filter: blur(5rem);
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  #projetos .project-card::before,
+  #projetos .project-card__media::before {
+    opacity: 0 !important;
+    animation: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-aurora__mesh,
+  #projetos .project-card::before {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .ambient-aurora__mesh {
+    opacity: 0.28 !important;
+    transform: none !important;
+  }
+
+  #projetos .project-card__media::before {
+    transition: none !important;
+  }
+}
+
 
 /* =========================================================
    HERO-SCALE SECTION TITLES

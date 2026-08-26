@@ -332,7 +332,7 @@
   ]
 }
     </script>
-    <link rel="stylesheet" href="./portfolio.css?v=20260826trajectory1" />
+    <link rel="stylesheet" href="./portfolio.css?v=20260826aurora2" />
     
     
     
@@ -626,6 +626,10 @@
 
         <section id="sobre" class="motion-on-scroll reveal-item" data-motion="fade-up">
           <div class="section-divider" aria-hidden="true"></div>
+          <div class="ambient-aurora ambient-aurora--bridge" aria-hidden="true">
+            <span class="ambient-aurora__mesh ambient-aurora__mesh--bridge-left"></span>
+            <span class="ambient-aurora__mesh ambient-aurora__mesh--bridge-right"></span>
+          </div>
           <!-- Editorial header — título monumental, sem numeração de seção -->
           <header class="trajectory-header">
             <div class="trajectory-header__intro">
@@ -2326,6 +2330,10 @@
         =========================================== -->
         <section id="cta-final" class="motion-on-scroll section-reveal app-depth" data-motion="scale-in">
           <div class="section-divider" aria-hidden="true"></div>
+          <div class="ambient-aurora ambient-aurora--closing" aria-hidden="true">
+            <span class="ambient-aurora__mesh ambient-aurora__mesh--closing-main"></span>
+            <span class="ambient-aurora__mesh ambient-aurora__mesh--closing-orbit"></span>
+          </div>
           <div class="footer-editorial">
             <div class="footer-editorial__top">
               <div class="footer-eyebrow-wrapper">
@@ -2693,7 +2701,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", async () => {
           try {
-            const registration = await navigator.serviceWorker.register("./sw.js?v=20260826trajectory1");
+            const registration = await navigator.serviceWorker.register("./sw.js?v=20260826aurora2");
             registration.update();
           } catch {
             // The portfolio remains fully functional without offline caching.
