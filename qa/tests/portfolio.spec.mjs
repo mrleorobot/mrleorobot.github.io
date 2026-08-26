@@ -118,11 +118,23 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     window.scrollTo(0, 0);
   });
 
-  const brokenLocalImages = await page.locator('img[src^="./"]').evaluateAll(async (images) => {
-    await Promise.all(images.map((image) => image.decode?.().catch(() => {})));
-    return images.filter((image) => image.naturalWidth === 0).map((image) => image.getAttribute("src"));
-  });
-  expect(brokenLocalImages).toEqual([]);
+  const localImageSources = await page.locator('img[src^="./"]').evaluateAll((images) =>
+    [...new Set(images.map((image) => image.getAttribute("src")).filter(Boolean))]
+  );
+  const localImageResponses = await Promise.all(
+    localImageSources.map((src) => page.request.get(new URL(src, page.url()).href))
+  );
+  const unavailableLocalImages = localImageResponses
+    .map((response, index) => response.ok() ? null : localImageSources[index])
+    .filter(Boolean);
+  expect(unavailableLocalImages).toEqual([]);
+
+  const brokenRenderedImages = await page.locator('img[src^="./"]').evaluateAll((images) =>
+    images
+      .filter((image) => image.complete && image.naturalWidth === 0)
+      .map((image) => image.getAttribute("src"))
+  );
+  expect(brokenRenderedImages).toEqual([]);
 
   const footerAlignment = await page.locator(".footer-bottom span").evaluate((element) => {
     const box = element.getBoundingClientRect();
