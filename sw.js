@@ -1,6 +1,6 @@
 // Service worker do portfólio — cache leve do app shell.
 // Suba a versão abaixo sempre que quiser forçar limpeza de cache antigo.
-const CACHE_VERSION = "v20260822s";
+const CACHE_VERSION = "v20260825mobile1";
 const CACHE_NAME = `leo-portfolio-${CACHE_VERSION}`;
 
 const APP_SHELL = [
@@ -9,7 +9,9 @@ const APP_SHELL = [
   "./style.css?v=20260822s",
   "./css/ag-upgrade-2026.css?v=20260822s",
   "./polish.css?v=20260822s",
-  "./script.js?v=20260822s",
+  "./script.js?v=20260825mobile1",
+  "./awwwards-upgrade.js?v=20260825mobile1",
+  "./evolution.css?v=20260825mobile1",
   "./hero-ink.js?v=20260822s",
   "./manifest.json?v=20260822s",
   "./icon-192.png",
