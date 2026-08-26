@@ -916,3 +916,27 @@ nav.scrolled {
   }
 }
 
+/* =========================================================
+   MOBILE NATIVE SCROLL RECOVERY
+   Native vertical gestures take priority over scroll effects.
+   ========================================================= */
+@media (max-width: 768px), (pointer: coarse) {
+  html {
+    scroll-snap-type: none !important;
+    overscroll-behavior-y: auto !important;
+    touch-action: pan-y !important;
+  }
+
+  body {
+    overscroll-behavior-y: auto !important;
+  }
+
+  body:not(.loading-locked) {
+    touch-action: pan-y !important;
+  }
+
+  #cinematic-loader {
+    touch-action: none !important;
+  }
+}
+
