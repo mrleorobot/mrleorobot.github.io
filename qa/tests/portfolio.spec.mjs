@@ -62,6 +62,26 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     expect(fontSize, selector).toBeGreaterThanOrEqual(48);
   }
 
+  const trajectory = page.locator("[data-trajectory-root]");
+  await expect(trajectory).toHaveCount(1);
+  await expect(trajectory.locator('[role="tab"]')).toHaveCount(4);
+  await expect(page.locator("#sobre .trajectory-header__eyebrow")).toHaveCount(0);
+  expect(await page.locator("#sobre .trajectory-header").innerText()).not.toMatch(/(^|\n)\s*0[1-9]\b/);
+  await expect(trajectory).toHaveAttribute("data-active-year", "2023");
+
+  await trajectory.locator('[data-trajectory-year="2025"]').click();
+  await expect(trajectory).toHaveAttribute("data-active-year", "2025");
+  await expect(trajectory.locator("[data-trajectory-title]")).toHaveText("Informática e Web Design");
+  await expect(trajectory.locator('[data-trajectory-year="2025"]').first()).toHaveAttribute("aria-selected", "true");
+
+  const trajectoryOverflow = await trajectory.evaluate((element) => ({
+    right: element.getBoundingClientRect().right,
+    viewport: window.innerWidth,
+    documentWidth: document.documentElement.scrollWidth
+  }));
+  expect(trajectoryOverflow.right).toBeLessThanOrEqual(trajectoryOverflow.viewport + 1);
+  expect(trajectoryOverflow.documentWidth).toBeLessThanOrEqual(trajectoryOverflow.viewport + 1);
+
   const gameTitle = page.locator("#game-dev .gamedev-hud-header h2");
   await expect(gameTitle).toBeVisible();
   expect(await gameTitle.evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(45);
@@ -167,4 +187,24 @@ test("o loader cinematográfico aparece e sempre libera a página", async ({ pag
   await waitForPortfolio(page);
   await expect(loader).toHaveCount(0);
   expect(await page.evaluate(() => window.PortfolioScrollLock?.isLocked() ?? false)).toBe(false);
+});
+
+test("a trajetória avança automaticamente e pode ser pausada", async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith("desktop"), "Cobertura única no desktop");
+  await page.emulateMedia({ reducedMotion: "no-preference", colorScheme: "dark" });
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  await waitForPortfolio(page);
+
+  const trajectory = page.locator("[data-trajectory-root]");
+  await trajectory.scrollIntoViewIfNeeded();
+  await expect(trajectory).toHaveAttribute("data-active-year", "2023");
+  await expect.poll(
+    () => trajectory.getAttribute("data-active-year"),
+    { timeout: 13_000, intervals: [500] }
+  ).toBe("2024");
+
+  const toggle = trajectory.locator("[data-trajectory-cycle-toggle]");
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+  await expect(toggle).toContainText("Retomar ciclo");
 });

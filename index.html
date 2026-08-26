@@ -332,7 +332,7 @@
   ]
 }
     </script>
-    <link rel="stylesheet" href="./portfolio.css?v=20260826upgrade1" />
+    <link rel="stylesheet" href="./portfolio.css?v=20260826trajectory1" />
     
     
     
@@ -626,15 +626,16 @@
 
         <section id="sobre" class="motion-on-scroll reveal-item" data-motion="fade-up">
           <div class="section-divider" aria-hidden="true"></div>
-          <!-- Editorial header — dois blocos lado a lado -->
+          <!-- Editorial header — título monumental, sem numeração de seção -->
           <header class="trajectory-header">
             <div class="trajectory-header__intro">
-              <div class="trajectory-header__eyebrow reveal-item">Minha Jornada</div>
               <h2 class="trajectory-header__title section-title-kinetic reveal-item">
                 <span aria-hidden="true">Trajetória</span>
                 <span class="sr-only">Trajetória e Momento Atual</span>
               </h2>
-              <div class="trajectory-header__subtitle reveal-item">Evolução Constante</div>
+              <div class="trajectory-header__subtitle reveal-item">
+                Minha Jornada <span aria-hidden="true">·</span> Evolução Constante
+              </div>
             </div>
             <p class="trajectory-header__lead reveal-item">
               De onde vim e <span class="mix-emphasis">as fundações que estou
@@ -642,112 +643,82 @@
             </p>
           </header>
 
-          <!-- TIMELINE — grid editorial de 4 momentos, sem linha/bolinhas -->
-          <div class="timeline-container reveal-item">
-            <div class="timeline-track">
-              <article class="timeline-item reveal-item">
-                <div class="timeline-content">
-                  <div class="timeline-date">
-                    <span class="timeline-date__year">2023</span>
-                  </div>
-                  <div class="timeline-body">
-                    <span class="timeline-icon" aria-hidden="true">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="7" r="4"></circle>
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                      </svg>
-                    </span>
-                    <div class="timeline-text">
-                      <h3 class="timeline-title">Início Operacional e Conclusão</h3>
-                      <p class="timeline-desc">
-                        <strong>Atendimento e Organização:</strong> como Atendente
-                        e Operador de Caixa na Cantina CDF, desenvolvi agilidade e
-                        proatividade no relacionamento direto com o público —
-                        bases que uso até hoje no suporte técnico e educacional.
-                        Também concluí o Ensino Médio nesse ano.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </article>
+          <!-- Trajetória interativa — um momento em foco por vez -->
+          <div class="trajectory-experience reveal-item" data-trajectory-root data-active-year="2023">
+            <div class="trajectory-aurora" aria-hidden="true">
+              <span class="trajectory-aurora__mesh trajectory-aurora__mesh--one"></span>
+              <span class="trajectory-aurora__mesh trajectory-aurora__mesh--two"></span>
+              <span class="trajectory-aurora__mesh trajectory-aurora__mesh--three"></span>
+            </div>
 
-              <article class="timeline-item reveal-item">
-                <div class="timeline-content">
-                  <div class="timeline-date">
-                    <span class="timeline-date__year">2024</span>
-                    <span class="timeline-date__range">– 2025</span>
-                  </div>
-                  <div class="timeline-body">
-                    <span class="timeline-icon" aria-hidden="true">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="16 18 22 12 16 6"></polyline>
-                        <polyline points="8 6 2 12 8 18"></polyline>
-                      </svg>
-                    </span>
-                    <div class="timeline-text">
-                      <h3 class="timeline-title">Jornada de Aprendizado</h3>
-                      <p class="timeline-desc">
-                        Capacitação técnica em Informática, Design Gráfico, Gestão
-                        em RH, Redes, Linux, Hardware e IA (Cursos em Vídeo &amp;
-                        Motiva) — e início em HTML e CSS.
-                      </p>
-                    </div>
-                  </div>
+            <div class="trajectory-experience__inner">
+              <div class="trajectory-tabs-shell">
+                <div class="trajectory-tabs" role="tablist" aria-label="Anos da trajetória profissional">
+                  <button class="trajectory-year-tab is-active" id="trajectory-tab-2023" type="button" role="tab" aria-selected="true" aria-controls="trajectory-panel" tabindex="0" data-trajectory-year="2023">
+                    <span class="trajectory-year-tab__year">2023</span>
+                    <span class="trajectory-year-tab__meta">Fundação</span>
+                  </button>
+                  <button class="trajectory-year-tab" id="trajectory-tab-2024" type="button" role="tab" aria-selected="false" aria-controls="trajectory-panel" tabindex="-1" data-trajectory-year="2024">
+                    <span class="trajectory-year-tab__year">2024</span>
+                    <span class="trajectory-year-tab__meta">Aprendizado</span>
+                  </button>
+                  <button class="trajectory-year-tab" id="trajectory-tab-2025" type="button" role="tab" aria-selected="false" aria-controls="trajectory-panel" tabindex="-1" data-trajectory-year="2025">
+                    <span class="trajectory-year-tab__year">2025</span>
+                    <span class="trajectory-year-tab__meta">Prática</span>
+                  </button>
+                  <button class="trajectory-year-tab" id="trajectory-tab-2026" type="button" role="tab" aria-selected="false" aria-controls="trajectory-panel" tabindex="-1" data-trajectory-year="2026">
+                    <span class="trajectory-year-tab__year">2026</span>
+                    <span class="trajectory-year-tab__meta">Agora</span>
+                  </button>
                 </div>
-              </article>
 
-              <article class="timeline-item reveal-item">
-                <div class="timeline-content">
-                  <div class="timeline-date">
-                    <span class="timeline-date__year">2025</span>
-                    <span class="timeline-date__range">abr — out</span>
-                  </div>
-                  <div class="timeline-body">
-                    <span class="timeline-icon" aria-hidden="true">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-                      </svg>
-                    </span>
-                    <div class="timeline-text">
-                      <h3 class="timeline-title">Instrutor de Informática e Web Design</h3>
-                      <p class="timeline-desc">
-                        <strong>Motiva Cursos:</strong> aulas de Informática e Web
-                        Design, apoio em ferramentas digitais e suporte a alunos e
-                        responsáveis.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </article>
+                <button class="trajectory-cycle-toggle" type="button" aria-pressed="false" data-trajectory-cycle-toggle>
+                  <span class="trajectory-cycle-toggle__glyph" data-trajectory-cycle-glyph aria-hidden="true">❚❚</span>
+                  <span data-trajectory-cycle-label>Pausar ciclo</span>
+                </button>
+              </div>
 
-              <article class="timeline-item reveal-item timeline-item--current">
-                <div class="timeline-content">
-                  <div class="timeline-date">
-                    <span class="timeline-date__year">2026</span>
-                    <span class="timeline-date__range timeline-date__range--now">agora</span>
-                  </div>
-                  <div class="timeline-body">
-                    <span class="timeline-icon" aria-hidden="true">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                        <polyline points="17 6 23 6 23 12"></polyline>
-                      </svg>
-                    </span>
-                    <div class="timeline-text">
-                      <h3 class="timeline-title">Reposicionamento e Novos Desafios</h3>
-                      <p class="timeline-desc">
-                        <strong>ESTEADEB:</strong> atuação contínua unindo
-                        secretaria e suporte técnico.
-                        <strong>Etep (EAD):</strong> curso de Administração em
-                        andamento. Em paralelo, reconstruí meu portfólio pessoal e
-                        venho me candidatando ativamente a vagas de TI em
-                        Natal/RN.
-                      </p>
-                    </div>
+              <div class="trajectory-progress" aria-hidden="true">
+                <span data-trajectory-progress></span>
+              </div>
+
+              <div class="trajectory-stage" data-trajectory-stage>
+                <div class="trajectory-stage__year" aria-hidden="true">
+                  <div class="trajectory-stage__year-content">
+                    <span class="trajectory-stage__status" data-trajectory-status>Fundação</span>
+                    <span class="trajectory-stage__year-number" data-trajectory-year-display>2023</span>
+                    <span class="trajectory-stage__phase">Evolução constante</span>
                   </div>
                 </div>
-              </article>
+
+                <article class="trajectory-panel" id="trajectory-panel" role="tabpanel" aria-labelledby="trajectory-tab-2023">
+                  <div class="trajectory-panel__content">
+                    <p class="trajectory-panel__kicker" data-trajectory-kicker>Início Operacional</p>
+                    <h3 data-trajectory-title>Atendimento e Organização</h3>
+                    <p class="trajectory-panel__description" data-trajectory-description>
+                      Como Atendente e Operador de Caixa na Cantina CDF, desenvolvi
+                      agilidade e proatividade no relacionamento direto com o público —
+                      bases que uso até hoje no suporte técnico e educacional. Também
+                      concluí o Ensino Médio nesse ano.
+                    </p>
+                    <div class="trajectory-panel__tags" data-trajectory-tags aria-label="Competências desta etapa">
+                      <span>Atendimento</span>
+                      <span>Organização</span>
+                      <span>Ensino Médio</span>
+                    </div>
+                    <footer class="trajectory-panel__footer">
+                      <div>
+                        <time data-trajectory-period datetime="2023">2023</time>
+                        <p data-trajectory-note>As primeiras bases profissionais.</p>
+                      </div>
+                      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="19" x2="19" y2="5"></line>
+                        <polyline points="9 5 19 5 19 15"></polyline>
+                      </svg>
+                    </footer>
+                  </div>
+                </article>
+              </div>
             </div>
           </div>
 
@@ -2717,12 +2688,12 @@
     </nav>
 
       <script src="./motion.js?v=20260822s"></script>
-    <script src="./evolution.js?v=20260826upgrade2" defer></script>
+    <script src="./evolution.js?v=20260826trajectory1" defer></script>
       <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", async () => {
           try {
-            const registration = await navigator.serviceWorker.register("./sw.js?v=20260826upgrade2");
+            const registration = await navigator.serviceWorker.register("./sw.js?v=20260826trajectory1");
             registration.update();
           } catch {
             // The portfolio remains fully functional without offline caching.
