@@ -439,11 +439,17 @@ body.loader-complete #hero .hero-editorial__name {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  body.loader-complete #hero,
   .motion-on-scroll,
   .section-reveal,
+  .section-entrance,
+  .section-title-entrance,
   .reveal-item,
+  .reveal-stagger,
+  .word-reveal span,
   .motion-stagger > * {
     opacity: 1 !important;
+    visibility: visible !important;
     transform: none !important;
     filter: none !important;
     transition: none !important;

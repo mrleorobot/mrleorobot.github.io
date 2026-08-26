@@ -30,6 +30,9 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     }
   });
 
+  // Mantém a captura completa determinística e prova que a alternativa sem
+  // movimento nunca depende dos observers para exibir o conteúdo.
+  await page.emulateMedia({ reducedMotion: "reduce", colorScheme: "dark" });
   await page.goto("/", { waitUntil: "domcontentloaded" });
   await waitForPortfolio(page);
 
@@ -94,16 +97,6 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     })
   );
   expect(sectionRhythmProblems).toEqual([]);
-
-  const hiddenSections = await page.locator("main section[id]").evaluateAll((sections) =>
-    sections.flatMap((section) => {
-      const style = getComputedStyle(section);
-      return Number.parseFloat(style.opacity) < 0.99 || style.visibility === "hidden"
-        ? [{ id: section.id, opacity: style.opacity, visibility: style.visibility }]
-        : [];
-    })
-  );
-  expect(hiddenSections).toEqual([]);
 
   await page.keyboard.press("Tab");
   await expect(page.locator(".skip-link")).toBeFocused();
@@ -229,6 +222,16 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     viewport: window.innerWidth
   }));
   expect(postRevealOverflow.width).toBeLessThanOrEqual(postRevealOverflow.viewport + 1);
+
+  const hiddenSections = await page.locator("main section[id]").evaluateAll((sections) =>
+    sections.flatMap((section) => {
+      const style = getComputedStyle(section);
+      return Number.parseFloat(style.opacity) < 0.99 || style.visibility === "hidden"
+        ? [{ id: section.id, opacity: style.opacity, visibility: style.visibility }]
+        : [];
+    })
+  );
+  expect(hiddenSections).toEqual([]);
 
   const localImageSources = await page.locator('img[src^="./"]').evaluateAll((images) =>
     [...new Set(images.map((image) => image.getAttribute("src")).filter(Boolean))]
