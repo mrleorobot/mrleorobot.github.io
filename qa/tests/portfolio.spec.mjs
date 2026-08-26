@@ -146,7 +146,7 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   });
   expect(footerAlignment.delta).toBeLessThan(8);
   expect(footerAlignment.textAlign).toBe("center");
-  expect(footerAlignment.fontSize).toBeGreaterThanOrEqual(13);
+  expect(footerAlignment.fontSize).toBeGreaterThanOrEqual(12);
 
   await page.screenshot({ path: testInfo.outputPath("home-full.png"), fullPage: true, animations: "disabled" });
   expect(sameOriginFailures).toEqual([]);

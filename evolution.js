@@ -595,7 +595,11 @@
   // INITIALIZE ALL
   // ═══════════════════════════════════════════
   document.addEventListener('DOMContentLoaded', () => {
+    let effectsInitialized = false;
     const initEffects = () => {
+      if (effectsInitialized) return;
+      effectsInitialized = true;
+
       initAuroraCanvas();
       initCursorGlow();
       initMagneticButtons();

@@ -2717,12 +2717,12 @@
     </nav>
 
       <script src="./motion.js?v=20260822s"></script>
-    <script src="./evolution.js?v=20260825" defer></script>
+    <script src="./evolution.js?v=20260826upgrade2" defer></script>
       <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", async () => {
           try {
-            const registration = await navigator.serviceWorker.register("./sw.js?v=20260826upgrade1");
+            const registration = await navigator.serviceWorker.register("./sw.js?v=20260826upgrade2");
             registration.update();
           } catch {
             // The portfolio remains fully functional without offline caching.
