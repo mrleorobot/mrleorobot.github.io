@@ -62,6 +62,13 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     expect(fontSize, selector).toBeGreaterThanOrEqual(48);
   }
 
+  await page.keyboard.press("Tab");
+  await expect(page.locator(".skip-link")).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#main-content")).toBeFocused();
+  await page.evaluate(() => document.activeElement?.blur());
+  await page.evaluate(() => window.scrollTo(0, 0));
+
   const trajectory = page.locator("[data-trajectory-root]");
   await expect(trajectory).toHaveCount(1);
   await expect(trajectory.locator('[role="tab"]')).toHaveCount(4);
@@ -85,13 +92,6 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   const gameTitle = page.locator("#game-dev .gamedev-hud-header h2");
   await expect(gameTitle).toBeVisible();
   expect(await gameTitle.evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(45);
-
-  await page.keyboard.press("Tab");
-  await expect(page.locator(".skip-link")).toBeFocused();
-  await page.keyboard.press("Enter");
-  await expect(page.locator("#main-content")).toBeFocused();
-  await page.evaluate(() => document.activeElement?.blur());
-  await page.evaluate(() => window.scrollTo(0, 0));
 
   const projectArticles = page.locator("article[data-project-id]");
   await expect(projectArticles).toHaveCount(14);
