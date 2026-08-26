@@ -11,7 +11,8 @@ const sourceFiles = [
   "polish.css",
   "awwwards-upgrade.css",
   "motion.css",
-  "evolution.css"
+  "evolution.css",
+  "layout-polish.css"
 ];
 const outputFile = resolve(root, "portfolio.css");
 const banner = "/* =========================================================\n   PORTFOLIO.CSS — GENERATED FILE\n   Visual contract: source order is preserved byte-for-byte\n   inside each section. Run: npm run build:css\n   ========================================================= */\n";

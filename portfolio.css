@@ -7814,3 +7814,447 @@ body.is-scroll-locked {
     transition: none !important;
   }
 }
+
+/* ===== SOURCE: layout-polish.css ===== */
+}
+}
+
+/* =========================================================
+   COMPLETE LAYOUT POLISH 2026
+   Ritmo editorial consistente, texto sem cortes e componentes
+   fluidos em desktop, tablet e mobile. A linguagem visual e o
+   contraste monocromático permanecem intactos.
+   ========================================================= */
+
+/* Uma única cadência substitui os paddings acumulados das camadas
+   históricas. Isso remove os grandes vazios entre seções sem tirar
+   o respiro cinematográfico dos títulos. */
+#sobre,
+#projetos,
+#projetos-design,
+#tech-stack,
+#game-dev,
+#soft-skills,
+#faq,
+#cta-final {
+  min-width: 0;
+  padding-top: clamp(5.25rem, 6.25vw, 6.75rem) !important;
+  padding-bottom: clamp(4.5rem, 5vw, 5.5rem) !important;
+  scroll-margin-top: clamp(4rem, 7vw, 6rem);
+}
+
+#sobre > .section-divider,
+#projetos > .section-divider,
+#projetos-design > .section-divider,
+#tech-stack > .section-divider,
+#game-dev > .section-divider,
+#soft-skills > .section-divider,
+#faq > .section-divider,
+#cta-final > .section-divider {
+  margin-bottom: clamp(2rem, 2.7vw, 2.75rem) !important;
+}
+
+#sobre .trajectory-header,
+#projetos .projects-header,
+#tech-stack .tech-header {
+  margin-top: 0 !important;
+}
+
+#sobre .trajectory-header,
+#projetos .projects-header,
+#projetos-design .ux-header,
+#tech-stack .tech-header,
+#soft-skills .alumni-header,
+#faq .faq-header {
+  min-width: 0;
+  margin-bottom: clamp(2.75rem, 4vw, 3.75rem) !important;
+}
+
+/* Títulos monumentais continuam no porte da Hero, mas agora podem
+   ocupar linhas naturais e nunca são aparados pelo contêiner. */
+#sobre .trajectory-header__title,
+#projetos .projects-header__title,
+#projetos-design .ux-header__title,
+#tech-stack .tech-header__title,
+#soft-skills .alumni-header__title,
+#faq .faq-header__title,
+#game-dev .gamedev-hud-header h2 {
+  min-width: 0;
+  max-width: 100% !important;
+  padding-bottom: 0.08em;
+  overflow: visible !important;
+  overflow-wrap: normal;
+  word-break: normal;
+  white-space: normal !important;
+  hyphens: none;
+}
+
+.section-title-kinetic > span[aria-hidden="true"] {
+  display: block;
+  max-width: 100%;
+  overflow: visible;
+  overflow-wrap: normal;
+  word-break: normal;
+  white-space: normal;
+}
+
+/* A máscara da entrada da Hero já cumpriu sua função quando o loader
+   termina. Liberá-la nesse estado evita aparar o topo e a base do nome. */
+body.loader-complete #hero .hero-editorial__name {
+  padding-block: 0.05em 0.12em;
+  overflow: visible !important;
+}
+
+/* Proteção estrutural para textos variáveis e conteúdos traduzidos. */
+#sobre .trajectory-header__lead,
+#sobre .trajectory-panel,
+#sobre .trajectory-panel__content,
+#projetos .projects-header__intro,
+#projetos .project-card,
+#projetos .project-card__body,
+#projetos-design .ux-header,
+#projetos-design .ux-card,
+#projetos-design .ux-card__content,
+#tech-stack .tech-header,
+#game-dev .gamedev-hud-content,
+#game-dev .gamedev-hud-header,
+#game-dev .gamedev-hud-panel,
+#soft-skills .alumni-header,
+#soft-skills .alumni-hero-card__content,
+#faq .faq-container,
+#faq .faq-header,
+#cta-final .footer-editorial,
+#cta-final .footer-giant-link,
+.site-footer .footer-brand,
+.site-footer .footer-end {
+  min-width: 0;
+}
+
+#sobre .trajectory-panel h3,
+#sobre .trajectory-panel__description,
+#projetos .project-card__title,
+#projetos .project-card__desc,
+#projetos-design .ux-card__title,
+#projetos-design .ux-card__desc,
+#game-dev .gamedev-hud-panel h3,
+#game-dev .gamedev-hud-panel p,
+#soft-skills .alumni-hero-card__title,
+#soft-skills .alumni-hero-card__desc,
+#faq .faq-question,
+#faq .faq-answer-content,
+.site-footer .footer-brand__sub,
+.site-footer .footer-end__quote {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+#projetos .project-card__desc {
+  display: block;
+  max-height: none;
+  overflow: visible;
+}
+
+/* O último par de projetos passa a fechar a grade no centro, em vez
+   de deixar um vazio visual inteiro no lado direito. */
+@media (min-width: 1201px) and (max-width: 1319px) {
+  #projetos .projects-viewport > .project-card:nth-last-child(2):nth-child(3n + 1) {
+    grid-column-start: 2;
+  }
+}
+
+@media (min-width: 1320px) and (max-width: 1619px) {
+  #projetos .projects-viewport > .project-card:nth-last-child(2):nth-child(4n + 1) {
+    grid-column-start: 2;
+  }
+}
+
+/* Habilidades tinha margem no cabeçalho e outra no marquee. Mantém
+   um único intervalo para o laboratório aparecer ligado ao título. */
+#tech-stack .tech-header {
+  margin-bottom: clamp(2.5rem, 3.5vw, 3.25rem) !important;
+}
+
+#tech-stack .tech-marquee-container {
+  margin-top: 0 !important;
+}
+
+/* O CTA conserva a escala de encerramento, com espaço reservado para
+   a seta. Assim CONVERSAR não fica cortado nem encoberto. */
+#cta-final .footer-editorial {
+  min-height: 0;
+  padding: clamp(2.5rem, 4vw, 4rem) 0 clamp(2rem, 3vw, 3rem) !important;
+}
+
+#cta-final .footer-giant-link {
+  gap: clamp(1.5rem, 3vw, 3.5rem);
+}
+
+#cta-final .footer-giant-title {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+#cta-final .giant-word {
+  max-width: 100%;
+  font-size: clamp(4rem, 11vw, 12rem);
+  white-space: nowrap;
+}
+
+#cta-final .footer-giant-arrow {
+  flex: 0 0 auto;
+}
+
+#soft-skills .testimonials-header {
+  margin-bottom: clamp(2rem, 3vw, 2.5rem) !important;
+}
+
+#soft-skills .testimonials-reveal-btn {
+  margin-bottom: clamp(1.5rem, 2.5vw, 2rem) !important;
+}
+
+/* Tablets recebem o mesmo fluxo vertical do mobile antes que os
+   títulos ou textos laterais fiquem espremidos. */
+@media (max-width: 900px) {
+  #sobre .trajectory-header,
+  #projetos .projects-header,
+  #tech-stack .tech-header {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+
+  #sobre .trajectory-header__lead,
+  #tech-stack .tech-header__lead {
+    max-width: 42rem !important;
+    justify-self: start !important;
+    text-align: left !important;
+  }
+
+  #projetos-design .ux-card__content {
+    padding: clamp(1rem, 3.5vw, 1.5rem);
+  }
+
+  #projetos-design .ux-card__desc {
+    max-height: 12rem;
+    margin-top: 0.4rem;
+    overflow: visible;
+    opacity: 1;
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  #projetos-design .ux-card__expand {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  #sobre,
+  #projetos,
+  #projetos-design,
+  #tech-stack,
+  #game-dev,
+  #soft-skills,
+  #faq,
+  #cta-final {
+    padding:
+      clamp(4.5rem, 16vw, 5.5rem)
+      max(clamp(1.1rem, 5vw, 1.5rem), env(safe-area-inset-right, 0px))
+      max(clamp(3.75rem, 13vw, 4.5rem), env(safe-area-inset-bottom, 0px))
+      max(clamp(1.1rem, 5vw, 1.5rem), env(safe-area-inset-left, 0px)) !important;
+  }
+
+  #sobre > .section-divider,
+  #projetos > .section-divider,
+  #projetos-design > .section-divider,
+  #tech-stack > .section-divider,
+  #game-dev > .section-divider,
+  #soft-skills > .section-divider,
+  #faq > .section-divider,
+  #cta-final > .section-divider {
+    margin-bottom: 2rem !important;
+  }
+
+  #sobre .trajectory-header,
+  #projetos .projects-header,
+  #projetos-design .ux-header,
+  #tech-stack .tech-header,
+  #soft-skills .alumni-header,
+  #faq .faq-header {
+    margin-bottom: clamp(2.25rem, 10vw, 3rem) !important;
+  }
+
+  #sobre .trajectory-header__title,
+  #projetos .projects-header__title,
+  #projetos-design .ux-header__title,
+  #tech-stack .tech-header__title {
+    font-size: clamp(3rem, 13vw, 5rem) !important;
+    line-height: 0.88 !important;
+  }
+
+  #soft-skills .alumni-header__title,
+  #faq .faq-header__title {
+    font-size: clamp(2.85rem, 12.8vw, 4.75rem) !important;
+    line-height: 0.9 !important;
+    letter-spacing: -0.052em !important;
+    text-wrap: balance;
+  }
+
+  body.loader-complete #hero .hero-editorial__name {
+    max-width: 100%;
+    padding-block: 0.08em 0.12em;
+    overflow: visible !important;
+  }
+
+  #projetos .projects-header__controls {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  #projetos .projects-viewport {
+    padding-bottom: 2rem !important;
+  }
+
+  #projetos .project-card {
+    height: auto;
+    min-height: 0;
+  }
+
+  #projetos-design .ux-grid {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #game-dev .gamedev-hud-container {
+    min-height: min(48rem, 88dvh);
+    border-radius: 1rem;
+  }
+
+  #game-dev .gamedev-hud-content {
+    gap: 1.5rem;
+    padding: clamp(1.4rem, 6vw, 2rem) !important;
+    padding-bottom: clamp(2rem, 9vw, 3rem) !important;
+  }
+
+  #game-dev .gamedev-hud-header h2 {
+    max-width: 100%;
+    font-size: clamp(2.8rem, 13vw, 4.75rem) !important;
+    line-height: 0.88 !important;
+  }
+
+  #game-dev .gamedev-hud-panel {
+    width: 100%;
+    padding: clamp(1.25rem, 5vw, 1.75rem) !important;
+  }
+
+  #cta-final .footer-editorial {
+    padding: 2rem 0 3.5rem !important;
+  }
+
+  #cta-final .footer-giant-link {
+    gap: 1.5rem;
+  }
+
+  #cta-final .giant-word {
+    font-size: clamp(3rem, 14vw, 4.5rem);
+    line-height: 0.88;
+  }
+
+  #cta-final .footer-giant-arrow {
+    width: clamp(3.75rem, 18vw, 5rem);
+    height: clamp(3.75rem, 18vw, 5rem);
+  }
+}
+
+@media (max-width: 560px) {
+  #sobre .trajectory-header__subtitle,
+  #projetos .projects-header__subtitle,
+  #projetos-design .ux-header__subtitle,
+  #tech-stack .tech-header__subtitle,
+  #soft-skills .alumni-header__subtitle,
+  #faq .faq-header__subtitle {
+    max-width: 100%;
+    letter-spacing: 0.14em !important;
+  }
+
+  #sobre .trajectory-panel__footer {
+    flex-wrap: wrap;
+  }
+
+  #projetos .project-card {
+    flex-basis: min(86vw, 22rem) !important;
+  }
+
+  #projetos-design .ux-grid {
+    grid-auto-rows: minmax(19rem, auto);
+  }
+
+  #projetos-design .ux-card__content {
+    padding: 1.15rem;
+  }
+
+  #projetos-design .ux-card__desc {
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
+  #tech-stack .tech-marquee-container {
+    overflow: hidden;
+  }
+
+  #soft-skills .alumni-hero-card {
+    padding: clamp(1.35rem, 6vw, 2rem) !important;
+  }
+
+  #faq .faq-question {
+    align-items: flex-start !important;
+    padding: 1.1rem !important;
+  }
+
+  #faq .faq-icon {
+    flex: 0 0 auto;
+  }
+
+  #cta-final .footer-editorial__channels .contact-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  #cta-final .footer-editorial__channels .contact-link {
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+    padding-inline: 0.75rem;
+  }
+
+  #cta-final .footer-editorial__channels .contact-link:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .site-footer {
+    padding-top: 3.75rem !important;
+  }
+
+  .site-footer .footer-brand__name {
+    max-width: 100%;
+    overflow-wrap: normal;
+    white-space: nowrap;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  #projetos-design .ux-card__desc {
+    max-height: 12rem;
+    margin-top: 0.4rem;
+    overflow: visible;
+    opacity: 1;
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  #projetos-design .ux-card__expand {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

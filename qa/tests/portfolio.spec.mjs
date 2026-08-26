@@ -62,6 +62,39 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     expect(fontSize, selector).toBeGreaterThanOrEqual(48);
   }
 
+  const protectedTextSelectors = [
+    "#hero .hero-editorial__name",
+    ...editorialTitles,
+    "#game-dev .gamedev-hud-header h2",
+    "#cta-final .footer-giant-title",
+    ".site-footer .footer-brand__name"
+  ];
+  const textLayoutProblems = await page.locator(protectedTextSelectors.join(",")).evaluateAll((elements) =>
+    elements.flatMap((element) => {
+      const rect = element.getBoundingClientRect();
+      const style = getComputedStyle(element);
+      const clipsX = ["hidden", "clip"].includes(style.overflowX) && element.scrollWidth > element.clientWidth + 1;
+      const clipsY = ["hidden", "clip"].includes(style.overflowY) && element.scrollHeight > element.clientHeight + 1;
+      const leavesViewport = rect.left < -1 || rect.right > window.innerWidth + 1;
+      return clipsX || clipsY || leavesViewport
+        ? [{ selector: element.matches("#hero .hero-editorial__name") ? "hero-name" : element.className, clipsX, clipsY, leavesViewport }]
+        : [];
+    })
+  );
+  expect(textLayoutProblems).toEqual([]);
+
+  const sectionRhythmProblems = await page.locator("main section[id]").evaluateAll((sections) =>
+    sections.flatMap((section) => {
+      const style = getComputedStyle(section);
+      const paddingTop = Number.parseFloat(style.paddingTop);
+      const paddingBottom = Number.parseFloat(style.paddingBottom);
+      return paddingTop > 120 || paddingBottom > 120
+        ? [{ id: section.id, paddingTop, paddingBottom }]
+        : [];
+    })
+  );
+  expect(sectionRhythmProblems).toEqual([]);
+
   await page.keyboard.press("Tab");
   await expect(page.locator(".skip-link")).toBeFocused();
   await page.keyboard.press("Enter");
@@ -91,6 +124,12 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   expect(trajectoryOverflow.right).toBeLessThanOrEqual(trajectoryOverflow.viewport + 1);
   expect(trajectoryOverflow.documentWidth).toBeLessThanOrEqual(trajectoryOverflow.viewport + 1);
 
+  const documentOverflow = await page.evaluate(() => ({
+    width: document.documentElement.scrollWidth,
+    viewport: window.innerWidth
+  }));
+  expect(documentOverflow.width).toBeLessThanOrEqual(documentOverflow.viewport + 1);
+
   const gameTitle = page.locator("#game-dev .gamedev-hud-header h2");
   await expect(gameTitle).toBeVisible();
   expect(await gameTitle.evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(45);
@@ -103,6 +142,15 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   });
   expect(projectAurora.content).not.toBe("none");
   expect(projectAurora.backgroundImage).toContain("radial-gradient");
+  if (testInfo.project.name.startsWith("desktop")) {
+    const lastProjectPairAlignment = await projectArticles.evaluateAll((articles) => {
+      const pair = articles.slice(-2).map((article) => article.getBoundingClientRect());
+      const left = Math.min(...pair.map((rect) => rect.left));
+      const right = Math.max(...pair.map((rect) => rect.right));
+      return Math.abs((left + right) / 2 - window.innerWidth / 2);
+    });
+    expect(lastProjectPairAlignment).toBeLessThan(48);
+  }
   const projectTriggers = page.locator('.project-thumbnail-wrapper[role="button"]');
   await expect(projectTriggers).toHaveCount(9);
   for (const trigger of await projectTriggers.all()) {
@@ -119,6 +167,26 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
 
   await expect(page.locator('a[href="curriculo.pdf"]')).toHaveCount(1);
   await expect(page.locator('#cta-final a[href^="mailto:"]')).toHaveCount(2);
+
+  const ctaCollision = await page.locator("#cta-final .footer-giant-link").evaluate((link) => {
+    const title = link.querySelector(".footer-giant-title").getBoundingClientRect();
+    const arrow = link.querySelector(".footer-giant-arrow").getBoundingClientRect();
+    const horizontalOverlap = Math.max(0, Math.min(title.right, arrow.right) - Math.max(title.left, arrow.left));
+    const verticalOverlap = Math.max(0, Math.min(title.bottom, arrow.bottom) - Math.max(title.top, arrow.top));
+    return horizontalOverlap * verticalOverlap;
+  });
+  expect(ctaCollision).toBe(0);
+
+  if (testInfo.project.name.startsWith("mobile")) {
+    const hiddenTouchDescriptions = await page.locator("#projetos-design .ux-card__desc").evaluateAll((descriptions) =>
+      descriptions.flatMap((description) => {
+        const style = getComputedStyle(description);
+        const clipped = ["hidden", "clip"].includes(style.overflowY) && description.scrollHeight > description.clientHeight + 1;
+        return Number.parseFloat(style.opacity) < 0.5 || clipped ? [description.textContent.trim()] : [];
+      })
+    );
+    expect(hiddenTouchDescriptions).toEqual([]);
+  }
 
   const lockState = await page.evaluate(() => ({
     bodyClass: document.body.classList.contains("loading-locked"),
