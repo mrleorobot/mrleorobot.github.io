@@ -90,7 +90,7 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   expect(duplicateIds).toEqual([]);
 
   await expect(page.locator('a[href="curriculo.pdf"]')).toHaveCount(1);
-  await expect(page.locator('#cta-final a[href^="mailto:"]')).toHaveCount(1);
+  await expect(page.locator('#cta-final a[href^="mailto:"]')).toHaveCount(2);
 
   const lockState = await page.evaluate(() => ({
     bodyClass: document.body.classList.contains("loading-locked"),
