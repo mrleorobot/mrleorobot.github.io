@@ -254,6 +254,13 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   const localImageSources = await page.locator('img[src^="./"]').evaluateAll((images) =>
     [...new Set(images.map((image) => image.getAttribute("src")).filter(Boolean))]
   );
+  await page.locator('img[src^="./"]').evaluateAll((images) => {
+    for (const image of images) image.loading = "eager";
+  });
+  await expect.poll(
+    () => page.locator('img[src^="./"]').evaluateAll((images) => images.filter((image) => !image.complete).length),
+    { timeout: 10_000, intervals: [100, 250, 500] }
+  ).toBe(0);
   const localImageResponses = await Promise.all(
     localImageSources.map((src) => page.request.get(new URL(src, page.url()).href))
   );
@@ -268,6 +275,19 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
       .map((image) => image.getAttribute("src"))
   );
   expect(brokenRenderedImages).toEqual([]);
+
+  const uxCardVisualProblems = await page.locator("#projetos-design .ux-card").evaluateAll((cards) =>
+    cards.flatMap((card) => {
+      const rect = card.getBoundingClientRect();
+      const image = card.querySelector("img");
+      const style = getComputedStyle(card);
+      return rect.width < 200 || rect.height < 200 || Number.parseFloat(style.opacity) < 0.99 || !image?.complete || image.naturalWidth === 0
+        ? [{ title: card.querySelector(".ux-card__title")?.textContent?.trim(), width: rect.width, height: rect.height, opacity: style.opacity }]
+        : [];
+    })
+  );
+  await expect(page.locator("#projetos-design .ux-card")).toHaveCount(6);
+  expect(uxCardVisualProblems).toEqual([]);
 
   const footerAlignment = await page.locator(".footer-bottom span").evaluate((element) => {
     const box = element.getBoundingClientRect();

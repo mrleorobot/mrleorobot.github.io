@@ -234,6 +234,13 @@ body.loader-complete #hero .hero-editorial__name {
 }
 
 @media (max-width: 768px) {
+  /* Os trilhos horizontais e o brilho do título continuam visíveis dentro
+     de cada seção, sem ampliar a área pintada além da tela do celular. */
+  #projetos,
+  #faq {
+    overflow-x: clip !important;
+  }
+
   #sobre,
   #projetos,
   #projetos-design,
