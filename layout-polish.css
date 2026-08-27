@@ -8,6 +8,12 @@
 /* Uma única cadência substitui os paddings acumulados das camadas
    históricas. Isso remove os grandes vazios entre seções sem tirar
    o respiro cinematográfico dos títulos. */
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip !important;
+}
+
 #sobre,
 #projetos,
 #projetos-design,
@@ -444,6 +450,7 @@ body.loader-complete #hero .hero-editorial__name {
   .section-reveal,
   .section-entrance,
   .section-title-entrance,
+  .text-mask-inner,
   .reveal-item,
   .reveal-stagger,
   .word-reveal span,
@@ -453,5 +460,9 @@ body.loader-complete #hero .hero-editorial__name {
     transform: none !important;
     filter: none !important;
     transition: none !important;
+  }
+
+  .text-mask-wrapper {
+    overflow: visible !important;
   }
 }

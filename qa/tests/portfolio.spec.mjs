@@ -233,6 +233,24 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   );
   expect(hiddenSections).toEqual([]);
 
+  const faqTitleVisibility = await page.locator('#faq .faq-header__title span[aria-hidden="true"]').evaluate((element) => {
+    const hiddenLayers = [];
+    let layer = element;
+    while (layer) {
+      const style = getComputedStyle(layer);
+      if (Number.parseFloat(style.opacity) < 0.99 || style.visibility === "hidden") {
+        hiddenLayers.push({ className: layer.className, opacity: style.opacity, visibility: style.visibility });
+      }
+      if (layer.matches(".faq-header__title")) break;
+      layer = layer.parentElement;
+    }
+    const rect = element.getBoundingClientRect();
+    return { hiddenLayers, width: rect.width, height: rect.height };
+  });
+  expect(faqTitleVisibility.hiddenLayers).toEqual([]);
+  expect(faqTitleVisibility.width).toBeGreaterThan(0);
+  expect(faqTitleVisibility.height).toBeGreaterThan(0);
+
   const localImageSources = await page.locator('img[src^="./"]').evaluateAll((images) =>
     [...new Set(images.map((image) => image.getAttribute("src")).filter(Boolean))]
   );
@@ -263,7 +281,11 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   expect(footerAlignment.textAlign).toBe("center");
   expect(footerAlignment.fontSize).toBeGreaterThanOrEqual(12);
 
-  await page.screenshot({ path: testInfo.outputPath("home-full.png"), fullPage: true, animations: "disabled" });
+  const screenshotScale = await page.evaluate(() => ({ viewport: window.innerWidth, dpr: window.devicePixelRatio }));
+  const visualEvidence = await page.screenshot({ path: testInfo.outputPath("home-full.png"), fullPage: true });
+  const screenshotWidth = visualEvidence.readUInt32BE(16);
+  const expectedScreenshotWidth = Math.ceil(screenshotScale.viewport * screenshotScale.dpr);
+  expect(screenshotWidth).toBe(expectedScreenshotWidth);
   expect(sameOriginFailures).toEqual([]);
   expect(pageErrors).toEqual([]);
 });
