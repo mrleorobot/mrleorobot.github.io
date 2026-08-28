@@ -371,7 +371,7 @@ body.loader-complete #hero .hero-editorial__name {
   }
 
   #sobre .trajectory-panel__footer {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
   #projetos .project-card {

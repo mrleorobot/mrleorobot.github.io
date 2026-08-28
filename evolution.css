@@ -1319,8 +1319,8 @@ body.is-scroll-locked {
   isolation: isolate;
   overflow: hidden;
   width: 100%;
-  min-height: clamp(34rem, 57vw, 46rem);
-  padding: clamp(1rem, 2.2vw, 2rem);
+  min-height: clamp(28rem, 41vw, 34rem);
+  padding: clamp(0.9rem, 1.45vw, 1.3rem);
   color: #fff;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.028), transparent 36%),
@@ -1439,9 +1439,9 @@ body.is-scroll-locked {
 #sobre .trajectory-tabs-shell {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: clamp(1rem, 2vw, 2rem);
+  gap: clamp(0.85rem, 1.4vw, 1.4rem);
   align-items: center;
-  padding-bottom: 1rem;
+  padding-bottom: 0.75rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.11);
 }
 
@@ -1455,8 +1455,8 @@ body.is-scroll-locked {
   position: relative;
   display: flex;
   min-width: 0;
-  min-height: 4.4rem;
-  padding: 0.55rem clamp(0.65rem, 1.5vw, 1.2rem);
+  min-height: 3.7rem;
+  padding: 0.4rem clamp(0.65rem, 1.5vw, 1.2rem);
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
@@ -1485,7 +1485,7 @@ body.is-scroll-locked {
   position: absolute;
   left: clamp(0.65rem, 1.5vw, 1.2rem);
   right: clamp(0.65rem, 1.5vw, 1.2rem);
-  bottom: -1.05rem;
+  bottom: -0.8rem;
   height: 2px;
   background: #fff;
   box-shadow: 0 0 1.5rem rgba(255, 255, 255, 0.5);
@@ -1516,7 +1516,7 @@ body.is-scroll-locked {
 }
 
 #sobre .trajectory-year-tab__year {
-  font-size: clamp(1.45rem, 2.2vw, 2.1rem);
+  font-size: clamp(1.3rem, 1.7vw, 1.75rem);
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -1542,8 +1542,8 @@ body.is-scroll-locked {
 
 #sobre .trajectory-cycle-toggle {
   display: inline-flex;
-  min-height: 2.85rem;
-  padding: 0.7rem 1rem;
+  min-height: 2.5rem;
+  padding: 0.58rem 0.85rem;
   align-items: center;
   justify-content: center;
   gap: 0.65rem;
@@ -1585,7 +1585,7 @@ body.is-scroll-locked {
 #sobre .trajectory-progress {
   width: 100%;
   height: 1px;
-  margin-top: clamp(1.2rem, 2vw, 1.8rem);
+  margin-top: clamp(0.85rem, 1.15vw, 1.1rem);
   overflow: hidden;
   background: rgba(255, 255, 255, 0.07);
 }
@@ -1603,11 +1603,11 @@ body.is-scroll-locked {
 
 #sobre .trajectory-stage {
   display: grid;
-  grid-template-columns: minmax(15rem, 0.72fr) minmax(0, 1.28fr);
+  grid-template-columns: minmax(12rem, 0.66fr) minmax(0, 1.34fr);
   flex: 1;
-  gap: clamp(2rem, 5vw, 6rem);
+  gap: clamp(1.5rem, 3.25vw, 3.5rem);
   align-items: stretch;
-  padding: clamp(2rem, 4vw, 3.75rem) clamp(0rem, 1.5vw, 1rem) clamp(1rem, 2vw, 2rem);
+  padding: clamp(1.7rem, 2.8vw, 2.7rem) clamp(0rem, 0.8vw, 0.5rem) 0.65rem;
 }
 
 #sobre .trajectory-stage__year {
@@ -1629,8 +1629,8 @@ body.is-scroll-locked {
 
 #sobre .trajectory-stage__status {
   display: inline-flex;
-  margin-bottom: 1.2rem;
-  padding: 0.45rem 0.8rem;
+  margin-bottom: 0.85rem;
+  padding: 0.38rem 0.72rem;
   font-family: "JetBrains Mono", monospace;
   font-size: 0.64rem;
   font-weight: 700;
@@ -1648,7 +1648,7 @@ body.is-scroll-locked {
   font-family: "Space Grotesk", sans-serif;
   font-size: clamp(4rem, 8vw, 7.5rem);
   font-weight: 800;
-  line-height: 0.72;
+  line-height: 0.76;
   letter-spacing: -0.085em;
   color: #fff;
   background: linear-gradient(180deg, #fff 6%, rgba(255, 255, 255, 0.7) 55%, rgba(255, 255, 255, 0.12) 100%);
@@ -1662,7 +1662,7 @@ body.is-scroll-locked {
   display: inline-flex;
   align-items: center;
   gap: 0.8rem;
-  margin-top: 2rem;
+  margin-top: 1.25rem;
   font-family: "JetBrains Mono", monospace;
   font-size: 0.64rem;
   font-weight: 600;
@@ -1723,7 +1723,7 @@ body.is-scroll-locked {
   z-index: 1;
   display: flex;
   width: 100%;
-  padding: clamp(1.5rem, 3.5vw, 3.5rem);
+  padding: clamp(1.3rem, 2.25vw, 2.25rem);
   flex-direction: column;
   transition:
     opacity 0.22s ease,
@@ -1735,7 +1735,7 @@ body.is-scroll-locked {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin: 0 0 1.25rem;
+  margin: 0 0 0.9rem;
   font-family: "JetBrains Mono", monospace;
   font-size: 0.67rem;
   font-weight: 700;
@@ -1753,11 +1753,11 @@ body.is-scroll-locked {
 
 #sobre .trajectory-panel h3 {
   max-width: 14ch;
-  margin: 0 0 1.25rem;
+  margin: 0 0 0.9rem;
   font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(2rem, 4.4vw, 4.4rem);
+  font-size: clamp(1.9rem, 3.15vw, 3.4rem);
   font-weight: 750;
-  line-height: 0.94;
+  line-height: 0.92;
   letter-spacing: -0.055em;
   text-transform: uppercase;
   color: #fff;
@@ -1768,8 +1768,8 @@ body.is-scroll-locked {
   max-width: 46rem;
   margin: 0;
   font-family: "Inter", sans-serif;
-  font-size: clamp(0.94rem, 1.15vw, 1.08rem);
-  line-height: 1.78;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  line-height: 1.65;
   color: rgba(255, 255, 255, 0.65);
 }
 
@@ -1777,11 +1777,11 @@ body.is-scroll-locked {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
-  margin-top: 1.6rem;
+  margin-top: 1.1rem;
 }
 
 #sobre .trajectory-panel__tags span {
-  padding: 0.45rem 0.72rem;
+  padding: 0.38rem 0.65rem;
   font-family: "JetBrains Mono", monospace;
   font-size: 0.61rem;
   font-weight: 600;
@@ -1796,7 +1796,7 @@ body.is-scroll-locked {
 #sobre .trajectory-panel__footer {
   display: flex;
   margin-top: auto;
-  padding-top: clamp(1.5rem, 3vw, 2.4rem);
+  padding-top: clamp(1.1rem, 1.8vw, 1.6rem);
   align-items: flex-end;
   justify-content: space-between;
   gap: 1.25rem;
@@ -1861,7 +1861,7 @@ body.is-scroll-locked {
 }
 
 #sobre .momento-atual {
-  margin-top: clamp(4.5rem, 8vw, 7rem) !important;
+  margin-top: clamp(3.25rem, 5vw, 4.5rem) !important;
 }
 
 @media (max-width: 900px) {
@@ -1879,8 +1879,8 @@ body.is-scroll-locked {
 
   #sobre .trajectory-stage {
     grid-template-columns: 1fr;
-    gap: 2rem;
-    padding-top: 3rem;
+    gap: 1.4rem;
+    padding-top: 1.8rem;
   }
 
   #sobre .trajectory-stage__year-number {
@@ -1898,17 +1898,18 @@ body.is-scroll-locked {
   }
 
   #sobre .trajectory-experience {
-    padding: 0.85rem;
+    padding: 0.72rem;
     border-radius: 1rem;
   }
 
   #sobre .trajectory-tabs-shell {
-    gap: 0.9rem;
+    gap: 0.7rem;
+    padding-bottom: 0.65rem;
   }
 
   #sobre .trajectory-year-tab {
-    min-height: 3.6rem;
-    padding: 0.5rem 0.4rem;
+    min-height: 3.1rem;
+    padding: 0.35rem 0.4rem;
     align-items: center;
     text-align: center;
   }
@@ -1916,7 +1917,7 @@ body.is-scroll-locked {
   #sobre .trajectory-year-tab::after {
     right: 0.45rem;
     left: 0.45rem;
-    bottom: -0.95rem;
+    bottom: -0.7rem;
   }
 
   #sobre .trajectory-year-tab__year {
@@ -1928,12 +1929,25 @@ body.is-scroll-locked {
   }
 
   #sobre .trajectory-cycle-toggle {
-    min-height: 2.55rem;
-    padding: 0.62rem 0.82rem;
+    min-height: 2.35rem;
+    padding: 0.5rem 0.72rem;
+  }
+
+  #sobre .trajectory-progress {
+    margin-top: 0.75rem;
   }
 
   #sobre .trajectory-stage {
-    padding: 2.5rem 0 0;
+    gap: 1.15rem;
+    padding: 1.5rem 0 0;
+  }
+
+  #sobre .trajectory-stage__status {
+    margin-bottom: 0.6rem;
+  }
+
+  #sobre .trajectory-stage__phase {
+    margin-top: 0.85rem;
   }
 
   #sobre .trajectory-stage__year-number {
@@ -1941,25 +1955,32 @@ body.is-scroll-locked {
   }
 
   #sobre .trajectory-panel {
-    min-height: 21rem;
+    min-height: 0;
     border-radius: 0.9rem;
   }
 
   #sobre .trajectory-panel__content {
-    padding: 1.35rem;
+    padding: 1.15rem;
   }
 
   #sobre .trajectory-panel h3 {
-    font-size: clamp(1.85rem, 10vw, 2.8rem);
+    font-size: clamp(1.65rem, 8.2vw, 2.3rem);
   }
 
   #sobre .trajectory-panel__description {
-    font-size: 0.92rem;
-    line-height: 1.7;
+    font-size: 0.86rem;
+    line-height: 1.6;
   }
 
   #sobre .trajectory-panel__footer {
-    align-items: flex-start;
+    margin-top: 1.4rem;
+    padding-top: 1rem;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+  }
+
+  #sobre .momento-atual {
+    margin-top: 2.75rem !important;
   }
 
   #sobre .trajectory-aurora__mesh {
