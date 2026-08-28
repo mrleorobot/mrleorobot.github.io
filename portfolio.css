@@ -7427,7 +7427,7 @@ body.is-scroll-locked {
   flex: 1;
   gap: clamp(2rem, 5vw, 6rem);
   align-items: stretch;
-  padding: clamp(2.75rem, 5vw, 5rem) clamp(0rem, 1.5vw, 1rem) clamp(1rem, 2vw, 2rem);
+  padding: clamp(2rem, 4vw, 3.75rem) clamp(0rem, 1.5vw, 1rem) clamp(1rem, 2vw, 2rem);
 }
 
 #sobre .trajectory-stage__year {
@@ -7466,7 +7466,7 @@ body.is-scroll-locked {
   display: block;
   margin-left: -0.06em;
   font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(5.6rem, 12vw, 11.5rem);
+  font-size: clamp(4rem, 8vw, 7.5rem);
   font-weight: 800;
   line-height: 0.72;
   letter-spacing: -0.085em;
@@ -7502,7 +7502,7 @@ body.is-scroll-locked {
   position: relative;
   display: flex;
   min-width: 0;
-  min-height: 24rem;
+  min-height: 19rem;
   overflow: hidden;
   background:
     radial-gradient(circle at 88% 12%, rgba(255, 255, 255, 0.07), transparent 34%),
@@ -7704,7 +7704,7 @@ body.is-scroll-locked {
   }
 
   #sobre .trajectory-stage__year-number {
-    font-size: clamp(5.4rem, 19vw, 9rem);
+    font-size: clamp(4rem, 13vw, 6.5rem);
   }
 
   #sobre .trajectory-stage__phase {
@@ -7757,11 +7757,11 @@ body.is-scroll-locked {
   }
 
   #sobre .trajectory-stage__year-number {
-    font-size: clamp(5rem, 24vw, 7.4rem);
+    font-size: clamp(3.6rem, 16vw, 5.5rem);
   }
 
   #sobre .trajectory-panel {
-    min-height: 26rem;
+    min-height: 21rem;
     border-radius: 0.9rem;
   }
 
