@@ -25,9 +25,10 @@ Os frameworks citados nos cards pertencem aos projetos apresentados, não à imp
 | `index.html` | Conteúdo, semântica, metadados e estrutura da página |
 | `portfolio.css` | Bundle CSS servido em produção |
 | `style.css` e demais camadas CSS | Fontes editáveis do bundle, na ordem documentada |
+| `app.js` | Entrada única dos módulos JavaScript servidos pelo site |
 | `script.js` | Loader, interações, modais e comportamento principal |
 | `hero-ink.js` | Canvas e atmosfera da Hero |
-| `projects.json` | Catálogo estruturado dos 14 projetos |
+| `projects.json` | Fonte dos seis cases selecionados e verificados |
 | `manifest.json`, `sw.js`, `offline.html` | Instalação e funcionamento offline |
 | `qa/` | Testes reais em Chromium desktop e mobile |
 | `docs/` | Contrato visual, conteúdo e modelo de case |
@@ -51,6 +52,12 @@ npm run build:css
 npm run check:css
 ```
 
+Os cases do HTML e o Schema.org são gerados da mesma fonte, evitando divergências:
+
+```bash
+npm run sync:projects
+```
+
 A ordem de composição é preservada para que a cascata e o visual não mudem.
 
 ## QA desktop e mobile
@@ -66,7 +73,13 @@ O workflow `Portfolio QA` executa esses testes em cada push e pull request para 
 
 ## Conteúdo e credibilidade
 
-`projects.json` e os dados estruturados em Schema.org usam somente informações já publicadas nos cards. Nenhuma métrica nova foi inventada. Antes de alterar números públicos, consulte [docs/CONTENT-VERIFICATION.md](docs/CONTENT-VERIFICATION.md).
+`projects.json`, os cards e o Schema.org descrevem apenas funcionalidades observáveis e links públicos. Métricas só podem entrar no site quando houver evidência documentada, seguindo [docs/CONTENT-VERIFICATION.md](docs/CONTENT-VERIFICATION.md).
+
+O currículo é gerado de uma fonte versionada e validado em A4:
+
+```bash
+npm run build:cv
+```
 
 ## Regras de manutenção
 

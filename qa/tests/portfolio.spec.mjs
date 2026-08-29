@@ -138,7 +138,7 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   expect(await gameTitle.evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(45);
 
   const projectArticles = page.locator("article[data-project-id]");
-  await expect(projectArticles).toHaveCount(14);
+  await expect(projectArticles).toHaveCount(6);
   const projectAurora = await projectArticles.first().evaluate((element) => {
     const style = getComputedStyle(element, "::before");
     return { content: style.content, backgroundImage: style.backgroundImage };
@@ -155,7 +155,7 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     expect(lastProjectPairAlignment).toBeLessThan(48);
   }
   const projectTriggers = page.locator('.project-thumbnail-wrapper[role="button"]');
-  await expect(projectTriggers).toHaveCount(9);
+  await expect(projectTriggers).toHaveCount(6);
   for (const trigger of await projectTriggers.all()) {
     await expect(trigger).toHaveAttribute("tabindex", "0");
     await expect(trigger).toHaveAttribute("aria-label", /\S+/);
@@ -345,3 +345,50 @@ test("a trajetória avança automaticamente e pode ser pausada", async ({ page }
   await expect(toggle).toHaveAttribute("aria-pressed", "true");
   await expect(toggle).toContainText("Retomar ciclo");
 });
+
+test("protege posicionamento, credibilidade e conversão comercial", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce", colorScheme: "dark" });
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  await waitForPortfolio(page);
+
+  await expect(page).toHaveTitle("Leonilson Souza | Front-end e Designer de Interfaces");
+  await expect(page.locator("html")).toHaveAttribute("lang", "pt-BR");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /Cases de dashboards, landing pages e experiências web responsivas e acessíveis/);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://mrleorobot.github.io/");
+  await expect(page.locator("#hero .hero-editorial__subtitle")).toContainText("Front-end");
+  await expect(page.locator("#hero .hero-editorial__subtitle")).toContainText("Interface Design");
+  await expect(page.locator("#hero .hero-editorial__desc")).toContainText("do layout à implementação");
+
+  const sourceMarkup = await page.evaluate(async () => {
+    const response = await fetch("./index.html", { cache: "no-store" });
+    return response.text();
+  });
+  expect(sourceMarkup).not.toMatch(/em breve/i);
+  expect(sourceMarkup).not.toContain('href="#"');
+  expect(sourceMarkup).not.toContain("langToggleBtn");
+  expect(sourceMarkup).not.toContain("modal-behance");
+  expect(sourceMarkup).not.toContain("modal-dribbble");
+  expect(sourceMarkup).not.toContain("mural-depoimentos");
+
+  await expect(page.locator(".testimonial-card, .mural-card")).toHaveCount(0);
+  await expect(page.locator("#soft-skills .professional-references")).toBeVisible();
+  await expect(page.locator("#soft-skills .professional-references")).toContainText("autorização e identificação verificável");
+
+  const moduleSources = await page.locator('script[type="module"][src^="./"]').evaluateAll((scripts) =>
+    scripts.map((script) => script.getAttribute("src"))
+  );
+  expect(moduleSources).toHaveLength(1);
+  expect(moduleSources[0]).toMatch(/^\.\/app\.js\?/);
+
+  const projectResponse = await page.request.get(new URL("./projects.json", page.url()).href);
+  expect(projectResponse.ok()).toBe(true);
+  const projectData = await projectResponse.json();
+  expect(projectData.projects).toHaveLength(6);
+  expect(projectData.projects.every((project) => project.status === "live" && project.verifiedAt && project.url.startsWith("https://"))).toBe(true);
+  expect(JSON.stringify(projectData)).not.toMatch(/\d+(?:[.,]\d+)?\s*%|\d+(?:[.,]\d+)?\+|curtidas|downloads|usuários ativos|jogadas|taxa de conversão|tempo médio|reduziu|aumentou/i);
+
+  const caseCards = page.locator("#projetos article[data-project-id]");
+  await expect(caseCards).toHaveCount(projectData.projects.length);
+  await expect(caseCards.locator(".project-case__facts")).toHaveCount(projectData.projects.length);
+  await expect(caseCards.locator(".project-case__facts dt")).toHaveCount(projectData.projects.length * 3);
+  await expect(caseCards.locator('a[href^="https://"]')).toHaveCount(projectData.projects.leng

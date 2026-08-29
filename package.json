@@ -7,6 +7,8 @@
   "scripts": {
     "build:css": "node scripts/build-css.mjs",
     "check:css": "node scripts/build-css.mjs --check",
+    "sync:projects": "node scripts/sync-projects.mjs",
+    "build:cv": "python3 scripts/build-cv.py",
     "qa:install": "npm install --prefix qa --no-audit --no-fund",
     "qa": "npm --prefix qa test"
   },

@@ -11,7 +11,7 @@ Este documento registra a decisão editorial vigente: upgrades técnicos devem p
 5. Cabeçalhos de seção usam apenas título monumental e subtítulo menor; marcadores numéricos como `01`, `02` e equivalentes não fazem parte da linguagem visual.
 6. A Trajetória apresenta um único ano em foco por vez, navegação acessível entre 2023–2026, ciclo automático de 10 segundos com pausa e aurora mesh monocromática.
 7. A aurora ambiente conecta Hero e Trajetória, aparece de forma localizada no hover/foco de Projetos e encerra a narrativa atrás de “Vamos conversar”; a intensidade deve preservar o preto como cor dominante.
-8. A ordem narrativa é: Hero, Trajetória, Projetos, UX/UI Design, Tecnologias, Game Dev, Comunidade, FAQ e Vamos conversar.
+8. A ordem narrativa é: Hero, Trajetória, Projetos, Design de Interfaces, Tecnologias, Game Dev, Ensino e Colaboração, FAQ e Vamos conversar.
 9. Cards, imagens, mockups, Pixel Art, microinterações e transições existentes permanecem disponíveis.
 10. O rodapé mantém marca à esquerda, citação à direita e copyright centralizado.
 11. No mobile, o dock inferior e a rolagem vertical nativa permanecem funcionais.

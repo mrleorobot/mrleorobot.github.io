@@ -1,17 +1,17 @@
 /* =========================================================
    CRITICAL FIX — NAV VISIBILITY
    ========================================================= */
-nav.nav-motion, header {
+nav.nav-motion,header{
   z-index: 10001;
   position: relative;
 }
-.nav-links {
+.nav-links{
   z-index: 10002;
 }
-.logo {
+.logo{
   z-index: 10003;
 }
-.scroll-progress-container {
+.scroll-progress-container{
   z-index: 10004;
 }
 
@@ -21,11 +21,11 @@ nav.nav-motion, header {
    ========================================================= */
 
 /* ─── 1. SMOOTH SCROLL ─── */
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto; }
+html.lenis,html.lenis body{ height: auto; }
+.lenis.lenis-smooth{ scroll-behavior: auto; }
 
 /* ─── 2. HERO TYPOGRAPHY ─── */
-.hero-editorial__name {
+.hero-editorial__name{
   font-size: clamp(3.2rem, 10vw, 9.5rem);
   line-height: 0.88;
   letter-spacing: -0.04em;
@@ -33,7 +33,7 @@ html.lenis, html.lenis body { height: auto; }
   text-transform: uppercase;
   overflow: hidden;
 }
-.hero-editorial__name span[aria-hidden="true"] {
+.hero-editorial__name span[aria-hidden="true"]{
   display: block;
   transform: translateY(105%);
   animation: heroNameUp 1.2s cubic-bezier(.16,1,.3,1) forwards;
@@ -42,7 +42,7 @@ html.lenis, html.lenis body { height: auto; }
 @keyframes heroNameUp {
   to { transform: translateY(0); }
 }
-.hero-editorial__subtitle {
+.hero-editorial__subtitle{
   font-size: clamp(0.9rem, 1.8vw, 1.35rem);
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -50,7 +50,7 @@ html.lenis, html.lenis body { height: auto; }
   color: rgba(255,255,255,0.55);
   margin-top: 1.2rem;
 }
-.hero-editorial__subtitle .ink-reveal--word {
+.hero-editorial__subtitle .ink-reveal--word{
   display: inline-block;
   opacity: 0;
   transform: translateY(12px);
@@ -61,64 +61,64 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 /* ─── 3. SECTION REVEAL — opacity + translateY (GPU) ─── */
-.section-reveal {
+.section-reveal{
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.8s cubic-bezier(.16,1,.3,1),
               transform 0.8s cubic-bezier(.16,1,.3,1);
 }
-.section-reveal.is-visible {
+.section-reveal.is-visible{
   opacity: 1;
   transform: translateY(0);
 }
 
 /* ─── 4. PROJECT CARDS — scale + opacity (GPU, sem clip-path) ─── */
-.project-card__media {
+.project-card__media{
   opacity: 0;
   transform: scale(0.95);
   transition: opacity 1s cubic-bezier(.16,1,.3,1),
               transform 1s cubic-bezier(.16,1,.3,1);
 }
-.project-card__media.is-revealed {
+.project-card__media.is-revealed{
   opacity: 1;
   transform: scale(1);
 }
-.project-card {
+.project-card{
   transition: transform 0.4s cubic-bezier(.16,1,.3,1),
               box-shadow 0.4s ease;
 }
-.project-card:hover {
+.project-card:hover{
   box-shadow: 0 0 40px rgba(255,255,255,0.04);
 }
-.project-card__media img {
+.project-card__media img{
   transition: transform 0.8s cubic-bezier(.16,1,.3,1);
   will-change: transform;
 }
-.project-card:hover .project-card__media img {
+.project-card:hover .project-card__media img{
   transform: scale(1.04);
 }
-.project-card__tech-tag {
+.project-card__tech-tag{
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.4s ease, transform 0.4s cubic-bezier(.16,1,.3,1);
 }
-.project-card.is-revealed .project-card__tech-tag {
+.project-card.is-revealed .project-card__tech-tag{
   opacity: 1;
   transform: translateY(0);
 }
-.project-card.is-revealed .project-card__tech-tag:nth-child(1) { transition-delay: 0.2s; }
-.project-card.is-revealed .project-card__tech-tag:nth-child(2) { transition-delay: 0.3s; }
-.project-card.is-revealed .project-card__tech-tag:nth-child(3) { transition-delay: 0.4s; }
-.project-card.is-revealed .project-card__tech-tag:nth-child(4) { transition-delay: 0.5s; }
-.project-card.is-revealed .project-card__tech-tag:nth-child(5) { transition-delay: 0.6s; }
+.project-card.is-revealed .project-card__tech-tag:nth-child(1){ transition-delay: 0.2s; }
+.project-card.is-revealed .project-card__tech-tag:nth-child(2){ transition-delay: 0.3s; }
+.project-card.is-revealed .project-card__tech-tag:nth-child(3){ transition-delay: 0.4s; }
+.project-card.is-revealed .project-card__tech-tag:nth-child(4){ transition-delay: 0.5s; }
+.project-card.is-revealed .project-card__tech-tag:nth-child(5){ transition-delay: 0.6s; }
 
 /* ─── 5. EDITORIAL LINKS ─── */
-.editorial-link {
+.editorial-link{
   position: relative;
   text-decoration: none;
   color: inherit;
 }
-.editorial-link::after {
+.editorial-link::after{
   content: '';
   position: absolute;
   left: 0;
@@ -130,28 +130,28 @@ html.lenis, html.lenis body { height: auto; }
   transform-origin: right;
   transition: transform 0.5s cubic-bezier(.16,1,.3,1);
 }
-.editorial-link:hover::after {
+.editorial-link:hover::after{
   transform: scaleX(1);
   transform-origin: left;
 }
 
 /* ─── 6. SCROLLBAR ─── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.35); }
+::-webkit-scrollbar{ width: 6px; }
+::-webkit-scrollbar-track{ background: transparent; }
+::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover{ background: rgba(255,255,255,0.35); }
 
-/* ─── 7. NOISE GRAIN — CSS-only, sem animation pesada ─── */
-.noise-overlay {
+/* ─── 7. NOISE GRAIN — CSS-only,sem animation pesada ─── */
+.noise-overlay{
   opacity: 0.03;
 }
 
 /* ─── 8. HERO CTA SHINE ─── */
-.hero-editorial__cta .btn-primary {
+.hero-editorial__cta .btn-primary{
   position: relative;
   overflow: hidden;
 }
-.hero-editorial__cta .btn-primary::before {
+.hero-editorial__cta .btn-primary::before{
   content: '';
   position: absolute;
   inset: 0;
@@ -159,46 +159,40 @@ html.lenis, html.lenis body { height: auto; }
   transform: translateX(-100%);
   transition: transform 0.6s ease;
 }
-.hero-editorial__cta .btn-primary:hover::before {
+.hero-editorial__cta .btn-primary:hover::before{
   transform: translateX(100%);
 }
 
 /* ─── 9. TIMELINE ENTRANCE ─── */
-.timeline-item {
+.timeline-item{
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1);
 }
-.timeline-item.is-visible {
+.timeline-item.is-visible{
   opacity: 1;
   transform: translateY(0);
 }
 
 /* ─── 10. SKILL TAGS ─── */
-.skill-tag {
+.skill-tag{
   opacity: 0;
   transform: translateY(15px);
   transition: opacity 0.5s ease, transform 0.5s cubic-bezier(.16,1,.3,1), background 0.3s;
 }
-.skill-tag.is-visible {
+.skill-tag.is-visible{
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ─── 11. TESTIMONIAL CARDS ─── */
-.testimonial-card {
-  transition: transform 0.5s cubic-bezier(.16,1,.3,1), box-shadow 0.5s ease;
-}
-.testimonial-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-}
+
+
 
 /* ─── 12. FOOTER LINKS ─── */
-.footer-links a {
+.footer-links a{
   position: relative;
 }
-.footer-links a::after {
+.footer-links a::after{
   content: '';
   position: absolute;
   left: 0;
@@ -210,7 +204,7 @@ html.lenis, html.lenis body { height: auto; }
   transform-origin: right;
   transition: transform 0.4s cubic-bezier(.16,1,.3,1);
 }
-.footer-links a:hover::after {
+.footer-links a:hover::after{
   transform: scaleX(1);
   transform-origin: left;
 }
@@ -219,25 +213,25 @@ html.lenis, html.lenis body { height: auto; }
 /* O efeito de revelar letra-por-letra dependia de uma classe (.is-visible)
    que nenhum JS nunca adiciona a este elemento especificamente — só o
    #projetos (seção inteira) recebe essa classe. Resultado: o texto ficava
-   opacity:0 pra sempre, e só a section-title-kinetic/reveal-item (que já
+   opacity:0 pra sempre,e só a section-title-kinetic/reveal-item (que já
    funcionam) tomavam conta da revelação normal do título. */
 
-.projects-header__subtitle {
+.projects-header__subtitle{
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s ease 0.4s, transform 0.8s cubic-bezier(.16,1,.3,1) 0.4s;
 }
-.projects-header__subtitle.is-visible {
+.projects-header__subtitle.is-visible{
   opacity: 1;
   transform: translateY(0);
 }
 
 /* ─── 14. CTA SHINE ─── */
-.projects-cta-all {
+.projects-cta-all{
   position: relative;
   overflow: hidden;
 }
-.projects-cta-all::after {
+.projects-cta-all::after{
   content: '';
   position: absolute;
   inset: 0;
@@ -246,35 +240,35 @@ html.lenis, html.lenis body { height: auto; }
   transition: transform 0.8s ease;
   pointer-events: none;
 }
-.projects-cta-all:hover::after {
+.projects-cta-all:hover::after{
   transform: translateX(100%);
 }
 
 /* ─── 15. DESCRIÇÃO FADE ─── */
-.project-card__desc {
+.project-card__desc{
   opacity: 0.7;
   transition: opacity 0.4s ease;
 }
-.project-card:hover .project-card__desc {
+.project-card:hover .project-card__desc{
   opacity: 1;
 }
 
 /* =========================================================
-   LOADER V2 — CSS Puro, GPU-accelerated
+   LOADER V2 — CSS Puro,GPU-accelerated
    ========================================================= */
 
 /* Esconder canvas do loader antigo (pesado) */
-#loader-stars-canvas {
+#loader-stars-canvas{
   display: none !important;
 }
 
 /* Background do loader */
-#cinematic-loader {
+#cinematic-loader{
   background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 70%);
 }
 
 /* Brilho sutil no fundo */
-#cinematic-loader::before {
+#cinematic-loader::before{
   content: '';
   position: absolute;
   inset: 0;
@@ -290,7 +284,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 /* Letras do nome com glow */
-#cinematic-loader .brand-letter {
+#cinematic-loader .brand-letter{
   text-shadow: 0 0 20px rgba(255,255,255,0.15);
   animation: letterGlow 2s ease-in-out infinite alternate;
 }
@@ -304,7 +298,7 @@ html.lenis, html.lenis body { height: auto; }
    CASE STUDY OVERLAY
    ========================================================= */
 
-.project-case-overlay {
+.project-case-overlay{
   position: fixed;
   inset: 0;
   z-index: 20000;
@@ -315,16 +309,16 @@ html.lenis, html.lenis body { height: auto; }
   opacity: 0;
   transition: opacity 0.6s cubic-bezier(.16,1,.3,1);
 }
-.project-case-overlay.is-active {
+.project-case-overlay.is-active{
   pointer-events: all;
   opacity: 1;
 }
-.project-case-overlay__bg {
+.project-case-overlay__bg{
   position: absolute;
   inset: 0;
   background: rgba(0,0,0,0.92);
 }
-.project-case-overlay__image {
+.project-case-overlay__image{
   position: absolute;
   inset: 0;
   opacity: 0;
@@ -332,17 +326,17 @@ html.lenis, html.lenis body { height: auto; }
   transition: opacity 1s cubic-bezier(.16,1,.3,1) 0.15s,
               transform 1.2s cubic-bezier(.16,1,.3,1) 0.3s;
 }
-.project-case-overlay.is-active .project-case-overlay__image {
+.project-case-overlay.is-active .project-case-overlay__image{
   opacity: 1;
   transform: scale(1);
 }
-.project-case-overlay__image img {
+.project-case-overlay__image img{
   width: 100%;
   height: 100%;
   object-fit: cover;
   filter: brightness(0.4);
 }
-.project-case-overlay__image::after {
+.project-case-overlay__image::after{
   content: '';
   position: absolute;
   inset: 0;
@@ -351,7 +345,7 @@ html.lenis, html.lenis body { height: auto; }
     rgba(0,0,0,0.6) 50%, 
     rgba(0,0,0,0.9) 100%);
 }
-.project-case-overlay__content {
+.project-case-overlay__content{
   position: relative;
   z-index: 2;
   max-width: 720px;
@@ -359,7 +353,7 @@ html.lenis, html.lenis body { height: auto; }
   padding: 2rem;
   text-align: center;
 }
-.project-case-overlay__title {
+.project-case-overlay__title{
   font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 900;
   letter-spacing: -0.03em;
@@ -371,11 +365,11 @@ html.lenis, html.lenis body { height: auto; }
   transition: opacity 0.7s cubic-bezier(.16,1,.3,1) 0.4s,
               transform 0.7s cubic-bezier(.16,1,.3,1) 0.4s;
 }
-.project-case-overlay.is-active .project-case-overlay__title {
+.project-case-overlay.is-active .project-case-overlay__title{
   opacity: 1;
   transform: translateY(0);
 }
-.project-case-overlay__desc {
+.project-case-overlay__desc{
   font-size: clamp(0.95rem, 1.5vw, 1.15rem);
   line-height: 1.7;
   color: rgba(255,255,255,0.7);
@@ -385,11 +379,11 @@ html.lenis, html.lenis body { height: auto; }
   transition: opacity 0.6s cubic-bezier(.16,1,.3,1) 0.55s,
               transform 0.6s cubic-bezier(.16,1,.3,1) 0.55s;
 }
-.project-case-overlay.is-active .project-case-overlay__desc {
+.project-case-overlay.is-active .project-case-overlay__desc{
   opacity: 1;
   transform: translateY(0);
 }
-.project-case-overlay__tech {
+.project-case-overlay__tech{
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -400,11 +394,11 @@ html.lenis, html.lenis body { height: auto; }
   transition: opacity 0.6s cubic-bezier(.16,1,.3,1) 0.65s,
               transform 0.6s cubic-bezier(.16,1,.3,1) 0.65s;
 }
-.project-case-overlay.is-active .project-case-overlay__tech {
+.project-case-overlay.is-active .project-case-overlay__tech{
   opacity: 1;
   transform: translateY(0);
 }
-.project-case-overlay__tech-tag {
+.project-case-overlay__tech-tag{
   padding: 0.35rem 0.9rem;
   border: 1px solid rgba(255,255,255,0.2);
   border-radius: 100px;
@@ -414,7 +408,7 @@ html.lenis, html.lenis body { height: auto; }
   color: rgba(255,255,255,0.7);
   background: rgba(255,255,255,0.05);
 }
-.project-case-overlay__cta {
+.project-case-overlay__cta{
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -433,15 +427,15 @@ html.lenis, html.lenis body { height: auto; }
               transform 0.6s cubic-bezier(.16,1,.3,1) 0.75s,
               background 0.3s ease, border-color 0.3s ease;
 }
-.project-case-overlay.is-active .project-case-overlay__cta {
+.project-case-overlay.is-active .project-case-overlay__cta{
   opacity: 1;
   transform: translateY(0);
 }
-.project-case-overlay__cta:hover {
+.project-case-overlay__cta:hover{
   background: rgba(255,255,255,0.1);
   border-color: rgba(255,255,255,0.6);
 }
-.project-case-overlay__close {
+.project-case-overlay__close{
   position: absolute;
   top: 2rem;
   right: 2rem;
@@ -462,16 +456,16 @@ html.lenis, html.lenis body { height: auto; }
               transform 0.5s cubic-bezier(.16,1,.3,1) 0.5s,
               background 0.3s ease, border-color 0.3s ease;
 }
-.project-case-overlay.is-active .project-case-overlay__close {
+.project-case-overlay.is-active .project-case-overlay__close{
   opacity: 1;
   transform: scale(1) rotate(0deg);
 }
-.project-case-overlay__close:hover {
+.project-case-overlay__close:hover{
   background: rgba(255,255,255,0.15);
   border-color: rgba(255,255,255,0.5);
   transform: scale(1.1) rotate(90deg);
 }
-.project-case-overlay__close svg {
+.project-case-overlay__close svg{
   width: 20px;
   height: 20px;
   stroke: #fff;
@@ -483,7 +477,7 @@ html.lenis, html.lenis body { height: auto; }
    MOBILE EXPERIENCE
    ========================================================= */
 
-@media (max-width: 768px) {
+@media (max-width: 768px){
   .nav-links {
     background: rgba(3, 3, 3, 0.98);
     transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
@@ -623,14 +617,6 @@ html.lenis, html.lenis body { height: auto; }
   .tech-lab__orbit .tech-node:nth-child(3n) { animation-delay: 1s; }
   .tech-lab__orbit .tech-node:nth-child(4n) { animation-delay: 1.5s; }
 
-  .testimonial-card {
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease, box-shadow 0.5s ease;
-  }
-  .testimonial-card.active {
-    transform: scale(1.02);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  }
-
   .scroll-progress-bar {
     height: 2px;
     background: linear-gradient(90deg, #fff, rgba(255,255,255,0.3));
@@ -675,7 +661,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 /* ─── REDUCED MOTION ─── */
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce){
   .section-reveal, .timeline-item, .skill-tag { 
     opacity: 1; 
     transform: none; 
@@ -708,14 +694,14 @@ html.lenis, html.lenis body { height: auto; }
    ========================================================= */
 
 /* Hero escondida enquanto loader está ativo */
-body.loading-locked #hero {
+body.loading-locked #hero{
   opacity: 0;
   visibility: hidden;
   transition: none;
 }
 
 /* Hero revelada suavemente após loader */
-body.loader-complete #hero {
+body.loader-complete #hero{
   opacity: 1;
   visibility: visible;
   transition: opacity 1.5s cubic-bezier(.16,1,.3,1), visibility 0s;
@@ -724,77 +710,16 @@ body.loader-complete #hero {
 /* Estrela cadente: ver definição única e completa mais abaixo neste arquivo */
 
 /* Hero canvas de estrelas — continua animado */
-#hero-ink-canvas {
+#hero-ink-canvas{
   opacity: 0.6;
   transition: opacity 1s ease;
 }
 
-body.loader-complete #hero-ink-canvas {
+body.loader-complete #hero-ink-canvas{
   opacity: 1;
 }
 
 /* ==========================================================================
    ESTRELA CADENTE DO LOADER — versão única e definitiva
-   Rastro longo + cabeça brilhante, caindo em diagonal antes de revelar o nome.
-   ========================================================================== */
-.loader-shooting-star__trail {
-  position: absolute;
-  width: clamp(160px, 22vw, 320px);
-  height: 3px;
-  background: linear-gradient(
-    115deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.05) 12%,
-    rgba(255, 255, 255, 0.35) 50%,
-    rgba(255, 255, 255, 0.9) 85%,
-    #ffffff 100%
-  );
-  border-radius: 999px;
-  opacity: 0;
-  transform: rotate(35deg);
-  filter: blur(0.4px);
-}
-
-.loader-shooting-star__trail::after {
-  content: "";
-  position: absolute;
-  right: -4px;
-  top: 50%;
-  width: clamp(7px, 1.4vw, 11px);
-  height: clamp(7px, 1.4vw, 11px);
-  transform: translateY(-50%);
-  background: #ffffff;
-  border-radius: 50%;
-  box-shadow:
-    0 0 14px 3px rgba(255, 255, 255, 0.95),
-    0 0 34px 10px rgba(255, 255, 255, 0.55),
-    0 0 70px 22px rgba(255, 255, 255, 0.2);
-}
-
-.loader-shooting-star__trail.animate {
-  animation: loader-star-fall 1.3s cubic-bezier(0.45, 0, 0.4, 1) forwards;
-}
-
-@keyframes loader-star-fall {
-  0% {
-    opacity: 0;
-    transform: rotate(35deg) translateX(-60px) scale(0.7);
-  }
-  14% {
-    opacity: 1;
-  }
-  78% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: rotate(35deg) translateX(min(80vw, 780px)) scale(1.05);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .loader-shooting-star__trail.animate {
-    animation: none;
-    opacity: 0;
-  }
-}
+   Rastro longo + cabeça brilhante,caindo em diagonal antes de revelar o nome.
+   ======

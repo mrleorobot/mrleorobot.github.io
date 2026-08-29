@@ -150,7 +150,7 @@
   function init3DTilt() {
     if (isTouchDevice || prefersReducedMotion) return;
 
-    const cards = document.querySelectorAll('.project-card, .testimonial-card');
+    const cards = document.querySelectorAll('.project-card');
 
     cards.forEach(card => {
       card.classList.add('tilt-card');
@@ -180,7 +180,7 @@
   function initSpotlightHover() {
     if (isTouchDevice) return;
 
-    const cards = document.querySelectorAll('.project-card, .testimonial-card, .faq-item');
+    const cards = document.querySelectorAll('.project-card, .faq-item');
 
     cards.forEach(card => {
       card.classList.add('spotlight-card');
@@ -284,7 +284,7 @@
   // 11. STAGGER REVEAL
   // ═══════════════════════════════════════════
   function initStaggerReveal() {
-    const elements = document.querySelectorAll('.timeline-item, .tech-label, .faq-item, .testimonial-card, .project-card');
+    const elements = document.querySelectorAll('.timeline-item, .tech-label, .faq-item, .project-card');
 
     elements.forEach((el, i) => {
       el.classList.add('reveal-stagger');
@@ -462,7 +462,7 @@
   // 18. DEPTH CARDS
   // ═══════════════════════════════════════════
   function initDepthCards() {
-    const cards = document.querySelectorAll('.project-card, .testimonial-card');
+    const cards = document.querySelectorAll('.project-card');
     cards.forEach(card => card.classList.add('depth-card'));
   }
 
@@ -470,7 +470,7 @@
   // 19. GLOW BORDERS
   // ═══════════════════════════════════════════
   function initGlowBorders() {
-    const sections = document.querySelectorAll('.project-card, .testimonial-card, .faq-item');
+    const sections = document.querySelectorAll('.project-card, .faq-item');
     sections.forEach(s => s.classList.add('glow-border'));
   }
 
@@ -497,4 +497,8 @@
         bottom: 0; left: 50%;
         width: 0; height: 1px;
         background: rgba(255,255,255,0.5);
-        transition: width 0.3s ease, left 0.3s ease
+        transition: width 0.3s ease, left 0.3s ease;
+      `;
+      link.appendChild(underline);
+
+      link.addEventListener('mouseenter', () => 

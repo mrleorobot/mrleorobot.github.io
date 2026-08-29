@@ -1,179 +1,98 @@
 {
-  "schemaVersion": 1,
-  "generatedAt": "2026-08-26",
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-29",
   "source": "https://mrleorobot.github.io/",
+  "verificationPolicy": "Somente funcionalidades observáveis e links públicos são descritos. Métricas dependem de evidência documentada.",
   "projects": [
     {
       "id": "dashboard-de-inventario",
-      "title": "DashBoard de Inventário",
-      "description": "Painel de controle de estoque com alertas inteligentes de produtos em baixa, analytics em tempo real de vendas e exportação automatizada de relatórios. Reduziu perdas por falta de produto em 40%.",
-      "technologies": [
-        "Next.js",
-        "TypeScript",
-        "Framer Motion"
-      ],
+      "title": "Dashboard de Inventário",
+      "summary": "Painel responsivo para acompanhar estoque, priorizar itens em baixa e organizar a leitura de vendas e relatórios.",
+      "challenge": "Transformar dados operacionais dispersos em uma visão rápida para tomada de decisão.",
+      "decision": "Dar prioridade visual aos alertas, ao estado do estoque e às ações mais frequentes.",
+      "delivery": "Dashboard navegável com filtros, indicadores, alertas e exportação de relatórios.",
+      "role": "Front-end e design de interface",
+      "technologies": ["Next.js", "TypeScript", "Framer Motion"],
       "url": "https://dashboard-de-inventario.vercel.app/",
       "image": "./placeholder-dashboard.jpg",
-      "imageAlt": "Miniatura do Dashboard de Inventário"
+      "imageAlt": "Tela do Dashboard de Inventário com indicadores e tabela de produtos",
+      "status": "live",
+      "verifiedAt": "2026-08-29"
     },
     {
       "id": "refugio-sereno",
       "title": "Refúgio Sereno",
-      "description": "Aplicativo de produtividade gamificado para neurodivergentes (TDAH), com sugestões de IA para foco e sincronização em tempo real entre dispositivos. Aumentou a conclusão de tarefas em 65% entre usuários beta.",
-      "technologies": [
-        "React",
-        "Firebase",
-        "Gemini API"
-      ],
+      "summary": "Aplicativo de organização e foco pensado para reduzir sobrecarga visual e apoiar rotinas de pessoas neurodivergentes.",
+      "challenge": "Organizar tarefas sem transformar a interface em mais uma fonte de distração.",
+      "decision": "Usar hierarquia calma, feedback direto e progressão visual para tornar o próximo passo evidente.",
+      "delivery": "Aplicação responsiva com tarefas, sugestões de foco, gamificação e sincronização de dados.",
+      "role": "Front-end e design de interface",
+      "technologies": ["React", "Firebase", "Gemini API"],
       "url": "https://refugiosereno.vercel.app/",
       "image": "./placeholder-refugio.jpg",
-      "imageAlt": "Miniatura do Refúgio Sereno"
-    },
-    {
-      "id": "portal-corporativo",
-      "title": "Portal Corporativo",
-      "description": "Intranet completa com módulos de treinamento, holerite digital, avaliação de desempenho, gestão de benefícios e férias. Centralizou 8 processos HR em uma única plataforma.",
-      "technologies": [
-        "Next.js",
-        "React Hook Form",
-        "Zustand"
-      ],
-      "url": "https://portal-corporativo.vercel.app/",
-      "image": "./placeholder-portal.jpg",
-      "imageAlt": "Miniatura do Portal Corporativo"
-    },
-    {
-      "id": "dsol-ai",
-      "title": "Dsol AI",
-      "description": "Tutor educacional com IA generativa, chat com renderização em Markdown e exportação de conversas em PDF. Suporta 3 idiomas e já respondeu 12.000+ dúvidas de estudantes.",
-      "technologies": [
-        "React",
-        "Firebase",
-        "Gemini API"
-      ],
-      "url": "https://dsol-ai.vercel.app/",
-      "image": "./placeholder-chat-ia.jpg",
-      "imageAlt": "Miniatura do Dsol AI"
+      "imageAlt": "Tela do aplicativo Refúgio Sereno com organização de tarefas e foco",
+      "status": "live",
+      "verifiedAt": "2026-08-29"
     },
     {
       "id": "one-thing",
       "title": "ONE THING",
-      "description": "Experiência web experimental explorando tipografia variável, espaço negativo e micro-interações de 60fps. Estudo de caso publicado no Dribbble com 2.300+ curtidas.",
-      "technologies": [
-        "Vite",
-        "Framer Motion"
-      ],
+      "summary": "Experiência editorial que explora tipografia, espaço negativo e movimento como elementos principais da navegação.",
+      "challenge": "Criar presença visual forte com poucos elementos e sem depender de excesso de conteúdo.",
+      "decision": "Construir a hierarquia a partir de uma mensagem dominante, ritmo tipográfico e microinterações discretas.",
+      "delivery": "Landing page experimental responsiva com tipografia variável e transições orientadas por movimento.",
+      "role": "Front-end e direção de interface",
+      "technologies": ["Vite", "JavaScript", "Framer Motion"],
       "url": "https://one-thing-alive.vercel.app/",
       "image": "./screenshot-onething.jpg",
-      "imageAlt": "Screenshot do projeto ONE THING"
-    },
-    {
-      "id": "komorebi",
-      "title": "Komorebi",
-      "description": "Landing page premium para torrefação artesanal de café, com design atmosférico inspirado na estética japonesa. Aumentou a taxa de conversão de visitantes em 3x.",
-      "technologies": [
-        "React",
-        "Vite"
-      ],
-      "url": "https://komorebi-gray.vercel.app/",
-      "image": "./screenshot-komorebi.jpg",
-      "imageAlt": "Screenshot do projeto Komorebi"
+      "imageAlt": "Página inicial do projeto editorial ONE THING",
+      "status": "live",
+      "verifiedAt": "2026-08-29"
     },
     {
       "id": "memory-exe",
       "title": "MEMORY.EXE",
-      "description": "Narrativa interativa experimental em PT-BR e EN, inspirada em jogos de PS1 e creepypastas dos anos 90. 8.000+ jogadas no primeiro mês, destaque na itch.io.",
-      "technologies": [
-        "Vite",
-        "JavaScript"
-      ],
+      "summary": "Narrativa web interativa com atmosfera inspirada em jogos de PS1 e navegação disponível em português e inglês.",
+      "challenge": "Sustentar imersão narrativa sem perder orientação, legibilidade e controle pelo usuário.",
+      "decision": "Combinar estética de baixa fidelidade, pistas visuais e interações progressivas em uma experiência coesa.",
+      "delivery": "Experiência responsiva com narrativa ramificada, ambientação audiovisual e seleção de idioma.",
+      "role": "Front-end, interação e direção visual",
+      "technologies": ["Vite", "JavaScript", "CSS"],
       "url": "https://memory-archive-project.vercel.app/",
       "image": "./screenshot-memoryexe.jpg",
-      "imageAlt": "Screenshot do projeto MEMORY.EXE"
+      "imageAlt": "Cena da narrativa interativa MEMORY.EXE com estética de jogo retrô",
+      "status": "live",
+      "verifiedAt": "2026-08-29"
+    },
+    {
+      "id": "komorebi",
+      "title": "Komorebi",
+      "summary": "Landing page para uma marca conceitual de café, com narrativa visual atmosférica e foco na apresentação do produto.",
+      "challenge": "Traduzir uma identidade artesanal em uma página clara, desejável e fácil de percorrer.",
+      "decision": "Usar fotografia, contraste e ritmo de conteúdo para conduzir o olhar até os produtos e chamadas principais.",
+      "delivery": "Landing page responsiva com catálogo visual, seções editoriais e transições sutis.",
+      "role": "Front-end e design de interface",
+      "technologies": ["React", "Vite", "CSS"],
+      "url": "https://komorebi-gray.vercel.app/",
+      "image": "./screenshot-komorebi.jpg",
+      "imageAlt": "Landing page da marca conceitual de café Komorebi",
+      "status": "live",
+      "verifiedAt": "2026-08-29"
     },
     {
       "id": "hanamori",
       "title": "Hanamori",
-      "description": "Landing page ilustrada com paisagens pintadas à mão, florestas e criaturas mágicas. Toda a arte e animação foram criadas com CSS puro — zero imagens externas.",
-      "technologies": [
-        "Vite",
-        "CSS Art"
-      ],
+      "summary": "Landing page ilustrada que combina arte digital, profundidade e movimento para criar uma experiência de exploração.",
+      "challenge": "Construir uma atmosfera rica sem comprometer a leitura e o fluxo responsivo da página.",
+      "decision": "Organizar a composição em camadas, equilibrando ilustração, texto e movimento conforme o tamanho da tela.",
+      "delivery": "Experiência web responsiva com ilustrações, animações e narrativa visual integrada.",
+      "role": "Front-end e direção visual",
+      "technologies": ["Vite", "CSS", "JavaScript"],
       "url": "https://hanamori.vercel.app/",
       "image": "./screenshot-hanamori.jpg",
-      "imageAlt": "Screenshot do projeto Hanamori"
-    },
-    {
-      "id": "aurvm",
-      "title": "AURVM",
-      "description": "E-commerce de joalheria autoral em ouro 18k e pedras raras, com galeria 3D de peças únicas esculpidas à mão. Média de 4:30 min de permanência na página.",
-      "technologies": [
-        "React",
-        "Vite"
-      ],
-      "url": "https://haute-luxe-glow.vercel.app/",
-      "image": "./screenshot-aurvm.jpg",
-      "imageAlt": "Screenshot do projeto AURVM"
-    },
-    {
-      "id": "ledgeriq",
-      "title": "LedgerIQ",
-      "description": "Sistema de auditoria financeira com extração automática de dados de notas fiscais via IA. Reduziu o tempo de processamento de documentos de 4h para 15 min.",
-      "technologies": [
-        "Next.js",
-        "Gemini API"
-      ],
-      "url": "https://find-seven-psi.vercel.app/",
-      "image": "https://image.thum.io/get/width/800/crop/500/noanimate/https://find-seven-psi.vercel.app/",
-      "imageAlt": "Screenshot do projeto LedgerIQ"
-    },
-    {
-      "id": "mentor-de-estagio",
-      "title": "Mentor de Estágio",
-      "description": "Plataforma de mentoria e organização acadêmica para estagiários, com cronogramas, checklists de documentação e canal direto com mentores. 340+ estagiários ativos.",
-      "technologies": [
-        "Next.js",
-        "React"
-      ],
-      "url": "https://estagio-steel.vercel.app/",
-      "image": "https://image.thum.io/get/width/800/crop/500/noanimate/https://estagio-steel.vercel.app/",
-      "imageAlt": "Screenshot do projeto Mentor de Estágio"
-    },
-    {
-      "id": "develite",
-      "title": "DevElite",
-      "description": "Landing page de mentoria em tecnologia com foco em carreira e posicionamento profissional. Copy direto e técnico, taxa de conversão de 8.2% em campanhas orgânicas.",
-      "technologies": [
-        "Next.js",
-        "TypeScript"
-      ],
-      "url": "https://develite-lemon.vercel.app/",
-      "image": "https://image.thum.io/get/width/800/crop/500/noanimate/https://develite-lemon.vercel.app/",
-      "imageAlt": "Screenshot do projeto DevElite"
-    },
-    {
-      "id": "memoire",
-      "title": "MÉMOIRE",
-      "description": "Site de perfumaria autoral com design sensorial e experiência imersiva. Cada fragrância tem uma narrativa visual única. Tempo médio de sessão: 5 minutos.",
-      "technologies": [
-        "JavaScript",
-        "CSS"
-      ],
-      "url": "https://memoire-nine-psi.vercel.app/",
-      "image": "https://image.thum.io/get/width/800/crop/500/noanimate/https://memoire-nine-psi.vercel.app/",
-      "imageAlt": "Screenshot do projeto MÉMOIRE"
-    },
-    {
-      "id": "nocturne-studio",
-      "title": "Nocturne Studio",
-      "description": "Portfólio de estúdio indie de animação e jogos com estética Cozy Night. Reúne 6 projetos publicados, 15.000+ downloads e comunidade de 2.400+ fãs.",
-      "technologies": [
-        "Vite",
-        "React"
-      ],
-      "url": "https://cozy-night-studio-landing.vercel.app/",
-      "image": "https://image.thum.io/get/width/800/crop/500/noanimate/https://cozy-night-studio-landing.vercel.app/",
-      "imageAlt": "Screenshot do projeto Nocturne Studio"
+      "imageAlt": "Paisagem ilustrada da landing page Hanamori",
+      "status": "live",
+      "verifiedAt": "2026-08-29"
     }
   ]
 }

@@ -11,7 +11,7 @@
 
 /* ─── 3. SIMPLIFICAR BOX-SHADOW (culpado #3) ─── */
 *{box-shadow:none!important}
-.project-card,.design-card,.contact-panel,.cta-panel,.status-card,.narrative-box,.testimonial-card,.spotlight-card{box-shadow:0 4px 20px rgba(0,0,0,0.3)!important}
+.project-card,.design-card,.contact-panel,.cta-panel,.status-card,.narrative-box,.spotlight-card{box-shadow:0 4px 20px rgba(0,0,0,0.3)!important}
 .project-card:hover,.design-card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.4)!important}
 
 /* ─── 4. DESATIVAR ANIMAÇÕES NÃO-ESSENCIAIS ─── */

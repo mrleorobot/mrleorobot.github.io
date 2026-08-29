@@ -4,27 +4,27 @@
    Desktop = max wow. Mobile / reduced-motion = fluidity first.
    ========================================================================== */
 
-:root {
+:root{
   --pl-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --pl-line: rgba(255, 255, 255, 0.1);
 }
 
 /* ---- Global refinement --------------------------------------------------- */
-::selection {
+::selection{
   background: #ffffff;
   color: #000000;
 }
-::-moz-selection {
+::-moz-selection{
   background: #ffffff;
   color: #000000;
 }
 
-html {
+html{
   scroll-behavior: smooth;
 }
 
 /* Custom monochrome scrollbar */
-@media (min-width: 992px) {
+@media (min-width: 992px){
   * {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
@@ -47,15 +47,15 @@ html {
 }
 
 /* Smoother reveal choreography (kept compatible with existing .revealed) */
-.reveal-item {
+.reveal-item{
   will-change: opacity, transform, filter;
 }
 
-/* Refined kinetic section titles — deeper hierarchy, tighter tracking */
-.section-title-kinetic {
+/* Refined kinetic section titles — deeper hierarchy,tighter tracking */
+.section-title-kinetic{
   letter-spacing: -0.03em !important;
 }
-.section-title-kinetic > span[aria-hidden="true"] {
+.section-title-kinetic > span[aria-hidden="true"]{
   display: inline-block;
   background: linear-gradient(
     180deg,
@@ -69,25 +69,11 @@ html {
 }
 
 /* Eyebrows: consistent editorial micro-label with a leading tick */
-.trajectory-header__eyebrow,
-.tech-header__eyebrow,
-.projects-header__eyebrow,
-.design-header__eyebrow,
-.gamedev-header__eyebrow,
-.beyond-header__eyebrow,
-.mural-editorial-header__eyebrow,
-.contact-header__eyebrow {
+.trajectory-header__eyebrow,.tech-header__eyebrow,.projects-header__eyebrow,.design-header__eyebrow,.gamedev-header__eyebrow,.beyond-header__eyebrow,.contact-header__eyebrow{
   position: relative;
   padding-left: 2.6rem;
 }
-.trajectory-header__eyebrow::before,
-.tech-header__eyebrow::before,
-.projects-header__eyebrow::before,
-.design-header__eyebrow::before,
-.gamedev-header__eyebrow::before,
-.beyond-header__eyebrow::before,
-.mural-editorial-header__eyebrow::before,
-.contact-header__eyebrow::before {
+.trajectory-header__eyebrow::before,.tech-header__eyebrow::before,.projects-header__eyebrow::before,.design-header__eyebrow::before,.gamedev-header__eyebrow::before,.beyond-header__eyebrow::before,.contact-header__eyebrow::before{
   content: "";
   position: absolute;
   left: 0;
@@ -108,7 +94,7 @@ html {
    Monochrome by default; real project/design/game/profile imagery blooms
    into full colour on hover (desktop) or when scrolled into view (touch).
    ========================================================================= */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine){
   #projetos .project-card .project-thumbnail-image,
   #projetos-design .design-tile .design-tile__media img,
   #game-dev .gamedev-artwork .gamedev-artwork__img,
@@ -130,8 +116,8 @@ html {
   }
 }
 
-/* Touch devices: show colour, no hover dependency (fluid, honest previews) */
-@media (hover: none) {
+/* Touch devices: show colour,no hover dependency (fluid, honest previews) */
+@media (hover: none){
   #projetos .project-card .project-thumbnail-image,
   #projetos-design .design-tile .design-tile__media img,
   #game-dev .gamedev-artwork .gamedev-artwork__img {
@@ -141,7 +127,7 @@ html {
 }
 
 /* Subtle mono→light aperture ring on media frames while hovering */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine){
   #projetos .project-card__media,
   #projetos-design .design-tile__media,
   #game-dev .gamedev-artwork__frame {
@@ -167,28 +153,22 @@ html {
 /* =========================================================================
    BUTTONS & LINKS — organic microinteractions
    ========================================================================= */
-.btn-arcane,
-.hero-editorial__cta,
-.contact-form__submit,
-.projects-cta-all,
-.tech-aside__cta,
-.alumni-block__cta {
+.btn-arcane,.hero-editorial__cta,.contact-form__submit,.projects-cta-all,.tech-aside__cta,.alumni-block__cta{
   will-change: transform;
 }
 
-/* Magnetic base — JS nudges via --mx/--my, CSS eases it back */
-.pl-magnetic {
+/* Magnetic base — JS nudges via --mx/--my,CSS eases it back */
+.pl-magnetic{
   transition: transform 0.4s var(--pl-ease);
   transform: translate(var(--mx, 0px), var(--my, 0px));
 }
 
 /* Animated underline sweep for text links */
-.link-text,
-.contact-channel__value.link-text {
+.link-text,.contact-channel__value.link-text{
   position: relative;
   display: inline-block;
 }
-.link-text::after {
+.link-text::after{
   content: "";
   position: absolute;
   left: 0;
@@ -200,14 +180,13 @@ html {
   transform-origin: right center;
   transition: transform 0.5s var(--pl-ease);
 }
-.contact-channel:hover .link-text::after,
-.link-text:hover::after {
+.contact-channel:hover .link-text::after,.link-text:hover::after{
   transform: scaleX(1);
   transform-origin: left center;
 }
 
 /* Nav links: refined ink underline instead of pill jump */
-@media (min-width: 992px) {
+@media (min-width: 992px){
   .nav-links a.nav-tab-link {
     position: relative;
     overflow: hidden;
@@ -230,9 +209,8 @@ html {
   }
 }
 
-/* Floating action buttons — cleaner, monochrome, responsive press */
-.btn-flutuante,
-.theme-toggle-btn {
+/* Floating action buttons — cleaner,monochrome,responsive press */
+.btn-flutuante,.theme-toggle-btn{
   transition:
     transform 0.4s var(--pl-ease),
     background-color 0.4s var(--pl-ease),
@@ -240,8 +218,7 @@ html {
     color 0.4s var(--pl-ease) !important;
 }
 @media (hover: hover) and (pointer: fine) {
-  .btn-flutuante:hover,
-  .theme-toggle-btn:hover {
+  .btn-flutuante:hover,.theme-toggle-btn:hover{
     transform: translateY(-3px) scale(1.06);
   }
 }
@@ -249,8 +226,7 @@ html {
 /* =========================================================================
    CUSTOM CURSOR (desktop only)
    ========================================================================= */
-.pl-cursor,
-.pl-cursor-ring {
+.pl-cursor,.pl-cursor-ring{
   position: fixed;
   top: 0;
   left: 0;
@@ -261,13 +237,13 @@ html {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-.pl-cursor {
+.pl-cursor{
   width: 7px;
   height: 7px;
   background: #ffffff;
   transform: translate(-50%, -50%);
 }
-.pl-cursor-ring {
+.pl-cursor-ring{
   width: 38px;
   height: 38px;
   border: 1px solid rgba(255, 255, 255, 0.6);
@@ -279,21 +255,17 @@ html {
     border-color 0.3s ease,
     background-color 0.3s ease;
 }
-body.pl-cursor-active .pl-cursor,
-body.pl-cursor-active .pl-cursor-ring {
+body.pl-cursor-active .pl-cursor,body.pl-cursor-active .pl-cursor-ring{
   opacity: 1;
 }
-body.pl-cursor-hover .pl-cursor-ring {
+body.pl-cursor-hover .pl-cursor-ring{
   width: 60px;
   height: 60px;
   border-color: rgba(255, 255, 255, 0.9);
   background: rgba(255, 255, 255, 0.06);
 }
 @media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
-  body.pl-has-cursor,
-  body.pl-has-cursor a,
-  body.pl-has-cursor button,
-  body.pl-has-cursor [role="button"] {
+  body.pl-has-cursor,body.pl-has-cursor a,body.pl-has-cursor button,body.pl-has-cursor [role="button"]{
     cursor: none !important;
   }
 }
@@ -301,11 +273,11 @@ body.pl-cursor-hover .pl-cursor-ring {
 /* =========================================================================
    ATMOSPHERE — refined grain + edge vignette for cinematic depth
    ========================================================================= */
-.noise-overlay {
+.noise-overlay{
   opacity: 0.04 !important;
   mix-blend-mode: overlay;
 }
-body::after {
+body::after{
   content: "";
   position: fixed;
   inset: 0;
@@ -319,23 +291,23 @@ body::after {
 }
 
 /* =========================================================================
-   LOADER — tighter, more elegant brand treatment
+   LOADER — tighter,more elegant brand treatment
    ========================================================================= */
-.cinematic-brand h1 {
+.cinematic-brand h1{
   letter-spacing: 0.02em;
 }
-.cinematic-brand .brand-letter {
+.cinematic-brand .brand-letter{
   text-shadow: 0 0 24px rgba(255, 255, 255, 0.25);
 }
-.cinematic-brand p {
+.cinematic-brand p{
   letter-spacing: 0.6em;
   opacity: 0.55;
 }
 
 /* =========================================================================
-   MOBILE FLUIDITY — trim heavy compositing, keep motion light & smooth
+   MOBILE FLUIDITY — trim heavy compositing,keep motion light & smooth
    ========================================================================= */
-@media (max-width: 768px) {
+@media (max-width: 768px){
   body::after { display: none; }
 
   /* Lighter reveal so scroll stays buttery on mobile GPUs */
@@ -359,7 +331,7 @@ body::after {
 /* =========================================================================
    REDUCED MOTION — respect user preference fully
    ========================================================================= */
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce){
   .pl-tick,
   .trajectory-header__eyebrow::before,
   .tech-header__eyebrow::before,
@@ -367,7 +339,6 @@ body::after {
   .design-header__eyebrow::before,
   .gamedev-header__eyebrow::before,
   .beyond-header__eyebrow::before,
-  .mural-editorial-header__eyebrow::before,
   .contact-header__eyebrow::before {
     animation: none !important;
   }
