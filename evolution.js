@@ -501,4 +501,375 @@
       `;
       link.appendChild(underline);
 
-      link.addEventListener('mouseenter', () => 
+      link.addEventListener('mouseenter', () => {
+        underline.style.width = '100%';
+        underline.style.left = '0';
+      });
+      link.addEventListener('mouseleave', () => {
+        underline.style.width = '0';
+        underline.style.left = '50%';
+      });
+    });
+  }
+
+  // ═══════════════════════════════════════════
+  // 22. SCROLL PROGRESS GLOW
+  // ═══════════════════════════════════════════
+  function initScrollProgressGlow() {
+    const progressBar = document.getElementById('header-scroll-progress');
+    if (progressBar) progressBar.classList.add('scroll-progress-bar');
+  }
+
+  // ═══════════════════════════════════════════
+  // 23. PROJECT THUMBNAIL PARALLAX
+  // ═══════════════════════════════════════════
+  function initProjectParallax() {
+    if (prefersReducedMotion || isTouchDevice) return;
+
+    const wrappers = document.querySelectorAll('.project-thumbnail-wrapper');
+
+    wrappers.forEach(wrapper => {
+      const img = wrapper.querySelector('img');
+      if (!img) return;
+
+      wrapper.addEventListener('mousemove', (e) => {
+        const rect = wrapper.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        img.style.transform = `scale(1.1) translate(${x * -20}px, ${y * -20}px)`;
+      });
+
+      wrapper.addEventListener('mouseleave', () => {
+        img.style.transform = 'scale(1) translate(0, 0)';
+      });
+    });
+  }
+
+  // ═══════════════════════════════════════════
+  // 24. SKILL TAG SPARKLE
+  // ═══════════════════════════════════════════
+  function initSkillSparkle() {
+    const labels = document.querySelectorAll('.tech-label');
+    labels.forEach(label => {
+      label.addEventListener('mouseenter', () => {
+        label.style.textShadow = '0 0 10px rgba(255,255,255,0.4)';
+      });
+      label.addEventListener('mouseleave', () => {
+        label.style.textShadow = 'none';
+      });
+    });
+  }
+
+  // ═══════════════════════════════════════════
+  // 25. FOOTER ENHANCEMENT
+  // ═══════════════════════════════════════════
+  function initFooterEnhancement() {
+    const footer = document.querySelector('footer');
+    if (!footer) return;
+    footer.style.borderTop = '1px solid rgba(255,255,255,0.04)';
+    footer.style.background = 'linear-gradient(to top, rgba(0,0,0,0.5), transparent)';
+  }
+
+  // ═══════════════════════════════════════════
+  // 26. HERO CTA MAGNETIC (reforço)
+  // ═══════════════════════════════════════════
+  function initHeroCTAMagnetic() {
+    if (isTouchDevice || prefersReducedMotion) return;
+
+    const cta = document.querySelector('.hero-editorial__cta');
+    if (!cta) return;
+
+    cta.addEventListener('mousemove', (e) => {
+      const rect = cta.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      cta.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+    });
+
+    cta.addEventListener('mouseleave', () => {
+      cta.style.transform = 'translate(0, 0)';
+    });
+  }
+
+  // ═══════════════════════════════════════════
+  // INITIALIZE ALL
+  // ═══════════════════════════════════════════
+  document.addEventListener('DOMContentLoaded', () => {
+    let effectsInitialized = false;
+    const initEffects = () => {
+      if (effectsInitialized) return;
+      effectsInitialized = true;
+
+      initAuroraCanvas();
+      initCursorGlow();
+      initMagneticButtons();
+      init3DTilt();
+      initSpotlightHover();
+      initSectionEntrance();
+      initSectionDividers();
+      initSectionTitleEntrance();
+      initTimelineLineDraw();
+      initStaggerReveal();
+      initAmbientParticles();
+      initVignette();
+      initNoiseTexture();
+      initAmbientOrbs();
+      initLiquidButtons();
+      initShimmer();
+      initDepthCards();
+      initGlowBorders();
+      initContactEnhancements();
+      initNavEnhancements();
+      initScrollProgressGlow();
+      initProjectParallax();
+      initSkillSparkle();
+      initFooterEnhancement();
+      initHeroCTAMagnetic();
+
+      console.log('%c EVOLUTION v2.1 ', 'background: #fff; color: #000; font-weight: bold; padding: 4px 8px; border-radius: 4px;', 'loaded — monocromático, magnetic, timeline draw, section entrance');
+    };
+
+    if (document.body.classList.contains('loading-locked')) {
+      const checkInterval = setInterval(() => {
+        if (!document.body.classList.contains('loading-locked') || !document.getElementById('cinematic-loader')) {
+          clearInterval(checkInterval);
+          setTimeout(initEffects, 300);
+        }
+      }, 200);
+      setTimeout(() => { clearInterval(checkInterval); initEffects(); }, 5000);
+    } else {
+      initEffects();
+    }
+  });
+
+})();
+
+// ═══════════════════════════════════════════════════════════
+// TRAJECTORY EXPERIENCE 2026
+// Timeline editorial com ciclo automático de 10 segundos.
+// ═══════════════════════════════════════════════════════════
+(() => {
+  const AUTOPLAY_DELAY = 10000;
+
+  const moments = [
+    {
+      year: '2023',
+      status: 'Fundação',
+      kicker: 'Início Operacional',
+      title: 'Atendimento e Organização',
+      description: 'Como Atendente e Operador de Caixa na Cantina CDF, desenvolvi agilidade e proatividade no relacionamento direto com o público — bases que uso até hoje no suporte técnico e educacional. Também concluí o Ensino Médio nesse ano.',
+      tags: ['Atendimento', 'Organização', 'Ensino Médio'],
+      period: '2023',
+      datetime: '2023',
+      note: 'As primeiras bases profissionais.'
+    },
+    {
+      year: '2024',
+      status: 'Aprendizado',
+      kicker: 'Jornada Técnica',
+      title: 'Formação Multidisciplinar',
+      description: 'Capacitação técnica em Informática, Design Gráfico, Gestão em RH, Redes, Linux, Hardware e Inteligência Artificial — seguida pelos primeiros projetos em HTML e CSS.',
+      tags: ['Informática', 'Design', 'HTML & CSS'],
+      period: '2024 — 2025',
+      datetime: '2024',
+      note: 'Transformando curiosidade em repertório.'
+    },
+    {
+      year: '2025',
+      status: 'Prática',
+      kicker: 'Instrutor',
+      title: 'Informática e Web Design',
+      description: 'Na Motiva Cursos, ministrei aulas de Informática e Web Design, apoiei o uso de ferramentas digitais e acompanhei alunos e responsáveis — aproximando tecnologia, educação e comunicação.',
+      tags: ['Educação', 'Web Design', 'Suporte'],
+      period: 'ABR — OUT 2025',
+      datetime: '2025',
+      note: 'Conhecimento que ganha valor quando é compartilhado.'
+    },
+    {
+      year: '2026',
+      status: 'Agora',
+      kicker: 'Reposicionamento',
+      title: 'Novos Desafios',
+      description: 'Atuação contínua na ESTEADEB unindo secretaria e suporte técnico, curso de Administração na ETEP em andamento e reconstrução estratégica do portfólio para novas oportunidades em Front-end e Interface Design.',
+      tags: ['Front-end', 'Interface Design', 'Administração'],
+      period: '2026 — PRESENTE',
+      datetime: '2026',
+      note: 'Construindo a próxima fase com intenção.'
+    }
+  ];
+
+  function initTrajectoryExperience() {
+    const root = document.querySelector('[data-trajectory-root]');
+    if (!root || root.dataset.trajectoryReady === 'true') return;
+
+    const tabs = Array.from(root.querySelectorAll('[data-trajectory-year]'));
+    const stage = root.querySelector('[data-trajectory-stage]');
+    const panel = root.querySelector('#trajectory-panel');
+    const cycleToggle = root.querySelector('[data-trajectory-cycle-toggle]');
+    const cycleGlyph = root.querySelector('[data-trajectory-cycle-glyph]');
+    const cycleLabel = root.querySelector('[data-trajectory-cycle-label]');
+    const fields = {
+      progress: root.querySelector('[data-trajectory-progress]'),
+      status: root.querySelector('[data-trajectory-status]'),
+      year: root.querySelector('[data-trajectory-year-display]'),
+      kicker: root.querySelector('[data-trajectory-kicker]'),
+      title: root.querySelector('[data-trajectory-title]'),
+      description: root.querySelector('[data-trajectory-description]'),
+      tags: root.querySelector('[data-trajectory-tags]'),
+      period: root.querySelector('[data-trajectory-period]'),
+      note: root.querySelector('[data-trajectory-note]')
+    };
+
+    const required = [stage, panel, cycleToggle, cycleGlyph, cycleLabel, ...Object.values(fields)];
+    if (tabs.length !== moments.length || required.some((element) => !element)) return;
+
+    root.dataset.trajectoryReady = 'true';
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let activeIndex = Math.max(0, moments.findIndex((moment) => moment.year === root.dataset.activeYear));
+    let autoplayTimer = null;
+    let transitionTimer = null;
+    let entranceTimer = null;
+    let isVisible = false;
+    let isPaused = reduceMotion;
+
+    const clearAutoplay = () => {
+      if (autoplayTimer) window.clearTimeout(autoplayTimer);
+      autoplayTimer = null;
+    };
+
+    const updateCycleControl = () => {
+      cycleToggle.setAttribute('aria-pressed', String(isPaused));
+      cycleToggle.dataset.paused = String(isPaused);
+      cycleGlyph.textContent = isPaused ? '▶' : '❚❚';
+      cycleLabel.textContent = isPaused ? 'Retomar ciclo' : 'Pausar ciclo';
+    };
+
+    const scheduleAutoplay = () => {
+      clearAutoplay();
+      if (isPaused || reduceMotion || !isVisible || document.hidden) return;
+      autoplayTimer = window.setTimeout(() => {
+        selectMoment((activeIndex + 1) % moments.length, true, false);
+      }, AUTOPLAY_DELAY);
+    };
+
+    const writeMoment = (index) => {
+      const moment = moments[index];
+      activeIndex = index;
+      root.dataset.activeYear = moment.year;
+
+      tabs.forEach((tab, tabIndex) => {
+        const selected = tabIndex === index;
+        tab.classList.toggle('is-active', selected);
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+      });
+
+      panel.setAttribute('aria-labelledby', tabs[index].id);
+      fields.progress.style.transform = `scaleX(${(index + 1) / moments.length})`;
+      fields.status.textContent = moment.status;
+      fields.year.textContent = moment.year;
+      fields.kicker.textContent = moment.kicker;
+      fields.title.textContent = moment.title;
+      fields.description.textContent = moment.description;
+      fields.period.textContent = moment.period;
+      fields.period.setAttribute('datetime', moment.datetime);
+      fields.note.textContent = moment.note;
+
+      const tagElements = moment.tags.map((tag) => {
+        const element = document.createElement('span');
+        element.textContent = tag;
+        return element;
+      });
+      fields.tags.replaceChildren(...tagElements);
+    };
+
+    function selectMoment(index, animate = true, announce = true) {
+      const normalizedIndex = (index + moments.length) % moments.length;
+      clearAutoplay();
+      if (transitionTimer) window.clearTimeout(transitionTimer);
+      if (entranceTimer) window.clearTimeout(entranceTimer);
+      stage.classList.remove('is-entering');
+      panel.setAttribute('aria-live', announce ? 'polite' : 'off');
+
+      const commit = () => {
+        writeMoment(normalizedIndex);
+        stage.classList.remove('is-switching');
+
+        if (!reduceMotion && animate) {
+          stage.classList.add('is-entering');
+          entranceTimer = window.setTimeout(() => {
+            stage.classList.remove('is-entering');
+            panel.setAttribute('aria-live', 'off');
+          }, 760);
+        } else {
+          panel.setAttribute('aria-live', 'off');
+        }
+
+        scheduleAutoplay();
+      };
+
+      if (!reduceMotion && animate && normalizedIndex !== activeIndex) {
+        stage.classList.add('is-switching');
+        transitionTimer = window.setTimeout(commit, 220);
+      } else {
+        stage.classList.remove('is-switching');
+        commit();
+      }
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectMoment(index, true, true));
+      tab.addEventListener('keydown', (event) => {
+        let nextIndex = null;
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % tabs.length;
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === 'Home') nextIndex = 0;
+        if (event.key === 'End') nextIndex = tabs.length - 1;
+        if (nextIndex === null) return;
+
+        event.preventDefault();
+        tabs[nextIndex].focus();
+        selectMoment(nextIndex, true, true);
+      });
+    });
+
+    cycleToggle.addEventListener('click', () => {
+      isPaused = !isPaused;
+      updateCycleControl();
+      if (isPaused) clearAutoplay();
+      else scheduleAutoplay();
+    });
+
+    if (reduceMotion) {
+      cycleToggle.hidden = true;
+    } else {
+      updateCycleControl();
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        isVisible = Boolean(entries[0]?.isIntersecting);
+        if (isVisible) scheduleAutoplay();
+        else clearAutoplay();
+      }, { threshold: 0.28 });
+      observer.observe(root);
+    } else {
+      isVisible = true;
+      scheduleAutoplay();
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) clearAutoplay();
+      else scheduleAutoplay();
+    });
+
+    window.addEventListener('pagehide', clearAutoplay, { once: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTrajectoryExperience, { once: true });
+  } else {
+    initTrajectoryExperience();
+  }
+})();

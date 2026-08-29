@@ -391,4 +391,26 @@ test("protege posicionamento, credibilidade e conversão comercial", async ({ pa
   await expect(caseCards).toHaveCount(projectData.projects.length);
   await expect(caseCards.locator(".project-case__facts")).toHaveCount(projectData.projects.length);
   await expect(caseCards.locator(".project-case__facts dt")).toHaveCount(projectData.projects.length * 3);
-  await expect(caseCards.locator('a[href^="https://"]')).toHaveCount(projectData.projects.leng
+  await expect(caseCards.locator('a[href^="https://"]')).toHaveCount(projectData.projects.length);
+  expect(await caseCards.locator(".project-case__facts").allInnerTexts()).not.toContain("");
+
+  const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+  const itemList = schema["@graph"].find((item) => item["@type"] === "ItemList");
+  expect(itemList.numberOfItems).toBe(projectData.projects.length);
+  expect(itemList.itemListElement).toHaveLength(projectData.projects.length);
+
+  const filters = await page.locator("#projetos .project-thumbnail-image, #projetos-design .ux-card__media img").evaluateAll((images) =>
+    images.map((image) => getComputedStyle(image).filter)
+  );
+  expect(filters.every((filter) => !filter.includes("grayscale(1)"))).toBe(true);
+
+  const faqQuestions = await page.locator("#faq .faq-question").allInnerTexts();
+  expect(faqQuestions.join(" ")).toContain("Qual é a sua atuação principal?");
+  expect(faqQuestions.join(" ")).toContain("Como funciona o seu processo?");
+  expect(faqQuestions.join(" ")).toContain("Para quais oportunidades você está disponível?");
+
+  const cvResponse = await page.request.get(new URL("./curriculo.pdf", page.url()).href);
+  expect(cvResponse.ok()).toBe(true);
+  expect(cvResponse.headers()["content-type"]).toContain("application/pdf");
+  expect((await cvResponse.body()).subarray(0, 4).toString()).toBe("%PDF");
+});

@@ -722,4 +722,65 @@ body.loader-complete #hero-ink-canvas{
 /* ==========================================================================
    ESTRELA CADENTE DO LOADER — versão única e definitiva
    Rastro longo + cabeça brilhante,caindo em diagonal antes de revelar o nome.
-   ======
+   ========================================================================== */
+.loader-shooting-star__trail{
+  position: absolute;
+  width: clamp(160px, 22vw, 320px);
+  height: 3px;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 12%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.9) 85%,
+    #ffffff 100%
+  );
+  border-radius: 999px;
+  opacity: 0;
+  transform: rotate(35deg);
+  filter: blur(0.4px);
+}
+
+.loader-shooting-star__trail::after{
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  width: clamp(7px, 1.4vw, 11px);
+  height: clamp(7px, 1.4vw, 11px);
+  transform: translateY(-50%);
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow:
+    0 0 14px 3px rgba(255, 255, 255, 0.95),
+    0 0 34px 10px rgba(255, 255, 255, 0.55),
+    0 0 70px 22px rgba(255, 255, 255, 0.2);
+}
+
+.loader-shooting-star__trail.animate{
+  animation: loader-star-fall 1.3s cubic-bezier(0.45, 0, 0.4, 1) forwards;
+}
+
+@keyframes loader-star-fall {
+  0% {
+    opacity: 0;
+    transform: rotate(35deg) translateX(-60px) scale(0.7);
+  }
+  14% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(35deg) translateX(min(80vw, 780px)) scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-shooting-star__trail.animate{
+    animation: none;
+    opacity: 0;
+  }
+}
