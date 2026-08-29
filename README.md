@@ -1,6 +1,6 @@
 # Leonilson Souza — Portfólio
 
-Portfólio profissional de Leonilson Souza, publicado em [mrleorobot.github.io](https://mrleorobot.github.io/).
+Portfólio profissional de Leonilson Souza, Desenvolvedor Front-end e Designer de Interfaces, publicado em [mrleorobot.github.io](https://mrleorobot.github.io/).
 
 A experiência atual é intencional: atmosfera cinematográfica, fundo escuro, loader estrelado, Hero tipográfica, títulos editoriais em grande escala, movimento e uma narrativa em nove capítulos. Alterações técnicas devem preservar esse contrato visual.
 
