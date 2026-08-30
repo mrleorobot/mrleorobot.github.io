@@ -7795,10 +7795,29 @@ body.loader-complete #hero .hero-editorial__name{
   line-height: 1.7 !important;
 }
 
-/* Cases comerciais: menos cards,mais contexto e evidência navegável. */
+/* Vitrine compacta: os projetos ficam visíveis sem transformar a seção em uma página inteira. */
 #projetos .projects-viewport{
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: clamp(1.1rem, 2vw, 1.75rem) !important;
+  display: flex !important;
+  overflow-x: auto;
+  grid-template-columns: none !important;
+  gap: clamp(0.9rem, 1.35vw, 1.35rem) !important;
+  padding: 0.35rem 0 1rem;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+#projetos .projects-viewport::-webkit-scrollbar{
+  display: none;
+}
+
+#projetos #projects-dots{
+  display: none !important;
+}
+
+#projetos .project-card{
+  flex: 0 0 calc((100% - 4.05rem) / 4) !important;
+  scroll-snap-align: start;
 }
 
 #projetos .project-case{
@@ -7807,9 +7826,9 @@ body.loader-complete #hero .hero-editorial__name{
 
 #projetos .project-card__body{
   display: flex;
-  padding: clamp(1.35rem, 2.3vw, 2rem) !important;
+  padding: clamp(1rem, 1.4vw, 1.35rem) !important;
   flex-direction: column;
-  gap: 0.95rem;
+  gap: 0.58rem;
 }
 
 #projetos .project-case__status{
@@ -7823,7 +7842,6 @@ body.loader-complete #hero .hero-editorial__name{
   gap: 0.42rem;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(12px);
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.62rem;
   font-weight: 650;
@@ -7843,43 +7861,19 @@ body.loader-complete #hero .hero-editorial__name{
 #projetos .project-case__role{
   margin: 0 !important;
   font-family: "Space Grotesk", sans-serif !important;
-  font-size: 0.7rem !important;
+  font-size: 0.62rem !important;
   font-weight: 600;
   letter-spacing: 0.12em !important;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.62) !important;
 }
 
-#projetos .project-case__facts{
-  display: grid;
-  margin: 0.35rem 0 0;
-  gap: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-#projetos .project-case__facts > div{
-  display: grid;
-  grid-template-columns: 5.25rem minmax(0, 1fr);
-  gap: 0.8rem;
-  padding: 0.8rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-#projetos .project-case__facts dt{
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 0.64rem;
-  font-weight: 650;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.92);
-}
-
-#projetos .project-case__facts dd{
-  margin: 0;
-  font-family: "Inter", sans-serif;
-  font-size: 0.78rem;
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.7);
+#projetos .project-card__desc{
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  min-height: 4.1em;
 }
 
 #projetos .project-card__cta{
@@ -7899,16 +7893,21 @@ body.loader-complete #hero .hero-editorial__name{
   filter: grayscale(35%) contrast(1.04) brightness(0.98) !important;
 }
 
-@media (max-width: 900px) {
-  #projetos .projects-viewport{
-    grid-template-columns: minmax(0, 1fr) !important;
+@media (min-width: 992px) and (max-width: 1280px) {
+  #projetos .project-card{
+    flex-basis: calc((100% - 2.7rem) / 3) !important;
   }
 }
 
-@media (max-width: 560px) {
-  #projetos .project-case__facts > div{
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.35rem;
+@media (max-width: 991px) {
+  #projetos .project-card{
+    flex-basis: calc(55% - 0.625rem) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  #projetos .project-card{
+    flex-basis: min(82%, 22rem) !important;
   }
 }
 
@@ -8162,6 +8161,12 @@ body.loader-complete #hero .hero-editorial__name{
   -webkit-filter: none !important;
   filter: none !important;
   mix-blend-mode: normal !important;
+}
+
+/* O Chrome repinta pseudo-elementos animados mesmo nos cards fora da área visível. */
+#projetos .project-card::before,#projetos .project-card__media::before{
+  animation: none !important;
+  will-change: auto !important;
 }
 
 #hero .hero-editorial__cta,#hero .hero-scroll-cta__chevron,.ambient-aurora__mesh,#sobre .trajectory-aurora__mesh,#sobre .live-dot{

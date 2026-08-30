@@ -93,6 +93,102 @@
       "imageAlt": "Paisagem ilustrada da landing page Hanamori",
       "status": "live",
       "verifiedAt": "2026-08-29"
+    },
+    {
+      "id": "portal-corporativo",
+      "title": "Portal Corporativo",
+      "summary": "Intranet responsiva que reúne treinamento, documentos, avaliações, benefícios e solicitações de férias.",
+      "role": "Front-end e design de interface",
+      "technologies": ["Next.js", "React Hook Form", "Zustand"],
+      "url": "https://portal-corporativo.vercel.app/",
+      "image": "./placeholder-portal.jpg",
+      "imageAlt": "Interface do Portal Corporativo",
+      "status": "live",
+      "verifiedAt": "2026-08-30"
+    },
+    {
+      "id": "dsol-ai",
+      "title": "Dsol AI",
+      "summary": "Tutor educacional com IA generativa, respostas em Markdown e exportação de conversas em PDF.",
+      "role": "Front-end e integração de IA",
+      "technologies": ["React", "Firebase", "Gemini API"],
+      "url": "https://dsol-ai.vercel.app/",
+      "image": "./placeholder-chat-ia.jpg",
+      "imageAlt": "Interface do tutor educacional Dsol AI",
+      "status": "live",
+      "verifiedAt": "2026-08-30"
+    },
+    {
+      "id": "aurvm",
+      "title": "AURVM",
+      "summary": "E-commerce conceitual de joalheria autoral com catálogo visual e apresentação imersiva das peças.",
+      "role": "Front-end e direção de interface",
+      "technologies": ["React", "Vite"],
+      "url": "https://haute-luxe-glow.vercel.app/",
+      "image": "./screenshot-aurvm.jpg",
+      "imageAlt": "E-commerce de joalheria AURVM",
+      "status": "live",
+      "verifiedAt": "2026-08-30"
+    },
+    {
+      "id": "ledgeriq",
+      "title": "LedgerIQ",
+      "summary": "Sistema de auditoria financeira com leitura assistida de notas fiscais e organização de dados.",
+      "role": "Front-end e integração de IA",
+      "technologies": ["Next.js", "Gemini API"],
+      "url": "https://find-seven-psi.vercel.app/",
+      "image": null,
+      "imageAlt": "Identificação visual do projeto LedgerIQ",
+      "status": "live",
+      "verifiedAt": "2026-08-30"
+    },
+    {
+      "id": "mentor-de-estagio",
+      "title": "Mentor de Estágio",
+      "summary": "Plataforma de mentoria acadêmica com cronogramas, checklists e organização de documentos.",
+      "role": "Front-end e produto digital",
+      "technologies": ["Next.js", "React"],
+      "url": "https://estagio-steel.vercel.app/",
+      "image": null,
+      "imageAlt": "Identificação visual do projeto Mentor de Estágio",
+      "status": "live",
+      "verifiedAt": "2026-08-30"
+    },
+    {
+      "id": "develite",
+      "title": "DevElite",
+      "summary": "Landing page de mentoria em tecnologia com foco em carreira e posicionamento profissional.",
+      "role": "Front-end e landing page",
+      "technologies": ["Next.js", "TypeScript"],
+      "url": "https://develite-lemon.vercel.app/",
+      "image": null,
+      "imageAlt": "Identificação visual do projeto DevElite",
+      "status": "live",
+      "verifiedAt": "2026-08-30"
+    },
+    {
+      "id": "memoire",
+      "title": "MÉMOIRE",
+      "summary": "Site conceitual de perfumaria autoral com narrativa visual própria para cada fragrância.",
+      "role": "Front-end e direção visual",
+      "technologies": ["JavaScript", "CSS"],
+      "url": "https://memoire-nine-psi.vercel.app/",
+      "image": null,
+      "imageAlt": "Identificação visual do projeto MÉMOIRE",
+      "status": "live",
+      "verifiedAt": "2026-08-30"
+    },
+    {
+      "id": "nocturne-studio",
+      "title": "Nocturne Studio",
+      "summary": "Portfólio de estúdio independente de animação e jogos com atmosfera visual Cozy Night.",
+      "role": "Front-end e portfólio",
+      "technologies": ["Vite", "React"],
+      "url": "https://cozy-night-studio-landing.vercel.app/",
+      "image": null,
+      "imageAlt": "Identificação visual do projeto Nocturne Studio",
+      "status": "live",
+      "verifiedAt": "2026-08-30"
     }
   ]
 }

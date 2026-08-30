@@ -138,24 +138,15 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   expect(await gameTitle.evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(45);
 
   const projectArticles = page.locator("article[data-project-id]");
-  await expect(projectArticles).toHaveCount(6);
+  await expect(projectArticles).toHaveCount(14);
   const projectAurora = await projectArticles.first().evaluate((element) => {
     const style = getComputedStyle(element, "::before");
     return { content: style.content, backgroundImage: style.backgroundImage };
   });
   expect(projectAurora.content).not.toBe("none");
   expect(projectAurora.backgroundImage).toContain("radial-gradient");
-  if (testInfo.project.name.startsWith("desktop")) {
-    const lastProjectPairAlignment = await projectArticles.evaluateAll((articles) => {
-      const pair = articles.slice(-2).map((article) => article.getBoundingClientRect());
-      const left = Math.min(...pair.map((rect) => rect.left));
-      const right = Math.max(...pair.map((rect) => rect.right));
-      return Math.abs((left + right) / 2 - window.innerWidth / 2);
-    });
-    expect(lastProjectPairAlignment).toBeLessThan(48);
-  }
   const projectTriggers = page.locator('.project-thumbnail-wrapper[role="button"]');
-  await expect(projectTriggers).toHaveCount(6);
+  await expect(projectTriggers).toHaveCount(9);
   for (const trigger of await projectTriggers.all()) {
     await expect(trigger).toHaveAttribute("tabindex", "0");
     await expect(trigger).toHaveAttribute("aria-label", /\S+/);
@@ -346,7 +337,7 @@ test("a trajetória avança automaticamente e pode ser pausada", async ({ page }
   await expect(toggle).toContainText("Retomar ciclo");
 });
 
-test("protege posicionamento, credibilidade e conversão comercial", async ({ page }) => {
+test("protege posicionamento, credibilidade e conversão comercial", async ({ page }, testInfo) => {
   await page.emulateMedia({ reducedMotion: "reduce", colorScheme: "dark" });
   await page.goto("/", { waitUntil: "domcontentloaded" });
   await waitForPortfolio(page);
@@ -399,16 +390,34 @@ test("protege posicionamento, credibilidade e conversão comercial", async ({ pa
   const projectResponse = await page.request.get(new URL("./projects.json", page.url()).href);
   expect(projectResponse.ok()).toBe(true);
   const projectData = await projectResponse.json();
-  expect(projectData.projects).toHaveLength(6);
+  expect(projectData.projects).toHaveLength(14);
   expect(projectData.projects.every((project) => project.status === "live" && project.verifiedAt && project.url.startsWith("https://"))).toBe(true);
   expect(JSON.stringify(projectData)).not.toMatch(/\d+(?:[.,]\d+)?\s*%|\d+(?:[.,]\d+)?\+|curtidas|downloads|usuários ativos|jogadas|taxa de conversão|tempo médio|reduziu|aumentou/i);
 
   const caseCards = page.locator("#projetos article[data-project-id]");
   await expect(caseCards).toHaveCount(projectData.projects.length);
-  await expect(caseCards.locator(".project-case__facts")).toHaveCount(projectData.projects.length);
-  await expect(caseCards.locator(".project-case__facts dt")).toHaveCount(projectData.projects.length * 3);
+  await expect(caseCards.locator(".project-case__facts")).toHaveCount(0);
+  await expect(caseCards.locator(".project-case__status")).toHaveCount(projectData.projects.length);
   await expect(caseCards.locator('a[href^="https://"]')).toHaveCount(projectData.projects.length);
-  expect(await caseCards.locator(".project-case__facts").allTextContents()).not.toContain("");
+
+  const projectLayout = await page.locator("#projetos .projects-viewport").evaluate((viewport) => ({
+    display: getComputedStyle(viewport).display,
+    maxCardHeight: Math.max(...Array.from(viewport.querySelectorAll(".project-card"), (card) => card.getBoundingClientRect().height)),
+    sectionHeight: viewport.closest("#projetos").getBoundingClientRect().height,
+    visibleCards: viewport.clientWidth / viewport.querySelector(".project-card").getBoundingClientRect().width,
+    hasHorizontalOverflow: viewport.scrollWidth > viewport.clientWidth + 20
+  }));
+  expect(projectLayout.display).toBe("flex");
+  expect(projectLayout.hasHorizontalOverflow).toBe(true);
+  if (testInfo.project.name === "desktop-1440") {
+    expect(projectLayout.visibleCards).toBeGreaterThan(3.8);
+    expect(projectLayout.visibleCards).toBeLessThan(4.4);
+    expect(projectLayout.maxCardHeight).toBeLessThan(600);
+    expect(projectLayout.sectionHeight).toBeLessThan(1300);
+  } else {
+    expect(projectLayout.maxCardHeight).toBeLessThan(560);
+    expect(projectLayout.sectionHeight).toBeLessThan(1200);
+  }
 
   const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
   const itemList = schema["@graph"].find((item) => item["@type"] === "ItemList");

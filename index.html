@@ -11,7 +11,7 @@
     />
 
     <!-- PWA: instalável como app no celular -->
-    <link rel="manifest" href="./manifest.json?v=20260829performance1" />
+    <link rel="manifest" href="./manifest.json?v=20260830projects1" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -105,7 +105,7 @@
       "@type": "ItemList",
       "@id": "https://mrleorobot.github.io/#projetos",
       "name": "Cases selecionados de Front-end e Design de Interfaces",
-      "numberOfItems": 6,
+      "numberOfItems": 14,
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -196,13 +196,128 @@
               "@id": "https://mrleorobot.github.io/#person"
             }
           }
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Portal Corporativo",
+            "description": "Intranet responsiva que reúne treinamento, documentos, avaliações, benefícios e solicitações de férias.",
+            "image": "https://mrleorobot.github.io/placeholder-portal.jpg",
+            "url": "https://portal-corporativo.vercel.app/",
+            "keywords": "Next.js, React Hook Form, Zustand",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Dsol AI",
+            "description": "Tutor educacional com IA generativa, respostas em Markdown e exportação de conversas em PDF.",
+            "image": "https://mrleorobot.github.io/placeholder-chat-ia.jpg",
+            "url": "https://dsol-ai.vercel.app/",
+            "keywords": "React, Firebase, Gemini API",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "AURVM",
+            "description": "E-commerce conceitual de joalheria autoral com catálogo visual e apresentação imersiva das peças.",
+            "image": "https://mrleorobot.github.io/screenshot-aurvm.jpg",
+            "url": "https://haute-luxe-glow.vercel.app/",
+            "keywords": "React, Vite",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "LedgerIQ",
+            "description": "Sistema de auditoria financeira com leitura assistida de notas fiscais e organização de dados.",
+            "url": "https://find-seven-psi.vercel.app/",
+            "keywords": "Next.js, Gemini API",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 11,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Mentor de Estágio",
+            "description": "Plataforma de mentoria acadêmica com cronogramas, checklists e organização de documentos.",
+            "url": "https://estagio-steel.vercel.app/",
+            "keywords": "Next.js, React",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 12,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "DevElite",
+            "description": "Landing page de mentoria em tecnologia com foco em carreira e posicionamento profissional.",
+            "url": "https://develite-lemon.vercel.app/",
+            "keywords": "Next.js, TypeScript",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 13,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "MÉMOIRE",
+            "description": "Site conceitual de perfumaria autoral com narrativa visual própria para cada fragrância.",
+            "url": "https://memoire-nine-psi.vercel.app/",
+            "keywords": "JavaScript, CSS",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 14,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Nocturne Studio",
+            "description": "Portfólio de estúdio independente de animação e jogos com atmosfera visual Cozy Night.",
+            "url": "https://cozy-night-studio-landing.vercel.app/",
+            "keywords": "Vite, React",
+            "creator": {
+              "@id": "https://mrleorobot.github.io/#person"
+            }
+          }
         }
       ]
     }
   ]
 }
     </script>
-    <link rel="stylesheet" href="./portfolio.css?v=20260829performance1" />
+    <link rel="stylesheet" href="./portfolio.css?v=20260830projects1" />
     
     
     
@@ -636,7 +751,7 @@
                 <span aria-hidden="true">Projetos</span>
                 <span class="sr-only">Projetos de Front-end e Web Design</span>
               </h2>
-              <div class="projects-header__subtitle reveal-item">Cases com problema, decisão de interface e entrega navegável</div>
+              <div class="projects-header__subtitle reveal-item">Projetos publicados e cases selecionados</div>
             </div>
             <div class="projects-header__controls reveal-item">
               <a
@@ -670,9 +785,9 @@
           <!-- Vitrine editorial gerada de projects.json -->
           <div class="projects-track" id="projects-track">
             <div class="projects-viewport" id="projects-viewport" role="list">
-              <article class="project-card project-case reveal-item stagger-1 motion-lift motion-glow" id="projeto-dashboard-de-inventario" data-project-id="dashboard-de-inventario" data-case-status="live" role="listitem" aria-labelledby="projeto-dashboard-de-inventario-titulo" aria-describedby="projeto-dashboard-de-inventario-descricao">
+              <article class="project-card project-case reveal-item stagger-1" id="projeto-dashboard-de-inventario" data-project-id="dashboard-de-inventario" data-case-status="live" role="listitem" aria-labelledby="projeto-dashboard-de-inventario-titulo" aria-describedby="projeto-dashboard-de-inventario-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Tela do Dashboard de Inventário com indicadores e tabela de produtos">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Tela do Dashboard de Inventário com indicadores e tabela de produtos">
                     <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
                     <img src="./placeholder-dashboard.jpg" alt="Tela do Dashboard de Inventário com indicadores e tabela de produtos" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
                     <div class="project-thumbnail-overlay" aria-hidden="true">
@@ -687,20 +802,15 @@
                   <p class="project-case__role">Front-end e design de interface</p>
                   <h3 class="project-card__title" id="projeto-dashboard-de-inventario-titulo">Dashboard de Inventário</h3>
                   <p class="project-card__desc" id="projeto-dashboard-de-inventario-descricao">Painel responsivo para acompanhar estoque, priorizar itens em baixa e organizar a leitura de vendas e relatórios.</p>
-                  <dl class="project-case__facts">
-                    <div><dt>Desafio</dt><dd>Transformar dados operacionais dispersos em uma visão rápida para tomada de decisão.</dd></div>
-                    <div><dt>Decisão</dt><dd>Dar prioridade visual aos alertas, ao estado do estoque e às ações mais frequentes.</dd></div>
-                    <div><dt>Entrega</dt><dd>Dashboard navegável com filtros, indicadores, alertas e exportação de relatórios.</dd></div>
-                  </dl>
                   <a href="https://dashboard-de-inventario.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Dashboard de Inventário ao vivo">
                     <span>Abrir projeto</span>
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                   </a>
                 </div>
               </article>
-              <article class="project-card project-case reveal-item stagger-2 motion-lift motion-glow" id="projeto-refugio-sereno" data-project-id="refugio-sereno" data-case-status="live" role="listitem" aria-labelledby="projeto-refugio-sereno-titulo" aria-describedby="projeto-refugio-sereno-descricao">
+              <article class="project-card project-case reveal-item stagger-2" id="projeto-refugio-sereno" data-project-id="refugio-sereno" data-case-status="live" role="listitem" aria-labelledby="projeto-refugio-sereno-titulo" aria-describedby="projeto-refugio-sereno-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Tela do aplicativo Refúgio Sereno com organização de tarefas e foco">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Tela do aplicativo Refúgio Sereno com organização de tarefas e foco">
                     <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
                     <img src="./placeholder-refugio.jpg" alt="Tela do aplicativo Refúgio Sereno com organização de tarefas e foco" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
                     <div class="project-thumbnail-overlay" aria-hidden="true">
@@ -715,20 +825,15 @@
                   <p class="project-case__role">Front-end e design de interface</p>
                   <h3 class="project-card__title" id="projeto-refugio-sereno-titulo">Refúgio Sereno</h3>
                   <p class="project-card__desc" id="projeto-refugio-sereno-descricao">Aplicativo de organização e foco pensado para reduzir sobrecarga visual e apoiar rotinas de pessoas neurodivergentes.</p>
-                  <dl class="project-case__facts">
-                    <div><dt>Desafio</dt><dd>Organizar tarefas sem transformar a interface em mais uma fonte de distração.</dd></div>
-                    <div><dt>Decisão</dt><dd>Usar hierarquia calma, feedback direto e progressão visual para tornar o próximo passo evidente.</dd></div>
-                    <div><dt>Entrega</dt><dd>Aplicação responsiva com tarefas, sugestões de foco, gamificação e sincronização de dados.</dd></div>
-                  </dl>
                   <a href="https://refugiosereno.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Refúgio Sereno ao vivo">
                     <span>Abrir projeto</span>
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                   </a>
                 </div>
               </article>
-              <article class="project-card project-case reveal-item stagger-3 motion-lift motion-glow" id="projeto-one-thing" data-project-id="one-thing" data-case-status="live" role="listitem" aria-labelledby="projeto-one-thing-titulo" aria-describedby="projeto-one-thing-descricao">
+              <article class="project-card project-case reveal-item stagger-3" id="projeto-one-thing" data-project-id="one-thing" data-case-status="live" role="listitem" aria-labelledby="projeto-one-thing-titulo" aria-describedby="projeto-one-thing-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Página inicial do projeto editorial ONE THING">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Página inicial do projeto editorial ONE THING">
                     <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
                     <img src="./screenshot-onething.jpg" alt="Página inicial do projeto editorial ONE THING" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
                     <div class="project-thumbnail-overlay" aria-hidden="true">
@@ -743,20 +848,15 @@
                   <p class="project-case__role">Front-end e direção de interface</p>
                   <h3 class="project-card__title" id="projeto-one-thing-titulo">ONE THING</h3>
                   <p class="project-card__desc" id="projeto-one-thing-descricao">Experiência editorial que explora tipografia, espaço negativo e movimento como elementos principais da navegação.</p>
-                  <dl class="project-case__facts">
-                    <div><dt>Desafio</dt><dd>Criar presença visual forte com poucos elementos e sem depender de excesso de conteúdo.</dd></div>
-                    <div><dt>Decisão</dt><dd>Construir a hierarquia a partir de uma mensagem dominante, ritmo tipográfico e microinterações discretas.</dd></div>
-                    <div><dt>Entrega</dt><dd>Landing page experimental responsiva com tipografia variável e transições orientadas por movimento.</dd></div>
-                  </dl>
                   <a href="https://one-thing-alive.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto ONE THING ao vivo">
                     <span>Abrir projeto</span>
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                   </a>
                 </div>
               </article>
-              <article class="project-card project-case reveal-item stagger-1 motion-lift motion-glow" id="projeto-memory-exe" data-project-id="memory-exe" data-case-status="live" role="listitem" aria-labelledby="projeto-memory-exe-titulo" aria-describedby="projeto-memory-exe-descricao">
+              <article class="project-card project-case reveal-item stagger-1" id="projeto-memory-exe" data-project-id="memory-exe" data-case-status="live" role="listitem" aria-labelledby="projeto-memory-exe-titulo" aria-describedby="projeto-memory-exe-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Cena da narrativa interativa MEMORY.EXE com estética de jogo retrô">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Cena da narrativa interativa MEMORY.EXE com estética de jogo retrô">
                     <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
                     <img src="./screenshot-memoryexe.jpg" alt="Cena da narrativa interativa MEMORY.EXE com estética de jogo retrô" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
                     <div class="project-thumbnail-overlay" aria-hidden="true">
@@ -771,20 +871,15 @@
                   <p class="project-case__role">Front-end, interação e direção visual</p>
                   <h3 class="project-card__title" id="projeto-memory-exe-titulo">MEMORY.EXE</h3>
                   <p class="project-card__desc" id="projeto-memory-exe-descricao">Narrativa web interativa com atmosfera inspirada em jogos de PS1 e navegação disponível em português e inglês.</p>
-                  <dl class="project-case__facts">
-                    <div><dt>Desafio</dt><dd>Sustentar imersão narrativa sem perder orientação, legibilidade e controle pelo usuário.</dd></div>
-                    <div><dt>Decisão</dt><dd>Combinar estética de baixa fidelidade, pistas visuais e interações progressivas em uma experiência coesa.</dd></div>
-                    <div><dt>Entrega</dt><dd>Experiência responsiva com narrativa ramificada, ambientação audiovisual e seleção de idioma.</dd></div>
-                  </dl>
                   <a href="https://memory-archive-project.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto MEMORY.EXE ao vivo">
                     <span>Abrir projeto</span>
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                   </a>
                 </div>
               </article>
-              <article class="project-card project-case reveal-item stagger-2 motion-lift motion-glow" id="projeto-komorebi" data-project-id="komorebi" data-case-status="live" role="listitem" aria-labelledby="projeto-komorebi-titulo" aria-describedby="projeto-komorebi-descricao">
+              <article class="project-card project-case reveal-item stagger-2" id="projeto-komorebi" data-project-id="komorebi" data-case-status="live" role="listitem" aria-labelledby="projeto-komorebi-titulo" aria-describedby="projeto-komorebi-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Landing page da marca conceitual de café Komorebi">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Landing page da marca conceitual de café Komorebi">
                     <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
                     <img src="./screenshot-komorebi.jpg" alt="Landing page da marca conceitual de café Komorebi" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
                     <div class="project-thumbnail-overlay" aria-hidden="true">
@@ -799,20 +894,15 @@
                   <p class="project-case__role">Front-end e design de interface</p>
                   <h3 class="project-card__title" id="projeto-komorebi-titulo">Komorebi</h3>
                   <p class="project-card__desc" id="projeto-komorebi-descricao">Landing page para uma marca conceitual de café, com narrativa visual atmosférica e foco na apresentação do produto.</p>
-                  <dl class="project-case__facts">
-                    <div><dt>Desafio</dt><dd>Traduzir uma identidade artesanal em uma página clara, desejável e fácil de percorrer.</dd></div>
-                    <div><dt>Decisão</dt><dd>Usar fotografia, contraste e ritmo de conteúdo para conduzir o olhar até os produtos e chamadas principais.</dd></div>
-                    <div><dt>Entrega</dt><dd>Landing page responsiva com catálogo visual, seções editoriais e transições sutis.</dd></div>
-                  </dl>
                   <a href="https://komorebi-gray.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Komorebi ao vivo">
                     <span>Abrir projeto</span>
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                   </a>
                 </div>
               </article>
-              <article class="project-card project-case reveal-item stagger-3 motion-lift motion-glow" id="projeto-hanamori" data-project-id="hanamori" data-case-status="live" role="listitem" aria-labelledby="projeto-hanamori-titulo" aria-describedby="projeto-hanamori-descricao">
+              <article class="project-card project-case reveal-item stagger-3" id="projeto-hanamori" data-project-id="hanamori" data-case-status="live" role="listitem" aria-labelledby="projeto-hanamori-titulo" aria-describedby="projeto-hanamori-descricao">
                 <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper motion-img-reveal" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Paisagem ilustrada da landing page Hanamori">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Paisagem ilustrada da landing page Hanamori">
                     <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
                     <img src="./screenshot-hanamori.jpg" alt="Paisagem ilustrada da landing page Hanamori" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
                     <div class="project-thumbnail-overlay" aria-hidden="true">
@@ -827,12 +917,160 @@
                   <p class="project-case__role">Front-end e direção visual</p>
                   <h3 class="project-card__title" id="projeto-hanamori-titulo">Hanamori</h3>
                   <p class="project-card__desc" id="projeto-hanamori-descricao">Landing page ilustrada que combina arte digital, profundidade e movimento para criar uma experiência de exploração.</p>
-                  <dl class="project-case__facts">
-                    <div><dt>Desafio</dt><dd>Construir uma atmosfera rica sem comprometer a leitura e o fluxo responsivo da página.</dd></div>
-                    <div><dt>Decisão</dt><dd>Organizar a composição em camadas, equilibrando ilustração, texto e movimento conforme o tamanho da tela.</dd></div>
-                    <div><dt>Entrega</dt><dd>Experiência web responsiva com ilustrações, animações e narrativa visual integrada.</dd></div>
-                  </dl>
                   <a href="https://hanamori.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Hanamori ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case reveal-item stagger-1" id="projeto-portal-corporativo" data-project-id="portal-corporativo" data-case-status="live" role="listitem" aria-labelledby="projeto-portal-corporativo-titulo" aria-describedby="projeto-portal-corporativo-descricao">
+                <div class="project-card__media">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Interface do Portal Corporativo">
+                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                    <img src="./placeholder-portal.jpg" alt="Interface do Portal Corporativo" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
+                    <div class="project-thumbnail-overlay" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">Next.js</span>
+                    <span class="project-card__tech-tag">React Hook Form</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">Zustand</span></div>
+                  <p class="project-case__role">Front-end e design de interface</p>
+                  <h3 class="project-card__title" id="projeto-portal-corporativo-titulo">Portal Corporativo</h3>
+                  <p class="project-card__desc" id="projeto-portal-corporativo-descricao">Intranet responsiva que reúne treinamento, documentos, avaliações, benefícios e solicitações de férias.</p>
+                  <a href="https://portal-corporativo.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Portal Corporativo ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case reveal-item stagger-2" id="projeto-dsol-ai" data-project-id="dsol-ai" data-case-status="live" role="listitem" aria-labelledby="projeto-dsol-ai-titulo" aria-describedby="projeto-dsol-ai-descricao">
+                <div class="project-card__media">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Interface do tutor educacional Dsol AI">
+                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                    <img src="./placeholder-chat-ia.jpg" alt="Interface do tutor educacional Dsol AI" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
+                    <div class="project-thumbnail-overlay" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">React</span>
+                    <span class="project-card__tech-tag">Firebase</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">Gemini API</span></div>
+                  <p class="project-case__role">Front-end e integração de IA</p>
+                  <h3 class="project-card__title" id="projeto-dsol-ai-titulo">Dsol AI</h3>
+                  <p class="project-card__desc" id="projeto-dsol-ai-descricao">Tutor educacional com IA generativa, respostas em Markdown e exportação de conversas em PDF.</p>
+                  <a href="https://dsol-ai.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Dsol AI ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case reveal-item stagger-3" id="projeto-aurvm" data-project-id="aurvm" data-case-status="live" role="listitem" aria-labelledby="projeto-aurvm-titulo" aria-describedby="projeto-aurvm-descricao">
+                <div class="project-card__media">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: E-commerce de joalheria AURVM">
+                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                    <img src="./screenshot-aurvm.jpg" alt="E-commerce de joalheria AURVM" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
+                    <div class="project-thumbnail-overlay" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">React</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">Vite</span></div>
+                  <p class="project-case__role">Front-end e direção de interface</p>
+                  <h3 class="project-card__title" id="projeto-aurvm-titulo">AURVM</h3>
+                  <p class="project-card__desc" id="projeto-aurvm-descricao">E-commerce conceitual de joalheria autoral com catálogo visual e apresentação imersiva das peças.</p>
+                  <a href="https://haute-luxe-glow.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto AURVM ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case reveal-item stagger-1" id="projeto-ledgeriq" data-project-id="ledgeriq" data-case-status="live" role="listitem" aria-labelledby="projeto-ledgeriq-titulo" aria-describedby="projeto-ledgeriq-descricao">
+                <div class="project-card__media">
+                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">LedgerIQ</span></div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">Next.js</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">Gemini API</span></div>
+                  <p class="project-case__role">Front-end e integração de IA</p>
+                  <h3 class="project-card__title" id="projeto-ledgeriq-titulo">LedgerIQ</h3>
+                  <p class="project-card__desc" id="projeto-ledgeriq-descricao">Sistema de auditoria financeira com leitura assistida de notas fiscais e organização de dados.</p>
+                  <a href="https://find-seven-psi.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto LedgerIQ ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case reveal-item stagger-2" id="projeto-mentor-de-estagio" data-project-id="mentor-de-estagio" data-case-status="live" role="listitem" aria-labelledby="projeto-mentor-de-estagio-titulo" aria-describedby="projeto-mentor-de-estagio-descricao">
+                <div class="project-card__media">
+                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">Mentor de Estágio</span></div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">Next.js</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">React</span></div>
+                  <p class="project-case__role">Front-end e produto digital</p>
+                  <h3 class="project-card__title" id="projeto-mentor-de-estagio-titulo">Mentor de Estágio</h3>
+                  <p class="project-card__desc" id="projeto-mentor-de-estagio-descricao">Plataforma de mentoria acadêmica com cronogramas, checklists e organização de documentos.</p>
+                  <a href="https://estagio-steel.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Mentor de Estágio ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case reveal-item stagger-3" id="projeto-develite" data-project-id="develite" data-case-status="live" role="listitem" aria-labelledby="projeto-develite-titulo" aria-describedby="projeto-develite-descricao">
+                <div class="project-card__media">
+                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">DevElite</span></div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">Next.js</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">TypeScript</span></div>
+                  <p class="project-case__role">Front-end e landing page</p>
+                  <h3 class="project-card__title" id="projeto-develite-titulo">DevElite</h3>
+                  <p class="project-card__desc" id="projeto-develite-descricao">Landing page de mentoria em tecnologia com foco em carreira e posicionamento profissional.</p>
+                  <a href="https://develite-lemon.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto DevElite ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case reveal-item stagger-1" id="projeto-memoire" data-project-id="memoire" data-case-status="live" role="listitem" aria-labelledby="projeto-memoire-titulo" aria-describedby="projeto-memoire-descricao">
+                <div class="project-card__media">
+                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">MÉMOIRE</span></div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">JavaScript</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">CSS</span></div>
+                  <p class="project-case__role">Front-end e direção visual</p>
+                  <h3 class="project-card__title" id="projeto-memoire-titulo">MÉMOIRE</h3>
+                  <p class="project-card__desc" id="projeto-memoire-descricao">Site conceitual de perfumaria autoral com narrativa visual própria para cada fragrância.</p>
+                  <a href="https://memoire-nine-psi.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto MÉMOIRE ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case reveal-item stagger-2" id="projeto-nocturne-studio" data-project-id="nocturne-studio" data-case-status="live" role="listitem" aria-labelledby="projeto-nocturne-studio-titulo" aria-describedby="projeto-nocturne-studio-descricao">
+                <div class="project-card__media">
+                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">Nocturne Studio</span></div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">Vite</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">React</span></div>
+                  <p class="project-case__role">Front-end e portfólio</p>
+                  <h3 class="project-card__title" id="projeto-nocturne-studio-titulo">Nocturne Studio</h3>
+                  <p class="project-card__desc" id="projeto-nocturne-studio-descricao">Portfólio de estúdio independente de animação e jogos com atmosfera visual Cozy Night.</p>
+                  <a href="https://cozy-night-studio-landing.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Nocturne Studio ao vivo">
                     <span>Abrir projeto</span>
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                   </a>
@@ -1575,7 +1813,7 @@
         <span>&copy; 2026 Leonilson. Todos os direitos reservados.</span>
       </div>
     </footer>
-    <script type="module" src="./app.js?v=20260829performance1"></script>
+    <script type="module" src="./app.js?v=20260830projects1"></script>
 
     <!-- BOTÃO COMPARTILHAR -->
     <button
@@ -1738,7 +1976,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", async () => {
           try {
-            const registration = await navigator.serviceWorker.register("./sw.js?v=20260829performance1");
+            const registration = await navigator.serviceWorker.register("./sw.js?v=20260830projects1");
             registration.update();
           } catch {
             // The portfolio remains fully functional without offline caching.
