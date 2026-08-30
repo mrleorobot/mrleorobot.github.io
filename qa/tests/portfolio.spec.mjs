@@ -19,6 +19,25 @@ async function waitForPortfolio(page) {
   await expect(page.locator("#hero .hero-editorial__name")).toBeVisible();
 }
 
+test("não publica segredos nem mantém o renderizador externo inseguro", async ({ request }) => {
+  const removedConfig = await request.get("/vite.config.ts");
+  expect(removedConfig.status()).toBe(404);
+
+  const scriptResponse = await request.get("/script.js");
+  expect(scriptResponse.ok()).toBe(true);
+  const scriptSource = await scriptResponse.text();
+
+  for (const forbiddenPattern of [
+    "GEMINI_API_KEY",
+    "fetchRecentRepos",
+    "githubReposData",
+    "api.github.com/users/",
+    "github-repos-grid",
+  ]) {
+    expect(scriptSource, `padrão inseguro publicado: ${forbiddenPattern}`).not.toContain(forbiddenPattern);
+  }
+});
+
 test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, testInfo) => {
   const pageErrors = [];
   const sameOriginFailures = [];
