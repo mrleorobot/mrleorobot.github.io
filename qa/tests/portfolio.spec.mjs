@@ -397,9 +397,9 @@ test("protege posicionamento, credibilidade e conversão comercial", async ({ pa
   await expect(testimonialCards).toHaveCount(3);
   await expect(testimonialCards.locator("blockquote")).toHaveCount(3);
   await expect(testimonialCards.locator(".testimonial-card__identity strong")).toHaveText([
-    "Ana Silva",
-    "Carlos Oliveira",
-    "Marina Pereira"
+    "Arthur Medeiros",
+    "Jennyfer",
+    "Julio Nogueira"
   ]);
   await expect(page.locator("#soft-skills .professional-references, #soft-skills .mural-card")).toHaveCount(0);
 
