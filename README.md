@@ -71,6 +71,8 @@ A suíte verifica ordem e presença das seções, escala tipográfica, loader, r
 
 O workflow `Portfolio QA` executa esses testes em cada push e pull request para `main`.
 
+O sistema de movimento mantém somente um canvas contínuo no Hero. Auroras fora da tela são pausadas e efeitos globais antigos foram removidos para preservar a fluidez da rolagem.
+
 ## Conteúdo e credibilidade
 
 `projects.json`, os cards e o Schema.org descrevem apenas funcionalidades observáveis e links públicos. Métricas só podem entrar no site quando houver evidência documentada, seguindo [docs/CONTENT-VERIFICATION.md](docs/CONTENT-VERIFICATION.md).

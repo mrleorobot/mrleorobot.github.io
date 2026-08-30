@@ -8149,3 +8149,45 @@ body.loader-complete #hero .hero-editorial__name{
     overflow: visible !important;
   }
 }
+
+/* =========================================================
+   PERFORMANCE FOUNDATION — 2026-08-30
+   Mantém a direção de arte com menos pintura e sem blur animado.
+   ========================================================= */
+.ambient-aurora,#sobre .trajectory-aurora{
+  contain: strict;
+}
+
+.ambient-aurora__mesh,#sobre .trajectory-aurora__mesh,#projetos .project-card::before,#projetos .project-card__media::before{
+  -webkit-filter: none !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+#hero .hero-editorial__cta,#hero .hero-scroll-cta__chevron,.ambient-aurora__mesh,#sobre .trajectory-aurora__mesh,#sobre .live-dot{
+  animation-play-state: paused !important;
+}
+
+#hero.is-performance-visible .hero-scroll-cta__chevron,#sobre.is-performance-visible .ambient-aurora__mesh,#sobre.is-performance-visible .trajectory-aurora__mesh,#sobre.is-performance-visible .live-dot,#cta-final.is-performance-visible .ambient-aurora__mesh{
+  animation-play-state: running !important;
+}
+
+#hero .hero-editorial__cta{
+  animation: none !important;
+}
+
+#sobre .ambient-aurora__mesh--bridge-right,#sobre .trajectory-aurora__mesh--two,#sobre .trajectory-aurora__mesh--three,#cta-final .ambient-aurora__mesh--closing-orbit{
+  animation: none !important;
+}
+
+@media (max-width: 1024px) {
+  .ambient-aurora__mesh,#sobre .trajectory-aurora__mesh,#projetos .project-card::before{
+    animation: none !important;
+    will-change: auto !important;
+  }
+
+  .ambient-aurora__mesh,#sobre .trajectory-aurora__mesh{
+    opacity: 0.3 !important;
+    transform: none !important;
+  }
+}

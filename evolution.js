@@ -570,6 +570,19 @@
     footer.style.background = 'linear-gradient(to top, rgba(0,0,0,0.5), transparent)';
   }
 
+  // Pausa animações ambientais quando a seção não está visível. Isso evita
+  // que a Hero, a Trajetória e o fechamento disputem GPU ao mesmo tempo.
+  function initPerformanceVisibility() {
+    if (!("IntersectionObserver" in window)) return;
+    const sections = document.querySelectorAll('#hero, #sobre, #cta-final');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('is-performance-visible', entry.isIntersecting);
+      });
+    }, { threshold: 0, rootMargin: '12% 0px 12% 0px' });
+    sections.forEach((section) => observer.observe(section));
+  }
+
   // ═══════════════════════════════════════════
   // 26. HERO CTA MAGNETIC (reforço)
   // ═══════════════════════════════════════════
@@ -600,20 +613,13 @@
       if (effectsInitialized) return;
       effectsInitialized = true;
 
-      initAuroraCanvas();
-      initCursorGlow();
-      initMagneticButtons();
-      init3DTilt();
-      initSpotlightHover();
+      // Efeitos globais contínuos foram aposentados. As auroras locais em
+      // CSS preservam a direção de arte sem manter vários RAFs concorrentes.
       initSectionEntrance();
       initSectionDividers();
       initSectionTitleEntrance();
       initTimelineLineDraw();
       initStaggerReveal();
-      initAmbientParticles();
-      initVignette();
-      initNoiseTexture();
-      initAmbientOrbs();
       initLiquidButtons();
       initShimmer();
       initDepthCards();
@@ -621,10 +627,9 @@
       initContactEnhancements();
       initNavEnhancements();
       initScrollProgressGlow();
-      initProjectParallax();
       initSkillSparkle();
       initFooterEnhancement();
-      initHeroCTAMagnetic();
+      initPerformanceVisibility();
 
       console.log('%c EVOLUTION v2.1 ', 'background: #fff; color: #000; font-weight: bold; padding: 4px 8px; border-radius: 4px;', 'loaded — monocromático, magnetic, timeline draw, section entrance');
     };

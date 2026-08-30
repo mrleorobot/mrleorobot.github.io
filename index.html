@@ -11,7 +11,7 @@
     />
 
     <!-- PWA: instalável como app no celular -->
-    <link rel="manifest" href="./manifest.json?v=20260829audit1" />
+    <link rel="manifest" href="./manifest.json?v=20260829performance1" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -202,7 +202,7 @@
   ]
 }
     </script>
-    <link rel="stylesheet" href="./portfolio.css?v=20260829audit1" />
+    <link rel="stylesheet" href="./portfolio.css?v=20260829performance1" />
     
     
     
@@ -231,7 +231,6 @@
         }, { once: true });
       })();
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
       
     
   </head>
@@ -1576,7 +1575,7 @@
         <span>&copy; 2026 Leonilson. Todos os direitos reservados.</span>
       </div>
     </footer>
-    <script type="module" src="./app.js?v=20260829audit1"></script>
+    <script type="module" src="./app.js?v=20260829performance1"></script>
 
     <!-- BOTÃO COMPARTILHAR -->
     <button
@@ -1739,7 +1738,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", async () => {
           try {
-            const registration = await navigator.serviceWorker.register("./sw.js?v=20260829audit1");
+            const registration = await navigator.serviceWorker.register("./sw.js?v=20260829performance1");
             registration.update();
           } catch {
             // The portfolio remains fully functional without offline caching.

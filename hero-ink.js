@@ -29,7 +29,8 @@
 
   var CFG = {
     DESKTOP_MIN: 769,
-    MAX_DPR: 1.5,
+    MAX_DPR: 1.25,
+    FRAME_INTERVAL: 1000 / 30,
 
     // Posição do núcleo da nebulosa
     NEBULA_CENTER_X: 0.62,
@@ -60,9 +61,9 @@
     MOUSE_EASE: 0.05,
 
     // Estrelas
-    STAR_COUNT_DESKTOP: 240,
-    STAR_COUNT_TABLET: 150,
-    FLARED_STARS: 6,
+    STAR_COUNT_DESKTOP: 120,
+    STAR_COUNT_TABLET: 80,
+    FLARED_STARS: 4,
 
     // Wisps (nuvens auxiliares nas bordas)
     // x/y = fração do canvas, s = fração de min(W,H), a = alpha
@@ -96,6 +97,7 @@
   var rafId = null;
   var running = false;
   var startTime = 0;
+  var lastFrameTime = 0;
 
   var mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
 
@@ -682,8 +684,11 @@
 
   function loop(now) {
     if (!running) return;
-    var elapsed = now - startTime;
-    draw(elapsed);
+    if (!lastFrameTime || now - lastFrameTime >= CFG.FRAME_INTERVAL) {
+      var elapsed = now - startTime;
+      draw(elapsed);
+      lastFrameTime = now;
+    }
     rafId = requestAnimationFrame(loop);
   }
 
@@ -691,6 +696,7 @@
     if (running) return;
     running = true;
     startTime = performance.now();
+    lastFrameTime = 0;
     rafId = requestAnimationFrame(loop);
   }
 

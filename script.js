@@ -1365,8 +1365,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  initSafe(initHeroParticles, "initHeroParticles");
-  initSafe(initHeroParallax, "initHeroParallax");
+  // O canvas hero-ink é o único efeito contínuo do Hero. Os sistemas
+  // antigos de partículas e parallax duplicavam o trabalho a cada frame.
   initSafe(initTypewriter, "initTypewriter");
   initSafe(initCinematicScroll, "initCinematicScroll");
   initSafe(initSearchAndMenu, "initSearchAndMenu");
@@ -1378,7 +1378,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initSafe(initDesignGallery, "initDesignGallery");
   initSafe(initGameDevArtwork, "initGameDevArtwork");
   initSafe(initBeyondCodePhoto, "initBeyondCodePhoto");
-  initSafe(initSpotlight, "initSpotlight");
   initSafe(initTabSystem, "initTabSystem");
   initSafe(initScrollProgressBar, "initScrollProgressBar");
 });

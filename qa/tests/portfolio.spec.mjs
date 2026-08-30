@@ -369,6 +369,7 @@ test("protege posicionamento, credibilidade e conversão comercial", async ({ pa
   expect(sourceMarkup).not.toContain("modal-behance");
   expect(sourceMarkup).not.toContain("modal-dribbble");
   expect(sourceMarkup).not.toContain("mural-depoimentos");
+  expect(sourceMarkup).not.toContain("lenis.min.js");
 
   await expect(page.locator(".testimonial-card, .mural-card")).toHaveCount(0);
   await expect(page.locator("#soft-skills .professional-references")).toBeVisible();
@@ -379,6 +380,21 @@ test("protege posicionamento, credibilidade e conversão comercial", async ({ pa
   );
   expect(moduleSources).toHaveLength(1);
   expect(moduleSources[0]).toMatch(/^\.\/app\.js\?/);
+
+  const appSource = await (await page.request.get(new URL("./app.js", page.url()).href)).text();
+  expect(appSource).not.toContain("motion.js");
+
+  const evolutionSource = await (await page.request.get(new URL("./evolution.js", page.url()).href)).text();
+  for (const retiredLoop of [
+    "initAuroraCanvas();",
+    "initAmbientParticles();",
+    "initVignette();",
+    "initCursorGlow();"
+  ]) {
+    expect(evolutionSource).not.toContain(retiredLoop);
+  }
+
+  await expect(page.locator("#aurora-canvas, #ambient-particles, #cursor-glow, #vignette-overlay")).toHaveCount(0);
 
   const projectResponse = await page.request.get(new URL("./projects.json", page.url()).href);
   expect(projectResponse.ok()).toBe(true);
@@ -392,7 +408,7 @@ test("protege posicionamento, credibilidade e conversão comercial", async ({ pa
   await expect(caseCards.locator(".project-case__facts")).toHaveCount(projectData.projects.length);
   await expect(caseCards.locator(".project-case__facts dt")).toHaveCount(projectData.projects.length * 3);
   await expect(caseCards.locator('a[href^="https://"]')).toHaveCount(projectData.projects.length);
-  expect(await caseCards.locator(".project-case__facts").allInnerTexts()).not.toContain("");
+  expect(await caseCards.locator(".project-case__facts").allTextContents()).not.toContain("");
 
   const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
   const itemList = schema["@graph"].find((item) => item["@type"] === "ItemList");
@@ -404,7 +420,7 @@ test("protege posicionamento, credibilidade e conversão comercial", async ({ pa
   );
   expect(filters.every((filter) => !filter.includes("grayscale(1)"))).toBe(true);
 
-  const faqQuestions = await page.locator("#faq .faq-question").allInnerTexts();
+  const faqQuestions = await page.locator("#faq .faq-question").allTextContents();
   expect(faqQuestions.join(" ")).toContain("Qual é a sua atuação principal?");
   expect(faqQuestions.join(" ")).toContain("Como funciona o seu processo?");
   expect(faqQuestions.join(" ")).toContain("Para quais oportunidades você está disponível?");

@@ -24,22 +24,9 @@
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isTouch = window.matchMedia('(pointer: coarse)').matches;
 
-  /* ─── 1. LENIS SMOOTH SCROLL (único RAF) ─── */
-  let lenis;
-  if (!prefersReduced && !isTouch && typeof Lenis !== 'undefined') {
-    lenis = new Lenis({
-      duration: 1.0,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      wheelMultiplier: 0.7,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  }
+  /* ─── 1. NATIVE SCROLL ───
+     A rolagem do navegador evita um RAF permanente e responde melhor
+     em notebooks, celulares e dispositivos com GPU integrada. */
 
   /* ─── 2. SECTION REVEAL — único IntersectionObserver ─── */
   const revealObserver = new IntersectionObserver((entries) => {
