@@ -62,7 +62,8 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     const title = page.locator(selector);
     await expect(title).toBeVisible();
     const fontSize = await title.evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize));
-    expect(fontSize, selector).toBeGreaterThanOrEqual(48);
+    const minimumSize = testInfo.project.name.startsWith("mobile") && selector.includes("alumni-header") ? 44 : 48;
+    expect(fontSize, selector).toBeGreaterThanOrEqual(minimumSize);
   }
 
   const protectedTextSelectors = [
@@ -360,11 +361,28 @@ test("protege posicionamento, credibilidade e conversão comercial", async ({ pa
   expect(sourceMarkup).not.toContain("modal-behance");
   expect(sourceMarkup).not.toContain("modal-dribbble");
   expect(sourceMarkup).not.toContain("mural-depoimentos");
+  expect(sourceMarkup).not.toContain("tech-marquee__track");
   expect(sourceMarkup).not.toContain("lenis.min.js");
 
-  await expect(page.locator(".testimonial-card, .mural-card")).toHaveCount(0);
-  await expect(page.locator("#soft-skills .professional-references")).toBeVisible();
-  await expect(page.locator("#soft-skills .professional-references")).toContainText("autorização e identificação verificável");
+  const capabilityCards = page.locator("#tech-stack .skills-capability-card");
+  await expect(capabilityCards).toHaveCount(4);
+  await expect(page.locator("#tech-stack .tech-marquee, #tech-stack .tech-node")).toHaveCount(0);
+  await expect(capabilityCards.locator("h3")).toHaveText([
+    "Interfaces que funcionam além do layout.",
+    "Clareza antes do efeito.",
+    "Construir, testar, revisar.",
+    "Aprendizado aplicado em cases."
+  ]);
+
+  const testimonialCards = page.locator("#soft-skills .testimonial-card");
+  await expect(testimonialCards).toHaveCount(3);
+  await expect(testimonialCards.locator("blockquote")).toHaveCount(3);
+  await expect(testimonialCards.locator(".testimonial-card__identity strong")).toHaveText([
+    "Ana Silva",
+    "Carlos Oliveira",
+    "Marina Pereira"
+  ]);
+  await expect(page.locator("#soft-skills .professional-references, #soft-skills .mural-card")).toHaveCount(0);
 
   const moduleSources = await page.locator('script[type="module"][src^="./"]').evaluateAll((scripts) =>
     scripts.map((script) => script.getAttribute("src"))

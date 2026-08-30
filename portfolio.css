@@ -7761,40 +7761,6 @@ body.loader-complete #hero .hero-editorial__name{
   flex: 0 0 auto;
 }
 
-#soft-skills .professional-references{
-  max-width: 52rem;
-  margin: clamp(3rem, 5vw, 5rem) auto 0;
-  padding: clamp(1.5rem, 3vw, 2.5rem);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.025);
-}
-
-#soft-skills .professional-references__eyebrow{
-  display: block;
-  margin-bottom: 0.9rem;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.64);
-}
-
-#soft-skills .professional-references h3{
-  margin: 0 0 0.9rem;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(1.7rem, 3vw, 2.6rem);
-  line-height: 1;
-  color: #fff;
-}
-
-#soft-skills .professional-references p{
-  max-width: 46rem;
-  margin: 0;
-  color: rgba(255, 255, 255, 0.72) !important;
-  line-height: 1.7 !important;
-}
-
 /* Vitrine compacta: os projetos ficam visíveis sem transformar a seção em uma página inteira. */
 #projetos .projects-viewport{
   display: flex !important;
@@ -8253,4 +8219,522 @@ html.is-chromium #projetos .project-thumbnail-image,
 html.is-chromium #projetos-design .ux-card__media img{
   -webkit-filter:none !important;
   filter:none !important;
+}
+
+/* =========================================================
+   HABILIDADES — MAPA EDITORIAL ESTÁTICO
+   Remove a lógica visual de marquee e organiza competência por função.
+   As auroras são gradientes estáticos: nenhum loop ou imagem decorativa.
+   ========================================================= */
+#tech-stack{
+  position:relative;
+  isolation:isolate;
+}
+
+#tech-stack .skills-aurora{
+  position:absolute;
+  z-index:-1;
+  top:12%;
+  left:0;
+  width:100%;
+  height:72%;
+  transform:none;
+  background:
+    radial-gradient(ellipse 34% 42% at 16% 28%,rgba(180,76,93,0.12),transparent 72%),
+    radial-gradient(ellipse 32% 38% at 84% 38%,rgba(105,88,190,0.13),transparent 74%),
+    radial-gradient(ellipse 42% 28% at 56% 82%,rgba(103,139,218,0.08),transparent 76%);
+  opacity:0.8;
+  pointer-events:none;
+}
+
+#tech-stack .tech-header{
+  margin-bottom:clamp(2.2rem,4.5vw,4rem) !important;
+}
+
+#tech-stack .tech-header__title{
+  font-size:clamp(4.5rem,7.6vw,7rem) !important;
+}
+
+#tech-stack .skills-capability-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:clamp(0.85rem,1.35vw,1.25rem);
+  max-width:76rem;
+  margin:0 auto;
+}
+
+#tech-stack .skills-capability-card{
+  --skills-glow:rgba(145,163,224,0.12);
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  min-height:clamp(16rem,23vw,20rem);
+  padding:clamp(1.5rem,2.5vw,2.35rem);
+  overflow:hidden;
+  isolation:isolate;
+  border:1px solid rgba(255,255,255,0.11);
+  border-radius:clamp(1rem,1.5vw,1.4rem);
+  background:
+    radial-gradient(circle at 100% 0%,var(--skills-glow),transparent 42%),
+    linear-gradient(145deg,rgba(255,255,255,0.045),rgba(255,255,255,0.012) 58%,rgba(255,255,255,0.025));
+  box-shadow:0 1.5rem 4rem rgba(0,0,0,0.2);
+  transition:border-color 0.35s ease,transform 0.35s cubic-bezier(0.16,1,0.3,1),background-color 0.35s ease;
+}
+
+#tech-stack .skills-capability-card::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,0.28),transparent 36%) top left/100% 1px no-repeat,
+    radial-gradient(circle at 88% 16%,rgba(255,255,255,0.28) 0 1px,transparent 1.7px),
+    radial-gradient(circle at 81% 24%,rgba(255,255,255,0.14) 0 1px,transparent 1.6px),
+    radial-gradient(circle at 92% 31%,rgba(255,255,255,0.1) 0 1px,transparent 1.6px);
+  opacity:0.68;
+  pointer-events:none;
+}
+
+#tech-stack .skills-capability-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(255,255,255,0.24);
+}
+
+#tech-stack .skills-capability-card--core{
+  grid-column:span 7;
+  --skills-glow:rgba(185,74,91,0.16);
+}
+
+#tech-stack .skills-capability-card--design{
+  grid-column:span 5;
+  --skills-glow:rgba(119,100,201,0.16);
+}
+
+#tech-stack .skills-capability-card--quality{
+  grid-column:span 5;
+  --skills-glow:rgba(92,121,190,0.13);
+}
+
+#tech-stack .skills-capability-card--growth{
+  grid-column:span 7;
+  --skills-glow:rgba(122,91,174,0.13);
+}
+
+#tech-stack .skills-capability-card__meta{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:1rem;
+  margin-bottom:auto;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:0.67rem;
+  font-weight:600;
+  letter-spacing:0.15em;
+  line-height:1.25;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.72);
+}
+
+#tech-stack .skills-capability-card__status{
+  color:rgba(255,255,255,0.4);
+  text-align:right;
+}
+
+#tech-stack .skills-capability-card h3{
+  max-width:13ch;
+  margin:clamp(2.5rem,5vw,5.5rem) 0 0.9rem;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:clamp(1.65rem,2.8vw,2.75rem);
+  font-weight:500;
+  letter-spacing:-0.045em;
+  line-height:0.98;
+  color:#fff;
+  text-wrap:balance;
+}
+
+#tech-stack .skills-capability-card:not(.skills-capability-card--core) h3{
+  font-size:clamp(1.45rem,2.2vw,2.15rem);
+}
+
+#tech-stack .skills-capability-card p{
+  max-width:43rem;
+  margin:0 0 1.5rem;
+  font-size:clamp(0.86rem,1vw,0.97rem) !important;
+  line-height:1.65 !important;
+  color:rgba(255,255,255,0.62) !important;
+  text-wrap:pretty;
+}
+
+#tech-stack .skills-capability-card__tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.5rem;
+  padding:0;
+  margin:auto 0 0;
+  list-style:none;
+}
+
+#tech-stack .skills-capability-card__tags li{
+  padding:0.52rem 0.72rem;
+  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(0,0,0,0.18);
+  font-family:"Space Grotesk",sans-serif;
+  font-size:0.68rem;
+  font-weight:500;
+  line-height:1;
+  color:rgba(255,255,255,0.76);
+}
+
+#tech-stack .skills-capability-card__signal{
+  position:absolute;
+  top:50%;
+  right:clamp(1.5rem,3vw,3rem);
+  display:flex;
+  align-items:flex-end;
+  gap:0.34rem;
+  height:3.4rem;
+  transform:translateY(-50%);
+  opacity:0.22;
+  pointer-events:none;
+}
+
+#tech-stack .skills-capability-card__signal span{
+  width:1px;
+  height:var(--signal-height,45%);
+  background:linear-gradient(to top,transparent,#fff,transparent);
+}
+
+#tech-stack .skills-capability-card__signal span:nth-child(2){--signal-height:100%}
+#tech-stack .skills-capability-card__signal span:nth-child(3){--signal-height:68%}
+#tech-stack .skills-capability-card__signal span:nth-child(4){--signal-height:28%}
+
+#tech-stack .skills-principles{
+  display:grid;
+  grid-template-columns:minmax(8rem,0.55fr) 2fr;
+  align-items:center;
+  gap:clamp(1rem,3vw,3rem);
+  max-width:76rem;
+  margin:clamp(1.2rem,2vw,1.8rem) auto 0;
+  padding:clamp(1.1rem,1.8vw,1.45rem) 0;
+  border-top:1px solid rgba(255,255,255,0.1);
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+#tech-stack .skills-principles__label{
+  font-family:"Space Grotesk",sans-serif;
+  font-size:0.67rem;
+  font-weight:600;
+  letter-spacing:0.17em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.45);
+}
+
+#tech-stack .skills-principles ul{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:0;
+  padding:0;
+  margin:0;
+  list-style:none;
+}
+
+#tech-stack .skills-principles li{
+  position:relative;
+  padding-left:1.15rem;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:clamp(0.78rem,1vw,0.9rem);
+  color:rgba(255,255,255,0.78);
+}
+
+#tech-stack .skills-principles li::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:0;
+  width:0.32rem;
+  height:0.32rem;
+  border:1px solid rgba(255,255,255,0.62);
+  transform:translateY(-50%) rotate(45deg);
+}
+
+/* =========================================================
+   DEPOIMENTOS — CARDS EDITORIAIS SEM MARQUEE
+   Três relatos, uma única ocorrência de cada e rolagem manual no mobile.
+   ========================================================= */
+#soft-skills .testimonials-editorial{
+  max-width:76rem;
+  margin:clamp(3.5rem,6vw,6.5rem) auto 0;
+  min-height:0 !important;
+  padding:0 !important;
+}
+
+#soft-skills .alumni-hero-card{
+  margin-bottom:0 !important;
+}
+
+#soft-skills .testimonials-editorial__header{
+  display:grid;
+  grid-template-columns:minmax(0,1.3fr) minmax(15rem,0.7fr);
+  gap:clamp(1.5rem,5vw,5rem);
+  align-items:end;
+  margin-bottom:clamp(1.8rem,3vw,2.8rem);
+}
+
+#soft-skills .testimonials-editorial__eyebrow{
+  grid-column:1/-1;
+  margin-bottom:-0.7rem;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:0.67rem;
+  font-weight:600;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.48);
+}
+
+#soft-skills .testimonials-editorial__header h3{
+  max-width:18ch;
+  margin:0;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:clamp(1.8rem,3.5vw,3.4rem);
+  font-weight:400;
+  letter-spacing:-0.045em;
+  line-height:1;
+  color:#fff;
+  text-wrap:balance;
+}
+
+#soft-skills .testimonials-editorial__header p{
+  max-width:29rem;
+  margin:0;
+  padding-bottom:0.2rem;
+  font-size:clamp(0.9rem,1.1vw,1rem) !important;
+  line-height:1.7 !important;
+  color:rgba(255,255,255,0.58) !important;
+}
+
+#soft-skills .testimonials-editorial__grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(0.85rem,1.35vw,1.25rem);
+}
+
+#soft-skills .testimonial-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  min-height:18.5rem;
+  padding:clamp(1.4rem,2.2vw,2rem);
+  margin:0;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:clamp(1rem,1.5vw,1.35rem);
+  background:
+    radial-gradient(circle at 100% 0%,rgba(116,96,188,0.1),transparent 42%),
+    linear-gradient(155deg,rgba(255,255,255,0.042),rgba(255,255,255,0.012));
+  box-shadow:0 1.25rem 3.5rem rgba(0,0,0,0.2);
+  transition:transform 0.35s cubic-bezier(0.16,1,0.3,1),border-color 0.35s ease;
+}
+
+#soft-skills .testimonial-card:nth-child(1){
+  background:
+    radial-gradient(circle at 100% 0%,rgba(177,71,87,0.11),transparent 43%),
+    linear-gradient(155deg,rgba(255,255,255,0.042),rgba(255,255,255,0.012));
+}
+
+#soft-skills .testimonial-card:nth-child(3){
+  background:
+    radial-gradient(circle at 100% 0%,rgba(82,119,196,0.11),transparent 43%),
+    linear-gradient(155deg,rgba(255,255,255,0.042),rgba(255,255,255,0.012));
+}
+
+#soft-skills .testimonial-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(255,255,255,0.23);
+}
+
+#soft-skills .testimonial-card__quote{
+  display:block;
+  height:2.75rem;
+  margin-bottom:1rem;
+  font-family:Georgia,serif;
+  font-size:4.5rem;
+  font-weight:400;
+  line-height:0.9;
+  color:rgba(255,255,255,0.2);
+}
+
+#soft-skills .testimonial-card blockquote{
+  margin:0 0 2rem;
+}
+
+#soft-skills .testimonial-card blockquote p{
+  margin:0;
+  font-family:"Inter",sans-serif;
+  font-size:clamp(0.92rem,1.05vw,1rem) !important;
+  line-height:1.72 !important;
+  color:rgba(255,255,255,0.79) !important;
+  text-wrap:pretty;
+}
+
+#soft-skills .testimonial-card figcaption{
+  display:flex;
+  align-items:center;
+  gap:0.85rem;
+  margin-top:auto;
+  padding-top:1.1rem;
+  border-top:1px solid rgba(255,255,255,0.09);
+}
+
+#soft-skills .testimonial-card__avatar{
+  display:grid;
+  place-items:center;
+  flex:0 0 2.5rem;
+  width:2.5rem;
+  height:2.5rem;
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:50%;
+  background:rgba(255,255,255,0.035);
+  font-family:"Space Grotesk",sans-serif;
+  font-size:0.68rem;
+  font-weight:600;
+  letter-spacing:0.08em;
+  color:rgba(255,255,255,0.78);
+}
+
+#soft-skills .testimonial-card__identity{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  gap:0.15rem;
+}
+
+#soft-skills .testimonial-card__identity strong{
+  font-family:"Space Grotesk",sans-serif;
+  font-size:0.84rem;
+  font-weight:600;
+  color:#fff;
+}
+
+#soft-skills .testimonial-card__identity small{
+  overflow:hidden;
+  font-size:0.72rem;
+  color:rgba(255,255,255,0.46);
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+@media (max-width:900px){
+  #tech-stack .skills-capability-card--core,
+  #tech-stack .skills-capability-card--design,
+  #tech-stack .skills-capability-card--quality,
+  #tech-stack .skills-capability-card--growth{
+    grid-column:span 6;
+  }
+
+  #soft-skills .testimonials-editorial__header{
+    grid-template-columns:1fr;
+  }
+
+  #soft-skills .testimonials-editorial__eyebrow{
+    grid-column:auto;
+    margin-bottom:-0.25rem;
+  }
+
+  #soft-skills .testimonials-editorial__header h3{
+    max-width:21ch;
+  }
+
+  #soft-skills .testimonials-editorial__grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  #soft-skills .testimonial-card:last-child{
+    grid-column:1/-1;
+    min-height:15rem;
+  }
+}
+
+@media (max-width:640px){
+  #tech-stack .tech-header__title{
+    font-size:3.1rem !important;
+  }
+
+  #soft-skills .alumni-header__title{
+    font-size:2.8rem !important;
+    letter-spacing:-0.07em !important;
+  }
+
+  #tech-stack .skills-capability-grid{
+    grid-template-columns:1fr;
+  }
+
+  #tech-stack .skills-capability-card--core,
+  #tech-stack .skills-capability-card--design,
+  #tech-stack .skills-capability-card--quality,
+  #tech-stack .skills-capability-card--growth{
+    grid-column:auto;
+  }
+
+  #tech-stack .skills-capability-card{
+    min-height:0;
+    padding:1.35rem;
+  }
+
+  #tech-stack .skills-capability-card h3,
+  #tech-stack .skills-capability-card:not(.skills-capability-card--core) h3{
+    max-width:16ch;
+    margin:3rem 0 0.75rem;
+    font-size:clamp(1.55rem,7.2vw,2rem);
+  }
+
+  #tech-stack .skills-capability-card__meta{
+    font-size:0.6rem;
+  }
+
+  #tech-stack .skills-principles{
+    grid-template-columns:1fr;
+  }
+
+  #tech-stack .skills-principles ul{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    row-gap:0.85rem;
+  }
+
+  #soft-skills .testimonials-editorial{
+    margin-top:3.5rem;
+  }
+
+  #soft-skills .testimonials-editorial__grid{
+    display:grid;
+    grid-auto-flow:column;
+    grid-auto-columns:min(84vw,21rem);
+    grid-template-columns:none;
+    gap:0.85rem;
+    width:calc(100% + var(--container-padding,1.25rem));
+    margin-right:calc(var(--container-padding,1.25rem) * -1);
+    padding:0 var(--container-padding,1.25rem) 0.85rem 0;
+    overflow-x:auto;
+    overscroll-behavior-inline:contain;
+    scroll-snap-type:inline mandatory;
+    scrollbar-width:thin;
+    scrollbar-color:rgba(255,255,255,0.2) transparent;
+  }
+
+  #soft-skills .testimonial-card,
+  #soft-skills .testimonial-card:last-child{
+    grid-column:auto;
+    min-height:18rem;
+    scroll-snap-align:start;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  #tech-stack .skills-capability-card,
+  #soft-skills .testimonial-card{
+    transition:none !important;
+  }
 }

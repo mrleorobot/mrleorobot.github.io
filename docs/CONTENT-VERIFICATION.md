@@ -7,7 +7,7 @@ O portfólio não publica métricas de conversão, alcance, usuários, produtivi
 - Todos os números promocionais sem documentação foram removidos dos cards, do Schema.org e de `projects.json`.
 - Os seis cases selecionados possuem URL pública e foram verificados como acessíveis em 29 de agosto de 2026.
 - Cada case descreve somente problema, decisão de interface, entrega observável, papel e tecnologias declaradas.
-- Depoimentos sem autorização e identificação verificável não são publicados.
+- Três depoimentos identificados foram restaurados por solicitação expressa do titular do portfólio em 30 de agosto de 2026; o conteúdo permanece sem notas, contadores ou métricas promocionais.
 
 ## Evidência necessária para uma métrica futura
 

@@ -546,20 +546,6 @@
     });
   }
 
-  // ═══════════════════════════════════════════
-  // 24. SKILL TAG SPARKLE
-  // ═══════════════════════════════════════════
-  function initSkillSparkle() {
-    const labels = document.querySelectorAll('.tech-label');
-    labels.forEach(label => {
-      label.addEventListener('mouseenter', () => {
-        label.style.textShadow = '0 0 10px rgba(255,255,255,0.4)';
-      });
-      label.addEventListener('mouseleave', () => {
-        label.style.textShadow = 'none';
-      });
-    });
-  }
 
   // ═══════════════════════════════════════════
   // 25. FOOTER ENHANCEMENT
@@ -626,7 +612,6 @@
         initShimmer();
         initDepthCards();
         initGlowBorders();
-        initSkillSparkle();
       }
       initContactEnhancements();
       initNavEnhancements();
