@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", initTextMaskReveal);
 // =========================================
 function initImageParallax() {
   // Only apply on non-mobile devices for better performance
+  if (document.documentElement.classList.contains("is-chromium")) return;
   if (window.innerWidth <= 768) return;
   
   const parallaxWrappers = document.querySelectorAll('.project-thumbnail-wrapper');
@@ -1357,6 +1358,7 @@ function initTimelineScroll() {
 
 // Inicializa todas as funções quando o DOM estiver pronto com proteção robusta de try-catch individual
 document.addEventListener("DOMContentLoaded", () => {
+  const chromiumLite = document.documentElement.classList.contains("is-chromium");
   const initSafe = (fn, name) => {
     try {
       fn();
@@ -1372,12 +1374,14 @@ document.addEventListener("DOMContentLoaded", () => {
   initSafe(initSearchAndMenu, "initSearchAndMenu");
   initSafe(initInteractiveRipples, "initInteractiveRipples");
   initSafe(initTimelineScroll, "initTimelineScroll");
-  initSafe(initTrajectorySpotlight, "initTrajectorySpotlight");
-  initSafe(initTechLab, "initTechLab");
   initSafe(initProjectsCarousel, "initProjectsCarousel");
   initSafe(initDesignGallery, "initDesignGallery");
-  initSafe(initGameDevArtwork, "initGameDevArtwork");
-  initSafe(initBeyondCodePhoto, "initBeyondCodePhoto");
+  if (!chromiumLite) {
+    initSafe(initTrajectorySpotlight, "initTrajectorySpotlight");
+    initSafe(initTechLab, "initTechLab");
+    initSafe(initGameDevArtwork, "initGameDevArtwork");
+    initSafe(initBeyondCodePhoto, "initBeyondCodePhoto");
+  }
   initSafe(initTabSystem, "initTabSystem");
   initSafe(initScrollProgressBar, "initScrollProgressBar");
 });

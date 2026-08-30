@@ -10,6 +10,7 @@
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+  const chromiumLite = document.documentElement.classList.contains('is-chromium');
 
   // ═══════════════════════════════════════════
   // 1. AURORA MESH GRADIENT CANVAS — Monocromático
@@ -620,14 +621,16 @@
       initSectionTitleEntrance();
       initTimelineLineDraw();
       initStaggerReveal();
-      initLiquidButtons();
-      initShimmer();
-      initDepthCards();
-      initGlowBorders();
+      if (!chromiumLite) {
+        initLiquidButtons();
+        initShimmer();
+        initDepthCards();
+        initGlowBorders();
+        initSkillSparkle();
+      }
       initContactEnhancements();
       initNavEnhancements();
       initScrollProgressGlow();
-      initSkillSparkle();
       initFooterEnhancement();
       initPerformanceVisibility();
 

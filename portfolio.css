@@ -8196,3 +8196,61 @@ body.loader-complete #hero .hero-editorial__name{
     transform: none !important;
   }
 }
+
+/* =========================================================
+   CHROMIUM PERFORMANCE MODE — 2026-08-30
+   Chrome/Edge recebem a mesma composição visual sem os efeitos que mantêm
+   dezenas de camadas GPU ativas. Firefox preserva a experiência completa.
+   ========================================================= */
+html.is-chromium{
+  scroll-behavior:auto !important;
+}
+
+html.is-chromium body *,html.is-chromium body *::before,html.is-chromium body *::after{
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+  will-change:auto !important;
+}
+
+html.is-chromium main *,html.is-chromium main *::before,html.is-chromium main *::after{
+  -webkit-filter:none !important;
+  filter:none !important;
+}
+
+html.is-chromium .noise-overlay{
+  display:none !important;
+}
+
+html.is-chromium #hero-ink-canvas{
+  mix-blend-mode:normal !important;
+}
+
+html.is-chromium .reveal-item,html.is-chromium .section-reveal,html.is-chromium .section-entrance,html.is-chromium [data-motion]{
+  transition-property:opacity,transform !important;
+  transition-duration:0.35s !important;
+}
+
+html.is-chromium #stardust-layer1,html.is-chromium #stardust-layer2,
+html.is-chromium .hero-scroll-cta__chevron,
+html.is-chromium .hero-location__pulse::after,
+html.is-chromium .momento-atual__label::before,
+html.is-chromium .projects-header__eyebrow::before,
+html.is-chromium .tech-header__eyebrow::before,
+html.is-chromium .ambient-aurora__mesh,
+html.is-chromium #sobre .trajectory-aurora__mesh,
+html.is-chromium .live-dot,
+html.is-chromium .tech-marquee__track,
+html.is-chromium .hud-dot,
+html.is-chromium #tech-stack .tech-lab__core-glow,
+html.is-chromium #tech-stack.revealed .tech-node,
+html.is-chromium #tech-stack.revealed .tech-node__icon,
+html.is-chromium #tech-stack .tech-lab__orbit.revealed .tech-node,
+html.is-chromium #tech-stack .tech-lab__orbit.revealed .tech-node__icon{
+  animation:none !important;
+}
+
+html.is-chromium #projetos .project-thumbnail-image,
+html.is-chromium #projetos-design .ux-card__media img{
+  -webkit-filter:none !important;
+  filter:none !important;
+}

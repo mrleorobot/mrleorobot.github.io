@@ -439,3 +439,45 @@ test("protege posicionamento, credibilidade e conversão comercial", async ({ pa
   expect(cvResponse.headers()["content-type"]).toContain("application/pdf");
   expect((await cvResponse.body()).subarray(0, 4).toString()).toBe("%PDF");
 });
+
+test("ativa o modo leve do Chromium sem alterar a vitrine de projetos", async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith("desktop"), "Cobertura única no Chromium desktop");
+  await page.emulateMedia({ reducedMotion: "no-preference", colorScheme: "dark" });
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  await waitForPortfolio(page);
+
+  await expect(page.locator("html")).toHaveClass(/\bis-chromium\b/);
+  await expect(page.locator("#projetos article[data-project-id]")).toHaveCount(14);
+
+  const profile = await page.evaluate(() => {
+    const nav = document.querySelector(".nav-motion");
+    const project = document.querySelector("#projetos .project-card");
+    const canvas = document.querySelector("#hero-ink-canvas");
+    const infiniteAnimations = document.getAnimations().filter((animation) => {
+      const timing = animation.effect?.getComputedTiming?.();
+      return animation.playState === "running" && timing?.iterations === Infinity;
+    }).map((animation) => ({
+      name: animation.animationName,
+      target: animation.effect?.target?.className || animation.effect?.target?.id || animation.effect?.target?.tagName
+    }));
+    return {
+      navBackdrop: nav ? getComputedStyle(nav).backdropFilter : "none",
+      projectFilter: project ? getComputedStyle(project).filter : "none",
+      canvasBlend: canvas ? getComputedStyle(canvas).mixBlendMode : "normal",
+      noiseDisplay: getComputedStyle(document.querySelector(".noise-overlay")).display,
+      infiniteAnimations,
+      sectionHeight: document.querySelector("#projetos").getBoundingClientRect().height
+    };
+  });
+
+  expect(profile.navBackdrop).toBe("none");
+  expect(profile.projectFilter).toBe("none");
+  expect(profile.canvasBlend).toBe("normal");
+  expect(profile.noiseDisplay).toBe("none");
+  expect(profile.infiniteAnimations).toEqual([]);
+  expect(profile.sectionHeight).toBeLessThan(1300);
+
+  const heroInkSource = await (await page.request.get(new URL("./hero-ink.js", page.url()).href)).text();
+  expect(heroInkSource).toContain('document.documentElement.classList.contains("is-chromium")');
+  expect(heroInkSource).toContain("draw(3200, true)");
+});

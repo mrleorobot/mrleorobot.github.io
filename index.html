@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <script>
+      (() => {
+        const brands = navigator.userAgentData?.brands || [];
+        const chromiumBrand = brands.some(({ brand }) =>
+          /Chromium|Google Chrome|Microsoft Edge/i.test(brand),
+        );
+        const chromiumUA = /(?:Chrome|Chromium|Edg)\//.test(navigator.userAgent || "");
+        if (chromiumBrand || chromiumUA) {
+          document.documentElement.classList.add("is-chromium");
+        }
+      })();
+    </script>
 
     <title>Leonilson Souza | Front-end e Designer de Interfaces</title>
     <link
@@ -11,7 +23,7 @@
     />
 
     <!-- PWA: instalável como app no celular -->
-    <link rel="manifest" href="./manifest.json?v=20260830projects1" />
+    <link rel="manifest" href="./manifest.json?v=20260830chrome2" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -317,7 +329,7 @@
   ]
 }
     </script>
-    <link rel="stylesheet" href="./portfolio.css?v=20260830projects1" />
+    <link rel="stylesheet" href="./portfolio.css?v=20260830chrome2" />
     
     
     
@@ -1813,7 +1825,7 @@
         <span>&copy; 2026 Leonilson. Todos os direitos reservados.</span>
       </div>
     </footer>
-    <script type="module" src="./app.js?v=20260830projects1"></script>
+    <script type="module" src="./app.js?v=20260830chrome2"></script>
 
     <!-- BOTÃO COMPARTILHAR -->
     <button
@@ -1976,7 +1988,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", async () => {
           try {
-            const registration = await navigator.serviceWorker.register("./sw.js?v=20260830projects1");
+            const registration = await navigator.serviceWorker.register("./sw.js?v=20260830chrome2");
             registration.update();
           } catch {
             // The portfolio remains fully functional without offline caching.

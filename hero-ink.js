@@ -96,6 +96,8 @@
   var W = 0, H = 0;
   var rafId = null;
   var running = false;
+  var isChromium = document.documentElement.classList.contains("is-chromium");
+  var staticRendered = false;
   var startTime = 0;
   var lastFrameTime = 0;
 
@@ -586,12 +588,12 @@
 
   /* ─── Render principal ─── */
   var _lastElapsed = 0;
-  function draw(elapsed) {
+  function draw(elapsed, staticFrame) {
     ctx.clearRect(0, 0, W, H);
     ctx.globalCompositeOperation = "source-over";
 
     // Spawn/update de estrelas cadentes ocasionais
-    updateShootingStars(elapsed);
+    if (!staticFrame) updateShootingStars(elapsed);
 
     // Fades independentes por camada (cinematográfico)
     var nebulaFade = easeOut(Math.min(elapsed / CFG.NEBULA_APPEAR_MS, 1), 3);
@@ -672,7 +674,7 @@
     }
 
     // ─── 7. SHOOTING STARS (cinematic streaks) ───
-    drawShootingStars(elapsed, _lastElapsed);
+    if (!staticFrame) drawShootingStars(elapsed, _lastElapsed);
 
     _lastElapsed = elapsed;
     ctx.globalAlpha = 1;
@@ -686,13 +688,24 @@
     if (!running) return;
     if (!lastFrameTime || now - lastFrameTime >= CFG.FRAME_INTERVAL) {
       var elapsed = now - startTime;
-      draw(elapsed);
+      draw(elapsed, false);
       lastFrameTime = now;
     }
     rafId = requestAnimationFrame(loop);
   }
 
   function start() {
+    // O Chromium mantém o canvas em uma camada de composição cara quando ele
+    // é redesenhado continuamente. Nele preservamos a arte em um quadro final
+    // estático; Firefox continua com a animação completa a 30 fps.
+    if (isChromium) {
+      if (!staticRendered) {
+        draw(3200, true);
+        staticRendered = true;
+      }
+      running = false;
+      return;
+    }
     if (running) return;
     running = true;
     startTime = performance.now();
@@ -813,6 +826,10 @@
           resize();
           buildStars();
           buildFlaredStars();
+          if (isChromium) {
+            staticRendered = false;
+            start();
+          }
         })
       : null;
     if (resizeOb) resizeOb.observe(canvas);
@@ -820,10 +837,16 @@
       resize();
       buildStars();
       buildFlaredStars();
+      if (isChromium) {
+        staticRendered = false;
+        start();
+      }
     }, { passive: true });
 
-    window.addEventListener("mousemove", onMouseMove, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    if (!isChromium) {
+      window.addEventListener("mousemove", onMouseMove, { passive: true });
+      window.addEventListener("touchmove", onTouchMove, { passive: true });
+    }
 
     // Nebulosa e reveal só iniciam depois do loader sair
     function beginHero() {
