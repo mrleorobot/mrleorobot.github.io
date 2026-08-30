@@ -609,6 +609,104 @@ html.is-chromium #projetos-design .ux-card__media img{
   font-size:clamp(4.5rem,7.6vw,7rem) !important;
 }
 
+#tech-stack .skills-motion-rails{
+  position:relative;
+  z-index:1;
+  width:100%;
+  max-width:76rem;
+  margin:0 auto clamp(1.1rem,2vw,1.7rem);
+  padding:0.15rem 0;
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+}
+
+#tech-stack .skills-motion-rail{
+  overflow:hidden;
+  border-top:1px solid rgba(255,255,255,0.09);
+  border-bottom:1px solid rgba(255,255,255,0.09);
+  background:linear-gradient(90deg,rgba(185,74,91,0.035),rgba(255,255,255,0.025),rgba(105,88,190,0.04));
+}
+
+#tech-stack .skills-motion-rail--secondary{
+  margin-top:0.48rem;
+  background:linear-gradient(90deg,rgba(92,121,190,0.04),rgba(255,255,255,0.018),rgba(122,91,174,0.04));
+}
+
+#tech-stack .skills-motion-track{
+  display:flex;
+  width:max-content;
+  will-change:transform;
+}
+
+#tech-stack .skills-motion-track--forward{
+  animation:skillsRailForward 30s linear infinite;
+}
+
+#tech-stack .skills-motion-track--reverse{
+  animation:skillsRailReverse 34s linear infinite;
+}
+
+#tech-stack .skills-motion-rails:hover .skills-motion-track{
+  animation-play-state:paused;
+}
+
+#tech-stack .skills-motion-set{
+  display:flex;
+  align-items:center;
+  flex:none;
+  gap:clamp(1.35rem,2.8vw,2.8rem);
+  min-width:max-content;
+  margin:0;
+  padding:0.72rem clamp(1.35rem,2.8vw,2.8rem) 0.72rem 0;
+  list-style:none;
+}
+
+#tech-stack .skills-motion-set li{
+  display:flex;
+  align-items:center;
+  gap:0.62rem;
+  flex:none;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:clamp(0.68rem,0.9vw,0.78rem);
+  font-weight:550;
+  letter-spacing:0.09em;
+  color:rgba(255,255,255,0.72);
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+#tech-stack .skills-motion-icon{
+  display:grid;
+  place-items:center;
+  width:1.75rem;
+  height:1.75rem;
+  flex:none;
+  border:1px solid rgba(255,255,255,0.14);
+  border-radius:0.42rem;
+  background:rgba(255,255,255,0.035);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,0.15);
+  font-family:"Space Grotesk",sans-serif;
+  font-size:0.66rem;
+  font-weight:700;
+  letter-spacing:-0.04em;
+  color:rgba(255,255,255,0.9);
+}
+
+#tech-stack .skills-motion-icon--figma{
+  color:#d9a6ff;
+  text-shadow:0 -0.28rem #ff7b7b,0 0.28rem #65d6b4;
+}
+
+@keyframes skillsRailForward{
+  to{transform:translate3d(-50%,0,0)}
+}
+
+@keyframes skillsRailReverse{
+  from{transform:translate3d(-50%,0,0)}
+  to{transform:translate3d(0,0,0)}
+}
+
 #tech-stack .skills-capability-grid{
   position:relative;
   z-index:1;
@@ -1026,6 +1124,16 @@ html.is-chromium #projetos-design .ux-card__media img{
     grid-template-columns:1fr;
   }
 
+  #tech-stack .skills-motion-rails{
+    width:calc(100% + 1.5rem);
+    margin-left:-0.75rem;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
+  }
+
+  #tech-stack .skills-motion-track--forward{animation-duration:36s}
+  #tech-stack .skills-motion-track--reverse{animation-duration:40s}
+
   #tech-stack .skills-capability-card--core,
   #tech-stack .skills-capability-card--design,
   #tech-stack .skills-capability-card--quality,
@@ -1087,6 +1195,21 @@ html.is-chromium #projetos-design .ux-card__media img{
 }
 
 @media (prefers-reduced-motion:reduce){
+  #tech-stack .skills-motion-track{
+    animation:none !important;
+    transform:none !important;
+    will-change:auto;
+  }
+
+  #tech-stack .skills-motion-rail{
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+
+  #tech-stack .skills-motion-set[aria-hidden="true"]{
+    display:none;
+  }
+
   #tech-stack .skills-capability-card,
   #soft-skills .testimonial-card{
     transition:none !important;

@@ -386,6 +386,8 @@ test("protege posicionamento, credibilidade e conversão comercial", async ({ pa
   const capabilityCards = page.locator("#tech-stack .skills-capability-card");
   await expect(capabilityCards).toHaveCount(4);
   await expect(page.locator("#tech-stack .tech-marquee, #tech-stack .tech-node")).toHaveCount(0);
+  await expect(page.locator("#tech-stack .skills-motion-rail")).toHaveCount(2);
+  await expect(page.locator("#tech-stack .skills-motion-set:not([aria-hidden]) li")).toHaveCount(12);
   await expect(capabilityCards.locator("h3")).toHaveText([
     "Interfaces que funcionam além do layout.",
     "Clareza antes do efeito.",
@@ -511,7 +513,8 @@ test("ativa o modo leve do Chromium sem alterar a vitrine de projetos", async ({
   expect(profile.projectFilter).toBe("none");
   expect(profile.canvasBlend).toBe("normal");
   expect(profile.noiseDisplay).toBe("none");
-  expect(profile.infiniteAnimations).toEqual([]);
+  expect(profile.infiniteAnimations.every(({ name }) => name === "skillsRailForward" || name === "skillsRailReverse")).toBe(true);
+  expect(profile.infiniteAnimations).toHaveLength(2);
   expect(profile.sectionHeight).toBeLessThan(1300);
 
   const heroInkSource = await (await page.request.get(new URL("./hero-ink.js", page.url()).href)).text();
