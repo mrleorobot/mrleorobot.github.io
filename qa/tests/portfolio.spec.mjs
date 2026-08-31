@@ -281,6 +281,9 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     expect(mobileCompactContract.maxSectionPadding).toBeLessThanOrEqual(80);
     expect(mobileCompactContract.lowerContentVisibility).toBe("auto");
 
+    await page.evaluate(() => window.scrollBy(0, -140));
+    await expect(page.locator(".mobile-bottom-dock")).not.toHaveClass(/is-hidden/);
+
     const mobileContract = await page.evaluate(() => {
       const dock = document.querySelector(".mobile-bottom-dock");
       const dockRect = dock.getBoundingClientRect();
