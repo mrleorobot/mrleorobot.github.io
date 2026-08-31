@@ -85,8 +85,8 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
       })
     };
   });
-  expect(trajectoryYears.featuredLineRatio).toBeGreaterThanOrEqual(0.89);
-  expect(trajectoryYears.featuredBoxRatio).toBeGreaterThan(1);
+  expect(trajectoryYears.featuredLineRatio).toBeGreaterThanOrEqual(1);
+  expect(trajectoryYears.featuredBoxRatio).toBeGreaterThan(1.2);
   expect(trajectoryYears.tabsFit).toBe(true);
 
   const heroFontSize = await page.locator("#hero .hero-editorial__name").evaluate((element) =>
