@@ -1462,9 +1462,11 @@ html.is-scroll-locked,body.is-scroll-locked{
 }
 
 #sobre .trajectory-year-tab__year{
+  display: block;
+  padding-block: 0.04em 0.08em;
   font-size: clamp(1.3rem, 1.7vw, 1.75rem);
   font-weight: 600;
-  line-height: 1;
+  line-height: 1.08;
   letter-spacing: -0.04em;
 }
 
@@ -1591,13 +1593,14 @@ html.is-scroll-locked,body.is-scroll-locked{
 #sobre .trajectory-stage__year-number{
   display: block;
   margin-left: -0.06em;
+  padding-block: 0.06em 0.12em;
   font-family: "Space Grotesk", sans-serif;
   font-size: clamp(4rem, 8vw, 7.5rem);
   font-weight: 800;
-  line-height: 0.76;
+  line-height: 0.9;
   letter-spacing: -0.085em;
   color: #fff;
-  background: linear-gradient(180deg, #fff 6%, rgba(255, 255, 255, 0.7) 55%, rgba(255, 255, 255, 0.12) 100%);
+  background: linear-gradient(180deg, #fff 6%, rgba(255, 255, 255, 0.82) 58%, rgba(255, 255, 255, 0.48) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

@@ -72,6 +72,23 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   );
   expect(renderedOrder).toEqual(sectionOrder);
 
+  const trajectoryYears = await page.locator("#sobre").evaluate((section) => {
+    const featuredYear = section.querySelector(".trajectory-stage__year-number");
+    const tabYears = Array.from(section.querySelectorAll(".trajectory-year-tab__year"));
+    const featuredStyle = getComputedStyle(featuredYear);
+    return {
+      featuredLineRatio: Number.parseFloat(featuredStyle.lineHeight) / Number.parseFloat(featuredStyle.fontSize),
+      featuredBoxRatio: featuredYear.getBoundingClientRect().height / Number.parseFloat(featuredStyle.fontSize),
+      tabsFit: tabYears.every((year) => {
+        const style = getComputedStyle(year);
+        return year.getBoundingClientRect().height >= Number.parseFloat(style.lineHeight);
+      })
+    };
+  });
+  expect(trajectoryYears.featuredLineRatio).toBeGreaterThanOrEqual(0.89);
+  expect(trajectoryYears.featuredBoxRatio).toBeGreaterThan(1);
+  expect(trajectoryYears.tabsFit).toBe(true);
+
   const heroFontSize = await page.locator("#hero .hero-editorial__name").evaluate((element) =>
     Number.parseFloat(getComputedStyle(element).fontSize)
   );
