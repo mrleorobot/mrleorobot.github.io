@@ -209,6 +209,16 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   expect(ctaCollision).toBe(0);
 
   if (testInfo.project.name.startsWith("mobile")) {
+    const hamburger = page.locator(".hamburger");
+    const mobileMenu = page.locator("#primary-nav-menu");
+    await hamburger.click();
+    await expect(hamburger).toHaveAttribute("aria-expanded", "true");
+    await expect(mobileMenu).toBeVisible();
+    await expect(mobileMenu.locator("a")).toHaveCount(6);
+    await hamburger.click();
+    await expect(hamburger).toHaveAttribute("aria-expanded", "false");
+    await expect(mobileMenu).toBeHidden();
+
     const hiddenTouchDescriptions = await page.locator("#projetos-design .ux-card__desc").evaluateAll((descriptions) =>
       descriptions.flatMap((description) => {
         const style = getComputedStyle(description);
@@ -217,6 +227,7 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
       })
     );
     expect(hiddenTouchDescriptions).toEqual([]);
+    await expect(page.locator("#projects-dots")).toBeHidden();
 
     const mobileContract = await page.evaluate(() => {
       const dock = document.querySelector(".mobile-bottom-dock");

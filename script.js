@@ -1209,6 +1209,7 @@ function initSearchAndMenu() {
       const willBeActive = !hamburger.classList.contains("active");
       hamburger.classList.toggle("active", willBeActive);
       navLinks.classList.toggle("active", willBeActive);
+      document.body.classList.toggle("mobile-menu-open", willBeActive);
       hamburger.setAttribute("aria-expanded", String(willBeActive));
       hamburger.setAttribute("aria-label", willBeActive ? "Fechar menu" : "Abrir menu");
 
@@ -1245,6 +1246,7 @@ function initSearchAndMenu() {
       if (e.key === "Escape") {
         hamburger.classList.remove("active");
         navLinks.classList.remove("active");
+        document.body.classList.remove("mobile-menu-open");
         hamburger.setAttribute("aria-expanded", "false");
         hamburger.setAttribute("aria-label", "Abrir menu");
         hamburger.focus();
@@ -1256,6 +1258,7 @@ function initSearchAndMenu() {
       link.addEventListener("click", () => {
         hamburger.classList.remove("active");
         navLinks.classList.remove("active");
+        document.body.classList.remove("mobile-menu-open");
         hamburger.setAttribute("aria-expanded", "false");
         hamburger.setAttribute("aria-label", "Abrir menu");
       });
@@ -1267,6 +1270,7 @@ function initSearchAndMenu() {
         if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
           hamburger.classList.remove("active");
           navLinks.classList.remove("active");
+          document.body.classList.remove("mobile-menu-open");
           hamburger.setAttribute("aria-expanded", "false");
           hamburger.setAttribute("aria-label", "Abrir menu");
         }

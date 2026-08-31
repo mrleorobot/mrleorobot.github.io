@@ -719,12 +719,13 @@
     root.dataset.trajectoryReady = 'true';
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const mobileExperience = window.matchMedia('(max-width: 768px)').matches;
     let activeIndex = Math.max(0, moments.findIndex((moment) => moment.year === root.dataset.activeYear));
     let autoplayTimer = null;
     let transitionTimer = null;
     let entranceTimer = null;
     let isVisible = false;
-    let isPaused = reduceMotion;
+    let isPaused = reduceMotion || mobileExperience;
 
     const clearAutoplay = () => {
       if (autoplayTimer) window.clearTimeout(autoplayTimer);
@@ -834,7 +835,7 @@
       else scheduleAutoplay();
     });
 
-    if (reduceMotion) {
+    if (reduceMotion || mobileExperience) {
       cycleToggle.hidden = true;
     } else {
       updateCycleControl();

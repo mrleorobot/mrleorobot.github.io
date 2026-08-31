@@ -88,13 +88,32 @@
     border: 1px solid rgba(255, 255, 255, 0.12) !important;
     border-radius: 50% !important;
     background: rgba(255, 255, 255, 0.04) !important;
+    z-index: 10012 !important;
   }
 
   .nav-links {
+    display: flex !important;
     height: 100svh !important;
     padding: calc(5.5rem + env(safe-area-inset-top)) var(--mobile-gutter)
       calc(6rem + env(safe-area-inset-bottom)) !important;
     gap: 0 !important;
+    z-index: 10010 !important;
+  }
+
+  .nav-links.active {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .nav-links.active > a {
+    pointer-events: auto !important;
+  }
+
+  body.mobile-menu-open {
+    overflow: hidden !important;
+    touch-action: none;
   }
 
   .nav-links > a:not(.btn-cv) {
@@ -237,13 +256,19 @@
   /* Trajetoria compacta, legivel e tocavel. */
   #sobre .trajectory-experience {
     min-height: 0 !important;
-    padding: 0.8rem !important;
-    border-radius: var(--mobile-card-radius) !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
   }
 
   #sobre .trajectory-tabs-shell {
     display: block !important;
-    padding-bottom: 0.7rem !important;
+    padding: 0.3rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.025);
   }
 
   #sobre .trajectory-tabs {
@@ -251,10 +276,23 @@
   }
 
   #sobre .trajectory-year-tab {
-    min-height: 3.2rem !important;
+    min-height: 3rem !important;
     padding: 0.4rem 0.2rem !important;
     align-items: center !important;
     text-align: center !important;
+    border: 0 !important;
+    border-radius: 0.65rem !important;
+    color: rgba(255, 255, 255, 0.42) !important;
+  }
+
+  #sobre .trajectory-year-tab::after {
+    display: none !important;
+  }
+
+  #sobre .trajectory-year-tab.is-active {
+    color: #050505 !important;
+    background: #fff !important;
+    box-shadow: 0 0.45rem 1.2rem rgba(0, 0, 0, 0.28);
   }
 
   #sobre .trajectory-year-tab__year {
@@ -269,18 +307,29 @@
   }
 
   #sobre .trajectory-cycle-toggle {
-    width: auto;
-    min-height: 2.75rem;
-    margin: 0.8rem 0 0 auto;
+    display: none !important;
+  }
+
+  #sobre .trajectory-progress {
+    display: none !important;
   }
 
   #sobre .trajectory-stage {
     display: block !important;
-    padding: 1.25rem 0 0 !important;
+    margin-top: 0.85rem;
+    padding: 0 !important;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--mobile-card-radius);
+    background:
+      radial-gradient(circle at 88% 4%, rgba(255, 255, 255, 0.08), transparent 30%),
+      rgba(7, 7, 9, 0.94);
   }
 
   #sobre .trajectory-stage__year {
-    margin-bottom: 1rem;
+    margin: 0;
+    padding: 1rem 1.1rem 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
   }
 
   #sobre .trajectory-stage__year-content {
@@ -302,7 +351,7 @@
     grid-row: 1 / span 2;
     margin: 0 !important;
     padding: 0.12em 0.02em 0.18em !important;
-    font-size: clamp(3.2rem, 17vw, 4.75rem) !important;
+    font-size: clamp(3rem, 15.5vw, 4.35rem) !important;
     line-height: 1 !important;
     letter-spacing: -0.08em !important;
   }
@@ -316,11 +365,13 @@
 
   #sobre .trajectory-panel {
     min-height: 0 !important;
-    border-radius: 0.9rem !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
   }
 
   #sobre .trajectory-panel__content {
-    padding: 1.25rem !important;
+    padding: 1.2rem 1.1rem 1.25rem !important;
   }
 
   #sobre .trajectory-panel h3 {
@@ -413,9 +464,7 @@
   }
 
   #projetos #projects-dots {
-    display: flex !important;
-    justify-content: center;
-    margin-top: 0.6rem;
+    display: none !important;
   }
 
   /* Galeria visual em cards verticais de toque. */
