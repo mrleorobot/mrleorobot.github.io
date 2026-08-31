@@ -217,6 +217,45 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
       })
     );
     expect(hiddenTouchDescriptions).toEqual([]);
+
+    const mobileContract = await page.evaluate(() => {
+      const dock = document.querySelector(".mobile-bottom-dock");
+      const dockRect = dock.getBoundingClientRect();
+      const dockLinks = Array.from(dock.querySelectorAll("a"));
+      const heroRect = document.querySelector("#hero").getBoundingClientRect();
+      const firstProject = document.querySelector("#projetos .project-card").getBoundingClientRect();
+      const floatingControls = ["#soundToggleBtn", "#btn-share", "#btn-topo"]
+        .map((selector) => document.querySelector(selector))
+        .filter(Boolean);
+
+      return {
+        dockPosition: getComputedStyle(dock).position,
+        dockInsideViewport:
+          dockRect.left >= 0 && dockRect.right <= window.innerWidth && dockRect.bottom <= window.innerHeight,
+        dockTargetsFit: dockLinks.every((link) => link.getBoundingClientRect().height >= 44),
+        dockTargetsExist: dockLinks.every((link) => {
+          const href = link.getAttribute("href");
+          return href?.startsWith("#") && document.querySelector(href);
+        }),
+        heroUsesFirstFold: heroRect.height >= window.innerHeight * 0.9 && heroRect.height <= window.innerHeight * 1.15,
+        projectCardShowsNext:
+          firstProject.width >= window.innerWidth * 0.75 && firstProject.width < window.innerWidth * 0.92,
+        floatingControlsHidden: floatingControls.every((control) => getComputedStyle(control).display === "none"),
+        bodyBottomPadding: Number.parseFloat(getComputedStyle(document.body).paddingBottom),
+        dockHeight: dockRect.height
+      };
+    });
+
+    expect(mobileContract.dockPosition).toBe("fixed");
+    expect(mobileContract.dockInsideViewport).toBe(true);
+    expect(mobileContract.dockTargetsFit).toBe(true);
+    expect(mobileContract.dockTargetsExist).toBe(true);
+    expect(mobileContract.heroUsesFirstFold).toBe(true);
+    expect(mobileContract.projectCardShowsNext).toBe(true);
+    expect(mobileContract.floatingControlsHidden).toBe(true);
+    expect(mobileContract.bodyBottomPadding).toBeGreaterThanOrEqual(mobileContract.dockHeight);
+  } else {
+    await expect(page.locator(".mobile-bottom-dock")).toBeHidden();
   }
 
   const lockState = await page.evaluate(() => ({
