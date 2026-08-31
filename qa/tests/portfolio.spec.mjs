@@ -211,13 +211,33 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   if (testInfo.project.name.startsWith("mobile")) {
     const hamburger = page.locator(".hamburger");
     const mobileMenu = page.locator("#primary-nav-menu");
+    const scrollBeforeMenu = await page.evaluate(() => window.scrollY);
     await hamburger.click();
     await expect(hamburger).toHaveAttribute("aria-expanded", "true");
     await expect(mobileMenu).toBeVisible();
     await expect(mobileMenu.locator("a")).toHaveCount(6);
+    await expect(mobileMenu.locator('.nav-tab-link[aria-current="page"]')).toHaveCount(1);
+    await expect(page.locator("body")).toHaveClass(/mobile-menu-open/);
     await hamburger.click();
     await expect(hamburger).toHaveAttribute("aria-expanded", "false");
     await expect(mobileMenu).toBeHidden();
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeCloseTo(scrollBeforeMenu, -1);
+
+    const skillToggles = page.locator("#tech-stack .skills-card-toggle");
+    await expect(skillToggles).toHaveCount(4);
+    await expect(skillToggles.nth(1)).toHaveAttribute("aria-expanded", "false");
+    await skillToggles.nth(1).click();
+    await expect(skillToggles.nth(1)).toHaveAttribute("aria-expanded", "true");
+    await skillToggles.nth(2).click();
+    await expect(skillToggles.nth(1)).toHaveAttribute("aria-expanded", "false");
+    await expect(skillToggles.nth(2)).toHaveAttribute("aria-expanded", "true");
+    await expect(page.locator("#tech-stack .skills-capability-card.is-open")).toHaveCount(1);
+
+    await expect(page.locator("#soft-skills .testimonials-progress")).toHaveText("1 / 3");
+    const testimonialPeeking = await page.locator("#soft-skills .testimonial-card").first().evaluate((card) =>
+      card.getBoundingClientRect().width < window.innerWidth * 0.9
+    );
+    expect(testimonialPeeking).toBe(true);
 
     const hiddenTouchDescriptions = await page.locator("#projetos-design .ux-card__desc").evaluateAll((descriptions) =>
       descriptions.flatMap((description) => {
@@ -228,6 +248,38 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     );
     expect(hiddenTouchDescriptions).toEqual([]);
     await expect(page.locator("#projects-dots")).toBeHidden();
+    await expect(page.locator(".mobile-swipe-hint")).toHaveCount(2);
+
+    const mobileImagePolicy = await page.evaluate(() => {
+      const projectImages = Array.from(document.querySelectorAll("#projetos .project-card img"));
+      const designImages = Array.from(document.querySelectorAll("#projetos-design .ux-card img"));
+      return [projectImages, designImages].every((images) =>
+        images[0]?.loading === "eager" && images.slice(1).every((image) => image.loading === "lazy")
+      );
+    });
+    expect(mobileImagePolicy).toBe(true);
+
+    const mobileCompactContract = await page.evaluate(() => {
+      const cardSelectors = [
+        "#sobre .status-card",
+        "#projetos .project-card",
+        "#projetos-design .ux-card",
+        "#tech-stack .skills-capability-card",
+        "#soft-skills .testimonial-card",
+      ];
+      const radii = cardSelectors.map((selector) => getComputedStyle(document.querySelector(selector)).borderRadius);
+      const lowerSection = document.querySelector("#game-dev");
+      const sectionPaddings = Array.from(document.querySelectorAll("main section[id]:not(#hero)"))
+        .map((section) => Number.parseFloat(getComputedStyle(section).paddingTop));
+      return {
+        sameCardRadius: new Set(radii).size === 1,
+        maxSectionPadding: Math.max(...sectionPaddings),
+        lowerContentVisibility: getComputedStyle(lowerSection).contentVisibility,
+      };
+    });
+    expect(mobileCompactContract.sameCardRadius).toBe(true);
+    expect(mobileCompactContract.maxSectionPadding).toBeLessThanOrEqual(80);
+    expect(mobileCompactContract.lowerContentVisibility).toBe("auto");
 
     const mobileContract = await page.evaluate(() => {
       const dock = document.querySelector(".mobile-bottom-dock");

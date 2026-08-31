@@ -329,7 +329,7 @@
   ]
 }
     </script>
-    <link rel="stylesheet" href="./portfolio.css?v=20260831mobile3" />
+    <link rel="stylesheet" href="./portfolio.css?v=20260831mobile4" />
     
     
     
@@ -1465,7 +1465,7 @@
       <p>Relatos sobre didática, colaboração e cuidado durante o processo.</p>
     </header>
 
-    <div class="testimonials-editorial__grid">
+    <div class="testimonials-editorial__grid" role="region" aria-label="Depoimentos — arraste para navegar" tabindex="0">
       <figure class="testimonial-card reveal-item">
         <span class="testimonial-card__quote" aria-hidden="true">“</span>
         <blockquote>
@@ -1600,6 +1600,7 @@
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                 </div>
               </a>
+              <p class="footer-availability">Disponível para oportunidades e projetos de Front-end e Interface Design.</p>
             </div>
 
             <div class="footer-editorial__channels">
@@ -1680,7 +1681,7 @@
         <span>&copy; 2026 Leonilson. Todos os direitos reservados.</span>
       </div>
     </footer>
-    <script type="module" src="./app.js?v=20260831mobile3"></script>
+        <script type="module" src="./app.js?v=20260831mobile4"></script>
 
     <!-- BOTÃO COMPARTILHAR -->
     <button
@@ -1821,7 +1822,7 @@
       </div>
     </dialog>
 <!-- Mobile App Dock -->
-    <nav class="mobile-bottom-dock" aria-label="Navegação Mobile">
+    <nav class="mobile-bottom-dock" aria-label="Navegação mobile">
       <a href="#hero" class="dock-item">
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
         <span>Início</span>
@@ -1843,7 +1844,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", async () => {
           try {
-            const registration = await navigator.serviceWorker.register("./sw.js?v=20260831mobile3");
+            const registration = await navigator.serviceWorker.register("./sw.js?v=20260831mobile4");
             registration.update();
           } catch {
             // The portfolio remains fully functional without offline caching.

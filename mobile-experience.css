@@ -4,12 +4,18 @@
    Mantem o desktop inalterado e neutraliza regras mobile antigas.
    ========================================================= */
 
+.footer-availability {
+  display: none;
+}
+
 @media (max-width: 768px) {
   :root {
     --mobile-gutter: clamp(1rem, 5vw, 1.35rem);
-    --mobile-section-space: clamp(4.5rem, 17vw, 6rem);
+    --mobile-section-space: clamp(3.65rem, 13vw, 4.75rem);
     --mobile-card-radius: 1rem;
     --mobile-dock-height: 4.5rem;
+    --mobile-card-border: rgba(255, 255, 255, 0.12);
+    --mobile-card-surface: rgba(9, 9, 11, 0.94);
   }
 
   html {
@@ -33,6 +39,11 @@
   main section[id]:not(#hero) {
     padding: var(--mobile-section-space) var(--mobile-gutter) !important;
     scroll-margin-top: 4.25rem;
+  }
+
+  main section[id]:nth-of-type(n + 5) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 920px;
   }
 
   .noise-overlay,
@@ -98,6 +109,7 @@
       calc(6rem + env(safe-area-inset-bottom)) !important;
     gap: 0 !important;
     z-index: 10010 !important;
+    overscroll-behavior: contain;
   }
 
   .nav-links.active {
@@ -109,6 +121,18 @@
 
   .nav-links.active > a {
     pointer-events: auto !important;
+    animation: mobile-menu-link-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .nav-links.active > a:nth-child(2) { animation-delay: 0.04s; }
+  .nav-links.active > a:nth-child(3) { animation-delay: 0.08s; }
+  .nav-links.active > a:nth-child(4) { animation-delay: 0.12s; }
+  .nav-links.active > a:nth-child(5) { animation-delay: 0.16s; }
+  .nav-links.active > a:nth-child(6) { animation-delay: 0.2s; }
+
+  @keyframes mobile-menu-link-in {
+    from { opacity: 0; transform: translateY(1rem); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   body.mobile-menu-open {
@@ -127,10 +151,26 @@
     text-transform: none !important;
   }
 
+  .nav-links > a[aria-current="page"]:not(.btn-cv) {
+    color: #fff !important;
+  }
+
+  .nav-links > a[aria-current="page"]:not(.btn-cv)::after {
+    content: "Atual";
+    margin-left: auto;
+    font-size: 0.52rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.48);
+  }
+
   .nav-links .btn-cv {
     width: 100% !important;
     min-height: 3.25rem !important;
     margin: 1.5rem 0 0 !important;
+    color: #050505 !important;
+    background: #fff !important;
+    border-color: #fff !important;
   }
 
   /* Hero desenhado para a primeira dobra real do celular. */
@@ -217,7 +257,7 @@
   #projetos .projects-header,
   #tech-stack .tech-header,
   #faq .faq-header {
-    margin: 0 0 2.25rem !important;
+    margin: 0 0 1.65rem !important;
     padding-top: 0 !important;
     gap: 1.35rem !important;
   }
@@ -269,6 +309,18 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0.9rem;
     background: rgba(255, 255, 255, 0.025);
+    position: relative;
+  }
+
+  #sobre .trajectory-tabs-shell::after {
+    content: "";
+    position: absolute;
+    right: 0.8rem;
+    bottom: -0.55rem;
+    left: 0.8rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    pointer-events: none;
   }
 
   #sobre .trajectory-tabs {
@@ -283,7 +335,10 @@
     border: 0 !important;
     border-radius: 0.65rem !important;
     color: rgba(255, 255, 255, 0.42) !important;
+    transition: color 0.22s ease, background 0.22s ease, transform 0.16s ease !important;
   }
+
+  #sobre .trajectory-year-tab:active { transform: scale(0.94); }
 
   #sobre .trajectory-year-tab::after {
     display: none !important;
@@ -319,7 +374,7 @@
     margin-top: 0.85rem;
     padding: 0 !important;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid var(--mobile-card-border);
     border-radius: var(--mobile-card-radius);
     background:
       radial-gradient(circle at 88% 4%, rgba(255, 255, 255, 0.08), transparent 30%),
@@ -354,6 +409,7 @@
     font-size: clamp(3rem, 15.5vw, 4.35rem) !important;
     line-height: 1 !important;
     letter-spacing: -0.08em !important;
+    transform-origin: right center;
   }
 
   #sobre .trajectory-stage__phase {
@@ -374,6 +430,20 @@
     padding: 1.2rem 1.1rem 1.25rem !important;
   }
 
+  #sobre .trajectory-stage.is-switching .trajectory-stage__year-number {
+    transform: translateY(-0.2rem) scale(0.97);
+    opacity: 0.35;
+  }
+
+  #sobre .trajectory-stage.is-entering .trajectory-stage__year-number {
+    animation: mobile-year-enter 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes mobile-year-enter {
+    from { opacity: 0; transform: translateY(0.55rem) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
   #sobre .trajectory-panel h3 {
     font-size: clamp(1.45rem, 7vw, 2rem) !important;
     line-height: 1.08 !important;
@@ -389,7 +459,7 @@
   }
 
   #sobre .momento-atual {
-    margin-top: 3.5rem !important;
+    margin-top: 2.5rem !important;
   }
 
   #sobre .status-container {
@@ -400,7 +470,9 @@
   #sobre .status-card {
     min-height: 0 !important;
     padding: 1.15rem !important;
-    border-radius: 0.85rem !important;
+    border: 1px solid var(--mobile-card-border) !important;
+    border-radius: var(--mobile-card-radius) !important;
+    background: var(--mobile-card-surface) !important;
   }
 
   /* Projetos: uma historia por tela, com pista do proximo card. */
@@ -426,7 +498,7 @@
 
   #projetos .projects-viewport {
     gap: 0.9rem !important;
-    padding: 0.25rem var(--mobile-gutter) 1.4rem !important;
+    padding: 0.2rem var(--mobile-gutter) 0.8rem !important;
     scroll-padding-inline: var(--mobile-gutter);
     overscroll-behavior-inline: contain;
   }
@@ -435,14 +507,21 @@
     flex: 0 0 min(86vw, 22rem) !important;
     border-radius: var(--mobile-card-radius) !important;
     scroll-snap-align: start !important;
+    border: 1px solid var(--mobile-card-border) !important;
+    background: var(--mobile-card-surface) !important;
   }
 
   #projetos .project-card__media {
     aspect-ratio: 16 / 10 !important;
   }
 
+  #projetos .project-card__media img,
+  #projetos-design .ux-card__media img {
+    filter: grayscale(18%) brightness(0.92) contrast(1.08) !important;
+  }
+
   #projetos .project-card__body {
-    min-height: 15.5rem;
+    min-height: 13.25rem;
     padding: 1.15rem !important;
   }
 
@@ -467,9 +546,25 @@
     display: none !important;
   }
 
+  .mobile-swipe-hint {
+    display: flex;
+    margin: 0.55rem 0 0 !important;
+    align-items: center;
+    gap: 0.45rem;
+    color: rgba(255,255,255,0.42) !important;
+    font: 600 0.58rem/1 "Space Grotesk", sans-serif !important;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .mobile-swipe-hint span {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.85rem;
+  }
+
   /* Galeria visual em cards verticais de toque. */
   #projetos-design .ux-header {
-    margin-bottom: 2rem !important;
+    margin-bottom: 1.5rem !important;
   }
 
   #projetos-design .ux-header__subtitle {
@@ -482,11 +577,11 @@
     grid-auto-flow: column;
     grid-auto-columns: min(86vw, 22rem);
     grid-template-columns: none !important;
-    grid-template-rows: min(118vw, 29rem) !important;
+    grid-template-rows: min(108vw, 26rem) !important;
     gap: 0.9rem !important;
     width: calc(100% + var(--mobile-gutter) * 2);
     margin-left: calc(var(--mobile-gutter) * -1);
-    padding: 0.2rem var(--mobile-gutter) 1.25rem;
+    padding: 0.2rem var(--mobile-gutter) 0.75rem;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
@@ -511,6 +606,8 @@
     min-height: 0 !important;
     border-radius: var(--mobile-card-radius) !important;
     scroll-snap-align: start;
+    border: 1px solid var(--mobile-card-border) !important;
+    background: var(--mobile-card-surface) !important;
   }
 
   #projetos-design .ux-card__content {
@@ -528,7 +625,7 @@
   /* Habilidades ganham leitura rapida sem perder movimento. */
   #tech-stack .skills-motion-rails {
     width: calc(100% + var(--mobile-gutter) * 2) !important;
-    margin: 0 calc(var(--mobile-gutter) * -1) 2rem !important;
+    margin: 0 calc(var(--mobile-gutter) * -1) 1.35rem !important;
   }
 
   #tech-stack .skills-motion-rail {
@@ -545,14 +642,17 @@
   }
 
   #tech-stack .skills-capability-card {
-    padding: 1.2rem !important;
+    padding: 1.05rem !important;
+    min-height: 0 !important;
+    border: 1px solid var(--mobile-card-border) !important;
     border-radius: var(--mobile-card-radius) !important;
+    background: var(--mobile-card-surface) !important;
   }
 
   #tech-stack .skills-capability-card h3,
   #tech-stack .skills-capability-card:not(.skills-capability-card--core) h3 {
-    margin-top: 2.35rem !important;
-    font-size: clamp(1.45rem, 7vw, 1.85rem) !important;
+    margin: 1.35rem 0 0 !important;
+    font-size: clamp(1.3rem, 6.4vw, 1.7rem) !important;
     line-height: 1.08 !important;
   }
 
@@ -566,6 +666,71 @@
     align-items: center;
   }
 
+  #tech-stack .skills-card-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0.85rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #tech-stack .skills-card-preview li {
+    padding: 0.38rem 0.6rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 999px;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.68);
+  }
+
+  #tech-stack .skills-card-toggle {
+    display: flex;
+    width: 100%;
+    min-height: 2.75rem;
+    margin-top: 0.9rem;
+    padding: 0.65rem 0;
+    align-items: center;
+    justify-content: space-between;
+    border: 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.72);
+    background: transparent;
+    font: 600 0.62rem/1 "Space Grotesk", sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  #tech-stack .skills-card-toggle::after {
+    content: "+";
+    font-size: 1.15rem;
+    font-weight: 300;
+    transition: transform 0.25s ease;
+  }
+
+  #tech-stack .skills-card-toggle[aria-expanded="true"]::after {
+    transform: rotate(45deg);
+  }
+
+  #tech-stack .skills-card-details {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.32s cubic-bezier(0.16,1,0.3,1), opacity 0.22s ease;
+  }
+
+  #tech-stack .skills-card-details__inner { overflow: hidden; }
+
+  #tech-stack .skills-capability-card.is-open .skills-card-details {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  #tech-stack .skills-capability-card.is-open .skills-card-preview { display: none; }
+
+  #tech-stack .skills-card-details p { margin-top: 1rem !important; }
+
   #tech-stack .skills-principles {
     margin-top: 1rem !important;
     padding: 1.1rem !important;
@@ -574,7 +739,7 @@
 
   /* Game, comunidade e depoimentos sem blocos gigantes. */
   #game-dev .gamedev-hud-container {
-    min-height: 32rem !important;
+    min-height: 28rem !important;
     border-radius: var(--mobile-card-radius) !important;
     overflow: hidden !important;
   }
@@ -595,7 +760,7 @@
   }
 
   #soft-skills .alumni-header {
-    margin-bottom: 2rem !important;
+    margin-bottom: 1.5rem !important;
   }
 
   #soft-skills .alumni-hero-card {
@@ -618,7 +783,7 @@
   }
 
   #soft-skills .testimonials-editorial {
-    margin-top: 3.25rem !important;
+    margin-top: 2.5rem !important;
     padding: 0 !important;
   }
 
@@ -628,16 +793,51 @@
   }
 
   #soft-skills .testimonials-editorial__grid {
-    grid-auto-columns: min(86vw, 22rem) !important;
-    width: calc(100% + var(--mobile-gutter)) !important;
-    padding-right: var(--mobile-gutter) !important;
+    display: grid !important;
+    grid-auto-flow: column;
+    grid-auto-columns: min(84vw, 21rem) !important;
+    gap: 0.85rem !important;
+    width: calc(100% + var(--mobile-gutter) * 2) !important;
+    margin-left: calc(var(--mobile-gutter) * -1) !important;
+    padding: 0.15rem var(--mobile-gutter) 0.6rem !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--mobile-gutter);
+    scrollbar-width: none;
   }
+
+  #soft-skills .testimonials-editorial__grid::-webkit-scrollbar { display: none; }
 
   #soft-skills .testimonial-card,
   #soft-skills .testimonial-card:last-child {
     min-height: 17rem !important;
     padding: 1.25rem !important;
     border-radius: var(--mobile-card-radius) !important;
+    border: 1px solid var(--mobile-card-border) !important;
+    background: var(--mobile-card-surface) !important;
+    scroll-snap-align: start;
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  #soft-skills .testimonial-card blockquote { flex: 1; }
+  #soft-skills .testimonial-card figcaption { margin-top: auto; }
+
+  #soft-skills .testimonials-progress {
+    display: flex;
+    margin-top: 0.75rem;
+    align-items: center;
+    gap: 0.75rem;
+    color: rgba(255,255,255,0.55);
+    font: 600 0.62rem/1 "Space Grotesk", sans-serif;
+    letter-spacing: 0.12em;
+  }
+
+  #soft-skills .testimonials-progress::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, rgba(255,255,255,0.38), rgba(255,255,255,0.05));
   }
 
   /* FAQ e conversao com alvos de toque reais. */
@@ -673,6 +873,7 @@
 
   #cta-final {
     min-height: 0 !important;
+    padding-bottom: 2.5rem !important;
   }
 
   #cta-final .footer-editorial {
@@ -685,6 +886,7 @@
     grid-template-columns: minmax(0, 1fr) 3.25rem;
     gap: 0.75rem;
     align-items: end;
+    margin-bottom: 0.85rem !important;
   }
 
   #cta-final .footer-giant-title {
@@ -704,13 +906,44 @@
     gap: 0.65rem !important;
   }
 
+  #cta-final .footer-availability {
+    display: flex;
+    margin: 0.4rem 0 1.25rem;
+    align-items: center;
+    gap: 0.55rem;
+    color: rgba(255,255,255,0.62);
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  #cta-final .footer-availability::before {
+    content: "";
+    width: 0.48rem;
+    height: 0.48rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0.75rem rgba(34,197,94,0.5);
+  }
+
   #cta-final .contact-link {
     min-height: 3.25rem;
     justify-content: flex-start !important;
   }
 
+  #cta-final .contact-link.email {
+    order: -1;
+    min-height: 3.65rem;
+    justify-content: space-between !important;
+    color: #050505 !important;
+    background: #fff !important;
+    border-color: #fff !important;
+  }
+
+  #cta-final .contact-link.email svg { stroke: #050505 !important; }
+
   .site-footer {
-    padding: 3.5rem var(--mobile-gutter)
+    padding: 2.5rem var(--mobile-gutter)
       calc(2rem + var(--mobile-dock-height) + env(safe-area-inset-bottom)) !important;
   }
 
@@ -746,7 +979,7 @@
     padding: 0.35rem !important;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.2rem !important;
-    transform: none !important;
+    transform: translateY(0) !important;
     border: 1px solid rgba(255, 255, 255, 0.14) !important;
     border-radius: 1.15rem !important;
     background: rgba(8, 8, 10, 0.9) !important;
@@ -754,6 +987,14 @@
     backdrop-filter: blur(18px) saturate(130%) !important;
     -webkit-backdrop-filter: blur(18px) saturate(130%) !important;
     pointer-events: auto !important;
+    transition: transform 0.32s cubic-bezier(0.16,1,0.3,1), opacity 0.25s ease !important;
+    will-change: transform;
+  }
+
+  .mobile-bottom-dock.is-hidden {
+    transform: translateY(calc(100% + 1.4rem + env(safe-area-inset-bottom))) !important;
+    opacity: 0;
+    pointer-events: none !important;
   }
 
   .mobile-bottom-dock .dock-item {
@@ -774,6 +1015,32 @@
   .mobile-bottom-dock .dock-item.active {
     color: #fff !important;
     background: rgba(255, 255, 255, 0.09) !important;
+  }
+
+  .mobile-bottom-dock .dock-item[aria-current="page"] {
+    color: #050505 !important;
+    background: #fff !important;
+  }
+
+  .mobile-bottom-dock .dock-item[aria-current="page"] svg { stroke: #050505 !important; }
+
+  .mobile-bottom-dock .dock-item.is-pressed { transform: scale(0.92); }
+
+  .mobile-motion-paused *,
+  .mobile-motion-paused *::before,
+  .mobile-motion-paused *::after {
+    animation-play-state: paused !important;
+  }
+
+  html.save-data nav.nav-motion,
+  html.save-data .mobile-bottom-dock {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  html.save-data #sobre .trajectory-aurora,
+  html.save-data #tech-stack .skills-aurora {
+    display: none !important;
   }
 
   /* Modais se comportam como bottom sheets, sem conteudo inacessivel. */
@@ -802,6 +1069,21 @@
   [role="button"] {
     touch-action: manipulation;
   }
+}
+
+@media (max-width: 768px) and (prefers-reduced-data: reduce) {
+  nav.nav-motion,
+  .mobile-bottom-dock { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+  #sobre .trajectory-aurora,
+  #tech-stack .skills-aurora { display: none !important; }
+}
+
+@media (max-width: 768px) and (update: slow) {
+  nav.nav-motion,
+  .mobile-bottom-dock { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+  .project-card,
+  .ux-card,
+  .testimonial-card { box-shadow: none !important; }
 }
 
 @media (max-width: 380px) {

@@ -1166,6 +1166,210 @@ function initTimelineScroll() {
   timelineItems.forEach((item) => observer.observe(item));
 }
 
+// --------------------------------------------------------
+// Mobile experience: compact content, contextual navigation and
+// aggressive offscreen throttling without changing the desktop DOM.
+// --------------------------------------------------------
+function initMobileExperience() {
+  if (!window.matchMedia("(max-width: 768px)").matches) return;
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const dock = document.querySelector(".mobile-bottom-dock");
+  const dockLinks = dock ? Array.from(dock.querySelectorAll(".dock-item")) : [];
+  const menuLinks = Array.from(document.querySelectorAll(".nav-tab-link[data-section]"));
+  const sections = Array.from(document.querySelectorAll("main section[id]"));
+
+  const dockTargetForSection = {
+    hero: "hero",
+    sobre: "hero",
+    projetos: "projetos",
+    "projetos-design": "projetos-design",
+    "tech-stack": "projetos-design",
+    "game-dev": "projetos",
+    "soft-skills": "projetos-design",
+    faq: "cta-final",
+    "cta-final": "cta-final",
+  };
+  const menuTargetForSection = {
+    hero: "hero",
+    sobre: "sobre",
+    projetos: "projetos",
+    "projetos-design": "projetos",
+    "tech-stack": "tech-stack",
+    "game-dev": "tech-stack",
+    "soft-skills": "tech-stack",
+    faq: "cta-final",
+    "cta-final": "cta-final",
+  };
+
+  const setCurrentNavigation = (sectionId) => {
+    const dockTarget = dockTargetForSection[sectionId] || sectionId;
+    const menuTarget = menuTargetForSection[sectionId] || sectionId;
+    dockLinks.forEach((link) => {
+      const isCurrent = link.getAttribute("href") === `#${dockTarget}`;
+      link.classList.toggle("active", isCurrent);
+      if (isCurrent) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
+
+    menuLinks.forEach((link) => {
+      const isCurrent = link.dataset.section === menuTarget;
+      link.classList.toggle("active", isCurrent);
+      if (isCurrent) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
+  };
+
+  if (sections.length && "IntersectionObserver" in window) {
+    const visibility = new Map();
+    const navigationObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => visibility.set(entry.target.id, entry.intersectionRatio));
+      const current = [...visibility.entries()].sort((a, b) => b[1] - a[1])[0];
+      if (current && current[1] > 0) setCurrentNavigation(current[0]);
+    }, { rootMargin: "-28% 0px -55% 0px", threshold: [0, 0.05, 0.25, 0.5, 0.75] });
+    sections.forEach((section) => navigationObserver.observe(section));
+  } else {
+    setCurrentNavigation("hero");
+  }
+
+  if (dock) {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const currentY = window.scrollY;
+        const delta = currentY - lastScrollY;
+        if (!document.body.classList.contains("mobile-menu-open") && Math.abs(delta) > 8) {
+          dock.classList.toggle("is-hidden", delta > 0 && currentY > 140);
+          lastScrollY = currentY;
+        }
+        if (currentY <= 140) dock.classList.remove("is-hidden");
+        ticking = false;
+      });
+    }, { passive: true });
+
+    dockLinks.forEach((link) => {
+      const release = () => link.classList.remove("is-pressed");
+      link.addEventListener("pointerdown", () => link.classList.add("is-pressed"), { passive: true });
+      link.addEventListener("pointerup", release, { passive: true });
+      link.addEventListener("pointercancel", release, { passive: true });
+      link.addEventListener("click", () => dock.classList.remove("is-hidden"));
+    });
+  }
+
+  const skillCards = Array.from(document.querySelectorAll("#tech-stack .skills-capability-card"));
+  skillCards.forEach((card, index) => {
+    const description = card.querySelector(":scope > p");
+    const tags = card.querySelector(":scope > .skills-capability-card__tags");
+    const title = card.querySelector(":scope > h3");
+    if (!description || !tags || !title) return;
+
+    const preview = document.createElement("ul");
+    preview.className = "skills-card-preview";
+    preview.setAttribute("aria-hidden", "true");
+    Array.from(tags.children).slice(0, 3).forEach((tag) => preview.appendChild(tag.cloneNode(true)));
+
+    const details = document.createElement("div");
+    const detailsInner = document.createElement("div");
+    const detailsId = `skills-card-details-${index + 1}`;
+    details.className = "skills-card-details";
+    details.id = detailsId;
+    detailsInner.className = "skills-card-details__inner";
+    detailsInner.append(description, tags);
+    details.append(detailsInner);
+
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "skills-card-toggle";
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-controls", detailsId);
+    toggle.textContent = "Ver detalhes";
+
+    title.after(preview, toggle, details);
+    card.classList.add("is-collapsible");
+
+    toggle.addEventListener("click", () => {
+      const willOpen = !card.classList.contains("is-open");
+      skillCards.forEach((otherCard) => {
+        otherCard.classList.remove("is-open");
+        const otherToggle = otherCard.querySelector(".skills-card-toggle");
+        if (otherToggle) {
+          otherToggle.setAttribute("aria-expanded", "false");
+          otherToggle.textContent = "Ver detalhes";
+        }
+      });
+      card.classList.toggle("is-open", willOpen);
+      toggle.setAttribute("aria-expanded", String(willOpen));
+      toggle.textContent = willOpen ? "Ocultar detalhes" : "Ver detalhes";
+      if (navigator.vibrate) navigator.vibrate(18);
+    });
+  });
+
+  const testimonialsTrack = document.querySelector("#soft-skills .testimonials-editorial__grid");
+  if (testimonialsTrack) {
+    const testimonials = Array.from(testimonialsTrack.querySelectorAll(".testimonial-card"));
+    const progress = document.createElement("div");
+    progress.className = "testimonials-progress";
+    progress.setAttribute("role", "status");
+    progress.setAttribute("aria-live", "polite");
+    testimonialsTrack.after(progress);
+
+    const updateTestimonials = () => {
+      const first = testimonials[0];
+      if (!first) return;
+      const gap = Number.parseFloat(getComputedStyle(testimonialsTrack).columnGap || getComputedStyle(testimonialsTrack).gap || "0");
+      const step = first.getBoundingClientRect().width + gap;
+      const index = Math.max(0, Math.min(testimonials.length - 1, Math.round(testimonialsTrack.scrollLeft / step)));
+      progress.textContent = `${index + 1} / ${testimonials.length}`;
+    };
+    let testimonialsRaf = 0;
+    testimonialsTrack.addEventListener("scroll", () => {
+      if (testimonialsRaf) return;
+      testimonialsRaf = requestAnimationFrame(() => {
+        updateTestimonials();
+        testimonialsRaf = 0;
+      });
+    }, { passive: true });
+    updateTestimonials();
+  }
+
+  const prepareCarouselImages = (selector) => {
+    const images = Array.from(document.querySelectorAll(selector));
+    images.forEach((image, index) => {
+      image.loading = index === 0 ? "eager" : "lazy";
+      image.fetchPriority = index === 0 ? "high" : "low";
+      image.decoding = "async";
+      image.sizes = "(max-width: 768px) 86vw, 50vw";
+    });
+  };
+  prepareCarouselImages("#projetos .project-card img");
+  prepareCarouselImages("#projetos-design .ux-card img");
+
+  const addSwipeHint = (anchor, text) => {
+    if (!anchor) return;
+    const hint = document.createElement("p");
+    hint.className = "mobile-swipe-hint";
+    hint.setAttribute("aria-hidden", "true");
+    hint.innerHTML = `<span>↔</span>${text}`;
+    anchor.after(hint);
+  };
+  addSwipeHint(document.querySelector("#projetos .projects-track"), "Arraste para explorar");
+  addSwipeHint(document.querySelector("#projetos-design .ux-grid"), "Arraste para explorar");
+
+  if (navigator.connection?.saveData) document.documentElement.classList.add("save-data");
+
+  if ("IntersectionObserver" in window) {
+    const motionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle("mobile-motion-paused", !entry.isIntersecting));
+    }, { rootMargin: "20% 0px", threshold: 0 });
+    document.querySelectorAll("main section[id]").forEach((section) => motionObserver.observe(section));
+  }
+
+  if (reducedMotion) document.documentElement.classList.add("mobile-reduced-motion");
+}
+
 // Inicializa todas as funções quando o DOM estiver pronto com proteção robusta de try-catch individual
 document.addEventListener("DOMContentLoaded", () => {
   const chromiumLite = document.documentElement.classList.contains("is-chromium");
@@ -1186,6 +1390,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initSafe(initTimelineScroll, "initTimelineScroll");
   initSafe(initProjectsCarousel, "initProjectsCarousel");
   initSafe(initDesignGallery, "initDesignGallery");
+  initSafe(initMobileExperience, "initMobileExperience");
   if (!chromiumLite) {
     initSafe(initTrajectorySpotlight, "initTrajectorySpotlight");
     initSafe(initGameDevArtwork, "initGameDevArtwork");
@@ -1204,22 +1409,51 @@ function initSearchAndMenu() {
   const navLinks = document.querySelector(".nav-links");
 
   if (hamburger && navLinks) {
+    let menuScrollY = 0;
+    let gestureStartX = 0;
+    let gestureStartY = 0;
+
+    const openMenu = () => {
+      menuScrollY = window.scrollY;
+      hamburger.classList.add("active");
+      navLinks.classList.add("active");
+      document.body.classList.add("mobile-menu-open");
+      hamburger.setAttribute("aria-expanded", "true");
+      hamburger.setAttribute("aria-label", "Fechar menu");
+
+      if (window.innerWidth <= 768) {
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${menuScrollY}px`;
+        document.body.style.width = "100%";
+      }
+
+      setTimeout(() => {
+        const currentLink = navLinks.querySelector('[aria-current="page"]') || navLinks.querySelector("a");
+        if (currentLink) currentLink.focus();
+      }, 100);
+    };
+
+    const closeMenu = ({ restoreFocus = false } = {}) => {
+      const wasOpen = navLinks.classList.contains("active");
+      hamburger.classList.remove("active");
+      navLinks.classList.remove("active");
+      document.body.classList.remove("mobile-menu-open");
+      hamburger.setAttribute("aria-expanded", "false");
+      hamburger.setAttribute("aria-label", "Abrir menu");
+
+      if (window.innerWidth <= 768 && wasOpen) {
+        document.body.style.removeProperty("position");
+        document.body.style.removeProperty("top");
+        document.body.style.removeProperty("width");
+        window.scrollTo(0, menuScrollY);
+      }
+      if (restoreFocus) hamburger.focus();
+    };
+
     hamburger.addEventListener("click", (e) => {
       e.stopPropagation();
-      const willBeActive = !hamburger.classList.contains("active");
-      hamburger.classList.toggle("active", willBeActive);
-      navLinks.classList.toggle("active", willBeActive);
-      document.body.classList.toggle("mobile-menu-open", willBeActive);
-      hamburger.setAttribute("aria-expanded", String(willBeActive));
-      hamburger.setAttribute("aria-label", willBeActive ? "Fechar menu" : "Abrir menu");
-
-      if (willBeActive) {
-        // Wait for display transition then focus first item
-        setTimeout(() => {
-          const firstLink = navLinks.querySelector("a");
-          if (firstLink) firstLink.focus();
-        }, 100);
-      }
+      if (navLinks.classList.contains("active")) closeMenu();
+      else openMenu();
     });
 
     // Focus Trap on Mobile Menu
@@ -1244,23 +1478,31 @@ function initSearchAndMenu() {
         }
       }
       if (e.key === "Escape") {
-        hamburger.classList.remove("active");
-        navLinks.classList.remove("active");
-        document.body.classList.remove("mobile-menu-open");
-        hamburger.setAttribute("aria-expanded", "false");
-        hamburger.setAttribute("aria-label", "Abrir menu");
-        hamburger.focus();
+        closeMenu({ restoreFocus: true });
       }
+    });
+
+    navLinks.addEventListener("touchstart", (event) => {
+      const touch = event.changedTouches[0];
+      gestureStartX = touch.clientX;
+      gestureStartY = touch.clientY;
+    }, { passive: true });
+
+    navLinks.addEventListener("touchend", (event) => {
+      const touch = event.changedTouches[0];
+      const deltaX = touch.clientX - gestureStartX;
+      const deltaY = touch.clientY - gestureStartY;
+      if (deltaX > 72 || deltaY < -90) closeMenu();
+    }, { passive: true });
+
+    navLinks.addEventListener("click", (event) => {
+      if (event.target === navLinks) closeMenu();
     });
 
     // Close menu when clicking a link
     document.querySelectorAll(".nav-links a").forEach((link) => {
       link.addEventListener("click", () => {
-        hamburger.classList.remove("active");
-        navLinks.classList.remove("active");
-        document.body.classList.remove("mobile-menu-open");
-        hamburger.setAttribute("aria-expanded", "false");
-        hamburger.setAttribute("aria-label", "Abrir menu");
+        closeMenu();
       });
     });
 
@@ -1268,11 +1510,7 @@ function initSearchAndMenu() {
     document.addEventListener("click", (e) => {
       if (navLinks.classList.contains("active")) {
         if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
-          hamburger.classList.remove("active");
-          navLinks.classList.remove("active");
-          document.body.classList.remove("mobile-menu-open");
-          hamburger.setAttribute("aria-expanded", "false");
-          hamburger.setAttribute("aria-label", "Abrir menu");
+          closeMenu();
         }
       }
     });
