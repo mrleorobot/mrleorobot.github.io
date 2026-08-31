@@ -126,6 +126,7 @@
     display: block !important;
     width: 100%;
     min-height: 0 !important;
+    flex: 0 0 auto !important;
   }
 
   #hero .hero-editorial__left,
@@ -180,7 +181,7 @@
   #hero .hero-editorial__bottom {
     position: static !important;
     width: 100%;
-    margin-top: clamp(1.8rem, 8vw, 3rem);
+    margin-top: clamp(1.35rem, 6vw, 2rem) !important;
   }
 
   #hero .hero-editorial__location {

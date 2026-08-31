@@ -9000,6 +9000,7 @@ html.is-chromium #projetos-design .ux-card__media img{
     display: block !important;
     width: 100%;
     min-height: 0 !important;
+    flex: 0 0 auto !important;
   }
 
   #hero .hero-editorial__left,
@@ -9054,7 +9055,7 @@ html.is-chromium #projetos-design .ux-card__media img{
   #hero .hero-editorial__bottom {
     position: static !important;
     width: 100%;
-    margin-top: clamp(1.8rem, 8vw, 3rem);
+    margin-top: clamp(1.35rem, 6vw, 2rem) !important;
   }
 
   #hero .hero-editorial__location {

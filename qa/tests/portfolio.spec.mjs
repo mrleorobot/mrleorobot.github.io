@@ -223,6 +223,7 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
       const dockRect = dock.getBoundingClientRect();
       const dockLinks = Array.from(dock.querySelectorAll("a"));
       const heroRect = document.querySelector("#hero").getBoundingClientRect();
+      const heroLocationRect = document.querySelector("#hero .hero-editorial__location").getBoundingClientRect();
       const firstProject = document.querySelector("#projetos .project-card").getBoundingClientRect();
       const floatingControls = ["#soundToggleBtn", "#btn-share", "#btn-topo"]
         .map((selector) => document.querySelector(selector))
@@ -238,6 +239,9 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
           return href?.startsWith("#") && document.querySelector(href);
         }),
         heroUsesFirstFold: heroRect.height >= window.innerHeight * 0.9 && heroRect.height <= window.innerHeight * 1.15,
+        dockAvoidsHeroLocation:
+          Math.max(0, Math.min(dockRect.right, heroLocationRect.right) - Math.max(dockRect.left, heroLocationRect.left)) *
+          Math.max(0, Math.min(dockRect.bottom, heroLocationRect.bottom) - Math.max(dockRect.top, heroLocationRect.top)) === 0,
         projectCardShowsNext:
           firstProject.width >= window.innerWidth * 0.75 && firstProject.width < window.innerWidth * 0.92,
         floatingControlsHidden: floatingControls.every((control) => getComputedStyle(control).display === "none"),
@@ -251,6 +255,7 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     expect(mobileContract.dockTargetsFit).toBe(true);
     expect(mobileContract.dockTargetsExist).toBe(true);
     expect(mobileContract.heroUsesFirstFold).toBe(true);
+    expect(mobileContract.dockAvoidsHeroLocation).toBe(true);
     expect(mobileContract.projectCardShowsNext).toBe(true);
     expect(mobileContract.floatingControlsHidden).toBe(true);
     expect(mobileContract.bodyBottomPadding).toBeGreaterThanOrEqual(mobileContract.dockHeight);
