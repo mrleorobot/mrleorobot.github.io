@@ -1041,7 +1041,24 @@ function initProjectCuration() {
     );
 
     if (expanded) {
-      requestAnimationFrame(() => archiveCards.forEach((card) => card.classList.add("revealed")));
+      requestAnimationFrame(() => {
+        archiveCards.forEach((card) => card.classList.add("revealed"));
+
+        // Os cards arquivados entram depois dos quatro destaques no carrossel.
+        // Levar a vitrine ao primeiro deles torna o resultado do clique imediato.
+        requestAnimationFrame(() => {
+          const firstArchiveCard = archiveCards[0];
+          const viewportRect = viewport.getBoundingClientRect();
+          const cardRect = firstArchiveCard.getBoundingClientRect();
+          const targetLeft = viewport.scrollLeft + cardRect.left - viewportRect.left;
+          const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+          viewport.scrollTo({
+            left: Math.max(0, targetLeft),
+            behavior: reducedMotion ? "auto" : "smooth",
+          });
+        });
+      });
     } else {
       viewport.scrollTo({ left: 0, behavior: "smooth" });
     }

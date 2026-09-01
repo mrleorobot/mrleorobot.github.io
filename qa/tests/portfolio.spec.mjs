@@ -154,8 +154,16 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   await expect(archiveToggle).toHaveAttribute("aria-expanded", "true");
   await expect(archiveToggle).toContainText("Recolher arquivo");
   await expect(archivedProjects.first()).toBeVisible();
+  await expect.poll(() => page.locator("#projects-viewport").evaluate((viewport) => viewport.scrollLeft)).toBeGreaterThan(0);
+  expect(await archivedProjects.first().evaluate((card) => {
+    const viewport = document.getElementById("projects-viewport");
+    const viewportRect = viewport.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    return cardRect.left >= viewportRect.left - 1 && cardRect.left < viewportRect.right;
+  })).toBe(true);
   await archiveToggle.click();
   await expect(archiveToggle).toHaveAttribute("aria-expanded", "false");
+  await expect.poll(() => page.locator("#projects-viewport").evaluate((viewport) => viewport.scrollLeft)).toBe(0);
 
   const trajectoryYears = await page.locator("#sobre").evaluate((section) => {
     const featuredYear = section.querySelector(".trajectory-stage__year-number");
