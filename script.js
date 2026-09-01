@@ -1048,7 +1048,12 @@ function initProjectCuration() {
         // Levar a vitrine ao primeiro deles torna o resultado do clique imediato.
         requestAnimationFrame(() => {
           const firstArchiveCard = archiveCards[0];
+          const previousScrollBehavior = viewport.style.scrollBehavior;
+          viewport.style.scrollBehavior = "auto";
           viewport.scrollLeft = Math.max(0, firstArchiveCard.offsetLeft - viewport.offsetLeft);
+          requestAnimationFrame(() => {
+            viewport.style.scrollBehavior = previousScrollBehavior;
+          });
         });
       });
     } else {
