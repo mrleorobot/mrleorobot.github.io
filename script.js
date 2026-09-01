@@ -1048,15 +1048,7 @@ function initProjectCuration() {
         // Levar a vitrine ao primeiro deles torna o resultado do clique imediato.
         requestAnimationFrame(() => {
           const firstArchiveCard = archiveCards[0];
-          const viewportRect = viewport.getBoundingClientRect();
-          const cardRect = firstArchiveCard.getBoundingClientRect();
-          const scrollDistance = cardRect.left - viewportRect.left;
-          const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-          viewport.scrollBy({
-            left: scrollDistance,
-            behavior: reducedMotion ? "auto" : "smooth",
-          });
+          viewport.scrollLeft = Math.max(0, firstArchiveCard.offsetLeft - viewport.offsetLeft);
         });
       });
     } else {
