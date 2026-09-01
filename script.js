@@ -725,22 +725,6 @@ function initCinematicScroll() {
   }
 }
 
-function initSpotlight() {
-  const cards = document.querySelectorAll(
-    ".kurz-card, .project-card, .design-card, .status-card, .timeline-content",
-  );
-  cards.forEach((card) => {
-    card.classList.add("spotlight-card");
-    card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty("--mouse-x", `${x}px`);
-      card.style.setProperty("--mouse-y", `${y}px`);
-    });
-  });
-}
-
 function initBeyondCodePhoto() {
   // Parallax mínimo na fotografia da seção "Além do Código".
   // Limite 10px conforme especificação. Usa CSS custom properties + rAF,
@@ -1038,6 +1022,40 @@ function initDesignGallery() {
   requestAnimationFrame(() => setTimeout(updateUI, 100));
 }
 
+function initProjectCuration() {
+  const section = document.getElementById("projetos");
+  const viewport = document.getElementById("projects-viewport");
+  const toggle = section?.querySelector(".projects-archive-toggle");
+  const label = toggle?.querySelector("[data-projects-archive-label]");
+  const archiveCards = Array.from(section?.querySelectorAll(".project-card--archive") || []);
+
+  if (!section || !viewport || !toggle || !label || archiveCards.length === 0) return;
+
+  const setArchiveState = (expanded) => {
+    section.classList.toggle("is-archive-open", expanded);
+    toggle.setAttribute("aria-expanded", String(expanded));
+    label.textContent = expanded ? "Recolher arquivo" : "Explorar arquivo";
+    toggle.setAttribute(
+      "aria-label",
+      expanded ? "Recolher os dez projetos do arquivo" : "Explorar os dez projetos do arquivo",
+    );
+
+    if (expanded) {
+      requestAnimationFrame(() => archiveCards.forEach((card) => card.classList.add("revealed")));
+    } else {
+      viewport.scrollTo({ left: 0, behavior: "smooth" });
+    }
+
+    requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
+  };
+
+  toggle.addEventListener("click", () => {
+    setArchiveState(toggle.getAttribute("aria-expanded") !== "true");
+  });
+
+  setArchiveState(false);
+}
+
 function initProjectsCarousel() {
   // Navegação da vitrine de projetos com prev/next.
   // Em desktop grande (>=1200px), o grid é 4 colunas — os botões
@@ -1312,9 +1330,42 @@ function initMobileExperience() {
     const testimonials = Array.from(testimonialsTrack.querySelectorAll(".testimonial-card"));
     const progress = document.createElement("div");
     progress.className = "testimonials-progress";
-    progress.setAttribute("role", "status");
-    progress.setAttribute("aria-live", "polite");
+
+    const progressCount = document.createElement("span");
+    progressCount.className = "testimonials-progress__count";
+    progressCount.setAttribute("role", "status");
+    progressCount.setAttribute("aria-live", "polite");
+    const progressLine = document.createElement("span");
+    progressLine.className = "testimonials-progress__line";
+    progressLine.setAttribute("aria-hidden", "true");
+    const progressControls = document.createElement("div");
+    progressControls.className = "testimonials-progress__controls";
+    const previousButton = document.createElement("button");
+    previousButton.type = "button";
+    previousButton.className = "testimonials-progress__button";
+    previousButton.setAttribute("aria-label", "Depoimento anterior");
+    previousButton.textContent = "←";
+    const nextButton = document.createElement("button");
+    nextButton.type = "button";
+    nextButton.className = "testimonials-progress__button";
+    nextButton.setAttribute("aria-label", "Próximo depoimento");
+    nextButton.textContent = "→";
+    progressControls.append(previousButton, nextButton);
+    progress.append(progressCount, progressLine, progressControls);
     testimonialsTrack.after(progress);
+
+    let activeTestimonial = 0;
+
+    const moveToTestimonial = (index) => {
+      const first = testimonials[0];
+      if (!first) return;
+      const gap = Number.parseFloat(getComputedStyle(testimonialsTrack).columnGap || getComputedStyle(testimonialsTrack).gap || "0");
+      activeTestimonial = Math.max(0, Math.min(testimonials.length - 1, index));
+      testimonialsTrack.scrollTo({
+        left: activeTestimonial * (first.getBoundingClientRect().width + gap),
+        behavior: reducedMotion ? "auto" : "smooth"
+      });
+    };
 
     const updateTestimonials = () => {
       const first = testimonials[0];
@@ -1322,7 +1373,13 @@ function initMobileExperience() {
       const gap = Number.parseFloat(getComputedStyle(testimonialsTrack).columnGap || getComputedStyle(testimonialsTrack).gap || "0");
       const step = first.getBoundingClientRect().width + gap;
       const index = Math.max(0, Math.min(testimonials.length - 1, Math.round(testimonialsTrack.scrollLeft / step)));
-      progress.textContent = `${index + 1} / ${testimonials.length}`;
+      activeTestimonial = index;
+      progressCount.textContent = `${index + 1} / ${testimonials.length}`;
+      previousButton.disabled = index === 0;
+      nextButton.disabled = index === testimonials.length - 1;
+      testimonials.forEach((testimonial, testimonialIndex) => {
+        testimonial.classList.toggle("is-current", testimonialIndex === index);
+      });
     };
     let testimonialsRaf = 0;
     testimonialsTrack.addEventListener("scroll", () => {
@@ -1332,6 +1389,16 @@ function initMobileExperience() {
         testimonialsRaf = 0;
       });
     }, { passive: true });
+
+    previousButton.addEventListener("click", () => moveToTestimonial(activeTestimonial - 1));
+    nextButton.addEventListener("click", () => moveToTestimonial(activeTestimonial + 1));
+    testimonialsTrack.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      if (event.key === "Home") moveToTestimonial(0);
+      else if (event.key === "End") moveToTestimonial(testimonials.length - 1);
+      else moveToTestimonial(activeTestimonial + (event.key === "ArrowRight" ? 1 : -1));
+    });
     updateTestimonials();
   }
 
@@ -1388,6 +1455,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initSafe(initSearchAndMenu, "initSearchAndMenu");
   initSafe(initInteractiveRipples, "initInteractiveRipples");
   initSafe(initTimelineScroll, "initTimelineScroll");
+  initSafe(initProjectCuration, "initProjectCuration");
   initSafe(initProjectsCarousel, "initProjectsCarousel");
   initSafe(initDesignGallery, "initDesignGallery");
   initSafe(initMobileExperience, "initMobileExperience");
@@ -1531,7 +1599,9 @@ faqQuestions.forEach((question) => {
     // Fecha outros abertos (opcional, mas garante um visual limpo)
     document.querySelectorAll(".faq-item").forEach((otherItem) => {
       otherItem.classList.remove("active");
-      otherItem.querySelector(".faq-answer-wrapper").style.maxHeight = null;
+      const otherAnswer = otherItem.querySelector(".faq-answer-wrapper");
+      otherAnswer.style.maxHeight = null;
+      otherAnswer.setAttribute("aria-hidden", "true");
       otherItem
         .querySelector(".faq-question")
         .setAttribute("aria-expanded", "false");
@@ -1541,9 +1611,13 @@ faqQuestions.forEach((question) => {
     if (!isActive) {
       item.classList.add("active");
       answer.style.maxHeight = answer.scrollHeight + "px";
+      answer.setAttribute("aria-hidden", "false");
       question.setAttribute("aria-expanded", "true");
 
-      item.scrollIntoView({ behavior: "smooth", block: "center" });
+      item.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "nearest"
+      });
     }
   });
 });
@@ -1739,40 +1813,6 @@ if (contadores.length > 0) {
   });
 }
 
-// --------------------------------------------------------
-// 11. Availability Status Logic (Business Hours)
-// --------------------------------------------------------
-function verificarDisponibilidade() {
-  const agora = new Date();
-  const hora = agora.getHours();
-  const diaDaSemana = agora.getDay(); // 0 = Domingo, 6 = Sábado
-
-  const bolinhaElement = document.getElementById("bolinha-status");
-  const textoElement = document.getElementById("texto-status");
-
-  if (!bolinhaElement || !textoElement) return;
-
-  // Horários Disponíveis:
-  // - Segunda a Sexta (1 a 5): 08:00 às 17:59
-  // - Sábado (6): 08:00 às 16:59
-  const isDiaDeSemana =
-    diaDaSemana >= 1 && diaDaSemana <= 5 && hora >= 8 && hora < 18;
-  const isSabado = diaDaSemana === 6 && hora >= 8 && hora < 17;
-
-  if (isDiaDeSemana || isSabado) {
-    bolinhaElement.style.backgroundColor = "#ffffff";
-    bolinhaElement.style.boxShadow = "0 0 10px rgba(255, 255, 255, 0.8)";
-    textoElement.innerText = "Online - Disponível para contato";
-  } else {
-    bolinhaElement.style.backgroundColor = "#ffffff";
-    bolinhaElement.style.boxShadow = "0 0 10px rgba(255, 255, 255, 0.8)";
-    textoElement.innerText = "Offline - Recarregando as baterias";
-  }
-}
-
-verificarDisponibilidade();
-setInterval(verificarDisponibilidade, 60000); // Atualiza a cada 1 minuto
-
 // Back to top button logic
 const btnTopo = document.getElementById("btn-topo");
 if (btnTopo) {
@@ -1828,10 +1868,6 @@ function initInteractiveRipples() {
       }, 600); // the dynamic-ripple animation duration is 0.6s
     });
   });
-}
-
-function initStatusParallax() {
-  // Desativado a pedido do usuário para remover efeito grosseiro de ampliação
 }
 
 // --------------------------------------------------------
@@ -2399,53 +2435,6 @@ function initMobileDock() {
 }
 document.addEventListener('DOMContentLoaded', initMobileDock);
 
-// Command Palette (Cmd+K)
-function initCmdK() {
-  const overlay = document.getElementById('cmd-k-overlay');
-  const input = document.getElementById('cmd-k-input');
-  const items = document.querySelectorAll('.cmd-k-item');
-  if(!overlay) return;
-
-  const toggleModal = (show) => {
-    if(show) {
-      overlay.classList.add('is-open');
-      input.focus();
-    } else {
-      overlay.classList.remove('is-open');
-      input.value = '';
-    }
-  };
-
-  document.addEventListener('keydown', (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-      e.preventDefault();
-      toggleModal(!overlay.classList.contains('is-open'));
-    }
-    if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
-      toggleModal(false);
-    }
-  });
-
-  overlay.addEventListener('click', (e) => {
-    if(e.target === overlay) toggleModal(false);
-  });
-
-  items.forEach(item => {
-    item.addEventListener('click', (e) => {
-      toggleModal(false);
-      if(item.dataset.action === 'copy-email') {
-        navigator.clipboard.writeText('leosouza5555@gmail.com');
-        const originalText = item.innerHTML;
-        item.innerHTML = '<span class="cmd-k-icon">✅</span> Copiado!';
-        setTimeout(() => item.innerHTML = originalText, 2000);
-      }
-    });
-  });
-}
-document.addEventListener('DOMContentLoaded', initCmdK);
-
-
-
 // ==========================================
 // FOOTER LIVE CLOCK (Natal/RN)
 // ==========================================
@@ -2470,85 +2459,6 @@ function initFooterClock() {
   setInterval(update, 1000);
 }
 document.addEventListener("DOMContentLoaded", initFooterClock);
-
-// =========================================
-// PWA: registra o service worker (permite instalar como app / offline)
-// =========================================
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js").catch(() => {
-      // Falha silenciosa: site continua funcionando normalmente sem PWA.
-    });
-  });
-}
-
-// =========================================
-// Interações nativas mobile: dots de paginação nos carrosséis
-// =========================================
-function initSwipeDots(scrollSelector, dotsId) {
-  const scroller = document.querySelector(scrollSelector);
-  const dotsContainer = document.getElementById(dotsId);
-  if (!scroller || !dotsContainer || scroller.dataset.dotsInit) return;
-  scroller.dataset.dotsInit = "1";
-
-  const items = Array.from(scroller.children).filter((el) => el.nodeType === 1);
-  if (items.length < 2) return;
-
-  dotsContainer.innerHTML = "";
-  items.forEach((item, i) => {
-    const dot = document.createElement("button");
-    dot.type = "button";
-    dot.className = "swipe-dots__dot";
-    dot.setAttribute("aria-label", `Ir para item ${i + 1} de ${items.length}`);
-    dot.addEventListener("click", () => {
-      item.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-    });
-    dotsContainer.appendChild(dot);
-  });
-
-  const dots = Array.from(dotsContainer.children);
-
-  function updateActive() {
-    const scrollerRect = scroller.getBoundingClientRect();
-    const center = scrollerRect.left + scrollerRect.width / 2;
-    let closestIdx = 0;
-    let closestDist = Infinity;
-    items.forEach((item, i) => {
-      const r = item.getBoundingClientRect();
-      const itemCenter = r.left + r.width / 2;
-      const dist = Math.abs(itemCenter - center);
-      if (dist < closestDist) {
-        closestDist = dist;
-        closestIdx = i;
-      }
-    });
-    dots.forEach((d, i) => d.classList.toggle("is-active", i === closestIdx));
-  }
-
-  let ticking = false;
-  scroller.addEventListener(
-    "scroll",
-    () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          updateActive();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    },
-    { passive: true }
-  );
-  window.addEventListener("resize", updateActive);
-
-  updateActive();
-}
-
-function initAllSwipeDots() {
-  initSwipeDots("#projects-viewport", "projects-dots");
-  initSwipeDots(".design-bento-gallery", "gallery-dots");
-}
-document.addEventListener("DOMContentLoaded", initAllSwipeDots);
 
 // =========================================
 // Bottom Sheet: arrastar a alça pra baixo fecha o modal (mobile)

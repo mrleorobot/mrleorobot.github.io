@@ -37,7 +37,7 @@ const structuredData = {
     {
       "@type": "ItemList",
       "@id": "https://mrleorobot.github.io/#projetos",
-      name: "Cases selecionados de Front-end e Design de Interfaces",
+      name: "Projetos de Front-end e Design de Interfaces",
       numberOfItems: data.projects.length,
       itemListElement: data.projects.map((project, index) => ({
         "@type": "ListItem",
@@ -57,24 +57,57 @@ const structuredData = {
 };
 
 const card = (project, index) => {
+  const tier = ["case", "experimental", "archive"].includes(project.tier) ? project.tier : "archive";
+  const tierClass = tier === "archive" ? "project-card--archive" : "project-card--featured";
   const titleId = `projeto-${project.id}-titulo`;
   const descriptionId = `projeto-${project.id}-descricao`;
+  const statusLabel = tier === "case"
+    ? "Case selecionado"
+    : tier === "experimental"
+      ? "Experimento selecionado"
+      : "Projeto ao vivo";
   const tech = project.technologies.map((item, techIndex) =>
     `<span class="project-card__tech-tag${techIndex === project.technologies.length - 1 ? " project-card__tech-tag--accent" : ""}">${escapeHtml(item)}</span>`
   ).join("\n                    ");
 
   const media = project.image
     ? `<div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: ${escapeHtml(project.imageAlt)}">
-                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                    <span class="project-case__status"><span aria-hidden="true"></span> ${statusLabel}</span>
                     <img src="${escapeHtml(project.image)}" alt="${escapeHtml(project.imageAlt)}" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
                     <div class="project-thumbnail-overlay" aria-hidden="true">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
                     </div>
                   </div>`
-    : `<span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+    : `<span class="project-case__status"><span aria-hidden="true"></span> ${statusLabel}</span>
                   <div class="project-card__placeholder"><span class="project-card__placeholder-name">${escapeHtml(project.title)}</span></div>`;
 
-  return `              <article class="project-card project-case reveal-item stagger-${index % 3 + 1}" id="projeto-${escapeHtml(project.id)}" data-project-id="${escapeHtml(project.id)}" data-case-status="live" role="listitem" aria-labelledby="${titleId}" aria-describedby="${descriptionId}">
+  const brief = tier !== "archive" && project.challenge && project.delivery
+    ? `<dl class="project-card__brief" aria-label="Resumo do problema e da entrega">
+                    <div>
+                      <dt>Problema</dt>
+                      <dd>${escapeHtml(project.challenge)}</dd>
+                    </div>
+                    <div>
+                      <dt>Entrega</dt>
+                      <dd>${escapeHtml(project.delivery)}</dd>
+                    </div>
+                  </dl>`
+    : "";
+
+  const actions = project.caseUrl
+    ? `<div class="project-card__actions">
+                    <a href="${escapeHtml(project.caseUrl)}" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Ler case do projeto ${escapeHtml(project.title)}">
+                      <span>Ver case</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                    <a href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer" class="project-card__live-link" aria-label="Abrir projeto ${escapeHtml(project.title)} ao vivo">Ao vivo <span aria-hidden="true">↗</span></a>
+                  </div>`
+    : `<a href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto ${escapeHtml(project.title)} ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>`;
+
+  return `              <article class="project-card project-case ${tierClass} reveal-item stagger-${index % 3 + 1}" id="projeto-${escapeHtml(project.id)}" data-project-id="${escapeHtml(project.id)}" data-project-tier="${tier}" data-case-status="live" role="listitem" aria-labelledby="${titleId}" aria-describedby="${descriptionId}">
                 <div class="project-card__media">
                   ${media}
                 </div>
@@ -83,10 +116,8 @@ const card = (project, index) => {
                   <p class="project-case__role">${escapeHtml(project.role)}</p>
                   <h3 class="project-card__title" id="${titleId}">${escapeHtml(project.title)}</h3>
                   <p class="project-card__desc" id="${descriptionId}">${escapeHtml(project.summary)}</p>
-                  <a href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto ${escapeHtml(project.title)} ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
+${brief ? `                  ${brief}\n` : ""}
+                  ${actions}
                 </div>
               </article>`;
 };

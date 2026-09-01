@@ -7,8 +7,10 @@
   "scripts": {
     "build:css": "node scripts/build-css.mjs",
     "check:css": "node scripts/build-css.mjs --check",
+    "check:js": "node --check app.js && node --check script.js && node --check awwwards-upgrade.js && node --check hero-ink.js && node --check evolution.js && node --check sw.js",
     "sync:projects": "node scripts/sync-projects.mjs",
     "build:cv": "python3 scripts/build-cv.py",
+    "check:claims": "node scripts/check-content-claims.mjs",
     "qa:install": "npm install --prefix qa --no-audit --no-fund",
     "qa": "npm --prefix qa test"
   },

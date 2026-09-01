@@ -417,33 +417,6 @@
   }
 
   // ═══════════════════════════════════════════
-  // 14. NOISE TEXTURE
-  // ═══════════════════════════════════════════
-  function initNoiseTexture() {
-    const noise = document.createElement('div');
-    noise.id = 'noise-texture';
-    document.body.appendChild(noise);
-  }
-
-  // ═══════════════════════════════════════════
-  // 15. AMBIENT ORBS
-  // ═══════════════════════════════════════════
-  function initAmbientOrbs() {
-    if (prefersReducedMotion) return;
-
-    const orb1 = document.createElement('div');
-    orb1.className = 'ambient-orb ambient-orb--1';
-    const orb2 = document.createElement('div');
-    orb2.className = 'ambient-orb ambient-orb--2';
-    const orb3 = document.createElement('div');
-    orb3.className = 'ambient-orb ambient-orb--3';
-
-    document.body.insertBefore(orb1, document.body.firstChild);
-    document.body.insertBefore(orb2, document.body.firstChild);
-    document.body.insertBefore(orb3, document.body.firstChild);
-  }
-
-  // ═══════════════════════════════════════════
   // 16. LIQUID BUTTONS
   // ═══════════════════════════════════════════
   function initLiquidButtons() {
@@ -522,32 +495,6 @@
   }
 
   // ═══════════════════════════════════════════
-  // 23. PROJECT THUMBNAIL PARALLAX
-  // ═══════════════════════════════════════════
-  function initProjectParallax() {
-    if (prefersReducedMotion || isTouchDevice) return;
-
-    const wrappers = document.querySelectorAll('.project-thumbnail-wrapper');
-
-    wrappers.forEach(wrapper => {
-      const img = wrapper.querySelector('img');
-      if (!img) return;
-
-      wrapper.addEventListener('mousemove', (e) => {
-        const rect = wrapper.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        img.style.transform = `scale(1.1) translate(${x * -20}px, ${y * -20}px)`;
-      });
-
-      wrapper.addEventListener('mouseleave', () => {
-        img.style.transform = 'scale(1) translate(0, 0)';
-      });
-    });
-  }
-
-
-  // ═══════════════════════════════════════════
   // 25. FOOTER ENHANCEMENT
   // ═══════════════════════════════════════════
   function initFooterEnhancement() {
@@ -568,27 +515,6 @@
       });
     }, { threshold: 0, rootMargin: '12% 0px 12% 0px' });
     sections.forEach((section) => observer.observe(section));
-  }
-
-  // ═══════════════════════════════════════════
-  // 26. HERO CTA MAGNETIC (reforço)
-  // ═══════════════════════════════════════════
-  function initHeroCTAMagnetic() {
-    if (isTouchDevice || prefersReducedMotion) return;
-
-    const cta = document.querySelector('.hero-editorial__cta');
-    if (!cta) return;
-
-    cta.addEventListener('mousemove', (e) => {
-      const rect = cta.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      cta.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
-    });
-
-    cta.addEventListener('mouseleave', () => {
-      cta.style.transform = 'translate(0, 0)';
-    });
   }
 
   // ═══════════════════════════════════════════
@@ -827,6 +753,29 @@
         selectMoment(nextIndex, true, true);
       });
     });
+
+    if (mobileExperience && 'PointerEvent' in window) {
+      let swipeStart = null;
+
+      stage.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse') return;
+        swipeStart = { x: event.clientX, y: event.clientY, id: event.pointerId };
+      }, { passive: true });
+
+      stage.addEventListener('pointerup', (event) => {
+        if (!swipeStart || swipeStart.id !== event.pointerId) return;
+        const deltaX = event.clientX - swipeStart.x;
+        const deltaY = event.clientY - swipeStart.y;
+        swipeStart = null;
+
+        if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY) * 1.35) return;
+        selectMoment(activeIndex + (deltaX < 0 ? 1 : -1), true, true);
+      }, { passive: true });
+
+      stage.addEventListener('pointercancel', () => {
+        swipeStart = null;
+      }, { passive: true });
+    }
 
     cycleToggle.addEventListener('click', () => {
       isPaused = !isPaused;

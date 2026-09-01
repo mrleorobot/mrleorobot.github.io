@@ -1,12 +1,15 @@
 // Service worker do portfólio — navegação atualizada e fallback offline.
-const SHELL_VERSION = "20260831mobile4";
+const SHELL_VERSION = "20260901final1";
 const CACHE_NAME = "leo-portfolio-" + SHELL_VERSION;
 
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./portfolio.css?v=20260831mobile4",
-  "./app.js?v=20260831mobile4",
+  "./cases/dashboard-inventario.html",
+  "./case-study.css?v=20260831case1",
+  "./placeholder-dashboard.jpg",
+  "./portfolio.css?v=20260901final1",
+  "./app.js?v=20260901final1",
   "./script.js",
   "./awwwards-upgrade.js",
   "./hero-ink.js",
@@ -56,11 +59,12 @@ self.addEventListener("fetch", (event) => {
         .then((response) => {
           if (response.ok) {
             const copy = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put("./index.html", copy));
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
           }
           return response;
         })
         .catch(async () =>
+          (await caches.match(request)) ||
           (await caches.match("./index.html")) ||
           (await caches.match("./offline.html")) ||
           Response.error()

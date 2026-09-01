@@ -26,6 +26,10 @@ jobs:
           node-version: 22
       - name: Verify CSS bundle
         run: npm run check:css
+      - name: Verify JavaScript syntax
+        run: npm run check:js
+      - name: Verify public claims and metrics
+        run: npm run check:claims
       - name: Install QA dependencies
         working-directory: qa
         run: npm install --no-audit --no-fund

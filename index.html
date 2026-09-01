@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <script>
       (() => {
+        document.documentElement.classList.add("js");
         const brands = navigator.userAgentData?.brands || [];
         const chromiumBrand = brands.some(({ brand }) =>
           /Chromium|Google Chrome|Microsoft Edge/i.test(brand),
@@ -116,7 +117,7 @@
     {
       "@type": "ItemList",
       "@id": "https://mrleorobot.github.io/#projetos",
-      "name": "Cases selecionados de Front-end e Design de Interfaces",
+      "name": "Projetos de Front-end e Design de Interfaces",
       "numberOfItems": 14,
       "itemListElement": [
         {
@@ -329,7 +330,7 @@
   ]
 }
     </script>
-    <link rel="stylesheet" href="./portfolio.css?v=20260831mobile4" />
+    <link rel="stylesheet" href="./portfolio.css?v=20260901final1" />
     
     
     
@@ -498,6 +499,12 @@
 
         <section id="hero">
           <canvas id="hero-ink-canvas" aria-hidden="true"></canvas>
+          <div class="celestial-signature celestial-signature--hero" aria-hidden="true">
+            <span class="celestial-star celestial-star--main"></span>
+            <span class="celestial-star celestial-star--near"></span>
+            <span class="celestial-star celestial-star--far"></span>
+            <span class="celestial-orbit"></span>
+          </div>
 
           <!-- Section marker "01. Hero" — canto superior esquerdo -->
                     <!-- Motion Orbs -->
@@ -598,11 +605,435 @@
         </section>
       </div>
 
+        <!-- ==========================================
+             07. SUPORTE & GESTÃO (SYSTEM DASHBOARD)
+        =========================================== -->
+
+        <section id="projetos" class="motion-on-scroll section-reveal app-depth" data-motion="fade-up">
+          <div class="section-divider" aria-hidden="true"></div>
+          <div class="celestial-signature celestial-signature--projects" aria-hidden="true">
+            <span class="celestial-star celestial-star--main"></span>
+            <span class="celestial-star celestial-star--near"></span>
+            <span class="celestial-star celestial-star--far"></span>
+            <span class="celestial-orbit"></span>
+          </div>
+          <!-- Editorial header + controles -->
+          <header class="projects-header">
+            <div class="projects-header__intro">
+              <div class="projects-header__eyebrow reveal-item">Projetos</div>
+              <h2 class="projects-header__title section-title-kinetic reveal-item">
+                <span aria-hidden="true">Projetos</span>
+                <span class="sr-only">Projetos de Front-end e Web Design</span>
+              </h2>
+              <div class="projects-header__subtitle reveal-item">Quatro trabalhos em destaque &middot; dez projetos no arquivo</div>
+            </div>
+            <div class="projects-header__controls reveal-item">
+              <button
+                type="button"
+                class="projects-archive-toggle"
+                aria-expanded="false"
+                aria-controls="projects-viewport"
+              >
+                <span data-projects-archive-label>Explorar arquivo</span>
+                <span class="projects-archive-toggle__count" aria-hidden="true">10</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+              <a
+                href="https://github.com/mrleorobot?tab=repositories"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="projects-cta-all"
+                aria-label="Ver todos os projetos no GitHub"
+              >
+                <span>GitHub</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+              <div class="projects-nav" aria-label="Navegar entre projetos">
+                <button type="button" class="projects-nav__btn projects-nav__btn--prev" aria-label="Projeto anterior" data-nav="prev">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <button type="button" class="projects-nav__btn projects-nav__btn--next" aria-label="Próximo projeto" data-nav="next">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </header>
+
+          <!-- Vitrine editorial gerada de projects.json -->
+          <div class="projects-track" id="projects-track">
+            <div class="projects-viewport" id="projects-viewport" role="list">
+              <article class="project-card project-case project-card--featured reveal-item stagger-1" id="projeto-dashboard-de-inventario" data-project-id="dashboard-de-inventario" data-project-tier="case" data-case-status="live" role="listitem" aria-labelledby="projeto-dashboard-de-inventario-titulo" aria-describedby="projeto-dashboard-de-inventario-descricao">
+                <div class="project-card__media">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Tela do Dashboard de Inventário com indicadores e tabela de produtos">
+                    <span class="project-case__status"><span aria-hidden="true"></span> Case selecionado</span>
+                    <img src="./placeholder-dashboard.jpg" alt="Tela do Dashboard de Inventário com indicadores e tabela de produtos" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
+                    <div class="project-thumbnail-overlay" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">Next.js</span>
+                    <span class="project-card__tech-tag">TypeScript</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">Framer Motion</span></div>
+                  <p class="project-case__role">Front-end e design de interface</p>
+                  <h3 class="project-card__title" id="projeto-dashboard-de-inventario-titulo">Dashboard de Inventário</h3>
+                  <p class="project-card__desc" id="projeto-dashboard-de-inventario-descricao">Painel responsivo para acompanhar estoque, priorizar itens em baixa e organizar a leitura de vendas e relatórios.</p>
+                  <dl class="project-card__brief" aria-label="Resumo do problema e da entrega">
+                    <div>
+                      <dt>Problema</dt>
+                      <dd>Transformar dados operacionais dispersos em uma visão rápida para tomada de decisão.</dd>
+                    </div>
+                    <div>
+                      <dt>Entrega</dt>
+                      <dd>Dashboard navegável com filtros, indicadores, alertas e exportação de relatórios.</dd>
+                    </div>
+                  </dl>
+
+                  <div class="project-card__actions">
+                    <a href="./cases/dashboard-inventario.html" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Ler case do projeto Dashboard de Inventário">
+                      <span>Ver case</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                    <a href="https://dashboard-de-inventario.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__live-link" aria-label="Abrir projeto Dashboard de Inventário ao vivo">Ao vivo <span aria-hidden="true">↗</span></a>
+                  </div>
+                </div>
+              </article>
+              <article class="project-card project-case project-card--featured reveal-item stagger-2" id="projeto-refugio-sereno" data-project-id="refugio-sereno" data-project-tier="case" data-case-status="live" role="listitem" aria-labelledby="projeto-refugio-sereno-titulo" aria-describedby="projeto-refugio-sereno-descricao">
+                <div class="project-card__media">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Tela do aplicativo Refúgio Sereno com organização de tarefas e foco">
+                    <span class="project-case__status"><span aria-hidden="true"></span> Case selecionado</span>
+                    <img src="./placeholder-refugio.jpg" alt="Tela do aplicativo Refúgio Sereno com organização de tarefas e foco" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
+                    <div class="project-thumbnail-overlay" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">React</span>
+                    <span class="project-card__tech-tag">Firebase</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">Gemini API</span></div>
+                  <p class="project-case__role">Front-end e design de interface</p>
+                  <h3 class="project-card__title" id="projeto-refugio-sereno-titulo">Refúgio Sereno</h3>
+                  <p class="project-card__desc" id="projeto-refugio-sereno-descricao">Aplicativo de organização e foco pensado para reduzir sobrecarga visual e apoiar rotinas de pessoas neurodivergentes.</p>
+                  <dl class="project-card__brief" aria-label="Resumo do problema e da entrega">
+                    <div>
+                      <dt>Problema</dt>
+                      <dd>Organizar tarefas sem transformar a interface em mais uma fonte de distração.</dd>
+                    </div>
+                    <div>
+                      <dt>Entrega</dt>
+                      <dd>Aplicação responsiva com tarefas, sugestões de foco, gamificação e sincronização de dados.</dd>
+                    </div>
+                  </dl>
+
+                  <a href="https://refugiosereno.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Refúgio Sereno ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case project-card--featured reveal-item stagger-3" id="projeto-one-thing" data-project-id="one-thing" data-project-tier="case" data-case-status="live" role="listitem" aria-labelledby="projeto-one-thing-titulo" aria-describedby="projeto-one-thing-descricao">
+                <div class="project-card__media">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Página inicial do projeto editorial ONE THING">
+                    <span class="project-case__status"><span aria-hidden="true"></span> Case selecionado</span>
+                    <img src="./screenshot-onething.jpg" alt="Página inicial do projeto editorial ONE THING" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
+                    <div class="project-thumbnail-overlay" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">Vite</span>
+                    <span class="project-card__tech-tag">JavaScript</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">Framer Motion</span></div>
+                  <p class="project-case__role">Front-end e direção de interface</p>
+                  <h3 class="project-card__title" id="projeto-one-thing-titulo">ONE THING</h3>
+                  <p class="project-card__desc" id="projeto-one-thing-descricao">Experiência editorial que explora tipografia, espaço negativo e movimento como elementos principais da navegação.</p>
+                  <dl class="project-card__brief" aria-label="Resumo do problema e da entrega">
+                    <div>
+                      <dt>Problema</dt>
+                      <dd>Criar presença visual forte com poucos elementos e sem depender de excesso de conteúdo.</dd>
+                    </div>
+                    <div>
+                      <dt>Entrega</dt>
+                      <dd>Landing page experimental responsiva com tipografia variável e transições orientadas por movimento.</dd>
+                    </div>
+                  </dl>
+
+                  <a href="https://one-thing-alive.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto ONE THING ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case project-card--featured reveal-item stagger-1" id="projeto-memory-exe" data-project-id="memory-exe" data-project-tier="experimental" data-case-status="live" role="listitem" aria-labelledby="projeto-memory-exe-titulo" aria-describedby="projeto-memory-exe-descricao">
+                <div class="project-card__media">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Cena da narrativa interativa MEMORY.EXE com estética de jogo retrô">
+                    <span class="project-case__status"><span aria-hidden="true"></span> Experimento selecionado</span>
+                    <img src="./screenshot-memoryexe.jpg" alt="Cena da narrativa interativa MEMORY.EXE com estética de jogo retrô" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
+                    <div class="project-thumbnail-overlay" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">Vite</span>
+                    <span class="project-card__tech-tag">JavaScript</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">CSS</span></div>
+                  <p class="project-case__role">Front-end, interação e direção visual</p>
+                  <h3 class="project-card__title" id="projeto-memory-exe-titulo">MEMORY.EXE</h3>
+                  <p class="project-card__desc" id="projeto-memory-exe-descricao">Narrativa web interativa com atmosfera inspirada em jogos de PS1 e navegação disponível em português e inglês.</p>
+                  <dl class="project-card__brief" aria-label="Resumo do problema e da entrega">
+                    <div>
+                      <dt>Problema</dt>
+                      <dd>Sustentar imersão narrativa sem perder orientação, legibilidade e controle pelo usuário.</dd>
+                    </div>
+                    <div>
+                      <dt>Entrega</dt>
+                      <dd>Experiência responsiva com narrativa ramificada, ambientação audiovisual e seleção de idioma.</dd>
+                    </div>
+                  </dl>
+
+                  <a href="https://memory-archive-project.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto MEMORY.EXE ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case project-card--archive reveal-item stagger-2" id="projeto-komorebi" data-project-id="komorebi" data-project-tier="archive" data-case-status="live" role="listitem" aria-labelledby="projeto-komorebi-titulo" aria-describedby="projeto-komorebi-descricao">
+                <div class="project-card__media">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Landing page da marca conceitual de café Komorebi">
+                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                    <img src="./screenshot-komorebi.jpg" alt="Landing page da marca conceitual de café Komorebi" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
+                    <div class="project-thumbnail-overlay" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">React</span>
+                    <span class="project-card__tech-tag">Vite</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">CSS</span></div>
+                  <p class="project-case__role">Front-end e design de interface</p>
+                  <h3 class="project-card__title" id="projeto-komorebi-titulo">Komorebi</h3>
+                  <p class="project-card__desc" id="projeto-komorebi-descricao">Landing page para uma marca conceitual de café, com narrativa visual atmosférica e foco na apresentação do produto.</p>
+
+                  <a href="https://komorebi-gray.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Komorebi ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case project-card--archive reveal-item stagger-3" id="projeto-hanamori" data-project-id="hanamori" data-project-tier="archive" data-case-status="live" role="listitem" aria-labelledby="projeto-hanamori-titulo" aria-describedby="projeto-hanamori-descricao">
+                <div class="project-card__media">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Paisagem ilustrada da landing page Hanamori">
+                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                    <img src="./screenshot-hanamori.jpg" alt="Paisagem ilustrada da landing page Hanamori" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
+                    <div class="project-thumbnail-overlay" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">Vite</span>
+                    <span class="project-card__tech-tag">CSS</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">JavaScript</span></div>
+                  <p class="project-case__role">Front-end e direção visual</p>
+                  <h3 class="project-card__title" id="projeto-hanamori-titulo">Hanamori</h3>
+                  <p class="project-card__desc" id="projeto-hanamori-descricao">Landing page ilustrada que combina arte digital, profundidade e movimento para criar uma experiência de exploração.</p>
+
+                  <a href="https://hanamori.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Hanamori ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case project-card--archive reveal-item stagger-1" id="projeto-portal-corporativo" data-project-id="portal-corporativo" data-project-tier="archive" data-case-status="live" role="listitem" aria-labelledby="projeto-portal-corporativo-titulo" aria-describedby="projeto-portal-corporativo-descricao">
+                <div class="project-card__media">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Interface do Portal Corporativo">
+                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                    <img src="./placeholder-portal.jpg" alt="Interface do Portal Corporativo" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
+                    <div class="project-thumbnail-overlay" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">Next.js</span>
+                    <span class="project-card__tech-tag">React Hook Form</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">Zustand</span></div>
+                  <p class="project-case__role">Front-end e design de interface</p>
+                  <h3 class="project-card__title" id="projeto-portal-corporativo-titulo">Portal Corporativo</h3>
+                  <p class="project-card__desc" id="projeto-portal-corporativo-descricao">Intranet responsiva que reúne treinamento, documentos, avaliações, benefícios e solicitações de férias.</p>
+
+                  <a href="https://portal-corporativo.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Portal Corporativo ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case project-card--archive reveal-item stagger-2" id="projeto-dsol-ai" data-project-id="dsol-ai" data-project-tier="archive" data-case-status="live" role="listitem" aria-labelledby="projeto-dsol-ai-titulo" aria-describedby="projeto-dsol-ai-descricao">
+                <div class="project-card__media">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Interface do tutor educacional Dsol AI">
+                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                    <img src="./placeholder-chat-ia.jpg" alt="Interface do tutor educacional Dsol AI" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
+                    <div class="project-thumbnail-overlay" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">React</span>
+                    <span class="project-card__tech-tag">Firebase</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">Gemini API</span></div>
+                  <p class="project-case__role">Front-end e integração de IA</p>
+                  <h3 class="project-card__title" id="projeto-dsol-ai-titulo">Dsol AI</h3>
+                  <p class="project-card__desc" id="projeto-dsol-ai-descricao">Tutor educacional com IA generativa, respostas em Markdown e exportação de conversas em PDF.</p>
+
+                  <a href="https://dsol-ai.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Dsol AI ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case project-card--archive reveal-item stagger-3" id="projeto-aurvm" data-project-id="aurvm" data-project-tier="archive" data-case-status="live" role="listitem" aria-labelledby="projeto-aurvm-titulo" aria-describedby="projeto-aurvm-descricao">
+                <div class="project-card__media">
+                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: E-commerce de joalheria AURVM">
+                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                    <img src="./screenshot-aurvm.jpg" alt="E-commerce de joalheria AURVM" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
+                    <div class="project-thumbnail-overlay" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">React</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">Vite</span></div>
+                  <p class="project-case__role">Front-end e direção de interface</p>
+                  <h3 class="project-card__title" id="projeto-aurvm-titulo">AURVM</h3>
+                  <p class="project-card__desc" id="projeto-aurvm-descricao">E-commerce conceitual de joalheria autoral com catálogo visual e apresentação imersiva das peças.</p>
+
+                  <a href="https://haute-luxe-glow.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto AURVM ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case project-card--archive reveal-item stagger-1" id="projeto-ledgeriq" data-project-id="ledgeriq" data-project-tier="archive" data-case-status="live" role="listitem" aria-labelledby="projeto-ledgeriq-titulo" aria-describedby="projeto-ledgeriq-descricao">
+                <div class="project-card__media">
+                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">LedgerIQ</span></div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">Next.js</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">Gemini API</span></div>
+                  <p class="project-case__role">Front-end e integração de IA</p>
+                  <h3 class="project-card__title" id="projeto-ledgeriq-titulo">LedgerIQ</h3>
+                  <p class="project-card__desc" id="projeto-ledgeriq-descricao">Sistema de auditoria financeira com leitura assistida de notas fiscais e organização de dados.</p>
+
+                  <a href="https://find-seven-psi.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto LedgerIQ ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case project-card--archive reveal-item stagger-2" id="projeto-mentor-de-estagio" data-project-id="mentor-de-estagio" data-project-tier="archive" data-case-status="live" role="listitem" aria-labelledby="projeto-mentor-de-estagio-titulo" aria-describedby="projeto-mentor-de-estagio-descricao">
+                <div class="project-card__media">
+                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">Mentor de Estágio</span></div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">Next.js</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">React</span></div>
+                  <p class="project-case__role">Front-end e produto digital</p>
+                  <h3 class="project-card__title" id="projeto-mentor-de-estagio-titulo">Mentor de Estágio</h3>
+                  <p class="project-card__desc" id="projeto-mentor-de-estagio-descricao">Plataforma de mentoria acadêmica com cronogramas, checklists e organização de documentos.</p>
+
+                  <a href="https://estagio-steel.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Mentor de Estágio ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case project-card--archive reveal-item stagger-3" id="projeto-develite" data-project-id="develite" data-project-tier="archive" data-case-status="live" role="listitem" aria-labelledby="projeto-develite-titulo" aria-describedby="projeto-develite-descricao">
+                <div class="project-card__media">
+                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">DevElite</span></div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">Next.js</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">TypeScript</span></div>
+                  <p class="project-case__role">Front-end e landing page</p>
+                  <h3 class="project-card__title" id="projeto-develite-titulo">DevElite</h3>
+                  <p class="project-card__desc" id="projeto-develite-descricao">Landing page de mentoria em tecnologia com foco em carreira e posicionamento profissional.</p>
+
+                  <a href="https://develite-lemon.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto DevElite ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case project-card--archive reveal-item stagger-1" id="projeto-memoire" data-project-id="memoire" data-project-tier="archive" data-case-status="live" role="listitem" aria-labelledby="projeto-memoire-titulo" aria-describedby="projeto-memoire-descricao">
+                <div class="project-card__media">
+                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">MÉMOIRE</span></div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">JavaScript</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">CSS</span></div>
+                  <p class="project-case__role">Front-end e direção visual</p>
+                  <h3 class="project-card__title" id="projeto-memoire-titulo">MÉMOIRE</h3>
+                  <p class="project-card__desc" id="projeto-memoire-descricao">Site conceitual de perfumaria autoral com narrativa visual própria para cada fragrância.</p>
+
+                  <a href="https://memoire-nine-psi.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto MÉMOIRE ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="project-card project-case project-card--archive reveal-item stagger-2" id="projeto-nocturne-studio" data-project-id="nocturne-studio" data-project-tier="archive" data-case-status="live" role="listitem" aria-labelledby="projeto-nocturne-studio-titulo" aria-describedby="projeto-nocturne-studio-descricao">
+                <div class="project-card__media">
+                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
+                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">Nocturne Studio</span></div>
+                </div>
+                <div class="project-card__body">
+                  <div class="project-card__tech"><span class="project-card__tech-tag">Vite</span>
+                    <span class="project-card__tech-tag project-card__tech-tag--accent">React</span></div>
+                  <p class="project-case__role">Front-end e portfólio</p>
+                  <h3 class="project-card__title" id="projeto-nocturne-studio-titulo">Nocturne Studio</h3>
+                  <p class="project-card__desc" id="projeto-nocturne-studio-descricao">Portfólio de estúdio independente de animação e jogos com atmosfera visual Cozy Night.</p>
+
+                  <a href="https://cozy-night-studio-landing.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Nocturne Studio ao vivo">
+                    <span>Abrir projeto</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
         <section id="sobre" class="motion-on-scroll reveal-item" data-motion="fade-up">
           <div class="section-divider" aria-hidden="true"></div>
           <div class="ambient-aurora ambient-aurora--bridge" aria-hidden="true">
             <span class="ambient-aurora__mesh ambient-aurora__mesh--bridge-left"></span>
             <span class="ambient-aurora__mesh ambient-aurora__mesh--bridge-right"></span>
+          </div>
+          <div class="celestial-signature celestial-signature--trajectory" aria-hidden="true">
+            <span class="celestial-star celestial-star--main"></span>
+            <span class="celestial-star celestial-star--near"></span>
+            <span class="celestial-star celestial-star--far"></span>
+            <span class="celestial-orbit"></span>
           </div>
           <!-- Editorial header — título monumental, sem numeração de seção -->
           <header class="trajectory-header">
@@ -750,350 +1181,6 @@
         </section>
 
         <!-- ==========================================
-             07. SUPORTE & GESTÃO (SYSTEM DASHBOARD)
-        =========================================== -->
-
-        <section id="projetos" class="motion-on-scroll section-reveal app-depth" data-motion="fade-up">
-          <div class="section-divider" aria-hidden="true"></div>
-          <!-- Editorial header + controles -->
-          <header class="projects-header">
-            <div class="projects-header__intro">
-              <div class="projects-header__eyebrow reveal-item">Projetos</div>
-              <h2 class="projects-header__title section-title-kinetic reveal-item">
-                <span aria-hidden="true">Projetos</span>
-                <span class="sr-only">Projetos de Front-end e Web Design</span>
-              </h2>
-              <div class="projects-header__subtitle reveal-item">Projetos publicados e cases selecionados</div>
-            </div>
-            <div class="projects-header__controls reveal-item">
-              <a
-                href="https://github.com/mrleorobot?tab=repositories"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="projects-cta-all"
-                aria-label="Ver todos os projetos no GitHub"
-              >
-                <span>Ver Todos</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </a>
-              <div class="projects-nav" aria-label="Navegar entre projetos">
-                <button type="button" class="projects-nav__btn projects-nav__btn--prev" aria-label="Projeto anterior" data-nav="prev">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                  </svg>
-                </button>
-                <button type="button" class="projects-nav__btn projects-nav__btn--next" aria-label="Próximo projeto" data-nav="next">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </header>
-
-          <!-- Vitrine editorial gerada de projects.json -->
-          <div class="projects-track" id="projects-track">
-            <div class="projects-viewport" id="projects-viewport" role="list">
-              <article class="project-card project-case reveal-item stagger-1" id="projeto-dashboard-de-inventario" data-project-id="dashboard-de-inventario" data-case-status="live" role="listitem" aria-labelledby="projeto-dashboard-de-inventario-titulo" aria-describedby="projeto-dashboard-de-inventario-descricao">
-                <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Tela do Dashboard de Inventário com indicadores e tabela de produtos">
-                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
-                    <img src="./placeholder-dashboard.jpg" alt="Tela do Dashboard de Inventário com indicadores e tabela de produtos" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
-                    <div class="project-thumbnail-overlay" aria-hidden="true">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card__body">
-                  <div class="project-card__tech"><span class="project-card__tech-tag">Next.js</span>
-                    <span class="project-card__tech-tag">TypeScript</span>
-                    <span class="project-card__tech-tag project-card__tech-tag--accent">Framer Motion</span></div>
-                  <p class="project-case__role">Front-end e design de interface</p>
-                  <h3 class="project-card__title" id="projeto-dashboard-de-inventario-titulo">Dashboard de Inventário</h3>
-                  <p class="project-card__desc" id="projeto-dashboard-de-inventario-descricao">Painel responsivo para acompanhar estoque, priorizar itens em baixa e organizar a leitura de vendas e relatórios.</p>
-                  <a href="https://dashboard-de-inventario.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Dashboard de Inventário ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
-                </div>
-              </article>
-              <article class="project-card project-case reveal-item stagger-2" id="projeto-refugio-sereno" data-project-id="refugio-sereno" data-case-status="live" role="listitem" aria-labelledby="projeto-refugio-sereno-titulo" aria-describedby="projeto-refugio-sereno-descricao">
-                <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Tela do aplicativo Refúgio Sereno com organização de tarefas e foco">
-                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
-                    <img src="./placeholder-refugio.jpg" alt="Tela do aplicativo Refúgio Sereno com organização de tarefas e foco" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
-                    <div class="project-thumbnail-overlay" aria-hidden="true">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card__body">
-                  <div class="project-card__tech"><span class="project-card__tech-tag">React</span>
-                    <span class="project-card__tech-tag">Firebase</span>
-                    <span class="project-card__tech-tag project-card__tech-tag--accent">Gemini API</span></div>
-                  <p class="project-case__role">Front-end e design de interface</p>
-                  <h3 class="project-card__title" id="projeto-refugio-sereno-titulo">Refúgio Sereno</h3>
-                  <p class="project-card__desc" id="projeto-refugio-sereno-descricao">Aplicativo de organização e foco pensado para reduzir sobrecarga visual e apoiar rotinas de pessoas neurodivergentes.</p>
-                  <a href="https://refugiosereno.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Refúgio Sereno ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
-                </div>
-              </article>
-              <article class="project-card project-case reveal-item stagger-3" id="projeto-one-thing" data-project-id="one-thing" data-case-status="live" role="listitem" aria-labelledby="projeto-one-thing-titulo" aria-describedby="projeto-one-thing-descricao">
-                <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Página inicial do projeto editorial ONE THING">
-                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
-                    <img src="./screenshot-onething.jpg" alt="Página inicial do projeto editorial ONE THING" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
-                    <div class="project-thumbnail-overlay" aria-hidden="true">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card__body">
-                  <div class="project-card__tech"><span class="project-card__tech-tag">Vite</span>
-                    <span class="project-card__tech-tag">JavaScript</span>
-                    <span class="project-card__tech-tag project-card__tech-tag--accent">Framer Motion</span></div>
-                  <p class="project-case__role">Front-end e direção de interface</p>
-                  <h3 class="project-card__title" id="projeto-one-thing-titulo">ONE THING</h3>
-                  <p class="project-card__desc" id="projeto-one-thing-descricao">Experiência editorial que explora tipografia, espaço negativo e movimento como elementos principais da navegação.</p>
-                  <a href="https://one-thing-alive.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto ONE THING ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
-                </div>
-              </article>
-              <article class="project-card project-case reveal-item stagger-1" id="projeto-memory-exe" data-project-id="memory-exe" data-case-status="live" role="listitem" aria-labelledby="projeto-memory-exe-titulo" aria-describedby="projeto-memory-exe-descricao">
-                <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Cena da narrativa interativa MEMORY.EXE com estética de jogo retrô">
-                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
-                    <img src="./screenshot-memoryexe.jpg" alt="Cena da narrativa interativa MEMORY.EXE com estética de jogo retrô" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
-                    <div class="project-thumbnail-overlay" aria-hidden="true">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card__body">
-                  <div class="project-card__tech"><span class="project-card__tech-tag">Vite</span>
-                    <span class="project-card__tech-tag">JavaScript</span>
-                    <span class="project-card__tech-tag project-card__tech-tag--accent">CSS</span></div>
-                  <p class="project-case__role">Front-end, interação e direção visual</p>
-                  <h3 class="project-card__title" id="projeto-memory-exe-titulo">MEMORY.EXE</h3>
-                  <p class="project-card__desc" id="projeto-memory-exe-descricao">Narrativa web interativa com atmosfera inspirada em jogos de PS1 e navegação disponível em português e inglês.</p>
-                  <a href="https://memory-archive-project.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto MEMORY.EXE ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
-                </div>
-              </article>
-              <article class="project-card project-case reveal-item stagger-2" id="projeto-komorebi" data-project-id="komorebi" data-case-status="live" role="listitem" aria-labelledby="projeto-komorebi-titulo" aria-describedby="projeto-komorebi-descricao">
-                <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Landing page da marca conceitual de café Komorebi">
-                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
-                    <img src="./screenshot-komorebi.jpg" alt="Landing page da marca conceitual de café Komorebi" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
-                    <div class="project-thumbnail-overlay" aria-hidden="true">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card__body">
-                  <div class="project-card__tech"><span class="project-card__tech-tag">React</span>
-                    <span class="project-card__tech-tag">Vite</span>
-                    <span class="project-card__tech-tag project-card__tech-tag--accent">CSS</span></div>
-                  <p class="project-case__role">Front-end e design de interface</p>
-                  <h3 class="project-card__title" id="projeto-komorebi-titulo">Komorebi</h3>
-                  <p class="project-card__desc" id="projeto-komorebi-descricao">Landing page para uma marca conceitual de café, com narrativa visual atmosférica e foco na apresentação do produto.</p>
-                  <a href="https://komorebi-gray.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Komorebi ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
-                </div>
-              </article>
-              <article class="project-card project-case reveal-item stagger-3" id="projeto-hanamori" data-project-id="hanamori" data-case-status="live" role="listitem" aria-labelledby="projeto-hanamori-titulo" aria-describedby="projeto-hanamori-descricao">
-                <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Paisagem ilustrada da landing page Hanamori">
-                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
-                    <img src="./screenshot-hanamori.jpg" alt="Paisagem ilustrada da landing page Hanamori" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
-                    <div class="project-thumbnail-overlay" aria-hidden="true">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card__body">
-                  <div class="project-card__tech"><span class="project-card__tech-tag">Vite</span>
-                    <span class="project-card__tech-tag">CSS</span>
-                    <span class="project-card__tech-tag project-card__tech-tag--accent">JavaScript</span></div>
-                  <p class="project-case__role">Front-end e direção visual</p>
-                  <h3 class="project-card__title" id="projeto-hanamori-titulo">Hanamori</h3>
-                  <p class="project-card__desc" id="projeto-hanamori-descricao">Landing page ilustrada que combina arte digital, profundidade e movimento para criar uma experiência de exploração.</p>
-                  <a href="https://hanamori.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Hanamori ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
-                </div>
-              </article>
-              <article class="project-card project-case reveal-item stagger-1" id="projeto-portal-corporativo" data-project-id="portal-corporativo" data-case-status="live" role="listitem" aria-labelledby="projeto-portal-corporativo-titulo" aria-describedby="projeto-portal-corporativo-descricao">
-                <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Interface do Portal Corporativo">
-                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
-                    <img src="./placeholder-portal.jpg" alt="Interface do Portal Corporativo" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
-                    <div class="project-thumbnail-overlay" aria-hidden="true">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card__body">
-                  <div class="project-card__tech"><span class="project-card__tech-tag">Next.js</span>
-                    <span class="project-card__tech-tag">React Hook Form</span>
-                    <span class="project-card__tech-tag project-card__tech-tag--accent">Zustand</span></div>
-                  <p class="project-case__role">Front-end e design de interface</p>
-                  <h3 class="project-card__title" id="projeto-portal-corporativo-titulo">Portal Corporativo</h3>
-                  <p class="project-card__desc" id="projeto-portal-corporativo-descricao">Intranet responsiva que reúne treinamento, documentos, avaliações, benefícios e solicitações de férias.</p>
-                  <a href="https://portal-corporativo.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Portal Corporativo ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
-                </div>
-              </article>
-              <article class="project-card project-case reveal-item stagger-2" id="projeto-dsol-ai" data-project-id="dsol-ai" data-case-status="live" role="listitem" aria-labelledby="projeto-dsol-ai-titulo" aria-describedby="projeto-dsol-ai-descricao">
-                <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: Interface do tutor educacional Dsol AI">
-                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
-                    <img src="./placeholder-chat-ia.jpg" alt="Interface do tutor educacional Dsol AI" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
-                    <div class="project-thumbnail-overlay" aria-hidden="true">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card__body">
-                  <div class="project-card__tech"><span class="project-card__tech-tag">React</span>
-                    <span class="project-card__tech-tag">Firebase</span>
-                    <span class="project-card__tech-tag project-card__tech-tag--accent">Gemini API</span></div>
-                  <p class="project-case__role">Front-end e integração de IA</p>
-                  <h3 class="project-card__title" id="projeto-dsol-ai-titulo">Dsol AI</h3>
-                  <p class="project-card__desc" id="projeto-dsol-ai-descricao">Tutor educacional com IA generativa, respostas em Markdown e exportação de conversas em PDF.</p>
-                  <a href="https://dsol-ai.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Dsol AI ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
-                </div>
-              </article>
-              <article class="project-card project-case reveal-item stagger-3" id="projeto-aurvm" data-project-id="aurvm" data-case-status="live" role="listitem" aria-labelledby="projeto-aurvm-titulo" aria-describedby="projeto-aurvm-descricao">
-                <div class="project-card__media">
-                  <div class="project-thumbnail-wrapper" title="Ampliar imagem" role="button" tabindex="0" aria-label="Ampliar: E-commerce de joalheria AURVM">
-                    <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
-                    <img src="./screenshot-aurvm.jpg" alt="E-commerce de joalheria AURVM" class="project-lightbox-trigger project-thumbnail-image" loading="lazy" width="800" height="500" decoding="async" />
-                    <div class="project-thumbnail-overlay" aria-hidden="true">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card__body">
-                  <div class="project-card__tech"><span class="project-card__tech-tag">React</span>
-                    <span class="project-card__tech-tag project-card__tech-tag--accent">Vite</span></div>
-                  <p class="project-case__role">Front-end e direção de interface</p>
-                  <h3 class="project-card__title" id="projeto-aurvm-titulo">AURVM</h3>
-                  <p class="project-card__desc" id="projeto-aurvm-descricao">E-commerce conceitual de joalheria autoral com catálogo visual e apresentação imersiva das peças.</p>
-                  <a href="https://haute-luxe-glow.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto AURVM ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
-                </div>
-              </article>
-              <article class="project-card project-case reveal-item stagger-1" id="projeto-ledgeriq" data-project-id="ledgeriq" data-case-status="live" role="listitem" aria-labelledby="projeto-ledgeriq-titulo" aria-describedby="projeto-ledgeriq-descricao">
-                <div class="project-card__media">
-                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
-                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">LedgerIQ</span></div>
-                </div>
-                <div class="project-card__body">
-                  <div class="project-card__tech"><span class="project-card__tech-tag">Next.js</span>
-                    <span class="project-card__tech-tag project-card__tech-tag--accent">Gemini API</span></div>
-                  <p class="project-case__role">Front-end e integração de IA</p>
-                  <h3 class="project-card__title" id="projeto-ledgeriq-titulo">LedgerIQ</h3>
-                  <p class="project-card__desc" id="projeto-ledgeriq-descricao">Sistema de auditoria financeira com leitura assistida de notas fiscais e organização de dados.</p>
-                  <a href="https://find-seven-psi.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto LedgerIQ ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
-                </div>
-              </article>
-              <article class="project-card project-case reveal-item stagger-2" id="projeto-mentor-de-estagio" data-project-id="mentor-de-estagio" data-case-status="live" role="listitem" aria-labelledby="projeto-mentor-de-estagio-titulo" aria-describedby="projeto-mentor-de-estagio-descricao">
-                <div class="project-card__media">
-                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
-                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">Mentor de Estágio</span></div>
-                </div>
-                <div class="project-card__body">
-                  <div class="project-card__tech"><span class="project-card__tech-tag">Next.js</span>
-                    <span class="project-card__tech-tag project-card__tech-tag--accent">React</span></div>
-                  <p class="project-case__role">Front-end e produto digital</p>
-                  <h3 class="project-card__title" id="projeto-mentor-de-estagio-titulo">Mentor de Estágio</h3>
-                  <p class="project-card__desc" id="projeto-mentor-de-estagio-descricao">Plataforma de mentoria acadêmica com cronogramas, checklists e organização de documentos.</p>
-                  <a href="https://estagio-steel.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Mentor de Estágio ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
-                </div>
-              </article>
-              <article class="project-card project-case reveal-item stagger-3" id="projeto-develite" data-project-id="develite" data-case-status="live" role="listitem" aria-labelledby="projeto-develite-titulo" aria-describedby="projeto-develite-descricao">
-                <div class="project-card__media">
-                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
-                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">DevElite</span></div>
-                </div>
-                <div class="project-card__body">
-                  <div class="project-card__tech"><span class="project-card__tech-tag">Next.js</span>
-                    <span class="project-card__tech-tag project-card__tech-tag--accent">TypeScript</span></div>
-                  <p class="project-case__role">Front-end e landing page</p>
-                  <h3 class="project-card__title" id="projeto-develite-titulo">DevElite</h3>
-                  <p class="project-card__desc" id="projeto-develite-descricao">Landing page de mentoria em tecnologia com foco em carreira e posicionamento profissional.</p>
-                  <a href="https://develite-lemon.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto DevElite ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
-                </div>
-              </article>
-              <article class="project-card project-case reveal-item stagger-1" id="projeto-memoire" data-project-id="memoire" data-case-status="live" role="listitem" aria-labelledby="projeto-memoire-titulo" aria-describedby="projeto-memoire-descricao">
-                <div class="project-card__media">
-                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
-                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">MÉMOIRE</span></div>
-                </div>
-                <div class="project-card__body">
-                  <div class="project-card__tech"><span class="project-card__tech-tag">JavaScript</span>
-                    <span class="project-card__tech-tag project-card__tech-tag--accent">CSS</span></div>
-                  <p class="project-case__role">Front-end e direção visual</p>
-                  <h3 class="project-card__title" id="projeto-memoire-titulo">MÉMOIRE</h3>
-                  <p class="project-card__desc" id="projeto-memoire-descricao">Site conceitual de perfumaria autoral com narrativa visual própria para cada fragrância.</p>
-                  <a href="https://memoire-nine-psi.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto MÉMOIRE ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
-                </div>
-              </article>
-              <article class="project-card project-case reveal-item stagger-2" id="projeto-nocturne-studio" data-project-id="nocturne-studio" data-case-status="live" role="listitem" aria-labelledby="projeto-nocturne-studio-titulo" aria-describedby="projeto-nocturne-studio-descricao">
-                <div class="project-card__media">
-                  <span class="project-case__status"><span aria-hidden="true"></span> Projeto ao vivo</span>
-                  <div class="project-card__placeholder"><span class="project-card__placeholder-name">Nocturne Studio</span></div>
-                </div>
-                <div class="project-card__body">
-                  <div class="project-card__tech"><span class="project-card__tech-tag">Vite</span>
-                    <span class="project-card__tech-tag project-card__tech-tag--accent">React</span></div>
-                  <p class="project-case__role">Front-end e portfólio</p>
-                  <h3 class="project-card__title" id="projeto-nocturne-studio-titulo">Nocturne Studio</h3>
-                  <p class="project-card__desc" id="projeto-nocturne-studio-descricao">Portfólio de estúdio independente de animação e jogos com atmosfera visual Cozy Night.</p>
-                  <a href="https://cozy-night-studio-landing.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card__cta btn-arcane btn-motion motion-shine" aria-label="Abrir projeto Nocturne Studio ao vivo">
-                    <span>Abrir projeto</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </a>
-                </div>
-              </article>
-            </div>
-          </div>
-          <div class="swipe-dots" id="projects-dots" role="tablist" aria-label="Navegação do carrossel de projetos"></div>
-        </section>
-
-        <!-- ==========================================
              08. DESIGN DE INTERFACES (BENTO GALLERY)
         =========================================== -->
         <section id="projetos-design" class="motion-on-scroll section-reveal app-depth" data-motion="fade-up">
@@ -1115,7 +1202,7 @@
   =========================================== -->
   <div class="ux-grid reveal-item motion-stagger">
     <!-- 01: Convite Digital — Grande -->
-    <article class="ux-card ux-card--large reveal-item" data-lightbox="true" data-category="Design de Interfaces" data-title="Convite Digital" data-challenge="Modernizar o formato tradicional de convites de eventos." data-solution="Interface focada na UX com CTAs claros e fluxo de RSVP otimizado." data-tech="Figma, Prototipagem">
+    <article class="ux-card ux-card--large reveal-item" data-lightbox="true" data-category="Design de Interfaces" data-title="Convite Digital" data-challenge="Modernizar o formato tradicional de convites de eventos." data-solution="Interface com CTAs claros e fluxo de RSVP direto." data-tech="Figma, Prototipagem">
       <span class="ux-card__num" aria-hidden="true">01</span>
       <div class="ux-card__expand" aria-hidden="true">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -1133,7 +1220,7 @@
     </article>
 
     <!-- 02: Menu Digital — Alto -->
-    <article class="ux-card ux-card--tall reveal-item" data-lightbox="true" data-category="Identidade" data-title="Menu Digital" data-challenge="Otimizar cardápios para leitura dinâmica com foco no cliente." data-solution="Layout acessível embasado em psicologia das cores e hierarquia visual." data-tech="Photoshop, UI Design">
+    <article class="ux-card ux-card--tall reveal-item" data-lightbox="true" data-category="Identidade" data-title="Menu Digital" data-challenge="Organizar cardápios para uma leitura rápida e orientada." data-solution="Layout guiado por contraste, hierarquia visual e legibilidade." data-tech="Photoshop, UI Design">
       <span class="ux-card__num" aria-hidden="true">02</span>
       <div class="ux-card__expand" aria-hidden="true">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -1145,7 +1232,7 @@
       <div class="ux-card__content">
         <span class="ux-card__category">Identidade</span>
         <h3 class="ux-card__title">Menu Digital</h3>
-        <p class="ux-card__desc">Cardápio otimizado para leitura dinâmica. Layout acessível embasado em psicologia das cores. Photoshop e UI Design.</p>
+        <p class="ux-card__desc">Cardápio organizado para leitura rápida, com contraste e hierarquia visual. Photoshop e UI Design.</p>
       </div>
       <div class="ux-card__line" aria-hidden="true"></div>
     </article>
@@ -1205,7 +1292,7 @@
     </article>
 
     <!-- 06: Cores & UX — Large -->
-    <article class="ux-card ux-card--large reveal-item" data-lightbox="true" data-category="Pesquisa" data-title="Cores & UX" data-challenge="Entender como as cores influenciam a experiência do usuário." data-solution="Material que traduz a teoria para decisões de design baseadas em dados." data-tech="Pesquisa, Comportamento">
+    <article class="ux-card ux-card--large reveal-item" data-lightbox="true" data-category="Pesquisa" data-title="Cores & UX" data-challenge="Entender como as cores influenciam a experiência do usuário." data-solution="Material que traduz a teoria em princípios visuais aplicáveis." data-tech="Pesquisa, Comportamento">
       <span class="ux-card__num" aria-hidden="true">06</span>
       <div class="ux-card__expand" aria-hidden="true">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -1217,25 +1304,26 @@
       <div class="ux-card__content">
         <span class="ux-card__category">Pesquisa</span>
         <h3 class="ux-card__title">Cores & UX</h3>
-        <p class="ux-card__desc">Material que traduz a teoria das cores para decisões de design. Pesquisa e Comportamento do Usuário.</p>
+        <p class="ux-card__desc">Material que traduz a teoria das cores em princípios de hierarquia e percepção visual. Pesquisa e Comportamento do Usuário.</p>
       </div>
       <div class="ux-card__line" aria-hidden="true"></div>
     </article>
   </div>
 
-  <div class="swipe-dots" id="gallery-dots" role="tablist" aria-label="Navegação da galeria de design"></div>
 </section>
 
         <!-- ==========================================
-             02. HABILIDADES E TECNOLOGIAS (BENTO GRID)
-        =========================================== -->
-
-        <!-- ==========================================
-             02. HABILIDADES E TECNOLOGIAS (INFINITE MARQUEE)
+             HABILIDADES E TECNOLOGIAS
         =========================================== -->
         <section id="tech-stack" class="motion-on-scroll section-reveal app-depth" data-motion="fade-up">
           <div class="skills-aurora" aria-hidden="true"></div>
           <div class="section-divider" aria-hidden="true"></div>
+          <div class="celestial-signature celestial-signature--skills" aria-hidden="true">
+            <span class="celestial-star celestial-star--main"></span>
+            <span class="celestial-star celestial-star--near"></span>
+            <span class="celestial-star celestial-star--far"></span>
+            <span class="celestial-orbit"></span>
+          </div>
 
           <header class="tech-header">
             <div class="tech-header__intro">
@@ -1299,7 +1387,7 @@
           <div class="skills-capability-grid" aria-label="Mapa de habilidades">
             <article class="skills-capability-card skills-capability-card--core reveal-item">
               <div class="skills-capability-card__meta">
-                <span>Construção web</span>
+                <span><span class="skills-capability-card__glyph" aria-hidden="true">&lt;/&gt;</span>Construção web</span>
                 <span class="skills-capability-card__status">Foco principal</span>
               </div>
               <h3>Interfaces que funcionam além do layout.</h3>
@@ -1311,6 +1399,13 @@
                 <li>Responsividade</li>
                 <li>Acessibilidade</li>
               </ul>
+              <div class="skills-capability-card__proof" aria-label="Projetos que evidenciam construção web">
+                <span>Evidência no portfólio</span>
+                <div>
+                  <a href="#projeto-dashboard-de-inventario">Dashboard de Inventário</a>
+                  <a href="#projeto-refugio-sereno">Refúgio Sereno</a>
+                </div>
+              </div>
               <div class="skills-capability-card__signal" aria-hidden="true">
                 <span></span><span></span><span></span><span></span>
               </div>
@@ -1318,7 +1413,7 @@
 
             <article class="skills-capability-card skills-capability-card--design reveal-item">
               <div class="skills-capability-card__meta">
-                <span>Interface &amp; experiência</span>
+                <span><span class="skills-capability-card__glyph" aria-hidden="true">◇</span>Interface &amp; experiência</span>
                 <span class="skills-capability-card__status">Direção visual</span>
               </div>
               <h3>Clareza antes do efeito.</h3>
@@ -1330,11 +1425,21 @@
                 <li>Prototipagem</li>
                 <li>Hierarquia visual</li>
               </ul>
+              <div class="skills-capability-card__proof" aria-label="Projetos que evidenciam design de interface">
+                <span>Evidência no portfólio</span>
+                <div>
+                  <a href="#projeto-one-thing">ONE THING</a>
+                  <a href="#projetos-design">Interface Design</a>
+                </div>
+              </div>
+              <div class="skills-capability-card__signal" aria-hidden="true">
+                <span></span><span></span><span></span><span></span>
+              </div>
             </article>
 
             <article class="skills-capability-card skills-capability-card--quality reveal-item">
               <div class="skills-capability-card__meta">
-                <span>Qualidade &amp; entrega</span>
+                <span><span class="skills-capability-card__glyph" aria-hidden="true">✓</span>Qualidade &amp; entrega</span>
                 <span class="skills-capability-card__status">Fluxo de trabalho</span>
               </div>
               <h3>Construir, testar, revisar.</h3>
@@ -1346,11 +1451,21 @@
                 <li>SEO técnico</li>
                 <li>Publicação</li>
               </ul>
+              <div class="skills-capability-card__proof" aria-label="Projetos que evidenciam qualidade e entrega">
+                <span>Evidência no portfólio</span>
+                <div>
+                  <a href="#hero">Este portfólio</a>
+                  <a href="./cases/dashboard-inventario.html">Case do Dashboard</a>
+                </div>
+              </div>
+              <div class="skills-capability-card__signal" aria-hidden="true">
+                <span></span><span></span><span></span><span></span>
+              </div>
             </article>
 
             <article class="skills-capability-card skills-capability-card--growth reveal-item">
               <div class="skills-capability-card__meta">
-                <span>Stack em evolução</span>
+                <span><span class="skills-capability-card__glyph" aria-hidden="true">↗</span>Stack em evolução</span>
                 <span class="skills-capability-card__status">Estudo contínuo</span>
               </div>
               <h3>Aprendizado aplicado em cases.</h3>
@@ -1361,6 +1476,16 @@
                 <li>Next.js</li>
                 <li>Firebase</li>
               </ul>
+              <div class="skills-capability-card__proof" aria-label="Projetos que evidenciam a stack em evolução">
+                <span>Evidência no portfólio</span>
+                <div>
+                  <a href="#projeto-dashboard-de-inventario">Dashboard de Inventário</a>
+                  <a href="#projeto-refugio-sereno">Refúgio Sereno</a>
+                </div>
+              </div>
+              <div class="skills-capability-card__signal" aria-hidden="true">
+                <span></span><span></span><span></span><span></span>
+              </div>
             </article>
           </div>
 
@@ -1400,7 +1525,7 @@
                
                <div class="gamedev-hud-panel">
                  <h3>RPG Psicológico 2D</h3>
-                 <p>Mais que uma narrativa visual, um verdadeiro laboratório de engenharia: construção de um <strong>Motor 2D</strong> do zero em <strong>Vanilla JS</strong>, operando <strong>lógica de colisão</strong>, manipulação de <strong>State Machines</strong> e design autoral de <strong>sprites</strong>.</p>
+                 <p>Exploração autoral em <strong>Vanilla JS</strong> envolvendo estrutura de um <strong>motor 2D</strong>, <strong>lógica de colisão</strong>, <strong>máquinas de estado</strong> e criação de <strong>sprites</strong>.</p>
                </div>
             </div>
           </div>
@@ -1466,7 +1591,8 @@
     </header>
 
     <div class="testimonials-editorial__grid" role="region" aria-label="Depoimentos — arraste para navegar" tabindex="0">
-      <figure class="testimonial-card reveal-item">
+      <figure class="testimonial-card reveal-item is-current">
+        <span class="testimonial-card__index" aria-hidden="true">01</span>
         <span class="testimonial-card__quote" aria-hidden="true">“</span>
         <blockquote>
           <p>O Professor Leo tem uma paciência incrível para explicar conceitos difíceis. Graças à sua didática, consegui entender a lógica por trás do código sem me sentir frustrado.</p>
@@ -1481,6 +1607,7 @@
       </figure>
 
       <figure class="testimonial-card reveal-item">
+        <span class="testimonial-card__index" aria-hidden="true">02</span>
         <span class="testimonial-card__quote" aria-hidden="true">“</span>
         <blockquote>
           <p>Trabalhar com ele é ter a certeza de que os processos técnicos estarão sempre organizados e acessíveis. Ele consegue simplificar o uso de sistemas para qualquer pessoa da equipe.</p>
@@ -1495,6 +1622,7 @@
       </figure>
 
       <figure class="testimonial-card reveal-item">
+        <span class="testimonial-card__index" aria-hidden="true">03</span>
         <span class="testimonial-card__quote" aria-hidden="true">“</span>
         <blockquote>
           <p>As aulas de informática eram muito visuais e fáceis de acompanhar. Ele realmente se importa em garantir que o aluno não apenas decore, mas entenda a ferramenta.</p>
@@ -1526,51 +1654,56 @@
             </header>
 
             <div class="faq-item reveal-item stagger-1">
-              <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
-                Qual é a sua atuação principal?
+              <button class="faq-question" id="faq-question-1" aria-expanded="false" aria-controls="faq-answer-1">
+                <span class="faq-question__index" aria-hidden="true">01</span>
+                <span class="faq-question__text">Qual é a sua atuação principal?</span>
                 <span class="faq-icon" aria-hidden="true">+</span>
               </button>
-              <div id="faq-answer-1" class="faq-answer-wrapper"><div class="faq-answer-content">
+              <div id="faq-answer-1" class="faq-answer-wrapper" role="region" aria-labelledby="faq-question-1" aria-hidden="true"><div class="faq-answer-content">
                 Atuo como desenvolvedor Front-end e designer de interfaces. Uno estrutura visual, responsividade, acessibilidade e código para transformar necessidades em experiências web claras e consistentes.
               </div></div>
             </div>
 
             <div class="faq-item reveal-item stagger-2">
-              <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
-                Quais tecnologias você utiliza?
+              <button class="faq-question" id="faq-question-2" aria-expanded="false" aria-controls="faq-answer-2">
+                <span class="faq-question__index" aria-hidden="true">02</span>
+                <span class="faq-question__text">Quais tecnologias você utiliza?</span>
                 <span class="faq-icon" aria-hidden="true">+</span>
               </button>
-              <div id="faq-answer-2" class="faq-answer-wrapper"><div class="faq-answer-content">
+              <div id="faq-answer-2" class="faq-answer-wrapper" role="region" aria-labelledby="faq-question-2" aria-hidden="true"><div class="faq-answer-content">
                 Minha base é HTML, CSS e JavaScript, com Git e GitHub no fluxo de trabalho e Figma na construção de interfaces. Os cases também mostram experiências com React, Next.js, TypeScript, Firebase e APIs de IA.
               </div></div>
             </div>
 
             <div class="faq-item reveal-item stagger-3">
-              <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
-                Que tipos de interface você desenvolve?
+              <button class="faq-question" id="faq-question-3" aria-expanded="false" aria-controls="faq-answer-3">
+                <span class="faq-question__index" aria-hidden="true">03</span>
+                <span class="faq-question__text">Que tipos de interface você desenvolve?</span>
                 <span class="faq-icon" aria-hidden="true">+</span>
               </button>
-              <div id="faq-answer-3" class="faq-answer-wrapper"><div class="faq-answer-content">
+              <div id="faq-answer-3" class="faq-answer-wrapper" role="region" aria-labelledby="faq-question-3" aria-hidden="true"><div class="faq-answer-content">
                 Landing pages, portfólios, dashboards, páginas institucionais e experiências web interativas. Cada projeto é pensado para funcionar bem em desktop e mobile, com hierarquia visual e chamadas para ação evidentes.
               </div></div>
             </div>
 
             <div class="faq-item reveal-item stagger-4">
-              <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
-                Como funciona o seu processo?
+              <button class="faq-question" id="faq-question-4" aria-expanded="false" aria-controls="faq-answer-4">
+                <span class="faq-question__index" aria-hidden="true">04</span>
+                <span class="faq-question__text">Como funciona o seu processo?</span>
                 <span class="faq-icon" aria-hidden="true">+</span>
               </button>
-              <div id="faq-answer-4" class="faq-answer-wrapper"><div class="faq-answer-content">
+              <div id="faq-answer-4" class="faq-answer-wrapper" role="region" aria-labelledby="faq-question-4" aria-hidden="true"><div class="faq-answer-content">
                 Começo entendendo o objetivo e o conteúdo. Depois organizo a hierarquia, defino a direção de interface, implemento os componentes e valido responsividade, legibilidade, navegação por teclado e comportamento dos links.
               </div></div>
             </div>
 
             <div class="faq-item reveal-item stagger-5">
-              <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
-                Para quais oportunidades você está disponível?
+              <button class="faq-question" id="faq-question-5" aria-expanded="false" aria-controls="faq-answer-5">
+                <span class="faq-question__index" aria-hidden="true">05</span>
+                <span class="faq-question__text">Para quais oportunidades você está disponível?</span>
                 <span class="faq-icon" aria-hidden="true">+</span>
               </button>
-              <div id="faq-answer-5" class="faq-answer-wrapper"><div class="faq-answer-content">
+              <div id="faq-answer-5" class="faq-answer-wrapper" role="region" aria-labelledby="faq-question-5" aria-hidden="true"><div class="faq-answer-content">
                 Busco oportunidades de nível júnior em Front-end, Desenvolvimento Web, UI Design e Web Design. Também considero projetos em que eu possa contribuir da definição visual à implementação da interface.
               </div></div>
             </div>
@@ -1585,6 +1718,12 @@
           <div class="ambient-aurora ambient-aurora--closing" aria-hidden="true">
             <span class="ambient-aurora__mesh ambient-aurora__mesh--closing-main"></span>
             <span class="ambient-aurora__mesh ambient-aurora__mesh--closing-orbit"></span>
+          </div>
+          <div class="celestial-signature celestial-signature--closing" aria-hidden="true">
+            <span class="celestial-star celestial-star--main"></span>
+            <span class="celestial-star celestial-star--near"></span>
+            <span class="celestial-star celestial-star--far"></span>
+            <span class="celestial-orbit"></span>
           </div>
           <div class="footer-editorial">
             <div class="footer-editorial__top">
@@ -1622,7 +1761,7 @@
                       <path d="M22 6l-10 7L2 6"></path>
                     </svg>
                   </span>
-                  Email
+                  Enviar e-mail
                 </a>
                 <a href="https://github.com/mrleorobot" target="_blank" rel="noopener noreferrer" class="contact-link">
                   <span class="icon-holder">
@@ -1681,7 +1820,7 @@
         <span>&copy; 2026 Leonilson. Todos os direitos reservados.</span>
       </div>
     </footer>
-        <script type="module" src="./app.js?v=20260831mobile4"></script>
+        <script type="module" src="./app.js?v=20260901final1"></script>
 
     <!-- BOTÃO COMPARTILHAR -->
     <button
@@ -1844,7 +1983,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", async () => {
           try {
-            const registration = await navigator.serviceWorker.register("./sw.js?v=20260831mobile4");
+            const registration = await navigator.serviceWorker.register("./sw.js?v=20260901final1");
             registration.update();
           } catch {
             // The portfolio remains fully functional without offline caching.

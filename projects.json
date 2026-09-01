@@ -1,18 +1,20 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-29",
+  "generatedAt": "2026-09-01",
   "source": "https://mrleorobot.github.io/",
   "verificationPolicy": "Somente funcionalidades observáveis e links públicos são descritos. Métricas dependem de evidência documentada.",
   "projects": [
     {
       "id": "dashboard-de-inventario",
       "title": "Dashboard de Inventário",
+      "tier": "case",
       "summary": "Painel responsivo para acompanhar estoque, priorizar itens em baixa e organizar a leitura de vendas e relatórios.",
       "challenge": "Transformar dados operacionais dispersos em uma visão rápida para tomada de decisão.",
       "decision": "Dar prioridade visual aos alertas, ao estado do estoque e às ações mais frequentes.",
       "delivery": "Dashboard navegável com filtros, indicadores, alertas e exportação de relatórios.",
       "role": "Front-end e design de interface",
       "technologies": ["Next.js", "TypeScript", "Framer Motion"],
+      "caseUrl": "./cases/dashboard-inventario.html",
       "url": "https://dashboard-de-inventario.vercel.app/",
       "image": "./placeholder-dashboard.jpg",
       "imageAlt": "Tela do Dashboard de Inventário com indicadores e tabela de produtos",
@@ -22,6 +24,7 @@
     {
       "id": "refugio-sereno",
       "title": "Refúgio Sereno",
+      "tier": "case",
       "summary": "Aplicativo de organização e foco pensado para reduzir sobrecarga visual e apoiar rotinas de pessoas neurodivergentes.",
       "challenge": "Organizar tarefas sem transformar a interface em mais uma fonte de distração.",
       "decision": "Usar hierarquia calma, feedback direto e progressão visual para tornar o próximo passo evidente.",
@@ -37,6 +40,7 @@
     {
       "id": "one-thing",
       "title": "ONE THING",
+      "tier": "case",
       "summary": "Experiência editorial que explora tipografia, espaço negativo e movimento como elementos principais da navegação.",
       "challenge": "Criar presença visual forte com poucos elementos e sem depender de excesso de conteúdo.",
       "decision": "Construir a hierarquia a partir de uma mensagem dominante, ritmo tipográfico e microinterações discretas.",
@@ -52,6 +56,7 @@
     {
       "id": "memory-exe",
       "title": "MEMORY.EXE",
+      "tier": "experimental",
       "summary": "Narrativa web interativa com atmosfera inspirada em jogos de PS1 e navegação disponível em português e inglês.",
       "challenge": "Sustentar imersão narrativa sem perder orientação, legibilidade e controle pelo usuário.",
       "decision": "Combinar estética de baixa fidelidade, pistas visuais e interações progressivas em uma experiência coesa.",
@@ -67,6 +72,7 @@
     {
       "id": "komorebi",
       "title": "Komorebi",
+      "tier": "archive",
       "summary": "Landing page para uma marca conceitual de café, com narrativa visual atmosférica e foco na apresentação do produto.",
       "challenge": "Traduzir uma identidade artesanal em uma página clara, desejável e fácil de percorrer.",
       "decision": "Usar fotografia, contraste e ritmo de conteúdo para conduzir o olhar até os produtos e chamadas principais.",
@@ -82,6 +88,7 @@
     {
       "id": "hanamori",
       "title": "Hanamori",
+      "tier": "archive",
       "summary": "Landing page ilustrada que combina arte digital, profundidade e movimento para criar uma experiência de exploração.",
       "challenge": "Construir uma atmosfera rica sem comprometer a leitura e o fluxo responsivo da página.",
       "decision": "Organizar a composição em camadas, equilibrando ilustração, texto e movimento conforme o tamanho da tela.",
@@ -97,6 +104,7 @@
     {
       "id": "portal-corporativo",
       "title": "Portal Corporativo",
+      "tier": "archive",
       "summary": "Intranet responsiva que reúne treinamento, documentos, avaliações, benefícios e solicitações de férias.",
       "role": "Front-end e design de interface",
       "technologies": ["Next.js", "React Hook Form", "Zustand"],
@@ -109,6 +117,7 @@
     {
       "id": "dsol-ai",
       "title": "Dsol AI",
+      "tier": "archive",
       "summary": "Tutor educacional com IA generativa, respostas em Markdown e exportação de conversas em PDF.",
       "role": "Front-end e integração de IA",
       "technologies": ["React", "Firebase", "Gemini API"],
@@ -121,6 +130,7 @@
     {
       "id": "aurvm",
       "title": "AURVM",
+      "tier": "archive",
       "summary": "E-commerce conceitual de joalheria autoral com catálogo visual e apresentação imersiva das peças.",
       "role": "Front-end e direção de interface",
       "technologies": ["React", "Vite"],
@@ -133,6 +143,7 @@
     {
       "id": "ledgeriq",
       "title": "LedgerIQ",
+      "tier": "archive",
       "summary": "Sistema de auditoria financeira com leitura assistida de notas fiscais e organização de dados.",
       "role": "Front-end e integração de IA",
       "technologies": ["Next.js", "Gemini API"],
@@ -145,6 +156,7 @@
     {
       "id": "mentor-de-estagio",
       "title": "Mentor de Estágio",
+      "tier": "archive",
       "summary": "Plataforma de mentoria acadêmica com cronogramas, checklists e organização de documentos.",
       "role": "Front-end e produto digital",
       "technologies": ["Next.js", "React"],
@@ -157,6 +169,7 @@
     {
       "id": "develite",
       "title": "DevElite",
+      "tier": "archive",
       "summary": "Landing page de mentoria em tecnologia com foco em carreira e posicionamento profissional.",
       "role": "Front-end e landing page",
       "technologies": ["Next.js", "TypeScript"],
@@ -169,6 +182,7 @@
     {
       "id": "memoire",
       "title": "MÉMOIRE",
+      "tier": "archive",
       "summary": "Site conceitual de perfumaria autoral com narrativa visual própria para cada fragrância.",
       "role": "Front-end e direção visual",
       "technologies": ["JavaScript", "CSS"],
@@ -181,6 +195,7 @@
     {
       "id": "nocturne-studio",
       "title": "Nocturne Studio",
+      "tier": "archive",
       "summary": "Portfólio de estúdio independente de animação e jogos com atmosfera visual Cozy Night.",
       "role": "Front-end e portfólio",
       "technologies": ["Vite", "React"],

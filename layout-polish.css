@@ -131,8 +131,70 @@ body.loader-complete #hero .hero-editorial__name{
   display: none;
 }
 
-#projetos #projects-dots{
+/* Curadoria progressiva: quatro trabalhos formam a vitrine principal;
+   os demais continuam disponíveis sem alongar a leitura inicial. */
+#projetos .projects-archive-toggle{
+  display: none;
+  min-height: 2.75rem;
+  padding: 0.72rem 1rem;
+  align-items: center;
+  gap: 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(255, 255, 255, 0.84);
+  font: 600 0.64rem/1 "Space Grotesk", sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 220ms ease, background-color 220ms ease, color 220ms ease;
+}
+
+.js #projetos .projects-archive-toggle{
+  display: inline-flex;
+}
+
+#projetos .projects-archive-toggle:hover,
+#projetos .projects-archive-toggle:focus-visible{
+  border-color: rgba(255, 255, 255, 0.62);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+#projetos .projects-archive-toggle__count{
+  display: grid;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.11);
+  font-size: 0.58rem;
+  letter-spacing: 0;
+}
+
+#projetos .projects-archive-toggle svg{
+  transition: transform 240ms ease;
+}
+
+#projetos .projects-archive-toggle[aria-expanded="true"] svg{
+  transform: rotate(180deg);
+}
+
+.js #projetos:not(.is-archive-open) .project-card--archive{
   display: none !important;
+}
+
+#projetos .project-card--featured{
+  border-color: rgba(255, 255, 255, 0.13) !important;
+}
+
+#projetos .project-card--archive{
+  animation: project-archive-enter 380ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes project-archive-enter{
+  from{ opacity: 0; transform: translateY(0.75rem); }
+  to{ opacity: 1; transform: translateY(0); }
 }
 
 #projetos .project-card{
@@ -196,8 +258,84 @@ body.loader-complete #hero .hero-editorial__name{
   min-height: 4.1em;
 }
 
+#projetos .project-card--featured .project-card__desc{
+  min-height: 2.9em;
+  -webkit-line-clamp: 2;
+}
+
+#projetos .project-card__brief{
+  display: grid;
+  margin: 0.25rem 0 0.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#projetos .project-card__brief > div{
+  display: grid;
+  padding: 0.72rem 0;
+  grid-template-columns: 4.2rem minmax(0, 1fr);
+  gap: 0.65rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#projetos .project-card__brief dt,
+#projetos .project-card__brief dd{
+  margin: 0;
+}
+
+#projetos .project-card__brief dt{
+  padding-top: 0.12rem;
+  font: 650 0.56rem/1.35 "Space Grotesk", sans-serif;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.44);
+}
+
+#projetos .project-card__brief dd{
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 0.72rem;
+  line-height: 1.48;
+  color: rgba(255, 255, 255, 0.72);
+}
+
 #projetos .project-card__cta{
   margin-top: auto;
+}
+
+#projetos .project-card__actions{
+  display: flex;
+  margin-top: auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+#projetos .project-card__actions .project-card__cta{
+  margin-top: 0;
+}
+
+#projetos .project-card__live-link{
+  display: inline-flex;
+  min-height: 2.75rem;
+  padding: 0.65rem 0;
+  align-items: center;
+  gap: 0.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  color: rgba(255, 255, 255, 0.68);
+  font: 600 0.62rem/1 "Space Grotesk", sans-serif;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: border-color 180ms ease, color 180ms ease;
+}
+
+#projetos .project-card__live-link:hover,
+#projetos .project-card__live-link:focus-visible{
+  border-color: rgba(255, 255, 255, 0.8);
+  color: #fff;
 }
 
 /* O preto continua dominante,mas imagens e textos deixam de depender do hover. */
@@ -691,7 +829,30 @@ html.is-chromium #projetos-design .ux-card__media img{
   font-weight:700;
   letter-spacing:-0.04em;
   color:rgba(255,255,255,0.9);
+  transition:transform 0.35s cubic-bezier(0.16,1,0.3,1),border-color 0.35s ease,background-color 0.35s ease;
 }
+
+#tech-stack .skills-motion-set li:nth-child(even) .skills-motion-icon{
+  transform:translateY(0.12rem);
+}
+
+#tech-stack .skills-motion-rails:hover .skills-motion-icon{
+  transform:translateY(-0.16rem) scale(1.08);
+  border-color:rgba(255,255,255,0.32);
+  background:rgba(255,255,255,0.075);
+}
+
+#tech-stack .skills-motion-rails.revealed .skills-motion-set:first-child li{
+  animation:skillsIconArrival 0.7s cubic-bezier(0.16,1,0.3,1) both;
+  animation-delay:calc(var(--skill-order,0) * 60ms);
+}
+
+#tech-stack .skills-motion-set li:nth-child(1){--skill-order:1}
+#tech-stack .skills-motion-set li:nth-child(2){--skill-order:2}
+#tech-stack .skills-motion-set li:nth-child(3){--skill-order:3}
+#tech-stack .skills-motion-set li:nth-child(4){--skill-order:4}
+#tech-stack .skills-motion-set li:nth-child(5){--skill-order:5}
+#tech-stack .skills-motion-set li:nth-child(6){--skill-order:6}
 
 #tech-stack .skills-motion-icon--figma{
   color:#d9a6ff;
@@ -705,6 +866,11 @@ html.is-chromium #projetos-design .ux-card__media img{
 @keyframes skillsRailReverse{
   from{transform:translate3d(-50%,0,0)}
   to{transform:translate3d(0,0,0)}
+}
+
+@keyframes skillsIconArrival{
+  from{opacity:0;transform:translateY(0.75rem)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 #tech-stack .skills-capability-grid{
@@ -755,6 +921,13 @@ html.is-chromium #projetos-design .ux-card__media img{
   border-color:rgba(255,255,255,0.24);
 }
 
+#tech-stack .skills-capability-card.is-open{
+  border-color:rgba(255,255,255,0.28);
+  background:
+    radial-gradient(circle at 100% 0%,var(--skills-glow),transparent 52%),
+    linear-gradient(145deg,rgba(255,255,255,0.065),rgba(255,255,255,0.016) 58%,rgba(255,255,255,0.035));
+}
+
 #tech-stack .skills-capability-card--core{
   grid-column:span 7;
   --skills-glow:rgba(185,74,91,0.16);
@@ -788,6 +961,35 @@ html.is-chromium #projetos-design .ux-card__media img{
   line-height:1.25;
   text-transform:uppercase;
   color:rgba(255,255,255,0.72);
+}
+
+#tech-stack .skills-capability-card__meta > span:first-child{
+  display:inline-flex;
+  align-items:center;
+  gap:0.58rem;
+}
+
+#tech-stack .skills-capability-card__glyph{
+  display:grid;
+  width:1.85rem;
+  height:1.85rem;
+  flex:0 0 auto;
+  place-items:center;
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:0.48rem;
+  background:rgba(255,255,255,0.045);
+  box-shadow:0 0 1.5rem var(--skills-glow);
+  font:700 0.66rem/1 "Space Grotesk",sans-serif;
+  letter-spacing:-0.08em;
+  color:rgba(255,255,255,0.92);
+  transition:transform 0.45s cubic-bezier(0.16,1,0.3,1),border-color 0.3s ease,background-color 0.3s ease;
+}
+
+#tech-stack .skills-capability-card:hover .skills-capability-card__glyph,
+#tech-stack .skills-capability-card.is-open .skills-capability-card__glyph{
+  transform:translateY(-0.18rem) rotate(-5deg) scale(1.08);
+  border-color:rgba(255,255,255,0.42);
+  background:rgba(255,255,255,0.09);
 }
 
 #tech-stack .skills-capability-card__status{
@@ -840,6 +1042,55 @@ html.is-chromium #projetos-design .ux-card__media img{
   color:rgba(255,255,255,0.76);
 }
 
+#tech-stack .skills-capability-card__proof{
+  display:grid;
+  margin-top:1.1rem;
+  padding-top:0.9rem;
+  gap:0.65rem;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+#tech-stack .skills-capability-card__proof > span{
+  font:650 0.56rem/1.3 "Space Grotesk",sans-serif;
+  letter-spacing:0.13em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.4);
+}
+
+#tech-stack .skills-capability-card__proof > div{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.45rem;
+}
+
+#tech-stack .skills-capability-card__proof a{
+  display:inline-flex;
+  min-height:2.25rem;
+  padding:0.48rem 0.7rem;
+  align-items:center;
+  gap:0.4rem;
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:999px;
+  background:rgba(255,255,255,0.035);
+  color:rgba(255,255,255,0.72);
+  font:600 0.61rem/1.2 "Space Grotesk",sans-serif;
+  letter-spacing:0.04em;
+  text-decoration:none;
+  transition:border-color 180ms ease,background-color 180ms ease,color 180ms ease;
+}
+
+#tech-stack .skills-capability-card__proof a::after{
+  content:"↗";
+  color:rgba(255,255,255,0.38);
+}
+
+#tech-stack .skills-capability-card__proof a:hover,
+#tech-stack .skills-capability-card__proof a:focus-visible{
+  border-color:rgba(255,255,255,0.48);
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+}
+
 #tech-stack .skills-capability-card__signal{
   position:absolute;
   top:50%;
@@ -849,19 +1100,43 @@ html.is-chromium #projetos-design .ux-card__media img{
   gap:0.34rem;
   height:3.4rem;
   transform:translateY(-50%);
-  opacity:0.22;
+  opacity:0.18;
   pointer-events:none;
+  transition:opacity 0.3s ease,transform 0.45s cubic-bezier(0.16,1,0.3,1);
 }
 
 #tech-stack .skills-capability-card__signal span{
   width:1px;
   height:var(--signal-height,45%);
   background:linear-gradient(to top,transparent,#fff,transparent);
+  transform:scaleY(0.18);
+  transform-origin:bottom;
 }
 
 #tech-stack .skills-capability-card__signal span:nth-child(2){--signal-height:100%}
 #tech-stack .skills-capability-card__signal span:nth-child(3){--signal-height:68%}
 #tech-stack .skills-capability-card__signal span:nth-child(4){--signal-height:28%}
+
+#tech-stack .skills-capability-card.revealed .skills-capability-card__signal span{
+  animation:skillsSignalRise 0.8s cubic-bezier(0.16,1,0.3,1) both;
+  animation-delay:calc(var(--signal-order,0) * 90ms + 180ms);
+}
+
+#tech-stack .skills-capability-card__signal span:nth-child(1){--signal-order:1}
+#tech-stack .skills-capability-card__signal span:nth-child(2){--signal-order:2}
+#tech-stack .skills-capability-card__signal span:nth-child(3){--signal-order:3}
+#tech-stack .skills-capability-card__signal span:nth-child(4){--signal-order:4}
+
+#tech-stack .skills-capability-card:hover .skills-capability-card__signal,
+#tech-stack .skills-capability-card.is-open .skills-capability-card__signal{
+  opacity:0.52;
+  transform:translateY(-50%) scaleX(1.2);
+}
+
+@keyframes skillsSignalRise{
+  from{opacity:0;transform:scaleY(0.12)}
+  to{opacity:1;transform:scaleY(1)}
+}
 
 #tech-stack .skills-principles{
   display:grid;
@@ -991,6 +1266,20 @@ html.is-chromium #projetos-design .ux-card__media img{
   transition:transform 0.35s cubic-bezier(0.16,1,0.3,1),border-color 0.35s ease;
 }
 
+#soft-skills .testimonial-card::after{
+  content:"";
+  position:absolute;
+  top:0;
+  right:0;
+  left:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.34),transparent);
+  transform:scaleX(0.28);
+  transform-origin:center;
+  opacity:0.45;
+  transition:transform 0.45s cubic-bezier(0.16,1,0.3,1),opacity 0.35s ease;
+}
+
 #soft-skills .testimonial-card:nth-child(1){
   background:
     radial-gradient(circle at 100% 0%,rgba(177,71,87,0.11),transparent 43%),
@@ -1008,6 +1297,21 @@ html.is-chromium #projetos-design .ux-card__media img{
   border-color:rgba(255,255,255,0.23);
 }
 
+#soft-skills .testimonial-card:hover::after,
+#soft-skills .testimonial-card.is-current::after{
+  transform:scaleX(0.82);
+  opacity:1;
+}
+
+#soft-skills .testimonial-card__index{
+  position:absolute;
+  top:1.25rem;
+  right:1.35rem;
+  font:600 0.6rem/1 "JetBrains Mono",monospace;
+  letter-spacing:0.14em;
+  color:rgba(255,255,255,0.34);
+}
+
 #soft-skills .testimonial-card__quote{
   display:block;
   height:2.75rem;
@@ -1017,6 +1321,13 @@ html.is-chromium #projetos-design .ux-card__media img{
   font-weight:400;
   line-height:0.9;
   color:rgba(255,255,255,0.2);
+  transition:color 0.35s ease,transform 0.45s cubic-bezier(0.16,1,0.3,1);
+}
+
+#soft-skills .testimonial-card:hover .testimonial-card__quote,
+#soft-skills .testimonial-card.is-current .testimonial-card__quote{
+  color:rgba(255,255,255,0.34);
+  transform:translateY(-0.12rem);
 }
 
 #soft-skills .testimonial-card blockquote{
@@ -1213,5 +1524,297 @@ html.is-chromium #projetos-design .ux-card__media img{
   #tech-stack .skills-capability-card,
   #soft-skills .testimonial-card{
     transition:none !important;
+  }
+
+  #tech-stack .skills-motion-set li,
+  #tech-stack .skills-capability-card__signal span{
+    animation:none !important;
+    opacity:1;
+    transform:none;
+  }
+}
+
+html.is-chromium #tech-stack .skills-motion-set li,
+html.is-chromium #tech-stack .skills-capability-card__signal span{
+  animation:none !important;
+  opacity:1;
+  transform:none;
+}
+
+/* =========================================================
+   FAQ + CONVERSÃO — leitura rápida e hierarquia de contato
+   ========================================================= */
+
+#faq .faq-question{
+  display:grid !important;
+  grid-template-columns:2.2rem minmax(0,1fr) 2.25rem;
+  align-items:center !important;
+  gap:0.9rem !important;
+}
+
+#faq .faq-question__index{
+  font:600 0.58rem/1 "JetBrains Mono",monospace;
+  letter-spacing:0.12em;
+  color:rgba(255,255,255,0.32);
+  transition:color 0.3s ease;
+}
+
+#faq .faq-question__text{
+  min-width:0;
+}
+
+#faq .faq-item.active .faq-question__index{
+  color:rgba(255,255,255,0.86);
+}
+
+#faq .faq-item.active{
+  box-shadow:inset 2px 0 0 rgba(255,255,255,0.7);
+}
+
+#cta-final .footer-editorial__channels .contact-links{
+  display:grid !important;
+  max-width:52rem;
+  margin-inline:auto;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+#cta-final .footer-editorial__channels .contact-link{
+  width:100%;
+  min-height:3.2rem;
+}
+
+#cta-final .footer-editorial__channels .contact-link.email{
+  grid-column:1/-1;
+  grid-row:1;
+  min-height:4rem;
+  justify-content:space-between !important;
+  color:#050505 !important;
+  background:#fff !important;
+  border-color:#fff !important;
+}
+
+#cta-final .footer-editorial__channels .contact-link.email svg{
+  stroke:#050505 !important;
+}
+
+#cta-final .footer-editorial__channels .contact-link.email:hover{
+  color:#050505 !important;
+  background:#e9e9e9 !important;
+}
+
+#cta-final .footer-editorial__channels .contact-link.email:hover svg{
+  stroke:#050505 !important;
+}
+
+@media (max-width:640px){
+  #faq .faq-question{
+    grid-template-columns:1.65rem minmax(0,1fr) 2.25rem;
+    gap:0.65rem !important;
+  }
+}
+
+/* =========================================================
+   CELESTIAL SIGNATURE — estrela e aurora sem caixa visível
+   A máscara radial dissolve toda a composição antes dos textos.
+   ========================================================= */
+
+#hero,#projetos,#sobre,#tech-stack,#cta-final{
+  isolation:isolate;
+}
+
+.celestial-signature{
+  --celestial-opacity:0.36;
+  --celestial-size:clamp(18rem,34vw,36rem);
+  position:absolute;
+  z-index:0;
+  width:var(--celestial-size);
+  aspect-ratio:1.16;
+  overflow:hidden;
+  pointer-events:none;
+  opacity:var(--celestial-opacity);
+  background:
+    radial-gradient(ellipse at 48% 47%,rgba(255,255,255,0.09) 0%,rgba(255,255,255,0.026) 24%,transparent 63%),
+    radial-gradient(ellipse at 66% 55%,rgba(120,145,255,0.055) 0%,rgba(88,58,130,0.025) 31%,transparent 68%);
+  -webkit-mask-image:radial-gradient(ellipse 72% 70% at 50% 50%,#000 0%,rgba(0,0,0,0.88) 44%,rgba(0,0,0,0.26) 70%,transparent 100%);
+  mask-image:radial-gradient(ellipse 72% 70% at 50% 50%,#000 0%,rgba(0,0,0,0.88) 44%,rgba(0,0,0,0.26) 70%,transparent 100%);
+  contain:layout paint;
+}
+
+.celestial-star{
+  position:absolute;
+  display:block;
+  width:0.28rem;
+  aspect-ratio:1;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 0.45rem rgba(255,255,255,0.8),0 0 1.4rem rgba(255,255,255,0.35);
+}
+
+.celestial-star::before,.celestial-star::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  border-radius:999px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.9),transparent);
+  transform:translate(-50%,-50%);
+}
+
+.celestial-star::before{
+  width:clamp(1.8rem,4vw,3.6rem);
+  height:1px;
+}
+
+.celestial-star::after{
+  width:1px;
+  height:clamp(1.8rem,4vw,3.6rem);
+  background:linear-gradient(180deg,transparent,rgba(255,255,255,0.9),transparent);
+}
+
+.celestial-star--main{
+  top:42%;
+  left:48%;
+  width:0.36rem;
+  animation:celestial-breathe 7.5s ease-in-out infinite;
+}
+
+.celestial-star--near{
+  top:26%;
+  left:68%;
+  width:0.16rem;
+  opacity:0.62;
+}
+
+.celestial-star--near::before,.celestial-star--near::after{
+  transform:translate(-50%,-50%) scale(0.44);
+}
+
+.celestial-star--far{
+  top:65%;
+  left:27%;
+  width:0.11rem;
+  opacity:0.38;
+}
+
+.celestial-star--far::before,.celestial-star--far::after{
+  display:none;
+}
+
+.celestial-orbit{
+  position:absolute;
+  top:18%;
+  left:17%;
+  display:block;
+  width:65%;
+  aspect-ratio:1;
+  border:1px solid rgba(255,255,255,0.13);
+  border-right-color:transparent;
+  border-bottom-color:rgba(255,255,255,0.035);
+  border-radius:50%;
+  transform:rotate(-23deg) scaleY(0.56);
+  -webkit-mask-image:linear-gradient(90deg,transparent 2%,#000 30%,#000 67%,transparent 98%);
+  mask-image:linear-gradient(90deg,transparent 2%,#000 30%,#000 67%,transparent 98%);
+  animation:celestial-orbit-drift 16s ease-in-out infinite alternate;
+}
+
+.celestial-signature--hero{
+  --celestial-opacity:0.48;
+  --celestial-size:clamp(24rem,45vw,48rem);
+  top:8%;
+  right:-8%;
+}
+
+.celestial-signature--projects{
+  --celestial-opacity:0.3;
+  top:3rem;
+  right:-10rem;
+  transform:rotate(9deg);
+}
+
+.celestial-signature--trajectory{
+  --celestial-opacity:0.22;
+  top:1rem;
+  left:-11rem;
+  transform:rotate(-12deg);
+}
+
+.celestial-signature--skills{
+  --celestial-opacity:0.3;
+  top:1rem;
+  right:-8rem;
+  transform:rotate(14deg);
+}
+
+.celestial-signature--closing{
+  --celestial-opacity:0.5;
+  --celestial-size:clamp(24rem,48vw,52rem);
+  top:2%;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+@keyframes celestial-breathe{
+  0%,100%{opacity:0.54;transform:scale(0.82)}
+  50%{opacity:1;transform:scale(1.16)}
+}
+
+@keyframes celestial-orbit-drift{
+  from{opacity:0.46;transform:rotate(-26deg) scaleY(0.54)}
+  to{opacity:0.9;transform:rotate(-18deg) scaleY(0.59)}
+}
+
+html.is-chromium .celestial-star--main,
+html.is-chromium .celestial-orbit{
+  animation:none;
+}
+
+@media (max-width:768px){
+  .celestial-signature{
+    --celestial-size:21rem;
+    opacity:0.22;
+  }
+
+  .celestial-signature--hero{
+    top:12%;
+    right:-9rem;
+    opacity:0.36;
+  }
+
+  .celestial-signature--projects,
+  .celestial-signature--skills{
+    top:2.5rem;
+    right:-10.5rem;
+  }
+
+  .celestial-signature--trajectory{
+    top:3rem;
+    left:-11rem;
+    opacity:0.16;
+  }
+
+  .celestial-signature--closing{
+    top:12%;
+    left:64%;
+    opacity:0.36;
+  }
+
+  .celestial-orbit{
+    opacity:0.62;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .celestial-star--main,.celestial-orbit{
+    animation:none !important;
+  }
+}
+
+@media (prefers-reduced-data:reduce),(update:slow){
+  .celestial-orbit,.celestial-star--far{
+    display:none;
+  }
+
+  .celestial-signature{
+    opacity:0.14;
   }
 }

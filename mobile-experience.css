@@ -5,7 +5,23 @@
    ========================================================= */
 
 .footer-availability {
-  display: none;
+  display: flex;
+  margin: 0.6rem 0 0;
+  align-items: center;
+  gap: 0.6rem;
+  color: rgba(255,255,255,0.58);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.footer-availability::before {
+  content: "";
+  width: 0.48rem;
+  height: 0.48rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0.75rem rgba(34,197,94,0.5);
 }
 
 @media (max-width: 768px) {
@@ -262,6 +278,10 @@
     gap: 1.35rem !important;
   }
 
+  #sobre .trajectory-header {
+    margin-bottom: 1.35rem !important;
+  }
+
   #sobre .trajectory-header__title,
   #projetos .projects-header__title,
   #projetos-design .ux-header__title,
@@ -305,7 +325,7 @@
 
   #sobre .trajectory-tabs-shell {
     display: block !important;
-    padding: 0.3rem !important;
+    padding: 0.25rem !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0.9rem;
     background: rgba(255, 255, 255, 0.025);
@@ -316,7 +336,7 @@
     content: "";
     position: absolute;
     right: 0.8rem;
-    bottom: -0.55rem;
+    bottom: -0.45rem;
     left: 0.8rem;
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
@@ -324,12 +344,26 @@
   }
 
   #sobre .trajectory-tabs {
+    position: relative;
     width: 100%;
   }
 
+  #sobre .trajectory-tabs::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 50%;
+    right: 8%;
+    left: 8%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18) 12%, rgba(255,255,255,0.18) 88%, transparent);
+    pointer-events: none;
+  }
+
   #sobre .trajectory-year-tab {
-    min-height: 3rem !important;
-    padding: 0.4rem 0.2rem !important;
+    z-index: 1;
+    min-height: 2.75rem !important;
+    padding: 0.3rem 0.15rem !important;
     align-items: center !important;
     text-align: center !important;
     border: 0 !important;
@@ -347,7 +381,7 @@
   #sobre .trajectory-year-tab.is-active {
     color: #050505 !important;
     background: #fff !important;
-    box-shadow: 0 0.45rem 1.2rem rgba(0, 0, 0, 0.28);
+    box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.3);
   }
 
   #sobre .trajectory-year-tab__year {
@@ -366,12 +400,15 @@
   }
 
   #sobre .trajectory-progress {
-    display: none !important;
+    display: block !important;
+    height: 1px !important;
+    margin-top: 0.55rem !important;
+    background: rgba(255,255,255,0.07) !important;
   }
 
   #sobre .trajectory-stage {
     display: block !important;
-    margin-top: 0.85rem;
+    margin-top: 0.65rem;
     padding: 0 !important;
     overflow: hidden;
     border: 1px solid var(--mobile-card-border);
@@ -383,7 +420,7 @@
 
   #sobre .trajectory-stage__year {
     margin: 0;
-    padding: 1rem 1.1rem 0.9rem;
+    padding: 0.78rem 1rem 0.65rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.09);
   }
 
@@ -405,9 +442,9 @@
     grid-column: 2;
     grid-row: 1 / span 2;
     margin: 0 !important;
-    padding: 0.12em 0.02em 0.18em !important;
-    font-size: clamp(3rem, 15.5vw, 4.35rem) !important;
-    line-height: 1 !important;
+    padding: 0.13em 0.02em 0.2em !important;
+    font-size: clamp(2.85rem, 14.5vw, 4.1rem) !important;
+    line-height: 1.02 !important;
     letter-spacing: -0.08em !important;
     transform-origin: right center;
   }
@@ -427,7 +464,7 @@
   }
 
   #sobre .trajectory-panel__content {
-    padding: 1.2rem 1.1rem 1.25rem !important;
+    padding: 1rem !important;
   }
 
   #sobre .trajectory-stage.is-switching .trajectory-stage__year-number {
@@ -447,19 +484,41 @@
   #sobre .trajectory-panel h3 {
     font-size: clamp(1.45rem, 7vw, 2rem) !important;
     line-height: 1.08 !important;
+    margin-bottom: 0.65rem !important;
+  }
+
+  #sobre .trajectory-panel__kicker {
+    margin-bottom: 0.62rem !important;
   }
 
   #sobre .trajectory-panel__description {
-    font-size: 0.92rem !important;
-    line-height: 1.65 !important;
+    font-size: 0.88rem !important;
+    line-height: 1.58 !important;
+  }
+
+  #sobre .trajectory-panel__tags {
+    gap: 0.4rem !important;
+    margin-top: 0.8rem !important;
+  }
+
+  #sobre .trajectory-panel__tags span {
+    padding: 0.32rem 0.52rem !important;
+    font-size: 0.56rem !important;
   }
 
   #sobre .trajectory-panel__footer {
+    margin-top: 1rem !important;
+    padding-top: 0.85rem !important;
     align-items: flex-start !important;
   }
 
+  #sobre .trajectory-panel__footer svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
   #sobre .momento-atual {
-    margin-top: 2.5rem !important;
+    margin-top: 2rem !important;
   }
 
   #sobre .status-container {
@@ -469,7 +528,7 @@
 
   #sobre .status-card {
     min-height: 0 !important;
-    padding: 1.15rem !important;
+    padding: 0.95rem 1rem !important;
     border: 1px solid var(--mobile-card-border) !important;
     border-radius: var(--mobile-card-radius) !important;
     background: var(--mobile-card-surface) !important;
@@ -536,14 +595,36 @@
     -webkit-line-clamp: 3;
   }
 
+  #projetos .project-card--featured .project-card__desc {
+    -webkit-line-clamp: 2;
+  }
+
+  #projetos .project-card__brief > div {
+    grid-template-columns: 4rem minmax(0, 1fr);
+  }
+
+  #projetos .project-card__brief dd {
+    font-size: 0.78rem;
+  }
+
   #projetos .project-card__cta {
     width: 100%;
     min-height: 2.9rem;
     border-radius: 0.65rem !important;
   }
 
-  #projetos #projects-dots {
-    display: none !important;
+  #projetos .project-card__actions {
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  #projetos .project-card__actions .project-card__cta {
+    width: auto;
+    flex: 1 1 auto;
+  }
+
+  #projetos .project-card__live-link {
+    min-height: 2.9rem;
   }
 
   .mobile-swipe-hint {
@@ -649,6 +730,30 @@
     background: var(--mobile-card-surface) !important;
   }
 
+  #tech-stack .skills-capability-card.is-open {
+    border-color: rgba(255,255,255,0.3) !important;
+    background:
+      radial-gradient(circle at 100% 0%, var(--skills-glow), transparent 50%),
+      var(--mobile-card-surface) !important;
+  }
+
+  #tech-stack .skills-capability-card__glyph {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+
+  #tech-stack .skills-capability-card__signal {
+    top: 4.4rem;
+    right: 1rem;
+    height: 2.25rem;
+    transform: none;
+  }
+
+  #tech-stack .skills-capability-card:hover .skills-capability-card__signal,
+  #tech-stack .skills-capability-card.is-open .skills-capability-card__signal {
+    transform: scaleX(1.15);
+  }
+
   #tech-stack .skills-capability-card h3,
   #tech-stack .skills-capability-card:not(.skills-capability-card--core) h3 {
     margin: 1.35rem 0 0 !important;
@@ -664,6 +769,16 @@
     min-height: 2.3rem;
     display: inline-flex;
     align-items: center;
+  }
+
+  #tech-stack .skills-capability-card__proof {
+    margin-top: 0.85rem;
+    padding-top: 0.75rem;
+  }
+
+  #tech-stack .skills-capability-card__proof a {
+    min-height: 2.75rem;
+    padding-inline: 0.72rem;
   }
 
   #tech-stack .skills-card-preview {
@@ -810,7 +925,7 @@
 
   #soft-skills .testimonial-card,
   #soft-skills .testimonial-card:last-child {
-    min-height: 17rem !important;
+    min-height: 16.25rem !important;
     padding: 1.25rem !important;
     border-radius: var(--mobile-card-radius) !important;
     border: 1px solid var(--mobile-card-border) !important;
@@ -818,6 +933,30 @@
     scroll-snap-align: start;
     display: flex !important;
     flex-direction: column;
+    opacity: 0.72;
+    transform: scale(0.985);
+    transition: opacity 0.28s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.28s ease !important;
+  }
+
+  #soft-skills .testimonial-card.is-current {
+    opacity: 1;
+    transform: scale(1);
+    border-color: rgba(255,255,255,0.24) !important;
+  }
+
+  #soft-skills .testimonial-card__quote {
+    height: 2.2rem;
+    margin-bottom: 0.65rem;
+    font-size: 3.8rem;
+  }
+
+  #soft-skills .testimonial-card blockquote {
+    margin-bottom: 1.25rem;
+  }
+
+  #soft-skills .testimonial-card blockquote p {
+    font-size: 0.9rem !important;
+    line-height: 1.62 !important;
   }
 
   #soft-skills .testimonial-card blockquote { flex: 1; }
@@ -833,11 +972,36 @@
     letter-spacing: 0.12em;
   }
 
-  #soft-skills .testimonials-progress::after {
-    content: "";
+  #soft-skills .testimonials-progress__line {
     height: 1px;
     flex: 1;
     background: linear-gradient(90deg, rgba(255,255,255,0.38), rgba(255,255,255,0.05));
+  }
+
+  #soft-skills .testimonials-progress__controls {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  #soft-skills .testimonials-progress__button {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.035);
+    color: rgba(255,255,255,0.78);
+    font: 500 1rem/1 "Space Grotesk", sans-serif;
+  }
+
+  #soft-skills .testimonials-progress__button:active {
+    transform: scale(0.9);
+  }
+
+  #soft-skills .testimonials-progress__button:disabled {
+    opacity: 0.28;
   }
 
   /* FAQ e conversao com alvos de toque reais. */
@@ -853,7 +1017,7 @@
     min-height: 4rem;
     padding: 1rem 0 !important;
     gap: 1rem;
-    align-items: flex-start !important;
+    align-items: center !important;
     font-size: 1rem !important;
     line-height: 1.45 !important;
     text-align: left;
@@ -866,7 +1030,7 @@
   }
 
   #faq .faq-answer-content {
-    padding: 0 0 1.2rem !important;
+    padding: 0.15rem 0.25rem 1.1rem 2.3rem !important;
     font-size: 0.94rem !important;
     line-height: 1.65 !important;
   }
@@ -904,6 +1068,10 @@
   #cta-final .contact-links {
     grid-template-columns: 1fr !important;
     gap: 0.65rem !important;
+  }
+
+  #cta-final .footer-editorial__channels .contact-link.email {
+    grid-column: auto;
   }
 
   #cta-final .footer-availability {

@@ -11,4 +11,6 @@ qa/node_modules/
 test-results/
 playwright-report/
 qa-artifacts/
+tmp/
+portfolio-qa-*.zip
 .DS_Store

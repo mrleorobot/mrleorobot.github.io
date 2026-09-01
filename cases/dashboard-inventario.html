@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#050507" />
+    <title>Dashboard de Inventário — Case de Leonilson Souza</title>
+    <meta
+      name="description"
+      content="Case do Dashboard de Inventário: contexto, decisões de interface e implementação front-end com Next.js, TypeScript e Framer Motion."
+    />
+    <link rel="canonical" href="https://mrleorobot.github.io/cases/dashboard-inventario.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Dashboard de Inventário — Case de Leonilson Souza" />
+    <meta property="og:description" content="Como dados operacionais foram organizados em uma interface responsiva, hierárquica e orientada a decisões." />
+    <meta property="og:url" content="https://mrleorobot.github.io/cases/dashboard-inventario.html" />
+    <meta property="og:image" content="https://mrleorobot.github.io/placeholder-dashboard.jpg" />
+    <link rel="stylesheet" href="../portfolio.css?v=20260901final1" />
+    <link rel="stylesheet" href="../case-study.css?v=20260901case1" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "Dashboard de Inventário",
+        "description": "Painel responsivo para acompanhar estoque, priorizar itens em baixa e organizar a leitura de vendas e relatórios.",
+        "url": "https://dashboard-de-inventario.vercel.app/",
+        "image": "https://mrleorobot.github.io/placeholder-dashboard.jpg",
+        "creator": {
+          "@type": "Person",
+          "name": "Leonilson Souza",
+          "url": "https://mrleorobot.github.io/"
+        },
+        "keywords": "Next.js, TypeScript, Framer Motion, Front-end, Interface Design"
+      }
+    </script>
+  </head>
+  <body class="case-page">
+    <a class="skip-link" href="#case-content">Pular para o conteúdo</a>
+
+    <header class="case-nav" aria-label="Navegação do case">
+      <a class="case-nav__brand" href="../index.html#projetos" aria-label="Voltar aos projetos de Leonilson Souza">
+        <span aria-hidden="true">LS</span>
+        <span>Leonilson Souza</span>
+      </a>
+      <div class="case-nav__actions">
+        <a href="../index.html#projetos">Voltar ao portfólio</a>
+        <a class="case-nav__live" href="https://dashboard-de-inventario.vercel.app/" target="_blank" rel="noopener noreferrer">
+          Abrir projeto <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="case-content">
+      <section class="case-hero" aria-labelledby="case-title">
+        <div class="case-aurora" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+
+        <div class="case-hero__content">
+          <p class="case-eyebrow">Case selecionado <span>·</span> Produto digital <span>·</span> 2026</p>
+          <h1 id="case-title">Dashboard<br />de Inventário</h1>
+          <p class="case-hero__lead">
+            Uma interface demonstrativa que transforma dados de estoque, vendas e alertas em uma leitura operacional mais direta.
+          </p>
+
+          <div class="case-hero__actions">
+            <a class="case-button case-button--primary" href="https://dashboard-de-inventario.vercel.app/" target="_blank" rel="noopener noreferrer">
+              Explorar projeto ao vivo <span aria-hidden="true">↗</span>
+            </a>
+            <a class="case-button" href="#desafio">Ler o processo <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+
+        <dl class="case-facts" aria-label="Informações do projeto">
+          <div><dt>Papel</dt><dd>Front-end e design de interface</dd></div>
+          <div><dt>Entrega</dt><dd>Dashboard responsivo demonstrativo</dd></div>
+          <div><dt>Tecnologias</dt><dd>Next.js · TypeScript · Framer Motion</dd></div>
+          <div><dt>Status</dt><dd><span class="case-live-dot" aria-hidden="true"></span> Publicado</dd></div>
+        </dl>
+      </section>
+
+      <figure class="case-cover">
+        <img
+          src="../placeholder-dashboard.jpg"
+          alt="Visão geral do Dashboard de Inventário, com receita mensal, indicadores, alertas de estoque e gráfico de vendas"
+          width="1920"
+          height="1080"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <figcaption>Visão principal do produto demonstrativo — dados ilustrativos, sem representação de uma operação comercial real.</figcaption>
+      </figure>
+
+      <section class="case-section case-section--split" id="desafio" aria-labelledby="challenge-title">
+        <div>
+          <p class="case-section__index">Contexto</p>
+          <h2 id="challenge-title">O desafio não era exibir mais dados. Era definir o que deveria ser visto primeiro.</h2>
+        </div>
+        <div class="case-copy">
+          <p>
+            Painéis operacionais podem acumular números, tabelas e avisos até que todos os elementos pareçam igualmente importantes. O projeto partiu do desafio de organizar informações dispersas em uma visão rápida para tomada de decisão.
+          </p>
+          <p>
+            A resposta foi priorizar receita, produtos ativos, unidades em estoque, vendas do mês e situações críticas. Busca, alertas e ações recorrentes permanecem disponíveis sem competir com o panorama principal.
+          </p>
+        </div>
+      </section>
+
+      <section class="case-section" aria-labelledby="decisions-title">
+        <header class="case-section__header">
+          <p class="case-section__index">Decisões de interface</p>
+          <h2 id="decisions-title">Uma hierarquia construída para orientar ação.</h2>
+        </header>
+
+        <div class="case-decisions">
+          <article>
+            <span>01</span>
+            <h3>Panorama antes do detalhe</h3>
+            <p>Indicadores essenciais ocupam a primeira faixa para estabelecer rapidamente o estado geral da operação.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Risco com contraste próprio</h3>
+            <p>Estoque crítico e ruptura iminente utilizam cor e posição para sinalizar urgência sem dominar toda a interface.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Ações próximas do contexto</h3>
+            <p>Busca, atualização, download e cadastro ficam no topo, reduzindo a distância entre leitura e operação.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="case-section case-interface" aria-labelledby="interface-title">
+        <header class="case-section__header">
+          <p class="case-section__index">Leitura visual</p>
+          <h2 id="interface-title">Uma tela, três níveis de informação.</h2>
+          <p>Os recortes abaixo usam a própria interface publicada para evidenciar a organização adotada.</p>
+        </header>
+
+        <div class="case-detail-grid">
+          <figure class="case-detail case-detail--wide">
+            <div class="case-detail__media case-detail__media--summary">
+              <img src="../placeholder-dashboard.jpg" alt="Recorte dos indicadores principais do dashboard" loading="lazy" decoding="async" />
+            </div>
+            <figcaption><strong>Resumo operacional</strong><span>Indicadores de leitura imediata estabelecem o estado atual.</span></figcaption>
+          </figure>
+          <figure class="case-detail">
+            <div class="case-detail__media case-detail__media--chart">
+              <img src="../placeholder-dashboard.jpg" alt="Recorte do gráfico de desempenho de vendas" loading="lazy" decoding="async" />
+            </div>
+            <figcaption><strong>Tendência</strong><span>O gráfico oferece contexto temporal sem substituir os números principais.</span></figcaption>
+          </figure>
+          <figure class="case-detail">
+            <div class="case-detail__media case-detail__media--alerts">
+              <img src="../placeholder-dashboard.jpg" alt="Recorte dos alertas e informações regionais do dashboard" loading="lazy" decoding="async" />
+            </div>
+            <figcaption><strong>Exceções</strong><span>Alertas e distribuição regional ajudam a localizar pontos que exigem atenção.</span></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="case-section case-section--split" aria-labelledby="responsive-title">
+        <div>
+          <p class="case-section__index">Responsividade</p>
+          <h2 id="responsive-title">A prioridade permanece mesmo quando o espaço muda.</h2>
+        </div>
+        <div class="case-copy">
+          <p>
+            O layout foi organizado em módulos para permitir que indicadores, gráfico e alertas mudem de composição conforme a largura disponível. A hierarquia não depende de uma coordenada fixa da tela: ela depende da ordem do conteúdo.
+          </p>
+          <ul class="case-checklist">
+            <li>Indicadores essenciais aparecem antes das análises complementares.</li>
+            <li>Cards preservam títulos, valores e estados sem depender de hover.</li>
+            <li>Ações utilizam rótulos e áreas de toque reconhecíveis.</li>
+            <li>Contraste e espaçamento sustentam a leitura da interface escura.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="case-section case-technical" aria-labelledby="technical-title">
+        <header class="case-section__header">
+          <p class="case-section__index">Implementação</p>
+          <h2 id="technical-title">Decisões visuais traduzidas em componentes.</h2>
+        </header>
+
+        <div class="case-technical__grid">
+          <article><h3>Next.js</h3><p>Estrutura da aplicação e composição das áreas do dashboard.</p></article>
+          <article><h3>TypeScript</h3><p>Contratos mais explícitos para dados, estados e componentes.</p></article>
+          <article><h3>Framer Motion</h3><p>Transições e feedback visual usados como apoio à navegação.</p></article>
+          <article><h3>Componentização</h3><p>Indicadores, alertas e blocos analíticos tratados como unidades reutilizáveis.</p></article>
+        </div>
+      </section>
+
+      <section class="case-section case-outcome" aria-labelledby="outcome-title">
+        <div>
+          <p class="case-section__index">Resultado verificável</p>
+          <h2 id="outcome-title">Um produto demonstrativo publicado e navegável.</h2>
+        </div>
+        <div class="case-copy">
+          <p>
+            A entrega reúne filtros, indicadores, alertas, leitura de vendas e exportação de relatórios em uma interface responsiva. O projeto pode ser aberto e avaliado diretamente pelo visitante.
+          </p>
+          <aside class="case-evidence">
+            <strong>Limite da evidência</strong>
+            <p>Este é um projeto demonstrativo. Por isso, o case não atribui aumento de vendas, ganho de produtividade ou outras métricas comerciais que não foram medidas.</p>
+          </aside>
+          <a class="case-button case-button--primary" href="https://dashboard-de-inventario.vercel.app/" target="_blank" rel="noopener noreferrer">
+            Ver a entrega publicada <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
+
+      <nav class="case-next" aria-label="Navegação final">
+        <div>
+          <span>Próximo case em desenvolvimento</span>
+          <strong>Refúgio Sereno</strong>
+        </div>
+        <a href="../index.html#projetos">Voltar aos projetos <span aria-hidden="true">→</span></a>
+      </nav>
+    </main>
+
+    <footer class="case-footer">
+      <span>Leonilson Souza · Front-end &amp; Interface Design</span>
+      <a href="mailto:leosouza5555@gmail.com">Vamos conversar</a>
+    </footer>
+  </body>
+</html>

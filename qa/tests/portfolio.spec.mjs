@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const sectionOrder = ["hero", "sobre", "projetos", "projetos-design", "tech-stack", "game-dev", "soft-skills", "faq", "cta-final"];
+const sectionOrder = ["hero", "projetos", "sobre", "projetos-design", "tech-stack", "game-dev", "soft-skills", "faq", "cta-final"];
 const editorialTitles = [
   "#sobre .trajectory-header__title",
   "#projetos .projects-header__title",
@@ -33,9 +33,69 @@ test("não publica segredos nem mantém o renderizador externo inseguro", async 
     "githubReposData",
     "api.github.com/users/",
     "github-repos-grid",
+    "initCmdK",
+    "initSwipeDots",
+    "verificarDisponibilidade",
+    "navigator.serviceWorker.register",
   ]) {
     expect(scriptSource, `padrão inseguro publicado: ${forbiddenPattern}`).not.toContain(forbiddenPattern);
   }
+});
+
+test("publica o case verificável do Dashboard de Inventário", async ({ request }) => {
+  const response = await request.get("/cases/dashboard-inventario.html");
+  expect(response.ok()).toBe(true);
+  const source = await response.text();
+
+  expect(source).toContain("Dashboard de Inventário");
+  expect(source).toContain("O desafio não era exibir mais dados");
+  expect(source).toContain("Limite da evidência");
+  expect(source).toContain("projeto demonstrativo");
+  expect(source).toContain('href="https://dashboard-de-inventario.vercel.app/"');
+  expect(source).toContain('rel="canonical" href="https://mrleorobot.github.io/cases/dashboard-inventario.html"');
+  expect(source.match(/<h1\b/g)).toHaveLength(1);
+  expect(source.match(/<img\b/g)?.length).toBeGreaterThanOrEqual(4);
+  expect(source).not.toMatch(/aumentou em|reduziu em|conversão de \d|usuários ativos/i);
+});
+
+test("mantém os quatro destaques escaneáveis e o arquivo compacto", async ({ request }) => {
+  const response = await request.get("/");
+  expect(response.ok()).toBe(true);
+  const source = await response.text();
+  const occurrences = (pattern) => source.match(pattern)?.length || 0;
+
+  expect(occurrences(/data-project-tier="case"/g)).toBe(3);
+  expect(occurrences(/data-project-tier="experimental"/g)).toBe(1);
+  expect(occurrences(/data-project-tier="archive"/g)).toBe(10);
+  expect(occurrences(/class="project-card__brief"/g)).toBe(4);
+  expect(occurrences(/<dt>Problema<\/dt>/g)).toBe(4);
+  expect(occurrences(/<dt>Entrega<\/dt>/g)).toBe(4);
+  expect(occurrences(/class="skills-capability-card__proof"/g)).toBe(4);
+  expect(occurrences(/class="skills-capability-card__glyph"/g)).toBe(4);
+  expect(occurrences(/class="skills-capability-card__signal"/g)).toBe(4);
+  expect(occurrences(/class="testimonial-card__index"/g)).toBe(3);
+  expect(occurrences(/class="faq-question__index"/g)).toBe(5);
+  expect(occurrences(/navigator\.serviceWorker\.register/g)).toBe(1);
+  expect(occurrences(/class="swipe-dots"/g)).toBe(0);
+  expect(occurrences(/Evidência no portfólio/g)).toBe(4);
+  expect(occurrences(/class="celestial-signature celestial-signature--/g)).toBe(5);
+  expect(occurrences(/class="celestial-orbit"/g)).toBe(5);
+});
+
+test("mantém a trajetória mobile compacta, pausada e navegável por gesto", async ({ request }) => {
+  const [scriptResponse, stylesResponse] = await Promise.all([
+    request.get("/evolution.js"),
+    request.get("/mobile-experience.css")
+  ]);
+  expect(scriptResponse.ok()).toBe(true);
+  expect(stylesResponse.ok()).toBe(true);
+
+  const scriptSource = await scriptResponse.text();
+  const stylesSource = await stylesResponse.text();
+  expect(scriptSource).toContain("let isPaused = reduceMotion || mobileExperience");
+  expect(scriptSource).toContain("Math.abs(deltaX) < 48");
+  expect(stylesSource).toContain("#sobre .trajectory-tabs::before");
+  expect(stylesSource).toMatch(/#sobre \.trajectory-progress\s*\{[\s\S]*?display: block !important;/);
 });
 
 test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, testInfo) => {
@@ -64,6 +124,12 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   expect(sourceMarkup).toContain('id="cinematic-loader"');
   expect(sourceMarkup).toContain('id="loader-stars-canvas"');
   await expect(page.locator("#hero canvas#hero-ink-canvas")).toHaveCount(1);
+  const celestialSignatures = page.locator("main .celestial-signature");
+  await expect(celestialSignatures).toHaveCount(5);
+  await expect(celestialSignatures.locator("img")).toHaveCount(0);
+  for (const signature of await celestialSignatures.all()) {
+    await expect(signature).toHaveAttribute("aria-hidden", "true");
+  }
 
   const renderedOrder = await page.locator("main section[id]").evaluateAll((sections) =>
     sections.map((section) => section.id).filter((id) =>
@@ -71,6 +137,25 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     )
   );
   expect(renderedOrder).toEqual(sectionOrder);
+
+  const featuredProjects = page.locator('#projetos [data-project-tier="case"], #projetos [data-project-tier="experimental"]');
+  const archivedProjects = page.locator('#projetos [data-project-tier="archive"]');
+  const archiveToggle = page.locator("#projetos .projects-archive-toggle");
+  await expect(featuredProjects).toHaveCount(4);
+  await expect(archivedProjects).toHaveCount(10);
+  await expect(featuredProjects.locator(".project-card__brief")).toHaveCount(4);
+  await expect(featuredProjects.locator(".project-card__brief dt")).toHaveText([
+    "Problema", "Entrega", "Problema", "Entrega", "Problema", "Entrega", "Problema", "Entrega"
+  ]);
+  await expect(archivedProjects.locator(".project-card__brief")).toHaveCount(0);
+  await expect(archiveToggle).toHaveAttribute("aria-expanded", "false");
+  await expect(archivedProjects.first()).toBeHidden();
+  await archiveToggle.click();
+  await expect(archiveToggle).toHaveAttribute("aria-expanded", "true");
+  await expect(archiveToggle).toContainText("Recolher arquivo");
+  await expect(archivedProjects.first()).toBeVisible();
+  await archiveToggle.click();
+  await expect(archiveToggle).toHaveAttribute("aria-expanded", "false");
 
   const trajectoryYears = await page.locator("#sobre").evaluate((section) => {
     const featuredYear = section.querySelector(".trajectory-stage__year-number");
@@ -101,6 +186,14 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     const minimumSize = testInfo.project.name.startsWith("mobile") && selector.includes("alumni-header") ? 44 : 48;
     expect(fontSize, selector).toBeGreaterThanOrEqual(minimumSize);
   }
+
+  const skillProofs = page.locator("#tech-stack .skills-capability-card__proof");
+  await expect(skillProofs).toHaveCount(4);
+  await expect(skillProofs.locator("a")).toHaveCount(8);
+  const brokenSkillProofTargets = await skillProofs.locator('a[href^="#"]').evaluateAll((links) =>
+    links.map((link) => link.getAttribute("href")).filter((href) => !document.querySelector(href))
+  );
+  expect(brokenSkillProofTargets).toEqual([]);
 
   const protectedTextSelectors = [
     "#hero .hero-editorial__name",
@@ -156,6 +249,15 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   await expect(trajectory.locator("[data-trajectory-title]")).toHaveText("Informática e Web Design");
   await expect(trajectory.locator('[data-trajectory-year="2025"]').first()).toHaveAttribute("aria-selected", "true");
 
+  if (testInfo.project.name.startsWith("mobile")) {
+    await expect(trajectory.locator("[data-trajectory-cycle-toggle]")).toBeHidden();
+    await expect(trajectory.locator(".trajectory-progress")).toBeVisible();
+    const stage = trajectory.locator("[data-trajectory-stage]");
+    await stage.dispatchEvent("pointerdown", { pointerType: "touch", pointerId: 7, clientX: 300, clientY: 220 });
+    await stage.dispatchEvent("pointerup", { pointerType: "touch", pointerId: 7, clientX: 210, clientY: 224 });
+    await expect(trajectory).toHaveAttribute("data-active-year", "2026");
+  }
+
   const trajectoryOverflow = await trajectory.evaluate((element) => ({
     right: element.getBoundingClientRect().right,
     viewport: window.innerWidth,
@@ -198,6 +300,16 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
 
   await expect(page.locator('a[href="curriculo.pdf"]')).toHaveCount(1);
   await expect(page.locator('#cta-final a[href^="mailto:"]')).toHaveCount(2);
+  await expect(page.locator("#cta-final .contact-link.email")).toContainText("Enviar e-mail");
+
+  const faqItems = page.locator("#faq .faq-item");
+  await expect(faqItems).toHaveCount(5);
+  await faqItems.first().locator(".faq-question").click();
+  await expect(faqItems.first().locator(".faq-question")).toHaveAttribute("aria-expanded", "true");
+  await expect(faqItems.first().locator(".faq-answer-wrapper")).toHaveAttribute("aria-hidden", "false");
+  await faqItems.nth(1).locator(".faq-question").click();
+  await expect(faqItems.first().locator(".faq-answer-wrapper")).toHaveAttribute("aria-hidden", "true");
+  await expect(faqItems.nth(1).locator(".faq-answer-wrapper")).toHaveAttribute("aria-hidden", "false");
 
   const ctaCollision = await page.locator("#cta-final .footer-giant-link").evaluate((link) => {
     const title = link.querySelector(".footer-giant-title").getBoundingClientRect();
@@ -233,7 +345,12 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     await expect(skillToggles.nth(2)).toHaveAttribute("aria-expanded", "true");
     await expect(page.locator("#tech-stack .skills-capability-card.is-open")).toHaveCount(1);
 
-    await expect(page.locator("#soft-skills .testimonials-progress")).toHaveText("1 / 3");
+    await expect(page.locator("#soft-skills .testimonials-progress__count")).toHaveText("1 / 3");
+    await expect(page.locator("#soft-skills .testimonials-progress__button")).toHaveCount(2);
+    await expect(page.locator("#soft-skills .testimonial-card.is-current")).toHaveCount(1);
+    await page.locator('#soft-skills .testimonials-progress__button[aria-label="Próximo depoimento"]').click();
+    await expect(page.locator("#soft-skills .testimonials-progress__count")).toHaveText("2 / 3");
+    await expect(page.locator("#soft-skills .testimonial-card.is-current .testimonial-card__identity strong")).toHaveText("Jennyfer");
     const testimonialPeeking = await page.locator("#soft-skills .testimonial-card").first().evaluate((card) =>
       card.getBoundingClientRect().width < window.innerWidth * 0.9
     );
@@ -247,7 +364,7 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
       })
     );
     expect(hiddenTouchDescriptions).toEqual([]);
-    await expect(page.locator("#projects-dots")).toBeHidden();
+    await expect(page.locator(".swipe-dots")).toHaveCount(0);
     await expect(page.locator(".mobile-swipe-hint")).toHaveCount(2);
 
     const mobileImagePolicy = await page.evaluate(() => {
@@ -558,6 +675,9 @@ test("protege posicionamento, credibilidade e conversão comercial", async ({ pa
   const projectData = await projectResponse.json();
   expect(projectData.projects).toHaveLength(14);
   expect(projectData.projects.every((project) => project.status === "live" && project.verifiedAt && project.url.startsWith("https://"))).toBe(true);
+  expect(projectData.projects.filter((project) => project.tier === "case")).toHaveLength(3);
+  expect(projectData.projects.filter((project) => project.tier === "experimental")).toHaveLength(1);
+  expect(projectData.projects.filter((project) => project.tier === "archive")).toHaveLength(10);
   expect(JSON.stringify(projectData)).not.toMatch(/\d+(?:[.,]\d+)?\s*%|\d+(?:[.,]\d+)?\+|curtidas|downloads|usuários ativos|jogadas|taxa de conversão|tempo médio|reduziu|aumentou/i);
 
   const caseCards = page.locator("#projetos article[data-project-id]");
