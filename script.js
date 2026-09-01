@@ -1050,11 +1050,11 @@ function initProjectCuration() {
           const firstArchiveCard = archiveCards[0];
           const viewportRect = viewport.getBoundingClientRect();
           const cardRect = firstArchiveCard.getBoundingClientRect();
-          const targetLeft = viewport.scrollLeft + cardRect.left - viewportRect.left;
+          const scrollDistance = cardRect.left - viewportRect.left;
           const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-          viewport.scrollTo({
-            left: Math.max(0, targetLeft),
+          viewport.scrollBy({
+            left: scrollDistance,
             behavior: reducedMotion ? "auto" : "smooth",
           });
         });

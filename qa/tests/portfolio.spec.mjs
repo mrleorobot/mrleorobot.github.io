@@ -26,6 +26,13 @@ test("não publica segredos nem mantém o renderizador externo inseguro", async 
   const scriptResponse = await request.get("/script.js");
   expect(scriptResponse.ok()).toBe(true);
   const scriptSource = await scriptResponse.text();
+  const appResponse = await request.get("/app.js");
+  expect(appResponse.ok()).toBe(true);
+  const appSource = await appResponse.text();
+
+  for (const moduleName of ["awwwards-upgrade", "script", "hero-ink", "evolution"]) {
+    expect(appSource).toMatch(new RegExp(`\\./${moduleName}\\.js\\?v=\\d+`));
+  }
 
   for (const forbiddenPattern of [
     "GEMINI_API_KEY",
