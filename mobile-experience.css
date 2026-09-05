@@ -189,7 +189,28 @@
     border-color: #fff !important;
   }
 
-  /* Hero desenhado para a primeira dobra real do celular. */
+  /* Camada mobile: uma narrativa única, sem repetir título, ação ou contexto. */
+  nav.nav-motion {
+    background: rgba(5, 5, 5, 0.94) !important;
+    border-bottom-color: rgba(244, 244, 240, 0.16) !important;
+  }
+
+  .nav-links > a:not(.btn-cv) {
+    color: rgba(244, 244, 240, 0.72) !important;
+  }
+
+  .nav-links > a[aria-current="page"]:not(.btn-cv) {
+    color: #f4f4f0 !important;
+    box-shadow: inset 0 -2px 0 #d9ff3f;
+  }
+
+  .nav-links .btn-cv {
+    color: #050505 !important;
+    background: #d9ff3f !important;
+    border-color: #d9ff3f !important;
+    box-shadow: 4px 4px 0 #f4f4f0;
+  }
+
   #hero {
     min-height: 100svh !important;
     padding: calc(5.3rem + env(safe-area-inset-top)) var(--mobile-gutter)
