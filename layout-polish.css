@@ -639,6 +639,78 @@ section::before,section::after{
   }
 }
 
+/* SISTEMA UNIFICADO — mesma anatomia visual em todas as seções. */
+:root{
+  --site-bg:#050505;
+  --site-surface:#0d0d0d;
+  --site-surface-raised:#141414;
+  --site-text:#f7f7f5;
+  --site-muted:#a2a2a0;
+  --site-line:#282828;
+  --site-line-strong:#505050;
+  --site-radius:2px;
+  --site-container:min(100% - 2rem,82rem);
+  --site-gutter:clamp(1rem,4vw,3.5rem);
+  --site-section-space:clamp(5rem,11vw,10rem);
+}
+
+html,body,main,.hero-master-wrapper,section,#sobre,#projetos,#projetos-design,#tech-stack,#game-dev,#soft-skills,#faq,#cta-final,.site-footer{
+  background:var(--site-bg) !important;
+  color:var(--site-text) !important;
+}
+
+section{
+  width:100%;
+  padding:var(--site-section-space) var(--site-gutter) !important;
+  border-top:1px solid var(--site-line);
+}
+section:first-of-type{border-top:0}
+section > *:not(.section-bg):not(.background-decoration){max-width:var(--site-container);margin-inline:auto}
+
+.section-divider{
+  display:flex;
+  width:var(--site-container);
+  margin:0 auto 2rem;
+  align-items:center;
+  gap:1rem;
+  color:var(--site-muted) !important;
+  font-size:.68rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.section-divider::after{content:"";height:1px;flex:1;background:var(--site-line)}
+
+#sobre .trajectory-header__title,#projetos .projects-header__title,#projetos-design .ux-header__title,#tech-stack .tech-header__title,#soft-skills .alumni-header__title,#faq .faq-header__title,#game-dev .gamedev-hud-header h2{
+  color:var(--site-text) !important;
+  font-size:clamp(2.7rem,6vw,6rem) !important;
+  line-height:.9 !important;
+  letter-spacing:-.09em !important;
+  text-wrap:balance;
+}
+
+#projetos .project-card,#projetos-design .ux-card,#sobre .trajectory-panel,#tech-stack .tech-card,#soft-skills .skill-card,#faq .faq-container,#game-dev .game-card,#cta-final .contact-panel{
+  border:1px solid var(--site-line) !important;
+  border-radius:var(--site-radius) !important;
+  background:var(--site-surface) !important;
+  box-shadow:none !important;
+}
+
+#projetos .project-card:hover,#projetos-design .ux-card:hover,#sobre .trajectory-panel:hover,#tech-stack .tech-card:hover,#soft-skills .skill-card:hover,#game-dev .game-card:hover,#cta-final .contact-panel:hover{
+  border-color:var(--site-line-strong) !important;
+  background:var(--site-surface-raised) !important;
+}
+
+#projetos .project-card__tag,#projetos-design .ux-card__tag,#tech-stack .tech-label,#soft-skills .skill-label{color:var(--site-muted) !important}
+
+button,input,textarea,select,.btn-cv,.hero-editorial__cta,.projects-nav__btn,.projects-archive-toggle,.projects-cta-all,.project-card__cta,.project-card__live-link{border-radius:var(--site-radius) !important}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--site-text);outline-offset:4px}
+
+@media (max-width:768px){
+  :root{--site-container:100%;--site-section-space:clamp(4rem,15vw,6rem)}
+  section{padding-inline:1rem !important}
+  .section-divider{width:100%;margin-bottom:1.5rem}
+}
+
 /* Tablets recebem o mesmo fluxo vertical do mobile antes que os
    títulos ou textos laterais fiquem espremidos. */
 @media (max-width: 900px){
