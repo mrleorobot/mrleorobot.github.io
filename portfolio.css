@@ -8205,6 +8205,50 @@ section{padding-inline:clamp(1.25rem,6vw,7rem)}
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;scroll-behavior:auto !important;transition-duration:.01ms !important}
 }
 
+/* Fundo único em todas as seções: o conteúdo muda, a atmosfera permanece. */
+html,body,main,.hero-master-wrapper,section,#sobre,#projetos,#projetos-design,#tech-stack,#game-dev,#soft-skills,#faq,#cta-final,.site-footer{
+  background-color:var(--premium-ink) !important;
+}
+
+section::before,section::after{
+  background-color:transparent !important;
+}
+
+/* Hero mais cinematográfico, mas ainda legível e leve. */
+#hero{
+  isolation:isolate;
+  overflow:hidden;
+  background:
+    linear-gradient(90deg,transparent calc(50% - 1px),rgba(255,255,255,.1) 50%,transparent calc(50% + 1px)),
+    radial-gradient(circle at 74% 42%,rgba(255,255,255,.09),transparent 26%),
+    var(--premium-ink) !important;
+}
+#hero::before{
+  content:"";
+  position:absolute;
+  inset:8% 5%;
+  border:1px solid rgba(255,255,255,.1);
+  pointer-events:none;
+  z-index:1;
+}
+#hero .hero-editorial__right::before{
+  content:"";
+  position:absolute;
+  width:min(32vw,25rem);
+  aspect-ratio:1;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:50%;
+  box-shadow:0 0 0 1.5rem rgba(255,255,255,.025),0 0 0 4rem rgba(255,255,255,.015);
+  transform:rotate(-18deg);
+  pointer-events:none;
+}
+
+@media (max-width:768px){
+  #hero{background:radial-gradient(circle at 50% 38%,rgba(255,255,255,.08),transparent 36%),var(--premium-ink) !important}
+  #hero::before{inset:6rem 1.25rem 2rem}
+  #hero .hero-editorial__right::before{width:70vw}
+}
+
 /* O preto continua dominante,mas imagens e textos deixam de depender do hover. */
 #projetos .project-card__media .project-thumbnail-image{
   filter: grayscale(32%) brightness(0.98) contrast(1.04) !important;
