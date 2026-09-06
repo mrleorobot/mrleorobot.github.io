@@ -55,6 +55,14 @@
   main section[id]:not(#hero) {
     padding: var(--mobile-section-space) var(--mobile-gutter) !important;
     scroll-margin-top: 4.25rem;
+    width: 100% !important;
+    max-width: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+  }
+
+  main section[id]:not(#hero) > *:not(.project-card):not(.ux-card):not(.trajectory-panel):not(.tech-card):not(.skill-card):not(.faq-container):not(.game-card):not(.contact-panel) {
+    background: transparent !important;
   }
 
   main section[id]:nth-of-type(n + 5) {

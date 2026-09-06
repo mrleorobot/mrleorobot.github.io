@@ -711,6 +711,33 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
   .section-divider{width:100%;margin-bottom:1.5rem}
 }
 
+/* Correção de composição: a seção é full-bleed; apenas o conteúdo é contido. */
+main > section,
+main > section > .section-shell,
+main > section > .section-inner,
+main > section > .section-bg,
+main > section > .background-decoration{
+  width:100% !important;
+  max-width:none !important;
+  background:transparent !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+
+main > section > .section-content,
+main > section > .container,
+main > section > .content-wrap{
+  width:var(--site-container) !important;
+  max-width:var(--site-container) !important;
+  margin-inline:auto !important;
+  background:transparent !important;
+}
+
+main > section{
+  min-width:100%;
+  overflow:visible;
+}
+
 /* Tablets recebem o mesmo fluxo vertical do mobile antes que os
    títulos ou textos laterais fiquem espremidos. */
 @media (max-width: 900px){
