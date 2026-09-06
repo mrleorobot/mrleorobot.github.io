@@ -7831,7 +7831,7 @@ body.loader-complete #hero .hero-editorial__name{
   --premium-paper:#f4f4f0;
   --premium-muted:rgba(244,244,240,.62);
   --premium-line:rgba(244,244,240,.16);
-  --premium-accent:#d9ff3f;
+  --premium-accent:#ffffff;
 }
 
 body{
@@ -8094,6 +8094,115 @@ nav.nav-motion{
 #projetos .project-card__live-link:focus-visible{
   border-color: rgba(255, 255, 255, 0.8);
   color: #fff;
+}
+
+/* GRAND REDESIGN — portfolio editorial monocromático. */
+:root{
+  --premium-ink:#050505;
+  --premium-paper:#f7f7f5;
+  --premium-muted:rgba(247,247,245,.58);
+  --premium-soft:rgba(247,247,245,.08);
+  --premium-line:rgba(247,247,245,.18);
+  --premium-accent:#ffffff;
+}
+
+html,body{
+  background:var(--premium-ink) !important;
+  color:var(--premium-paper);
+}
+
+body::selection{background:#fff;color:#050505}
+
+nav.nav-motion{
+  border-bottom:1px solid var(--premium-line) !important;
+  background:rgba(5,5,5,.9) !important;
+  backdrop-filter:blur(18px);
+}
+
+.logo{font-size:clamp(1rem,1.4vw,1.25rem);letter-spacing:.16em}
+.nav-links{gap:clamp(.25rem,1vw,.8rem)}
+.nav-links a:not(.btn-cv){
+  color:var(--premium-muted) !important;
+  font-size:.66rem;
+  letter-spacing:.16em;
+  border-radius:0 !important;
+}
+.nav-links a:not(.btn-cv):hover,
+.nav-links a.active:not(.btn-cv){
+  color:var(--premium-paper) !important;
+  background:transparent !important;
+  box-shadow:inset 0 -1px 0 #fff !important;
+}
+.btn-cv{
+  color:#050505 !important;
+  background:#fff !important;
+  border:1px solid #fff !important;
+  border-radius:0 !important;
+  box-shadow:5px 5px 0 rgba(255,255,255,.28) !important;
+}
+.btn-cv:hover{box-shadow:8px 8px 0 rgba(255,255,255,.45) !important}
+
+#hero{
+  min-height:clamp(42rem,92vh,62rem);
+  padding-block:clamp(7rem,13vw,11rem) clamp(4rem,9vw,8rem);
+  background:linear-gradient(90deg,transparent calc(50% - 1px),rgba(255,255,255,.09) 50%,transparent calc(50% + 1px)) !important;
+}
+#hero .hero-editorial{max-width:88rem;margin-inline:auto}
+.hero-masthead-meta,.hero-editorial__location{color:var(--premium-muted) !important}
+.hero-editorial__name{
+  max-width:10ch;
+  font-size:clamp(5rem,14vw,13.5rem) !important;
+  line-height:.78 !important;
+  letter-spacing:-.105em !important;
+}
+.hero-editorial__subtitle{color:var(--premium-paper);letter-spacing:.24em !important}
+.hero-editorial__desc{max-width:34rem;color:var(--premium-muted);font-size:clamp(1rem,1.4vw,1.25rem);line-height:1.7}
+.hero-editorial__cta{
+  border:1px solid rgba(255,255,255,.7) !important;
+  border-radius:0 !important;
+  color:#fff !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.hero-editorial__cta:hover{color:#050505 !important;background:#fff !important;box-shadow:8px 8px 0 rgba(255,255,255,.25) !important}
+
+section{padding-inline:clamp(1.25rem,6vw,7rem)}
+.section-divider{color:#fff !important;letter-spacing:.24em}
+#sobre .trajectory-header__title,
+#projetos .projects-header__title,
+#projetos-design .ux-header__title,
+#tech-stack .tech-header__title,
+#soft-skills .alumni-header__title,
+#faq .faq-header__title,
+#game-dev .gamedev-hud-header h2{
+  font-size:clamp(3rem,7vw,7.5rem) !important;
+  line-height:.84 !important;
+  letter-spacing:-.1em !important;
+}
+
+#projetos .project-card,
+#projetos-design .ux-card,
+#sobre .trajectory-panel,
+#faq .faq-container{
+  border:1px solid var(--premium-line) !important;
+  border-radius:0 !important;
+  background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.015)) !important;
+  box-shadow:none !important;
+}
+#projetos .project-card:hover,
+#projetos-design .ux-card:hover,
+#sobre .trajectory-panel:hover{
+  border-color:#fff !important;
+  transform:translateY(-.5rem) !important;
+}
+#projetos .project-card__tag,
+#projetos-design .ux-card__tag,
+#tech-stack .tech-label{color:#fff !important}
+
+#cta-final .footer-giant-link:hover .giant-word{color:#fff !important}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;scroll-behavior:auto !important;transition-duration:.01ms !important}
 }
 
 /* O preto continua dominante,mas imagens e textos deixam de depender do hover. */
@@ -9781,13 +9890,13 @@ html.is-chromium .celestial-orbit{
 
   .nav-links > a[aria-current="page"]:not(.btn-cv) {
     color: #f4f4f0 !important;
-    box-shadow: inset 0 -2px 0 #d9ff3f;
+    box-shadow: inset 0 -2px 0 #ffffff;
   }
 
   .nav-links .btn-cv {
     color: #050505 !important;
-    background: #d9ff3f !important;
-    border-color: #d9ff3f !important;
+    background: #ffffff !important;
+    border-color: #ffffff !important;
     box-shadow: 4px 4px 0 #f4f4f0;
   }
 

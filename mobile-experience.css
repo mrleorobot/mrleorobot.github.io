@@ -201,13 +201,13 @@
 
   .nav-links > a[aria-current="page"]:not(.btn-cv) {
     color: #f4f4f0 !important;
-    box-shadow: inset 0 -2px 0 #d9ff3f;
+    box-shadow: inset 0 -2px 0 #ffffff;
   }
 
   .nav-links .btn-cv {
     color: #050505 !important;
-    background: #d9ff3f !important;
-    border-color: #d9ff3f !important;
+    background: #ffffff !important;
+    border-color: #ffffff !important;
     box-shadow: 4px 4px 0 #f4f4f0;
   }
 
