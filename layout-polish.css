@@ -603,22 +603,9 @@ section::before,section::after{
   pointer-events:none;
   z-index:1;
 }
-#hero .hero-editorial__right::before{
-  content:"";
-  position:absolute;
-  width:min(32vw,25rem);
-  aspect-ratio:1;
-  border:1px solid rgba(255,255,255,.22);
-  border-radius:50%;
-  box-shadow:0 0 0 1.5rem rgba(255,255,255,.025),0 0 0 4rem rgba(255,255,255,.015);
-  transform:rotate(-18deg);
-  pointer-events:none;
-}
-
 @media (max-width:768px){
   #hero{background:radial-gradient(circle at 50% 38%,rgba(255,255,255,.08),transparent 36%),var(--premium-ink) !important}
   #hero::before{inset:6rem 1.25rem 2rem}
-  #hero .hero-editorial__right::before{width:70vw}
 }
 
 /* O preto continua dominante,mas imagens e textos deixam de depender do hover. */

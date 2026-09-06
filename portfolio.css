@@ -5664,6 +5664,62 @@ body.loader-complete #hero-ink-canvas{
   }
 }
 
+/* MOTION EDITORIAL GLOBAL — inspirado em transições limpas e intencionais. */
+:root{
+  --motion-editorial-ease:cubic-bezier(.22,1,.36,1);
+  --motion-editorial-fast:260ms;
+  --motion-editorial-base:700ms;
+}
+
+html{scroll-behavior:smooth}
+
+[data-motion],.reveal-item,.section-title-kinetic,.celestial-signature,.project-card,.ux-card,.tech-card,.faq-item,.trajectory-panel,.contact-panel{
+  transition-timing-function:var(--motion-editorial-ease);
+}
+
+.reveal-item,.section-title-kinetic,.celestial-signature{
+  will-change:transform,opacity;
+}
+
+.reveal-item{
+  transition:opacity var(--motion-editorial-base) var(--motion-editorial-ease),transform var(--motion-editorial-base) var(--motion-editorial-ease),filter var(--motion-editorial-base) var(--motion-editorial-ease);
+}
+.reveal-item:not(.is-visible){filter:blur(3px);transform:translateY(1.5rem)}
+.reveal-item.is-visible{filter:blur(0);transform:translateY(0)}
+
+.project-card,.ux-card,.tech-card,.faq-item,.trajectory-panel,.contact-panel{
+  transition:transform var(--motion-editorial-base) var(--motion-editorial-ease),border-color var(--motion-editorial-fast) ease,background-color var(--motion-editorial-fast) ease,box-shadow var(--motion-editorial-fast) ease;
+}
+.project-card:hover,.ux-card:hover,.tech-card:hover,.trajectory-panel:hover,.contact-panel:hover{
+  transform:translateY(-.45rem);
+}
+
+.project-card__media,.ux-card__media,.project-thumbnail-wrapper{
+  overflow:hidden;
+}
+.project-card__media img,.ux-card__media img,.project-thumbnail-image{
+  transition:transform 1.1s var(--motion-editorial-ease),filter 700ms ease;
+}
+.project-card:hover img,.ux-card:hover img,.project-card:focus-within img{
+  transform:scale(1.045);
+  filter:grayscale(100%) contrast(1.08);
+}
+
+.nav-tab-link,.logo,.btn-cv,.hero-editorial__cta,.projects-nav__btn,.projects-archive-toggle,.projects-cta-all,.project-card__cta,.project-card__live-link{
+  transition:color var(--motion-editorial-fast) ease,background-color var(--motion-editorial-fast) ease,border-color var(--motion-editorial-fast) ease,transform var(--motion-editorial-fast) var(--motion-editorial-ease),box-shadow var(--motion-editorial-fast) ease;
+}
+.nav-tab-link:hover,.nav-tab-link:focus-visible{transform:translateY(-2px)}
+.projects-nav__btn:hover,.projects-archive-toggle:hover,.projects-cta-all:hover{transform:translateY(-3px)}
+
+.celestial-signature{opacity:.45;transition:opacity var(--motion-editorial-base) ease,transform var(--motion-editorial-base) var(--motion-editorial-ease)}
+section:hover .celestial-signature{opacity:.8;transform:translateY(-.25rem)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal-item,.section-title-kinetic,.celestial-signature,.project-card,.ux-card,.tech-card,.faq-item,.trajectory-panel,.contact-panel,.nav-tab-link,.logo,.btn-cv,.hero-editorial__cta,.projects-nav__btn,.projects-archive-toggle,.projects-cta-all,.project-card__cta,.project-card__live-link,
+  .project-card__media img,.ux-card__media img,.project-thumbnail-image{transition:none !important;animation:none !important;filter:none !important;transform:none !important}
+}
+
 /* ===== SOURCE: evolution.css ===== */
 /* ═══════════════════════════════════════════
    EVOLUTION.CSS — Aesthetic Upgrade v2.1
@@ -8231,22 +8287,9 @@ section::before,section::after{
   pointer-events:none;
   z-index:1;
 }
-#hero .hero-editorial__right::before{
-  content:"";
-  position:absolute;
-  width:min(32vw,25rem);
-  aspect-ratio:1;
-  border:1px solid rgba(255,255,255,.22);
-  border-radius:50%;
-  box-shadow:0 0 0 1.5rem rgba(255,255,255,.025),0 0 0 4rem rgba(255,255,255,.015);
-  transform:rotate(-18deg);
-  pointer-events:none;
-}
-
 @media (max-width:768px){
   #hero{background:radial-gradient(circle at 50% 38%,rgba(255,255,255,.08),transparent 36%),var(--premium-ink) !important}
   #hero::before{inset:6rem 1.25rem 2rem}
-  #hero .hero-editorial__right::before{width:70vw}
 }
 
 /* O preto continua dominante,mas imagens e textos deixam de depender do hover. */
