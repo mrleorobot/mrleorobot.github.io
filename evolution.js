@@ -644,7 +644,8 @@
 
     root.dataset.trajectoryReady = 'true';
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let reduceMotion = motionPreference.matches;
     const mobileExperience = window.matchMedia('(max-width: 768px)').matches;
     let activeIndex = Math.max(0, moments.findIndex((moment) => moment.year === root.dataset.activeYear));
     let autoplayTimer = null;
@@ -782,6 +783,16 @@
       updateCycleControl();
       if (isPaused) clearAutoplay();
       else scheduleAutoplay();
+    });
+
+    motionPreference.addEventListener('change', () => {
+      reduceMotion = motionPreference.matches;
+      if (reduceMotion) {
+        isPaused = true;
+        clearAutoplay();
+      }
+      cycleToggle.hidden = reduceMotion || mobileExperience;
+      updateCycleControl();
     });
 
     if (reduceMotion || mobileExperience) {
