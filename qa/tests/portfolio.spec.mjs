@@ -30,7 +30,7 @@ test("não publica segredos nem mantém o renderizador externo inseguro", async 
   expect(appResponse.ok()).toBe(true);
   const appSource = await appResponse.text();
 
-  for (const moduleName of ["awwwards-upgrade", "script", "hero-ink", "evolution"]) {
+  for (const moduleName of ["awwwards-upgrade", "script", "hero-ink", "evolution", "visual-polish"]) {
     expect(appSource).toMatch(new RegExp(`\\./${moduleName}\\.js\\?v=\\d+`));
   }
 
@@ -775,8 +775,10 @@ test("ativa o modo leve do Chromium sem alterar a vitrine de projetos", async ({
   expect(profile.projectFilter).toBe("none");
   expect(profile.canvasBlend).toBe("normal");
   expect(profile.noiseDisplay).toBe("none");
-  expect(profile.infiniteAnimations.every(({ name }) => name === "skillsRailForward" || name === "skillsRailReverse")).toBe(true);
-  expect(profile.infiniteAnimations).toHaveLength(2);
+  // Only the composite nebula moves while the hero is visible. The off-screen
+  // skills rails must no longer consume animation frames in the background.
+  expect(profile.infiniteAnimations.every(({ name }) => name === "visual-nebula-drift")).toBe(true);
+  expect(profile.infiniteAnimations).toHaveLength(1);
   expect(profile.sectionHeight).toBeLessThan(1300);
 
   const heroInkSource = await (await page.request.get(new URL("./hero-ink.js", page.url()).href)).text();

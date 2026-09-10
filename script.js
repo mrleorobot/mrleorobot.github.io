@@ -104,7 +104,7 @@ function initImageParallax() {
     });
   }, { passive: true });
 }
-document.addEventListener("DOMContentLoaded", initImageParallax);
+// Image movement is coordinated by visual-polish.js in every browser.
 
 // =========================================
 // CINEMATIC LOADER ANIMATION (Optimized)
@@ -1474,8 +1474,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initSafe(initDesignGallery, "initDesignGallery");
   initSafe(initMobileExperience, "initMobileExperience");
   if (!chromiumLite) {
-    initSafe(initTrajectorySpotlight, "initTrajectorySpotlight");
-    initSafe(initGameDevArtwork, "initGameDevArtwork");
+    // Gallery and artwork motion now share the on-demand visual-polish loop.
     initSafe(initBeyondCodePhoto, "initBeyondCodePhoto");
   }
   initSafe(initTabSystem, "initTabSystem");
@@ -2161,6 +2160,7 @@ if (modalLightbox && lightboxImg) {
         const key = srcFile.split(".")[0] || "";
 
         lightboxImg.src = targetImg.src || srcAttr;
+        lightboxImg.alt = targetImg.alt || "Imagem do projeto";
 
         const details = projectDetails[key];
         if (

@@ -38,8 +38,19 @@ O bundle `portfolio.css` é gerado, nesta ordem exata, a partir de:
 5. `awwwards-upgrade.css`
 6. `motion.css`
 7. `evolution.css`
+8. `layout-polish.css`
+9. `mobile-experience.css`
+10. `visual-polish.css`
 
 A ordem é parte do visual. Use `npm run build:css` e `npm run check:css`. Não edite `portfolio.css` diretamente.
+
+## Polimento de movimento — setembro de 2026
+
+- `visual-polish.js` coordena a profundidade das imagens e a resposta dos botões com um único RAF sob demanda. O loop deve encerrar quando a posição estabiliza.
+- As imagens, descrições, links, 14 projetos e organização compacta permanecem preservados. Nenhuma imagem é gerada ou substituída neste polimento.
+- No Chromium, a nebulosa continua sendo desenhada uma única vez; o movimento ambiente usa a composição dessa camada, apenas enquanto o Hero está visível.
+- Toque mantém rolagem nativa. Redução de movimento, aba oculta, economia de dados e retorno pelo cache de navegação precisam encerrar ou restaurar corretamente os efeitos.
+- As barras de Habilidades e auroras pausam fora da tela. Não reativar loops globais antigos para adicionar efeitos locais.
 
 ## Viewports mínimos de validação
 

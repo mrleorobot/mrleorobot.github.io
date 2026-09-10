@@ -8684,7 +8684,7 @@ main > section{
   animation-play-state: paused !important;
 }
 
-#hero.is-performance-visible .hero-scroll-cta__chevron,#sobre.is-performance-visible .ambient-aurora__mesh,#sobre.is-performance-visible .trajectory-aurora__mesh,#sobre.is-performance-visible .live-dot,#cta-final.is-performance-visible .ambient-aurora__mesh{
+html:not(.visual-page-hidden):not(.visual-motion-static) #hero.is-performance-visible .hero-scroll-cta__chevron,html:not(.visual-page-hidden):not(.visual-motion-static) #sobre.is-performance-visible .ambient-aurora__mesh,html:not(.visual-page-hidden):not(.visual-motion-static) #sobre.is-performance-visible .trajectory-aurora__mesh,html:not(.visual-page-hidden):not(.visual-motion-static) #sobre.is-performance-visible .live-dot,html:not(.visual-page-hidden):not(.visual-motion-static) #cta-final.is-performance-visible .ambient-aurora__mesh{
   animation-play-state: running !important;
 }
 
@@ -11182,4 +11182,387 @@ html.is-chromium .celestial-orbit{
   *::after {
     scroll-behavior: auto !important;
   }
+}
+
+/* ===== SOURCE: visual-polish.css ===== */
+/* September 2026 · Light, depth and motion for the existing editorial system.
+   The cascade ends here. Content, artwork, gallery density and native scroll stay intact. */
+:root {
+  --visual-ease: cubic-bezier(.22, 1, .36, 1);
+  --visual-fast: 220ms;
+  --visual-settle: 620ms;
+  --visual-silver: #f3f3f1;
+  --visual-line: rgb(255 255 255 / .16);
+}
+
+/* The original white typography catches light without changing its silhouette. */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  #hero .hero-editorial__name > [aria-hidden="true"],
+  #cta-final .footer-giant-title .giant-word {
+    background: linear-gradient(116deg, #fff 8%, #e0e0de 31%, #999996 50%, #f8f8f5 69%, #c6c6c3 94%);
+    background-size: 160% 100%;
+    background-position: 50% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--visual-silver);
+  }
+}
+
+#hero .hero-editorial__name {
+  line-height: .94 !important;
+  letter-spacing: -.075em !important;
+  text-shadow: none !important;
+}
+
+#hero .hero-editorial__desc { text-wrap: pretty; }
+#hero .hero-masthead-meta { font-size: .75rem !important; }
+
+/* Give the existing nebula room to breathe, keeping the left reading field dark. */
+#hero #hero-ink-canvas {
+  transform-origin: 64% 50%;
+  -webkit-mask-image: linear-gradient(90deg, rgb(0 0 0 / .12), #000 62%), linear-gradient(#000 75%, transparent);
+  mask-image: linear-gradient(90deg, rgb(0 0 0 / .12), #000 62%), linear-gradient(#000 75%, transparent);
+  mask-composite: intersect;
+}
+
+.visual-polish-ready #hero .celestial-signature--hero {
+  --celestial-opacity: .72;
+  translate: var(--visual-x, 0px) var(--visual-y, 0px);
+}
+
+.visual-polish-ready #cta-final .celestial-signature--closing {
+  --celestial-opacity: .62;
+  translate: var(--visual-x, 0px) var(--visual-y, 0px);
+}
+
+/* Preserve each signature's positioning; generic section hover used to erase it. */
+#hero:hover .celestial-signature--hero { transform: none; }
+#projetos:hover .celestial-signature--projects { transform: rotate(9deg); }
+#sobre:hover .celestial-signature--trajectory { transform: rotate(-12deg); }
+#tech-stack:hover .celestial-signature--skills { transform: rotate(14deg); }
+#cta-final:hover .celestial-signature--closing { transform: translateX(-50%); }
+
+/* One quiet border treatment across the existing surfaces. */
+#projetos .project-card,
+#projetos-design .ux-card,
+#tech-stack .skills-capability-card,
+#soft-skills .testimonial-card,
+#soft-skills .alumni-hero-card,
+#sobre .status-card {
+  border-color: var(--visual-line) !important;
+  transition: border-color 300ms ease, box-shadow 420ms ease, background-color 300ms ease, transform var(--visual-settle) var(--visual-ease) !important;
+}
+
+#projetos .project-card:focus-within,
+#projetos-design .ux-card:focus-visible,
+#tech-stack .skills-capability-card:focus-within,
+#soft-skills .alumni-hero-card:focus-within {
+  border-color: rgb(255 255 255 / .48) !important;
+}
+
+/* Imagery remains genuine and readable. Only its camera plane moves. */
+#projetos .project-card__media .project-thumbnail-image,
+#projetos-design .ux-card__media img {
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+.visual-image-frame { position: relative; isolation: isolate; }
+.visual-reflection {
+  position: absolute;
+  z-index: 3;
+  inset: -25% -40%;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(115deg, transparent 33%, rgb(255 255 255 / .13) 45%, rgb(255 255 255 / .025) 52%, transparent 66%);
+  transform: translate3d(calc(var(--visual-x, 0px) * 5), calc(var(--visual-y, 0px) * 2), 0);
+  transition: opacity 450ms ease;
+}
+
+html.visual-polish-ready #projetos .project-card .visual-image,
+html.visual-polish-ready #projetos-design .ux-card .visual-image,
+html.visual-polish-ready #game-dev .gamedev-hud-bg .visual-image {
+  transform: none;
+  translate: none;
+  scale: 1;
+  transition: transform 900ms var(--visual-ease) !important;
+  transform-origin: center;
+  backface-visibility: hidden;
+}
+
+#projetos .project-thumbnail-overlay {
+  background: linear-gradient(180deg, transparent 48%, rgb(0 0 0 / .28));
+}
+
+#projetos-design .ux-card__overlay {
+  background: linear-gradient(180deg, rgb(0 0 0 / .02) 28%, rgb(0 0 0 / .2) 56%, rgb(0 0 0 / .88) 100%);
+}
+
+#projetos .project-card__title,
+#projetos-design .ux-card__title { text-wrap: balance; }
+
+#projetos .project-card__media::before,
+#projetos .project-card::before { transition: opacity 500ms ease !important; }
+
+/* Entrances use opacity and translation; no full-page animated blur. */
+html.visual-polish-ready .reveal-item,
+html.visual-polish-ready .section-title-kinetic,
+html.visual-polish-ready .celestial-signature {
+  will-change: auto;
+}
+
+html.visual-polish-ready .reveal-item:not(.is-visible),
+html.visual-polish-ready .reveal-item.is-visible {
+  filter: none;
+}
+
+html.visual-polish-ready .section-title-kinetic,
+html.visual-polish-ready .section-title-kinetic.revealed {
+  animation: none;
+  clip-path: none;
+  transition: opacity 750ms var(--visual-ease), transform 750ms var(--visual-ease) !important;
+}
+
+/* The editorial year changes as two measured planes, inside the existing stage. */
+#sobre .trajectory-stage__year-content,
+#sobre .trajectory-panel__content {
+  transition: opacity 220ms ease, transform 520ms var(--visual-ease) !important;
+}
+
+#sobre .trajectory-stage.is-switching .trajectory-stage__year-content {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+#sobre .trajectory-stage.is-switching .trajectory-panel__content {
+  opacity: 0;
+  transform: translateY(8px);
+}
+#sobre .trajectory-stage.is-entering .trajectory-stage__year-content {
+  animation: visual-year-in 600ms var(--visual-ease) both;
+}
+#sobre .trajectory-stage.is-entering .trajectory-panel__content {
+  animation: visual-panel-in 650ms var(--visual-ease) both;
+}
+@keyframes visual-year-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes visual-panel-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* Motion belongs to the artwork and affordances; copy stays steady. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html.visual-pointer-enabled #projetos .project-card:hover,
+  html.visual-pointer-enabled #projetos-design .ux-card:hover,
+  html.visual-pointer-enabled #sobre .trajectory-panel:hover,
+  html.visual-pointer-enabled #tech-stack .skills-capability-card:hover {
+    transform: none !important;
+    border-color: rgb(255 255 255 / .36) !important;
+    box-shadow: 0 16px 34px -28px rgb(255 255 255 / .2) !important;
+  }
+
+  html.visual-pointer-enabled #projetos .project-card.is-pointer-active .visual-image,
+  html.visual-pointer-enabled #projetos-design .ux-card.is-pointer-active .visual-image {
+    transform: perspective(1000px) translate3d(var(--visual-x, 0px), var(--visual-y, 0px), 0) rotateX(var(--visual-rx, 0deg)) rotateY(var(--visual-ry, 0deg)) scale(1.065) !important;
+    transition: transform 120ms linear !important;
+  }
+
+  html.visual-pointer-enabled #game-dev .gamedev-hud-container.is-pointer-active .visual-image {
+    transform: translate3d(var(--visual-x, 0px), var(--visual-y, 0px), 0) scale(1.035) !important;
+    transition: transform 120ms linear !important;
+  }
+
+  html.visual-pointer-enabled .is-pointer-active > .visual-image-frame > .visual-reflection,
+  html.visual-pointer-enabled .is-pointer-active .visual-image-frame > .visual-reflection {
+    opacity: 1;
+  }
+
+  html.visual-pointer-enabled [data-visual-surface="surface"].is-pointer-active {
+    border-color: rgb(255 255 255 / .38) !important;
+  }
+
+  html.visual-pointer-enabled [data-visual-surface="button"] {
+    translate: var(--visual-x, 0px) var(--visual-y, 0px);
+    transition: translate 260ms var(--visual-ease), color 260ms ease, background-color 260ms ease, border-color 260ms ease, box-shadow 260ms ease !important;
+  }
+
+  /* Animate the already-rendered nebula as a single composite layer in Chrome. */
+  html.visual-polish-ready.is-chromium:not(.visual-motion-static) #hero #hero-ink-canvas {
+    animation: visual-nebula-drift 24s ease-in-out infinite alternate;
+    animation-play-state: paused;
+  }
+  html.visual-polish-ready.is-chromium:not(.visual-motion-static):not(.visual-page-hidden) body.loader-complete #hero.visual-in-view #hero-ink-canvas {
+    animation-play-state: running;
+  }
+
+  html.visual-polish-ready:not(.visual-motion-static) #sobre .ambient-aurora__mesh--bridge-left,
+  html.visual-polish-ready:not(.visual-motion-static) #cta-final .ambient-aurora__mesh--closing-main {
+    animation: visual-aurora-drift 24s ease-in-out infinite alternate !important;
+    animation-play-state: paused !important;
+  }
+  html.visual-polish-ready:not(.visual-motion-static):not(.visual-page-hidden) #sobre.visual-in-view .ambient-aurora__mesh--bridge-left,
+  html.visual-polish-ready:not(.visual-motion-static):not(.visual-page-hidden) #cta-final.visual-in-view .ambient-aurora__mesh--closing-main {
+    animation-play-state: running !important;
+  }
+}
+
+@keyframes visual-nebula-drift {
+  from { transform: scale(1.015) rotate(-.4deg); }
+  to { transform: translate3d(8px, -5px, 0) scale(1.055) rotate(.4deg); }
+}
+@keyframes visual-aurora-drift {
+  from { transform: translate3d(-2%, 1%, 0) scale(1); opacity: .32; }
+  to { transform: translate3d(3%, -2%, 0) scale(1.06); opacity: .5; }
+}
+
+/* An opening camera move, once per image, also works on touch screens. */
+@media (prefers-reduced-motion: no-preference) {
+  html.visual-polish-ready:not(.visual-motion-static) .visual-has-entered .visual-image:not(.visual-image-entered) {
+    animation: visual-image-arrive 1000ms var(--visual-ease) both;
+  }
+  html.visual-polish-ready .is-pointer-active .visual-image {
+    animation: none !important;
+  }
+  html.visual-polish-ready .visual-has-entered:not(.visual-in-view) .visual-image {
+    animation-play-state: paused;
+  }
+}
+@keyframes visual-image-arrive {
+  from { scale: 1.055; }
+  to { scale: 1; }
+}
+
+/* Fine interaction details continue the same light-and-line vocabulary. */
+#hero .hero-editorial__cta,
+nav.nav-motion .btn-cv,
+#cta-final .contact-link {
+  box-shadow: none !important;
+}
+
+#hero .hero-editorial__cta:hover,
+nav.nav-motion .btn-cv:hover {
+  box-shadow: 0 0 0 4px rgb(255 255 255 / .065) !important;
+}
+
+#hero .hero-editorial__cta-arrow,
+.project-card__cta svg,
+.projects-cta-all svg,
+.alumni-hero-card__cta svg,
+.ux-card__expand {
+  transition: transform 450ms var(--visual-ease), background-color 300ms ease;
+}
+
+#hero .hero-editorial__cta:is(:hover, :focus-visible) .hero-editorial__cta-arrow,
+.project-card__cta:is(:hover, :focus-visible) svg,
+.projects-cta-all:is(:hover, :focus-visible) svg,
+.alumni-hero-card__cta:is(:hover, :focus-visible) svg {
+  transform: translateX(3px);
+}
+
+#projetos-design .ux-card:is(:hover, :focus-visible) .ux-card__expand {
+  transform: rotate(90deg);
+}
+
+#cta-final .footer-giant-arrow {
+  transition: transform 650ms var(--visual-ease), border-color 350ms ease, background-color 350ms ease !important;
+}
+#cta-final .footer-giant-link:is(:hover, :focus-visible) .footer-giant-arrow {
+  transform: translate(6px, -6px) rotate(-35deg);
+}
+#cta-final .footer-giant-link:is(:hover, :focus-visible) .giant-word {
+  background-position: 100% 50%;
+  transition: background-position 850ms var(--visual-ease);
+}
+
+#faq .faq-item {
+  transition: border-color 300ms ease, background-color 300ms ease, box-shadow 300ms ease !important;
+}
+#faq .faq-item.active {
+  background: linear-gradient(100deg, rgb(255 255 255 / .035), transparent 65%);
+  box-shadow: inset 2px 0 0 rgb(255 255 255 / .6) !important;
+}
+#faq .faq-icon {
+  transition: transform 420ms var(--visual-ease), background-color 300ms ease !important;
+}
+
+html.visual-polish-ready #tech-stack .skills-motion-track,
+html.visual-polish-ready #tech-stack .skills-capability-card__signal span {
+  animation-play-state: paused;
+}
+html.visual-polish-ready #tech-stack.visual-in-view .skills-motion-track,
+html.visual-polish-ready #tech-stack.visual-in-view .skills-capability-card.visual-in-view .skills-capability-card__signal span {
+  animation-play-state: running;
+}
+html.visual-polish-ready #tech-stack .skills-motion-rails:is(:hover, :focus-within) .skills-motion-track {
+  animation-play-state: paused;
+}
+
+/* Mobile remains compact. Feedback never captures or blocks a finger gesture. */
+@media (max-width: 768px) {
+  #hero .hero-editorial__name { line-height: 1 !important; }
+  #hero .hero-masthead-meta { font-size: .75rem !important; letter-spacing: .08em !important; }
+  #hero .hero-editorial__desc { font-size: 1rem !important; }
+  #projetos-design .ux-card__expand { opacity: 1; }
+  .mobile-bottom-dock .dock-item { font-size: .75rem !important; letter-spacing: 0 !important; }
+  .mobile-bottom-dock .dock-item.is-pressed { transform: scale(.96); }
+  #cta-final .footer-giant-link:is(:hover, :focus-visible) .footer-giant-arrow { transform: none; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  html.visual-polish-ready #projetos .project-card:hover,
+  html.visual-polish-ready #projetos-design .ux-card:hover,
+  html.visual-polish-ready #tech-stack .skills-capability-card:hover,
+  html.visual-polish-ready #sobre .trajectory-panel:hover {
+    transform: none !important;
+  }
+  .visual-reflection { display: none; }
+  #projetos .project-thumbnail-wrapper:active,
+  #projetos-design .ux-card:active { outline: 1px solid rgb(255 255 255 / .48); outline-offset: -1px; }
+}
+
+/* Pause ambient CSS in every engine, even when returning through the bfcache. */
+html.visual-polish-ready main section[id]:not(.visual-in-view) *,
+html.visual-polish-ready main section[id]:not(.visual-in-view) *::before,
+html.visual-polish-ready main section[id]:not(.visual-in-view) *::after,
+html.visual-page-hidden body *,
+html.visual-page-hidden body *::before,
+html.visual-page-hidden body *::after {
+  animation-play-state: paused !important;
+}
+
+html.visual-motion-static .visual-image,
+html.visual-motion-static #hero #hero-ink-canvas,
+html.visual-motion-static .ambient-aurora__mesh,
+html.visual-motion-static .skills-motion-track {
+  animation: none !important;
+}
+html.visual-motion-static .visual-reflection { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.visual-polish-ready [data-visual-surface],
+  html.visual-polish-ready .visual-image,
+  html.visual-polish-ready .celestial-signature {
+    translate: none !important;
+    scale: none !important;
+  }
+  html.visual-polish-ready .visual-image,
+  html.visual-polish-ready .trajectory-stage__year-content,
+  html.visual-polish-ready .trajectory-panel__content {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  html.visual-polish-ready .reveal-item,
+  html.visual-polish-ready .section-title-kinetic,
+  html.visual-polish-ready .ink-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  #hero .hero-editorial__name > [aria-hidden="true"],
+  #cta-final .footer-giant-title .giant-word {
+    background: none;
+    -webkit-text-fill-color: CanvasText;
+  }
+  .visual-reflection { display: none; }
 }
