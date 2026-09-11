@@ -644,7 +644,8 @@
 
     root.dataset.trajectoryReady = 'true';
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let reduceMotion = motionPreference.matches;
     const mobileExperience = window.matchMedia('(max-width: 768px)').matches;
     let activeIndex = Math.max(0, moments.findIndex((moment) => moment.year === root.dataset.activeYear));
     let autoplayTimer = null;
@@ -667,7 +668,7 @@
 
     const scheduleAutoplay = () => {
       clearAutoplay();
-      if (isPaused || reduceMotion || !isVisible || document.hidden) return;
+      if (isPaused || reduceMotion || !isVisible || document.hidden || root.matches(':focus-within') || document.documentElement.classList.contains('visual-motion-static')) return;
       autoplayTimer = window.setTimeout(() => {
         selectMoment((activeIndex + 1) % moments.length, true, false);
       }, AUTOPLAY_DELAY);
@@ -705,6 +706,10 @@
     };
 
     function selectMoment(index, animate = true, announce = true) {
+      if (announce) {
+        isPaused = true;
+        updateCycleControl();
+      }
       const normalizedIndex = (index + moments.length) % moments.length;
       clearAutoplay();
       if (transitionTimer) window.clearTimeout(transitionTimer);
@@ -782,6 +787,25 @@
       updateCycleControl();
       if (isPaused) clearAutoplay();
       else scheduleAutoplay();
+    });
+
+    root.addEventListener('focusin', clearAutoplay);
+    root.addEventListener('focusout', () => queueMicrotask(scheduleAutoplay));
+    root.addEventListener('mouseenter', clearAutoplay);
+    root.addEventListener('mouseleave', scheduleAutoplay);
+    document.addEventListener('portfolio:motion', (event) => {
+      if (event.detail.paused) clearAutoplay();
+      else scheduleAutoplay();
+    });
+
+    motionPreference.addEventListener('change', () => {
+      reduceMotion = motionPreference.matches;
+      if (reduceMotion) {
+        isPaused = true;
+        clearAutoplay();
+      }
+      cycleToggle.hidden = reduceMotion || mobileExperience;
+      updateCycleControl();
     });
 
     if (reduceMotion || mobileExperience) {

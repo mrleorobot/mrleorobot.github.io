@@ -8,7 +8,7 @@ export default defineConfig({
   fullyParallel: false,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 2 : undefined,
   reporter: [
     ["line"],
     ["html", { outputFolder: "../playwright-report", open: "never" }]
@@ -31,6 +31,8 @@ export default defineConfig({
   },
   projects: [
     { name: "desktop-1440", use: { viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, hasTouch: false, isMobile: false } },
-    { name: "mobile-390", use: { viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, hasTouch: true, isMobile: true } }
+    { name: "mobile-390", testIgnore: /editorial\.spec/, use: { viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, hasTouch: true, isMobile: true } },
+    { name: "firefox", testMatch: /editorial\.spec/, use: { browserName: "firefox", viewport: { width: 1440, height: 900 } } },
+    { name: "webkit", testMatch: /editorial\.spec/, use: { browserName: "webkit", viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true } }
   ]
 });

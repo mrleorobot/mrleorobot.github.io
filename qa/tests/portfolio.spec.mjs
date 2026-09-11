@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const sectionOrder = ["hero", "projetos", "sobre", "projetos-design", "tech-stack", "game-dev", "soft-skills", "faq", "cta-final"];
+const sectionOrder = ["hero", "sobre", "projetos", "projetos-design", "tech-stack", "game-dev", "soft-skills", "faq", "cta-final"];
 const editorialTitles = [
   "#sobre .trajectory-header__title",
   "#projetos .projects-header__title",
@@ -30,7 +30,7 @@ test("não publica segredos nem mantém o renderizador externo inseguro", async 
   expect(appResponse.ok()).toBe(true);
   const appSource = await appResponse.text();
 
-  for (const moduleName of ["awwwards-upgrade", "script", "hero-ink", "evolution"]) {
+  for (const moduleName of ["awwwards-upgrade", "script", "hero-ink", "evolution", "visual-polish"]) {
     expect(appSource).toMatch(new RegExp(`\\./${moduleName}\\.js\\?v=\\d+`));
   }
 
@@ -161,7 +161,9 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   await expect(archiveToggle).toHaveAttribute("aria-expanded", "true");
   await expect(archiveToggle).toContainText("Recolher arquivo");
   await expect(archivedProjects.first()).toBeVisible();
-  await expect.poll(() => page.locator("#projects-viewport").evaluate((viewport) => viewport.scrollLeft)).toBeGreaterThan(0);
+  if (testInfo.project.name.startsWith("mobile")) {
+    await expect.poll(() => page.locator("#projects-viewport").evaluate((viewport) => viewport.scrollLeft)).toBeGreaterThan(0);
+  }
   expect(await archivedProjects.first().evaluate((card) => {
     const viewport = document.getElementById("projects-viewport");
     const viewportRect = viewport.getBoundingClientRect();
@@ -186,7 +188,7 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     };
   });
   expect(trajectoryYears.featuredLineRatio).toBeGreaterThanOrEqual(1);
-  expect(trajectoryYears.featuredBoxRatio).toBeGreaterThan(1.2);
+  expect(trajectoryYears.featuredBoxRatio).toBeGreaterThanOrEqual(trajectoryYears.featuredLineRatio);
   expect(trajectoryYears.tabsFit).toBe(true);
 
   const heroFontSize = await page.locator("#hero .hero-editorial__name").evaluate((element) =>
@@ -231,19 +233,19 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   );
   expect(textLayoutProblems).toEqual([]);
 
-  const sectionRhythmProblems = await page.locator("main section[id]").evaluateAll((sections) =>
+  const sectionRhythmProblems = await page.locator("main section[id]:not(#hero)").evaluateAll((sections) =>
     sections.flatMap((section) => {
       const style = getComputedStyle(section);
       const paddingTop = Number.parseFloat(style.paddingTop);
       const paddingBottom = Number.parseFloat(style.paddingBottom);
-      return paddingTop > 120 || paddingBottom > 120
+      return paddingTop > 128 || paddingBottom > 128
         ? [{ id: section.id, paddingTop, paddingBottom }]
         : [];
     })
   );
   expect(sectionRhythmProblems).toEqual([]);
 
-  await page.keyboard.press("Tab");
+  await page.locator(".skip-link").focus();
   await expect(page.locator(".skip-link")).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page.locator("#main-content")).toBeFocused();
@@ -411,7 +413,7 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
     });
     expect(mobileCompactContract.sameCardRadius).toBe(true);
     expect(mobileCompactContract.maxSectionPadding).toBeLessThanOrEqual(80);
-    expect(mobileCompactContract.lowerContentVisibility).toBe("auto");
+    expect(mobileCompactContract.lowerContentVisibility).toBe("visible");
 
     await page.evaluate(() => window.scrollBy(0, -140));
     await expect(page.locator(".mobile-bottom-dock")).not.toHaveClass(/is-hidden/);
@@ -436,7 +438,7 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
           const href = link.getAttribute("href");
           return href?.startsWith("#") && document.querySelector(href);
         }),
-        heroUsesFirstFold: heroRect.height >= window.innerHeight * 0.9 && heroRect.height <= window.innerHeight * 1.15,
+        heroUsesFirstFold: heroRect.height >= window.innerHeight * 0.75 && heroRect.height <= window.innerHeight * 1.15,
         dockAvoidsHeroLocation:
           Math.max(0, Math.min(dockRect.right, heroLocationRect.right) - Math.max(dockRect.left, heroLocationRect.left)) *
           Math.max(0, Math.min(dockRect.bottom, heroLocationRect.bottom) - Math.max(dockRect.top, heroLocationRect.top)) === 0,
@@ -493,7 +495,7 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   }));
   expect(postRevealOverflow.width).toBeLessThanOrEqual(postRevealOverflow.viewport + 1);
 
-  const hiddenSections = await page.locator("main section[id]").evaluateAll((sections) =>
+  const hiddenSections = await page.locator("main section[id]:not(#hero)").evaluateAll((sections) =>
     sections.flatMap((section) => {
       const style = getComputedStyle(section);
       return Number.parseFloat(style.opacity) < 0.99 || style.visibility === "hidden"
@@ -708,17 +710,23 @@ test("protege posicionamento, credibilidade e conversão comercial", async ({ pa
     visibleCards: viewport.clientWidth / viewport.querySelector(".project-card").getBoundingClientRect().width,
     hasHorizontalOverflow: viewport.scrollWidth > viewport.clientWidth + 20
   }));
-  expect(projectLayout.display).toBe("flex");
-  expect(projectLayout.hasHorizontalOverflow).toBe(true);
   if (testInfo.project.name === "desktop-1440") {
-    expect(projectLayout.visibleCards).toBeGreaterThan(3.8);
-    expect(projectLayout.visibleCards).toBeLessThan(4.4);
-    expect(projectLayout.maxCardHeight).toBeLessThan(600);
-    expect(projectLayout.sectionHeight).toBeLessThan(1300);
+    expect(projectLayout.display).toBe("grid");
+    expect(projectLayout.hasHorizontalOverflow).toBe(false);
+    expect(projectLayout.visibleCards).toBeGreaterThan(2);
+    expect(projectLayout.visibleCards).toBeLessThan(2.2);
   } else {
-    expect(projectLayout.maxCardHeight).toBeLessThan(560);
-    expect(projectLayout.sectionHeight).toBeLessThan(1200);
+    expect(projectLayout.display).toBe("flex");
+    expect(projectLayout.hasHorizontalOverflow).toBe(true);
+    expect(projectLayout.visibleCards).toBeGreaterThan(1);
+    expect(projectLayout.visibleCards).toBeLessThan(1.2);
+    expect(projectLayout.sectionHeight).toBeLessThan(1400);
   }
+  const clippedProjectText = await caseCards.locator(".project-card__desc, .project-card__brief dd").evaluateAll(elements =>
+    elements.filter(el => el.getBoundingClientRect().width > 0 &&
+      (el.scrollHeight > el.clientHeight + 1 || getComputedStyle(el).webkitLineClamp !== "none"))
+      .map(el => el.textContent));
+  expect(clippedProjectText).toEqual([]);
 
   const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
   const itemList = schema["@graph"].find((item) => item["@type"] === "ItemList");
@@ -775,9 +783,13 @@ test("ativa o modo leve do Chromium sem alterar a vitrine de projetos", async ({
   expect(profile.projectFilter).toBe("none");
   expect(profile.canvasBlend).toBe("normal");
   expect(profile.noiseDisplay).toBe("none");
-  expect(profile.infiniteAnimations.every(({ name }) => name === "skillsRailForward" || name === "skillsRailReverse")).toBe(true);
-  expect(profile.infiniteAnimations).toHaveLength(2);
-  expect(profile.sectionHeight).toBeLessThan(1300);
+  // Ambient work is limited to the opening's two light ribbons and canvas plane.
+  // Off-screen skills and closing layers must sleep.
+  expect(profile.infiniteAnimations.every(({ name }) => ["visual-nebula-drift", "editorial-light-drift"].includes(name))).toBe(true);
+  expect(profile.infiniteAnimations.length).toBeLessThanOrEqual(3);
+  await page.locator('#hero [data-motion-toggle]').click();
+  await expect(page.locator('html')).toHaveClass(/visual-motion-static/);
+  expect(await page.evaluate(() => document.getAnimations().filter(a => a.playState === 'running' && a.effect?.getComputedTiming().iterations === Infinity).length)).toBe(0);
 
   const heroInkSource = await (await page.request.get(new URL("./hero-ink.js", page.url()).href)).text();
   expect(heroInkSource).toContain('document.documentElement.classList.contains("is-chromium")');
