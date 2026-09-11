@@ -259,6 +259,10 @@ main section[id] > .section-divider { display: none !important; }
 
 /* Navigation is a quiet masthead, with clear active and focus states. */
 @media (min-width: 769px) {
+  :root { --visual-gutter: clamp(4rem, 4.8vw, 5rem); }
+  #soundToggleBtn, #btn-share, #btn-topo { width:44px !important; height:44px !important; border-radius:50% !important; }
+  #soundToggleBtn { left:10px !important; }
+  #btn-share, #btn-topo { right:10px !important; }
   nav.nav-motion { padding: .65rem var(--visual-gutter) !important; min-height: 5rem !important; background: rgb(0 0 0 / .94) !important; backdrop-filter: none !important; border-bottom: 1px solid var(--visual-line); }
   nav.nav-motion .nav-links { margin-left:auto !important; margin-right:0 !important; padding:0 !important; border:0 !important; background:transparent !important; box-shadow:none !important; backdrop-filter:none !important; gap:clamp(.25rem,1vw,1.2rem) !important; }
   nav.nav-motion .nav-tab-link { font-size:.8rem !important; letter-spacing:.04em !important; padding:.8rem .65rem !important; color:#aaa !important; }
@@ -371,6 +375,8 @@ main section[id] > .section-divider { display: none !important; }
 #projetos-design .ux-card__line { display:none; }
 
 /* Skills: existing evidence, icons and bars, with consistent reading density. */
+#tech-stack .skills-aurora { background:radial-gradient(ellipse 50% 40% at 70% 35%,rgb(255 255 255 / .055),transparent 74%) !important; }
+#tech-stack .skills-capability-card { --skills-glow:rgb(255 255 255 / .12) !important; }
 #tech-stack .skills-motion-rails { margin:0 0 2.5rem !important; padding:0 !important; border:0 !important; }
 #tech-stack .skills-motion-rail { padding:.65rem 0 !important; border-block:1px solid rgb(255 255 255 / .08); }
 #tech-stack .skills-motion-set { gap:2.5rem; }
