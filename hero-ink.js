@@ -88,7 +88,7 @@
     STAR_COLOR_COOL:  0.18,      // 18% branco-azulado sutil
     STAR_COLOR_WARM:  0.10,      // 10% branco-creme sutil
 
-    REVEAL_START: 900,
+    REVEAL_START: 80,
   };
 
   /* ─── Estado ─── */
@@ -96,6 +96,10 @@
   var W = 0, H = 0;
   var rafId = null;
   var running = false;
+  var inView = false;
+  var revealReady = false;
+  var elapsedBeforePause = 0;
+  var motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
   var isChromium = document.documentElement.classList.contains("is-chromium");
   var staticRendered = false;
   var startTime = 0;
@@ -695,6 +699,7 @@
   }
 
   function start() {
+    if (!inView || !revealReady || document.hidden || window.innerWidth < CFG.DESKTOP_MIN || motionPreference.matches || document.documentElement.classList.contains('visual-motion-static')) return;
     // O Chromium mantém o canvas em uma camada de composição cara quando ele
     // é redesenhado continuamente. Nele preservamos a arte em um quadro final
     // estático; Firefox continua com a animação completa a 30 fps.
@@ -708,12 +713,13 @@
     }
     if (running) return;
     running = true;
-    startTime = performance.now();
+    startTime = performance.now() - elapsedBeforePause;
     lastFrameTime = 0;
     rafId = requestAnimationFrame(loop);
   }
 
   function stop() {
+    if (running) elapsedBeforePause = performance.now() - startTime;
     running = false;
     if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
   }
@@ -789,7 +795,7 @@
       triggerReveal();
       return;
     }
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (motionPreference.matches) {
       hero = document.getElementById("hero");
       triggerReveal();
       return;
@@ -813,16 +819,26 @@
     buildFlaredStars();
 
     var io = new IntersectionObserver(function (entries) {
-      entries[0].isIntersecting ? start() : stop();
+      inView = entries[0].isIntersecting;
+      inView ? start() : stop();
     }, { threshold: 0 });
     io.observe(canvas);
 
     document.addEventListener("visibilitychange", function () {
-      document.hidden ? stop() : start();
+      document.hidden || !inView ? stop() : start();
     });
+    motionPreference.addEventListener("change", function () {
+      motionPreference.matches ? stop() : start();
+    });
+    document.addEventListener('portfolio:motion', function (event) {
+      event.detail.paused ? stop() : start();
+    });
+    window.addEventListener("pagehide", stop);
+    window.addEventListener("pageshow", function () { if (inView) start(); });
 
     var resizeOb = window.ResizeObserver
       ? new ResizeObserver(function () {
+          if (window.innerWidth < CFG.DESKTOP_MIN) { stop(); return; }
           resize();
           buildStars();
           buildFlaredStars();
@@ -850,6 +866,7 @@
 
     // Nebulosa e reveal só iniciam depois do loader sair
     function beginHero() {
+      revealReady = true;
       triggerReveal();
       start();
     }

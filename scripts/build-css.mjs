@@ -13,7 +13,8 @@ const sourceFiles = [
   "motion.css",
   "evolution.css",
   "layout-polish.css",
-  "mobile-experience.css"
+  "mobile-experience.css",
+  "visual-polish.css"
 ];
 const outputFile = resolve(root, "portfolio.css");
 const banner = "/* =========================================================\n   PORTFOLIO.CSS — GENERATED FILE\n   Visual contract: source order is preserved byte-for-byte\n   inside each section. Run: npm run build:css\n   ========================================================= */\n";

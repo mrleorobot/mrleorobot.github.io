@@ -330,7 +330,7 @@
   ]
 }
     </script>
-    <link rel="stylesheet" href="./portfolio.css?v=20260901final5" />
+    <link rel="stylesheet" href="./portfolio.css?v=20260911editorial1" />
     
     
     
@@ -436,10 +436,10 @@
     <div
       id="toast-notificacao"
       class="toast-escondido"
-      role="alert"
-      aria-live="assertive"
+      role="status"
+      aria-live="polite"
     >
-      E-mail copiado com sucesso!
+      <span data-contact-status></span>
     </div>
 
     <header>
@@ -499,6 +499,7 @@
 
         <section id="hero">
           <canvas id="hero-ink-canvas" aria-hidden="true"></canvas>
+          <div class="editorial-aurora" aria-hidden="true"><span></span><span></span></div>
           <div class="celestial-signature celestial-signature--hero" aria-hidden="true">
             <span class="celestial-star celestial-star--main"></span>
             <span class="celestial-star celestial-star--near"></span>
@@ -532,7 +533,7 @@
                 <div class="hero-masthead-meta ink-reveal ink-reveal--fade" style="--rd: 0.25s;" aria-hidden="true">
                   <span>EST. 2023</span>
                   <span class="meta-divider"></span>
-                  <span>NATAL/RN, BRASIL</span>
+                  <span>NATAL, RN, BRASIL</span>
                 </div>
 
                 <!-- Dominant name — entrada dramática com letter-spacing + blur -->
@@ -590,6 +591,7 @@
           </div>
 
           <!-- Scroll CTA: centered at bottom -->
+          <button type="button" class="motion-control motion-control--hero" data-motion-toggle aria-pressed="false">Pausar animações</button>
           <div class="hero-scroll-cta ink-reveal ink-reveal--fade" style="--rd: 2.4s;" aria-hidden="true">
             <span class="hero-scroll-cta__text">Role para explorar</span>
             <div class="hero-scroll-cta__arrows">
@@ -608,6 +610,163 @@
         <!-- ==========================================
              07. SUPORTE & GESTÃO (SYSTEM DASHBOARD)
         =========================================== -->
+
+        <section id="sobre" class="motion-on-scroll reveal-item" data-motion="fade-up">
+          <div class="section-divider" aria-hidden="true"></div>
+          <div class="ambient-aurora ambient-aurora--bridge" aria-hidden="true">
+            <span class="ambient-aurora__mesh ambient-aurora__mesh--bridge-left"></span>
+            <span class="ambient-aurora__mesh ambient-aurora__mesh--bridge-right"></span>
+          </div>
+          <div class="celestial-signature celestial-signature--trajectory" aria-hidden="true">
+            <span class="celestial-star celestial-star--main"></span>
+            <span class="celestial-star celestial-star--near"></span>
+            <span class="celestial-star celestial-star--far"></span>
+            <span class="celestial-orbit"></span>
+          </div>
+          <!-- Editorial header — título monumental, sem numeração de seção -->
+          <header class="trajectory-header">
+            <div class="trajectory-header__intro">
+              <h2 class="trajectory-header__title section-title-kinetic reveal-item">
+                <span aria-hidden="true">Trajetória</span>
+                <span class="sr-only">Trajetória e Momento Atual</span>
+              </h2>
+              <div class="trajectory-header__subtitle reveal-item">
+                Minha Jornada <span aria-hidden="true">·</span> Evolução Constante
+              </div>
+            </div>
+            <p class="trajectory-header__lead reveal-item">
+              De onde vim e <span class="mix-emphasis">as fundações que estou
+              construindo no presente</span>.
+            </p>
+          </header>
+
+          <!-- Trajetória interativa — um momento em foco por vez -->
+          <div class="trajectory-experience reveal-item" data-trajectory-root data-active-year="2023">
+            <div class="trajectory-aurora" aria-hidden="true">
+              <span class="trajectory-aurora__mesh trajectory-aurora__mesh--one"></span>
+              <span class="trajectory-aurora__mesh trajectory-aurora__mesh--two"></span>
+              <span class="trajectory-aurora__mesh trajectory-aurora__mesh--three"></span>
+            </div>
+
+            <div class="trajectory-experience__inner">
+              <div class="trajectory-tabs-shell">
+                <div class="trajectory-tabs" role="tablist" aria-label="Anos da trajetória profissional">
+                  <button class="trajectory-year-tab is-active" id="trajectory-tab-2023" type="button" role="tab" aria-selected="true" aria-controls="trajectory-panel" tabindex="0" data-trajectory-year="2023">
+                    <span class="trajectory-year-tab__year">2023</span>
+                    <span class="trajectory-year-tab__meta">Fundação</span>
+                  </button>
+                  <button class="trajectory-year-tab" id="trajectory-tab-2024" type="button" role="tab" aria-selected="false" aria-controls="trajectory-panel" tabindex="-1" data-trajectory-year="2024">
+                    <span class="trajectory-year-tab__year">2024</span>
+                    <span class="trajectory-year-tab__meta">Aprendizado</span>
+                  </button>
+                  <button class="trajectory-year-tab" id="trajectory-tab-2025" type="button" role="tab" aria-selected="false" aria-controls="trajectory-panel" tabindex="-1" data-trajectory-year="2025">
+                    <span class="trajectory-year-tab__year">2025</span>
+                    <span class="trajectory-year-tab__meta">Prática</span>
+                  </button>
+                  <button class="trajectory-year-tab" id="trajectory-tab-2026" type="button" role="tab" aria-selected="false" aria-controls="trajectory-panel" tabindex="-1" data-trajectory-year="2026">
+                    <span class="trajectory-year-tab__year">2026</span>
+                    <span class="trajectory-year-tab__meta">Agora</span>
+                  </button>
+                </div>
+
+                <button class="trajectory-cycle-toggle" type="button" aria-pressed="false" data-trajectory-cycle-toggle>
+                  <span class="trajectory-cycle-toggle__glyph" data-trajectory-cycle-glyph aria-hidden="true">❚❚</span>
+                  <span data-trajectory-cycle-label>Pausar ciclo</span>
+                </button>
+              </div>
+
+              <div class="trajectory-progress" aria-hidden="true">
+                <span data-trajectory-progress></span>
+              </div>
+
+              <div class="trajectory-stage" data-trajectory-stage>
+                <div class="trajectory-stage__year" aria-hidden="true">
+                  <div class="trajectory-stage__year-content">
+                    <span class="trajectory-stage__status" data-trajectory-status>Fundação</span>
+                    <span class="trajectory-stage__year-number" data-trajectory-year-display>2023</span>
+                    <span class="trajectory-stage__phase">Evolução constante</span>
+                  </div>
+                </div>
+
+                <article class="trajectory-panel" id="trajectory-panel" role="tabpanel" aria-labelledby="trajectory-tab-2023">
+                  <div class="trajectory-panel__content">
+                    <p class="trajectory-panel__kicker" data-trajectory-kicker>Início Operacional</p>
+                    <h3 data-trajectory-title>Atendimento e Organização</h3>
+                    <p class="trajectory-panel__description" data-trajectory-description>
+                      Como Atendente e Operador de Caixa na Cantina CDF, desenvolvi
+                      agilidade e proatividade no relacionamento direto com o público —
+                      bases que uso até hoje no suporte técnico e educacional. Também
+                      concluí o Ensino Médio nesse ano.
+                    </p>
+                    <div class="trajectory-panel__tags" data-trajectory-tags aria-label="Competências desta etapa">
+                      <span>Atendimento</span>
+                      <span>Organização</span>
+                      <span>Ensino Médio</span>
+                    </div>
+                    <footer class="trajectory-panel__footer">
+                      <div>
+                        <time data-trajectory-period datetime="2023">2023</time>
+                        <p data-trajectory-note>As primeiras bases profissionais.</p>
+                      </div>
+                      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="19" x2="19" y2="5"></line>
+                        <polyline points="9 5 19 5 19 15"></polyline>
+                      </svg>
+                    </footer>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- Momento atual: dois módulos discretos -->
+          <div class="momento-atual reveal-item">
+            <div class="momento-atual__label" aria-hidden="true">
+              <span>Momento Atual</span>
+              <span class="momento-atual__line"></span>
+            </div>
+
+            <div class="status-container">
+              <div class="status-card glass-glow reveal-item stagger-1">
+                <div class="status-badge">
+                  <span class="live-dot"></span>Cursando
+                </div>
+                <div class="status-main">
+                  <div class="status-icon">
+                    <img
+                      src="./logo-etep.png"
+                      alt="Logo ETEP"
+                      class="status-logo status-logo-etep" decoding="async" loading="lazy"
+                    />
+                  </div>
+                  <div class="status-info">
+                    <h3>Administração</h3>
+                    <p>ETEP (EAD)</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="status-card glass-glow reveal-item stagger-2">
+                <div class="status-badge">
+                  <span class="live-dot"></span>Cargo Atual
+                </div>
+                <div class="status-main">
+                  <div class="status-icon">
+                    <img
+                      src="./logo-esteadeb.png"
+                      alt="Logo ESTEADEB"
+                      class="status-logo status-logo-esteadeb" decoding="async" loading="lazy"
+                    />
+                  </div>
+                  <div class="status-info">
+                    <h3>Estagiário</h3>
+                    <p>ESTEADEB (Escola de Teologia)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section id="projetos" class="motion-on-scroll section-reveal app-depth" data-motion="fade-up">
           <div class="section-divider" aria-hidden="true"></div>
@@ -1023,162 +1182,7 @@
           </div>
         </section>
 
-        <section id="sobre" class="motion-on-scroll reveal-item" data-motion="fade-up">
-          <div class="section-divider" aria-hidden="true"></div>
-          <div class="ambient-aurora ambient-aurora--bridge" aria-hidden="true">
-            <span class="ambient-aurora__mesh ambient-aurora__mesh--bridge-left"></span>
-            <span class="ambient-aurora__mesh ambient-aurora__mesh--bridge-right"></span>
-          </div>
-          <div class="celestial-signature celestial-signature--trajectory" aria-hidden="true">
-            <span class="celestial-star celestial-star--main"></span>
-            <span class="celestial-star celestial-star--near"></span>
-            <span class="celestial-star celestial-star--far"></span>
-            <span class="celestial-orbit"></span>
-          </div>
-          <!-- Editorial header — título monumental, sem numeração de seção -->
-          <header class="trajectory-header">
-            <div class="trajectory-header__intro">
-              <h2 class="trajectory-header__title section-title-kinetic reveal-item">
-                <span aria-hidden="true">Trajetória</span>
-                <span class="sr-only">Trajetória e Momento Atual</span>
-              </h2>
-              <div class="trajectory-header__subtitle reveal-item">
-                Minha Jornada <span aria-hidden="true">·</span> Evolução Constante
-              </div>
-            </div>
-            <p class="trajectory-header__lead reveal-item">
-              De onde vim e <span class="mix-emphasis">as fundações que estou
-              construindo no presente</span>.
-            </p>
-          </header>
 
-          <!-- Trajetória interativa — um momento em foco por vez -->
-          <div class="trajectory-experience reveal-item" data-trajectory-root data-active-year="2023">
-            <div class="trajectory-aurora" aria-hidden="true">
-              <span class="trajectory-aurora__mesh trajectory-aurora__mesh--one"></span>
-              <span class="trajectory-aurora__mesh trajectory-aurora__mesh--two"></span>
-              <span class="trajectory-aurora__mesh trajectory-aurora__mesh--three"></span>
-            </div>
-
-            <div class="trajectory-experience__inner">
-              <div class="trajectory-tabs-shell">
-                <div class="trajectory-tabs" role="tablist" aria-label="Anos da trajetória profissional">
-                  <button class="trajectory-year-tab is-active" id="trajectory-tab-2023" type="button" role="tab" aria-selected="true" aria-controls="trajectory-panel" tabindex="0" data-trajectory-year="2023">
-                    <span class="trajectory-year-tab__year">2023</span>
-                    <span class="trajectory-year-tab__meta">Fundação</span>
-                  </button>
-                  <button class="trajectory-year-tab" id="trajectory-tab-2024" type="button" role="tab" aria-selected="false" aria-controls="trajectory-panel" tabindex="-1" data-trajectory-year="2024">
-                    <span class="trajectory-year-tab__year">2024</span>
-                    <span class="trajectory-year-tab__meta">Aprendizado</span>
-                  </button>
-                  <button class="trajectory-year-tab" id="trajectory-tab-2025" type="button" role="tab" aria-selected="false" aria-controls="trajectory-panel" tabindex="-1" data-trajectory-year="2025">
-                    <span class="trajectory-year-tab__year">2025</span>
-                    <span class="trajectory-year-tab__meta">Prática</span>
-                  </button>
-                  <button class="trajectory-year-tab" id="trajectory-tab-2026" type="button" role="tab" aria-selected="false" aria-controls="trajectory-panel" tabindex="-1" data-trajectory-year="2026">
-                    <span class="trajectory-year-tab__year">2026</span>
-                    <span class="trajectory-year-tab__meta">Agora</span>
-                  </button>
-                </div>
-
-                <button class="trajectory-cycle-toggle" type="button" aria-pressed="false" data-trajectory-cycle-toggle>
-                  <span class="trajectory-cycle-toggle__glyph" data-trajectory-cycle-glyph aria-hidden="true">❚❚</span>
-                  <span data-trajectory-cycle-label>Pausar ciclo</span>
-                </button>
-              </div>
-
-              <div class="trajectory-progress" aria-hidden="true">
-                <span data-trajectory-progress></span>
-              </div>
-
-              <div class="trajectory-stage" data-trajectory-stage>
-                <div class="trajectory-stage__year" aria-hidden="true">
-                  <div class="trajectory-stage__year-content">
-                    <span class="trajectory-stage__status" data-trajectory-status>Fundação</span>
-                    <span class="trajectory-stage__year-number" data-trajectory-year-display>2023</span>
-                    <span class="trajectory-stage__phase">Evolução constante</span>
-                  </div>
-                </div>
-
-                <article class="trajectory-panel" id="trajectory-panel" role="tabpanel" aria-labelledby="trajectory-tab-2023">
-                  <div class="trajectory-panel__content">
-                    <p class="trajectory-panel__kicker" data-trajectory-kicker>Início Operacional</p>
-                    <h3 data-trajectory-title>Atendimento e Organização</h3>
-                    <p class="trajectory-panel__description" data-trajectory-description>
-                      Como Atendente e Operador de Caixa na Cantina CDF, desenvolvi
-                      agilidade e proatividade no relacionamento direto com o público —
-                      bases que uso até hoje no suporte técnico e educacional. Também
-                      concluí o Ensino Médio nesse ano.
-                    </p>
-                    <div class="trajectory-panel__tags" data-trajectory-tags aria-label="Competências desta etapa">
-                      <span>Atendimento</span>
-                      <span>Organização</span>
-                      <span>Ensino Médio</span>
-                    </div>
-                    <footer class="trajectory-panel__footer">
-                      <div>
-                        <time data-trajectory-period datetime="2023">2023</time>
-                        <p data-trajectory-note>As primeiras bases profissionais.</p>
-                      </div>
-                      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="19" x2="19" y2="5"></line>
-                        <polyline points="9 5 19 5 19 15"></polyline>
-                      </svg>
-                    </footer>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-
-          <!-- Momento atual: dois módulos discretos -->
-          <div class="momento-atual reveal-item">
-            <div class="momento-atual__label" aria-hidden="true">
-              <span>Momento Atual</span>
-              <span class="momento-atual__line"></span>
-            </div>
-
-            <div class="status-container">
-              <div class="status-card glass-glow reveal-item stagger-1">
-                <div class="status-badge">
-                  <span class="live-dot"></span>Cursando
-                </div>
-                <div class="status-main">
-                  <div class="status-icon">
-                    <img
-                      src="./logo-etep.png"
-                      alt="Logo ETEP"
-                      class="status-logo status-logo-etep" decoding="async" loading="lazy"
-                    />
-                  </div>
-                  <div class="status-info">
-                    <h3>Administração</h3>
-                    <p>ETEP (EAD)</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="status-card glass-glow reveal-item stagger-2">
-                <div class="status-badge">
-                  <span class="live-dot"></span>Cargo Atual
-                </div>
-                <div class="status-main">
-                  <div class="status-icon">
-                    <img
-                      src="./logo-esteadeb.png"
-                      alt="Logo ESTEADEB"
-                      class="status-logo status-logo-esteadeb" decoding="async" loading="lazy"
-                    />
-                  </div>
-                  <div class="status-info">
-                    <h3>Estagiário</h3>
-                    <p>ESTEADEB (Escola de Teologia)</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         <!-- ==========================================
              08. DESIGN DE INTERFACES (BENTO GALLERY)
@@ -1714,6 +1718,7 @@
              06. FOOTER (EDITORIAL GIANT CTA)
         =========================================== -->
         <section id="cta-final" class="motion-on-scroll section-reveal app-depth" data-motion="scale-in">
+          <div class="editorial-aurora" aria-hidden="true"><span></span><span></span></div>
           <div class="section-divider" aria-hidden="true"></div>
           <div class="ambient-aurora ambient-aurora--closing" aria-hidden="true">
             <span class="ambient-aurora__mesh ambient-aurora__mesh--closing-main"></span>
@@ -1815,12 +1820,14 @@
         </div>
       </div>
 
+      <div class="footer-motion"><button type="button" class="motion-control" data-motion-toggle aria-pressed="false">Pausar animações</button></div>
+
       <!-- Linha inferior: copyright -->
       <div class="footer-bottom">
         <span>&copy; 2026 Leonilson. Todos os direitos reservados.</span>
       </div>
     </footer>
-        <script type="module" src="./app.js?v=20260901final5"></script>
+        <script type="module" src="./app.js?v=20260911editorial1"></script>
 
     <!-- BOTÃO COMPARTILHAR -->
     <button
@@ -1980,10 +1987,10 @@
       </a>
     </nav>
       <script>
-      if ("serviceWorker" in navigator) {
+      if ("serviceWorker" in navigator && !["localhost", "127.0.0.1", "terminal.local"].includes(location.hostname)) {
         window.addEventListener("load", async () => {
           try {
-            const registration = await navigator.serviceWorker.register("./sw.js?v=20260901final5");
+            const registration = await navigator.serviceWorker.register("./sw.js?v=20260911editorial1");
             registration.update();
           } catch {
             // The portfolio remains fully functional without offline caching.
