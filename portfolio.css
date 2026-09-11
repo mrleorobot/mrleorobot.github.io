@@ -11213,7 +11213,7 @@ html.is-chromium .celestial-orbit{
   background: #000 !important;
   overflow: clip;
 }
-#hero,#cta-final { contain:paint; }
+main section[id],.site-footer { contain:paint; }
 #hero::before, #hero::after, #hero .hero-side-indicator { display: none !important; }
 #hero .hero-editorial {
   display: block !important;
@@ -11563,7 +11563,7 @@ main section[id] > .section-divider { display: none !important; }
 #tech-stack .skills-motion-set { gap:2.5rem; }
 #tech-stack .skills-motion-set li { font-size:1.1rem !important; color:#bbb; }
 #tech-stack .skills-capability-grid { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:0 2.5rem !important; }
-#tech-stack .skills-capability-card { padding:2rem 0 !important; min-height:0 !important; border:0 !important; border-top:1px solid var(--visual-line) !important; background:none !important; box-shadow:none !important; border-radius:0 !important; }
+#tech-stack .skills-capability-card { grid-column:auto !important; grid-row:auto !important; padding:2rem 0 !important; min-height:0 !important; border:0 !important; border-top:1px solid var(--visual-line) !important; background:none !important; box-shadow:none !important; border-radius:0 !important; }
 #tech-stack .skills-capability-card__meta { gap:.75rem; margin-bottom:1.5rem; font-size:.8rem !important; }
 #tech-stack .skills-capability-card__meta > span:first-child { color:#ccc; }
 #tech-stack .skills-capability-card__glyph { width:2rem; height:2rem; margin-right:.6rem; font-size:1.1rem; }
@@ -11580,10 +11580,17 @@ main section[id] > .section-divider { display: none !important; }
 
 /* Personal work and testimonials retain their own imagery and voice. */
 #game-dev .gamedev-hud-container { min-height:35rem !important; border:1px solid var(--visual-line) !important; border-radius:5px !important; overflow:hidden; }
-#game-dev .gamedev-hud-bg img { object-fit:cover; filter:none !important; }
-#game-dev .gamedev-hud-content { padding:3rem !important; }
-#game-dev .gamedev-hud-header h2 { font-size:clamp(2.75rem,6vw,6rem) !important; }
-#game-dev .gamedev-hud-panel { background:rgb(0 0 0 / .85) !important; border:1px solid var(--visual-line) !important; backdrop-filter:none !important; padding:1.5rem !important; }
+#game-dev .gamedev-hud-bg.visual-image-frame { position:absolute !important; inset:0; width:100%; height:100%; }
+#game-dev .gamedev-hud-bg picture { display:block; width:100%; height:100%; }
+#game-dev .gamedev-hud-bg img { width:100%; height:100%; object-fit:cover; filter:none !important; }
+#game-dev .gamedev-hud-overlay { background:linear-gradient(180deg,rgb(0 0 0 / .08) 10%,rgb(0 0 0 / .8)); }
+#game-dev .hud-status { color:#ddd; background:#151515; font:400 .75rem/1.5 Inter,sans-serif; }
+#game-dev .hud-dot { background:#ddd; animation:none; }
+#game-dev .gamedev-hud-content { padding:3rem !important; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.85fr); align-items:end; gap:3rem; }
+#game-dev .gamedev-hud-header h2 { font-size:clamp(2.85rem,6vw,6rem) !important; max-width:100% !important; }
+#game-dev .gamedev-hud-header h2::after { display:none; }
+#game-dev .hud-subtitle { font:400 1rem/1.7 Inter,sans-serif; letter-spacing:.015em; color:#bbb; }
+#game-dev .gamedev-hud-panel { width:100%; max-width:100%; flex:auto; background:rgb(0 0 0 / .85) !important; border:1px solid var(--visual-line) !important; backdrop-filter:none !important; padding:1.5rem !important; }
 #game-dev .gamedev-hud-panel p { font-size:1rem !important; color:#bbb; }
 #soft-skills .alumni-hero-card { min-height:0 !important; border:1px solid var(--visual-line) !important; border-radius:4px !important; padding:2.5rem !important; background:linear-gradient(120deg,rgb(255 255 255 / .045),transparent 70%) !important; box-shadow:none !important; }
 #soft-skills .alumni-hero-card__title { font-size:clamp(2rem,3.5vw,3.25rem) !important; line-height:1.15; letter-spacing:-.045em; }
@@ -11611,7 +11618,7 @@ main section[id] > .section-divider { display: none !important; }
 #cta-final .footer-eyebrow { font-size:.85rem !important; letter-spacing:.05em !important; color:#aaa; }
 #cta-final .footer-giant-link { gap:2rem !important; margin:2rem 0 !important; }
 #cta-final .giant-word { display:block; font-size:clamp(3.25rem,12.8vw,12.5rem) !important; font-weight:700 !important; line-height:1.02 !important; letter-spacing:-.065em !important; background:none !important; -webkit-text-fill-color:#eee !important; color:#eee !important; }
-#cta-final .footer-giant-arrow { width:clamp(4rem,10vw,9rem) !important; height:clamp(4rem,10vw,9rem) !important; flex-shrink:0; border:1px solid #777; background:none !important; transform:none !important; }
+#cta-final .footer-giant-arrow { width:clamp(4rem,10vw,9rem) !important; height:clamp(4rem,10vw,9rem) !important; flex-shrink:0; border:1px solid #777; background:none !important; color:#eee !important; transform:none !important; }
 #cta-final .footer-giant-arrow svg { transform:rotate(-35deg); }
 #cta-final .footer-availability { font-size:1rem !important; line-height:1.7 !important; max-width:43ch; color:#aaa; }
 #hero .hero-location__pulse::after { background:rgb(255 255 255 / .18) !important; }
@@ -11640,6 +11647,8 @@ main section[id] > .section-divider { display: none !important; }
   :root { --visual-section:3.5rem; --visual-gutter:1.25rem; }
   main section[id]:not(#hero) { padding:var(--visual-section) var(--visual-gutter) !important; scroll-margin-top:4.5rem; }
   #hero .hero-editorial__content { text-align:left !important; align-items:start !important; }
+  #hero .hero-editorial__name,#hero .hero-editorial__name > span[aria-hidden],.section-title-kinetic > span[aria-hidden],#cta-final .giant-word { white-space:normal !important; overflow-wrap:anywhere; }
+  #hero .hero-editorial__subtitle { flex-wrap:wrap; }
   #hero .hero-masthead-meta { justify-content:flex-start !important; }
   #sobre .trajectory-header__title,#projetos .projects-header__title,#projetos-design .ux-header__title,#tech-stack .tech-header__title,#soft-skills .alumni-header__title,#faq .faq-header__title {
     font-size:clamp(3rem,11.65vw,5.75rem) !important;
@@ -11669,7 +11678,7 @@ main section[id] > .section-divider { display: none !important; }
   #sobre .trajectory-year-tab__year { font-size:1.2rem !important; }
   #sobre .trajectory-year-tab__meta { font-size:.62rem !important; }
   #sobre .trajectory-stage__year-content { display:grid; grid-template-columns:max-content minmax(0,1fr); align-items:center; gap:.75rem; padding:0; }
-  #sobre .trajectory-stage__year-number { grid-column:1; grid-row:1 / span 2; font-size:clamp(5rem,24vw,8rem) !important; letter-spacing:-.065em !important; }
+  #sobre .trajectory-stage__year-number { grid-column:1; grid-row:1 / span 2; font-size:min(24vw,8rem) !important; letter-spacing:-.065em !important; }
   #sobre .trajectory-stage__status { grid-column:2; grid-row:1; align-self:end; font-size:.75rem !important; }
   #sobre .trajectory-stage__phase { grid-column:2; grid-row:2; align-self:start; font-size:.7rem !important; white-space:normal; line-height:1.5; font-family:Inter,sans-serif; letter-spacing:.02em; margin:0 !important; }
   #sobre .trajectory-stage__phase::before { display:none; }
@@ -11683,7 +11692,7 @@ main section[id] > .section-divider { display: none !important; }
   #sobre .status-info h3 { font-size:1rem !important; }
   #sobre .status-info p { font-size:.75rem !important; }
   #sobre .status-card { padding:1rem 0 !important; }
-  #projetos-design .ux-grid { display:flex !important; overflow-x:auto !important; flex-wrap:nowrap !important; gap:1rem !important; padding-bottom:1rem !important; scroll-snap-type:x mandatory; }
+  #projetos-design .ux-grid { display:flex !important; overflow-x:auto !important; flex-wrap:nowrap !important; gap:1rem !important; padding:0 0 1rem !important; scroll-padding-inline:0; scroll-snap-type:x mandatory; }
   #projetos-design .ux-card { width:92% !important; flex:0 0 92% !important; min-width:92% !important; }
   #projetos-design .ux-card__content { padding:1.1rem 0 !important; }
   #projetos-design .ux-card__title { font-size:1.5rem !important; }
@@ -11700,8 +11709,11 @@ main section[id] > .section-divider { display: none !important; }
   #tech-stack .skills-card-details p { font-size:1rem !important; line-height:1.65 !important; }
   #tech-stack .skills-capability-card__proof { margin-top:1rem; padding-top:.8rem; }
   #tech-stack .skills-capability-card__signal { height:1rem; margin-top:.8rem; }
-  #game-dev .gamedev-hud-container { min-height:32rem !important; }
-  #game-dev .gamedev-hud-content { padding:1.25rem !important; }
+  #game-dev .gamedev-hud-container { min-height:0 !important; display:block; }
+  #game-dev .gamedev-hud-bg.visual-image-frame { position:relative !important; inset:auto; height:auto; aspect-ratio:1200/650; }
+  #game-dev .gamedev-hud-overlay { background:linear-gradient(transparent 70%,#000); }
+  #game-dev .gamedev-hud-content { display:block; padding:1.25rem !important; }
+  #game-dev .gamedev-hud-panel { margin-top:1.5rem; }
   #game-dev .gamedev-hud-header h2 { font-size:2.85rem !important; }
   #game-dev .gamedev-hud-panel { padding:1.15rem !important; }
   #soft-skills .alumni-hero-card { padding:1.5rem !important; }
@@ -11713,12 +11725,12 @@ main section[id] > .section-divider { display: none !important; }
   #faq .faq-question { font-size:1rem !important; min-height:4.5rem !important; }
   #faq .faq-answer-content { padding:0 .5rem 1.25rem 2.2rem !important; }
   #cta-final .footer-giant-link { align-items:end; gap:.5rem !important; }
-  #cta-final .giant-word { font-size:clamp(2.6rem,10.2vw,6rem) !important; line-height:1.14 !important; letter-spacing:-.06em !important; }
+  #cta-final .giant-word { font-size:clamp(2.75rem,13vw,6rem) !important; line-height:1.14 !important; letter-spacing:-.06em !important; }
   #cta-final .footer-giant-arrow { width:2.75rem !important; height:2.75rem !important; }
   #cta-final .footer-availability { font-size:1rem !important; }
   #cta-final .contact-links { gap:.6rem !important; flex-wrap:wrap; }
   #cta-final .contact-link { font-size:.8rem !important; padding:.8rem .9rem !important; }
-  #cta-final .editorial-aurora { right:-26rem; top:0; }
+  #cta-final .editorial-aurora { width:50rem; height:29rem; right:-27rem; top:-4rem; opacity:.35; }
   .site-footer { padding:2rem var(--visual-gutter) 1rem !important; }
   .site-footer .footer-inner { gap:1.5rem !important; }
   .site-footer .footer-bottom { font-size:.875rem !important; line-height:1.6; }
@@ -11727,6 +11739,27 @@ main section[id] > .section-divider { display: none !important; }
   .mobile-bottom-dock .dock-item.active { color:#fff !important; background:#252525 !important; border-radius:.65rem !important; }
   .mobile-bottom-dock:focus-within { transform:none !important; opacity:1 !important; pointer-events:auto !important; }
   .mobile-swipe-hint { font:400 .75rem/1.5 Inter,sans-serif !important; margin-top:.65rem !important; color:#aaa !important; letter-spacing:.03em; }
+}
+
+/* Project reading inherits the same quiet frame as its gallery. */
+#modal-lightbox { width:min(72rem,calc(100vw - 3rem)); max-width:none; max-height:90svh; padding:0; overflow-y:auto; background:#080808; color:#eee; border:1px solid #333; border-radius:8px; }
+#modal-lightbox::backdrop { background:rgb(0 0 0 / .82); backdrop-filter:none; }
+#modal-lightbox .lightbox-content { padding:0; background:#080808; overflow:visible; }
+#modal-lightbox .lightbox-wrapper { grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr) !important; align-items:start; }
+#modal-lightbox .lightbox-image-side { padding:2rem; background:#080808; min-height:0; height:auto; }
+#modal-lightbox .lightbox-image-side img { width:100%; height:auto; max-height:65svh; object-fit:contain; border-radius:3px; filter:none; }
+#modal-lightbox .lightbox-info-side { padding:2rem; min-width:0; background:#080808; }
+#modal-lightbox .lightbox-title { font-size:clamp(1.8rem,3.5vw,3rem) !important; line-height:1.1; letter-spacing:-.035em; margin:.75rem 0 1.75rem; }
+#modal-lightbox .lightbox-section p { font:400 1rem/1.75 Inter,sans-serif; color:#b6b6b6; }
+#modal-lightbox .lightbox-category { font:500 .75rem/1.5 Inter,sans-serif; letter-spacing:.08em; color:#b6b6b6; }
+#modal-lightbox .fechar-modal { position:sticky; display:flex; align-items:center; justify-content:center; top:.75rem; right:auto; margin:.75rem .75rem 0 auto; width:2.75rem; height:2.75rem; z-index:10; background:#111; color:#fff; border:1px solid #555; box-shadow:none; }
+@media (max-width:768px) {
+  #modal-lightbox { width:calc(100vw - 1rem); max-height:calc(100svh - 1rem); border-radius:1rem 1rem 0 0; }
+  #modal-lightbox .lightbox-wrapper { display:block !important; }
+  #modal-lightbox .lightbox-image-side { padding:.75rem 1.25rem 1.25rem; }
+  #modal-lightbox .lightbox-image-side img { max-height:32svh; }
+  #modal-lightbox .lightbox-info-side { padding:1.5rem 1.25rem; }
+  #modal-lightbox .lightbox-title { font-size:2rem; }
 }
 
 /* One quiet border treatment across the existing surfaces. */

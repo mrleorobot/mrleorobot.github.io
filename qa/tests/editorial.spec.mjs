@@ -54,6 +54,11 @@ test('galerias mantêm imagem, fechamento por teclado e foco', async ({page}) =>
   const design=page.locator('#projetos-design .ux-card').first();
   await design.click();
   await expect(dialog).toBeVisible();
+  if (page.viewportSize().width <= 768) {
+    const layout=await dialog.evaluate(el=>({image:el.querySelector('.lightbox-image-side').getBoundingClientRect().toJSON(),text:el.querySelector('.lightbox-info-side').getBoundingClientRect().toJSON()}));
+    expect(layout.text.top).toBeGreaterThanOrEqual(layout.image.bottom-1);
+    expect(layout.image.width).toBeGreaterThan(page.viewportSize().width*.8);
+  }
   await dialog.getByRole('button',{name:'Fechar',exact:true}).click();
   await expect(dialog).not.toBeVisible();
   expect(await page.evaluate(()=>!window.PortfolioScrollLock?.isLocked())).toBe(true);
@@ -74,4 +79,16 @@ test('pausa de atmosfera e prioridade da seleção manual de ano', async ({page}
   await page.locator('.site-footer [data-motion-toggle]').click();
   await expect(page.locator('html')).not.toHaveClass(/visual-motion-static/);
   await expect(trajectory.locator('[data-trajectory-cycle-toggle]')).toHaveAttribute('aria-pressed','true');
+});
+
+ test('texto ampliado preserva a leitura e os controles', async ({page}) => {
+  await page.setViewportSize({width:390,height:844});
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await ready(page);
+  await page.addStyleTag({content:'html { font-size:200% !important; }'});
+  for (const id of ['hero','sobre','tech-stack','cta-final']) {
+    await page.locator('#'+id).scrollIntoViewIfNeeded();
+    expect(await page.locator('#'+id).evaluate(el=>[...el.querySelectorAll('h1,h2,.trajectory-stage__year-number')].filter(e=>e.getBoundingClientRect().width>0).every(e=>e.scrollWidth<=e.clientWidth+2)),id).toBe(true);
+  }
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
 });
