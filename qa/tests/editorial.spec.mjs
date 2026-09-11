@@ -9,6 +9,7 @@ async function ready(page) {
 
 test('composição completa em seis proporções e movimento reduzido', async ({ page }, testInfo) => {
   test.setTimeout(120_000);
+  await page.emulateMedia({reducedMotion:"reduce", colorScheme:"dark"});
   for (const [width,height] of [[360,800],[390,844],[430,932],[768,1024],[1440,900],[844,390]]) {
     await page.setViewportSize({ width, height });
     await ready(page);

@@ -2197,6 +2197,7 @@ if (modalLightbox && lightboxImg) {
             lightboxWrapper.style.gridTemplateColumns = "1fr";
         }
 
+        modalLightbox.setAttribute("aria-label", details?.title || lightboxImg.alt);
         modalLightbox.showModal();
       });
       img.style.cursor = "zoom-in";
@@ -2502,16 +2503,22 @@ document.addEventListener("DOMContentLoaded", initFooterClock);
     sheet.classList.remove("sheet-dragging");
 
     if (delta > 120) {
-      // Passou do ponto de corte: termina a animação pra fora e fecha
-      sheet.style.transform = "translateY(100%)";
-      sheet.addEventListener(
-        "transitionend",
-        () => {
-          sheet.close();
-          sheet.style.transform = "";
-        },
-        { once: true }
-      );
+      const closeSheet = () => {
+        sheet.close();
+        sheet.style.transform = "";
+      };
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+          document.documentElement.classList.contains('visual-motion-static')) {
+        closeSheet();
+      } else {
+        sheet.style.transform = "translateY(100%)";
+        // Closing must not depend on a transition event being delivered.
+        const fallback = window.setTimeout(closeSheet, 500);
+        sheet.addEventListener('transitionend', () => {
+          window.clearTimeout(fallback);
+          closeSheet();
+        }, { once: true });
+      }
     } else {
       // Não passou: volta suavemente pro lugar
       sheet.style.transform = "";
@@ -2528,7 +2535,7 @@ document.addEventListener("DOMContentLoaded", initFooterClock);
    keyboard users without changing the default appearance.
    ========================================================= */
 function initAccessibleMediaTriggers() {
-  document.querySelectorAll(".project-thumbnail-wrapper").forEach((wrapper) => {
+  document.querySelectorAll(".project-thumbnail-wrapper, .ux-card").forEach((wrapper) => {
     const trigger = wrapper.querySelector(".project-lightbox-trigger");
     if (!trigger) return;
 
@@ -2538,6 +2545,11 @@ function initAccessibleMediaTriggers() {
       const label = trigger.getAttribute("alt") || "imagem do projeto";
       wrapper.setAttribute("aria-label", `Ampliar ${label}`);
     }
+
+    wrapper.addEventListener('click', (event) => {
+      if (event.target === trigger || event.target.closest('a,button')) return;
+      trigger.click();
+    });
 
     wrapper.addEventListener("keydown", (event) => {
       if (event.key !== "Enter" && event.key !== " ") return;

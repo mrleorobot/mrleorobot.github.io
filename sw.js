@@ -1,5 +1,5 @@
 // Service worker do portfólio — navegação atualizada e fallback offline.
-const SHELL_VERSION = "20260911editorial1";
+const SHELL_VERSION = "20260911editorial2";
 const CACHE_NAME = "leo-portfolio-" + SHELL_VERSION;
 
 const APP_SHELL = [
@@ -8,13 +8,13 @@ const APP_SHELL = [
   "./cases/dashboard-inventario.html",
   "./case-study.css?v=20260831case1",
   "./placeholder-dashboard.jpg",
-  "./portfolio.css?v=20260911editorial1",
-  "./app.js?v=20260911editorial1",
-  "./script.js?v=20260911editorial1",
-  "./awwwards-upgrade.js?v=20260911editorial1",
-  "./hero-ink.js?v=20260911editorial1",
-  "./evolution.js?v=20260911editorial1",
-  "./visual-polish.js?v=20260911editorial1",
+  "./portfolio.css?v=20260911editorial2",
+  "./app.js?v=20260911editorial2",
+  "./script.js?v=20260911editorial2",
+  "./awwwards-upgrade.js?v=20260911editorial2",
+  "./hero-ink.js?v=20260911editorial2",
+  "./evolution.js?v=20260911editorial2",
+  "./visual-polish.js?v=20260911editorial2",
   "./manifest.json?v=20260830chrome2",
   "./projects.json",
   "./offline.html",
