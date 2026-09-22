@@ -64,9 +64,28 @@ test('galerias mantêm imagem, fechamento por teclado e foco', async ({page}) =>
   expect(await page.evaluate(()=>!window.PortfolioScrollLock?.isLocked())).toBe(true);
 });
 
-test('pausa de atmosfera e prioridade da seleção manual de ano', async ({page}) => {
+test('pausa de atmosfera e prioridade da seleção manual de ano', async ({page}, testInfo) => {
   await page.emulateMedia({reducedMotion:'no-preference'});
   await ready(page);
+  // Normal motion must never shrink or dim a complete section. The reduced
+  // motion suite cannot catch this regression because it disables transforms.
+  for (const id of sections) {
+    const section = page.locator('#' + id);
+    await section.scrollIntoViewIfNeeded();
+    const plane = await section.evaluate(el => {
+      const style = getComputedStyle(el), rect = el.getBoundingClientRect();
+      return {transform:style.transform, opacity:style.opacity, filter:style.filter,
+        left:Math.round(rect.left), width:Math.round(rect.width), pageWidth:document.documentElement.clientWidth};
+    });
+    expect(plane.transform, id).toBe('none');
+    expect(plane.opacity, id).toBe('1');
+    expect(plane.filter, id).toBe('none');
+    expect(plane.left, id).toBe(0);
+    expect(Math.abs(plane.width - plane.pageWidth), id).toBeLessThanOrEqual(1);
+  }
+  await page.locator('#hero').scrollIntoViewIfNeeded();
+  await expect(page.locator('#hero .hero-editorial__name')).toHaveCSS('opacity', '1');
+  await page.screenshot({path:testInfo.outputPath('hero-atmosfera.png')});
   await page.locator('#hero [data-motion-toggle]').click();
   await expect(page.locator('html')).toHaveClass(/visual-motion-static/);
   await expect(page.locator('[data-motion-toggle]')).toHaveCount(2);

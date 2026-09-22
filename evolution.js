@@ -197,28 +197,6 @@
   }
 
   // ═══════════════════════════════════════════
-  // 6. SECTION ENTRANCE ANIMATIONS
-  // ═══════════════════════════════════════════
-  function initSectionEntrance() {
-    const sections = document.querySelectorAll('section:not(#hero)');
-
-    sections.forEach(section => {
-      section.classList.add('section-entrance');
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
-
-    sections.forEach(s => observer.observe(s));
-  }
-
-  // ═══════════════════════════════════════════
   // 7. SECTION DIVIDER LINE ANIMATION
   // ═══════════════════════════════════════════
   function initSectionDividers() {
@@ -528,7 +506,6 @@
 
       // Efeitos globais contínuos foram aposentados. As auroras locais em
       // CSS preservam a direção de arte sem manter vários RAFs concorrentes.
-      initSectionEntrance();
       initSectionDividers();
       initSectionTitleEntrance();
       initTimelineLineDraw();
