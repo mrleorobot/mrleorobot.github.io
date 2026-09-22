@@ -573,6 +573,9 @@ test("preserva o contrato visual, o conteúdo e a rolagem", async ({ page }, tes
   expect(footerAlignment.textAlign).toBe("center");
   expect(footerAlignment.fontSize).toBeGreaterThanOrEqual(12);
 
+  await page.locator('main img').evaluateAll(images => Promise.all(images
+    .filter(img => img.getClientRects().length)
+    .map(img => { img.loading = 'eager'; return img.decode(); })));
   const screenshotScale = await page.evaluate(() => ({ viewport: window.innerWidth, dpr: window.devicePixelRatio }));
   const visualEvidence = await page.screenshot({ path: testInfo.outputPath("home-full.png"), fullPage: true });
   const screenshotWidth = visualEvidence.readUInt32BE(16);
@@ -765,10 +768,16 @@ test("ativa o modo leve do Chromium sem alterar a vitrine de projetos", async ({
     const infiniteAnimations = document.getAnimations().filter((animation) => {
       const timing = animation.effect?.getComputedTiming?.();
       return animation.playState === "running" && timing?.iterations === Infinity;
-    }).map((animation) => ({
-      name: animation.animationName,
-      target: animation.effect?.target?.className || animation.effect?.target?.id || animation.effect?.target?.tagName
-    }));
+    }).map((animation) => {
+      const target = animation.effect?.target;
+      const section = target?.closest('section[id]');
+      const rect = section?.getBoundingClientRect();
+      return {
+        name: animation.animationName,
+        target: target?.className || target?.id || target?.tagName,
+        visible: Boolean(rect && rect.bottom > 0 && rect.top < innerHeight)
+      };
+    });
     return {
       navBackdrop: nav ? getComputedStyle(nav).backdropFilter : "none",
       projectFilter: project ? getComputedStyle(project).filter : "none",
@@ -783,10 +792,10 @@ test("ativa o modo leve do Chromium sem alterar a vitrine de projetos", async ({
   expect(profile.projectFilter).toBe("none");
   expect(profile.canvasBlend).toBe("normal");
   expect(profile.noiseDisplay).toBe("none");
-  // Ambient work is limited to the opening's two light ribbons and canvas plane.
-  // Off-screen skills and closing layers must sleep.
-  expect(profile.infiniteAnimations.every(({ name }) => ["visual-nebula-drift", "editorial-light-drift"].includes(name))).toBe(true);
-  expect(profile.infiniteAnimations.length).toBeLessThanOrEqual(3);
+  // The shorter opening can also reveal the start of the trajectory. Its light
+  // may run while visible; off-screen skills and closing layers must still sleep.
+  expect(profile.infiniteAnimations.every(({ name, visible }) => visible && ["visual-nebula-drift", "editorial-light-drift", "visual-aurora-drift"].includes(name))).toBe(true);
+  expect(profile.infiniteAnimations.length).toBeLessThanOrEqual(4);
   await page.locator('#hero [data-motion-toggle]').click();
   await expect(page.locator('html')).toHaveClass(/visual-motion-static/);
   expect(await page.evaluate(() => document.getAnimations().filter(a => a.playState === 'running' && a.effect?.getComputedTiming().iterations === Infinity).length)).toBe(0);

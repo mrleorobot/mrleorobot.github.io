@@ -33,7 +33,12 @@ test('composição completa em seis proporções e movimento reduzido', async ({
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth+1)).toBe(true);
     expect(await page.locator('#projetos .project-card__media img, #projetos-design .ux-card__media img').evaluateAll(images => images.every(img=>getComputedStyle(img).objectFit==='contain' && getComputedStyle(img).filter==='none'))).toBe(true);
     if(width===390 || width===1440) {
+      // Full-page evidence includes off-screen artwork; production keeps lazy loading.
+      await page.locator('main img').evaluateAll(images => Promise.all(images
+        .filter(img => img.getClientRects().length)
+        .map(img => { img.loading = 'eager'; return img.decode(); })));
       await page.locator('#hero').scrollIntoViewIfNeeded();
+      await page.evaluate(() => window.scrollTo({top:0,behavior:'instant'}));
       await page.screenshot({path:testInfo.outputPath(`hero-${width}.png`)});
       await page.screenshot({path:testInfo.outputPath(`full-${width}.png`),fullPage:true});
     }
@@ -74,16 +79,19 @@ test('pausa de atmosfera e prioridade da seleção manual de ano', async ({page}
     await section.scrollIntoViewIfNeeded();
     const plane = await section.evaluate(el => {
       const style = getComputedStyle(el), rect = el.getBoundingClientRect();
-      return {transform:style.transform, opacity:style.opacity, filter:style.filter,
+      return {untransformed:style.transform === 'none' || new DOMMatrix(style.transform).isIdentity,
+        opacity:style.opacity, filter:style.filter,
         left:Math.round(rect.left), width:Math.round(rect.width), pageWidth:document.documentElement.clientWidth};
     });
-    expect(plane.transform, id).toBe('none');
+    expect(plane.untransformed, id).toBe(true);
     expect(plane.opacity, id).toBe('1');
     expect(plane.filter, id).toBe('none');
     expect(plane.left, id).toBe(0);
     expect(Math.abs(plane.width - plane.pageWidth), id).toBeLessThanOrEqual(1);
   }
   await page.locator('#hero').scrollIntoViewIfNeeded();
+  await page.evaluate(() => window.scrollTo({top:0,behavior:'instant'}));
+  await expect.poll(() => page.locator('.nav-motion').evaluate(el => Math.abs(el.getBoundingClientRect().top))).toBeLessThan(1);
   await expect(page.locator('#hero .hero-editorial__name')).toHaveCSS('opacity', '1');
   await page.screenshot({path:testInfo.outputPath('hero-atmosfera.png')});
   await page.locator('#hero [data-motion-toggle]').click();
