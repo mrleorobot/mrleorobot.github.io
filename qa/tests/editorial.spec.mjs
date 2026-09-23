@@ -7,10 +7,10 @@ async function ready(page) {
   await page.evaluate(() => document.fonts.ready);
 }
 
-test('composição completa em seis proporções e movimento reduzido', async ({ page }, testInfo) => {
+test('composição completa em sete proporções e movimento reduzido', async ({ page }, testInfo) => {
   test.setTimeout(120_000);
   await page.emulateMedia({reducedMotion:"reduce", colorScheme:"dark"});
-  for (const [width,height] of [[360,800],[390,844],[430,932],[768,1024],[1440,900],[844,390]]) {
+  for (const [width,height] of [[360,800],[390,844],[430,932],[768,1024],[1440,900],[1920,1080],[844,390]]) {
     await page.setViewportSize({ width, height });
     await ready(page);
     await expect(page.locator('html')).toHaveClass(/visual-motion-static/);
@@ -74,9 +74,8 @@ test('pausa de atmosfera e prioridade da seleção manual de ano', async ({page}
   await ready(page);
   // Normal motion must never shrink or dim a complete section. The reduced
   // motion suite cannot catch this regression because it disables transforms.
-  for (const id of sections) {
+  const assertStableSection = async id => {
     const section = page.locator('#' + id);
-    await section.scrollIntoViewIfNeeded();
     const plane = await section.evaluate(el => {
       const style = getComputedStyle(el), rect = el.getBoundingClientRect();
       return {untransformed:style.transform === 'none' || new DOMMatrix(style.transform).isIdentity,
@@ -88,6 +87,12 @@ test('pausa de atmosfera e prioridade da seleção manual de ano', async ({page}
     expect(plane.filter, id).toBe('none');
     expect(plane.left, id).toBe(0);
     expect(Math.abs(plane.width - plane.pageWidth), id).toBeLessThanOrEqual(1);
+  };
+  // Check before reveal observers run as well as after scrolling into view.
+  for (const id of sections) await assertStableSection(id);
+  for (const id of sections) {
+    await page.locator('#' + id).scrollIntoViewIfNeeded();
+    await assertStableSection(id);
   }
   await page.locator('#hero').scrollIntoViewIfNeeded();
   await page.evaluate(() => window.scrollTo({top:0,behavior:'instant'}));

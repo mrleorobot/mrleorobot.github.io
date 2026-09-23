@@ -29,7 +29,7 @@
 main section[id],.site-footer { contain:paint; }
 /* A section owns the full background plane. Entrances belong to its children,
    so scrolling cannot expose rectangular edges or dim a readable paragraph. */
-html body main section[id] {
+html body main#main-content section[id] {
   transform: none !important;
   translate: none !important;
   scale: none !important;
