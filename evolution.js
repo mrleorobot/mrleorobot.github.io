@@ -197,28 +197,6 @@
   }
 
   // ═══════════════════════════════════════════
-  // 6. SECTION ENTRANCE ANIMATIONS
-  // ═══════════════════════════════════════════
-  function initSectionEntrance() {
-    const sections = document.querySelectorAll('section:not(#hero)');
-
-    sections.forEach(section => {
-      section.classList.add('section-entrance');
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
-
-    sections.forEach(s => observer.observe(s));
-  }
-
-  // ═══════════════════════════════════════════
   // 7. SECTION DIVIDER LINE ANIMATION
   // ═══════════════════════════════════════════
   function initSectionDividers() {
@@ -528,7 +506,6 @@
 
       // Efeitos globais contínuos foram aposentados. As auroras locais em
       // CSS preservam a direção de arte sem manter vários RAFs concorrentes.
-      initSectionEntrance();
       initSectionDividers();
       initSectionTitleEntrance();
       initTimelineLineDraw();
@@ -644,7 +621,8 @@
 
     root.dataset.trajectoryReady = 'true';
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let reduceMotion = motionPreference.matches;
     const mobileExperience = window.matchMedia('(max-width: 768px)').matches;
     let activeIndex = Math.max(0, moments.findIndex((moment) => moment.year === root.dataset.activeYear));
     let autoplayTimer = null;
@@ -667,7 +645,7 @@
 
     const scheduleAutoplay = () => {
       clearAutoplay();
-      if (isPaused || reduceMotion || !isVisible || document.hidden) return;
+      if (isPaused || reduceMotion || !isVisible || document.hidden || root.matches(':focus-within') || document.documentElement.classList.contains('visual-motion-static')) return;
       autoplayTimer = window.setTimeout(() => {
         selectMoment((activeIndex + 1) % moments.length, true, false);
       }, AUTOPLAY_DELAY);
@@ -705,6 +683,10 @@
     };
 
     function selectMoment(index, animate = true, announce = true) {
+      if (announce) {
+        isPaused = true;
+        updateCycleControl();
+      }
       const normalizedIndex = (index + moments.length) % moments.length;
       clearAutoplay();
       if (transitionTimer) window.clearTimeout(transitionTimer);
@@ -782,6 +764,25 @@
       updateCycleControl();
       if (isPaused) clearAutoplay();
       else scheduleAutoplay();
+    });
+
+    root.addEventListener('focusin', clearAutoplay);
+    root.addEventListener('focusout', () => queueMicrotask(scheduleAutoplay));
+    root.addEventListener('mouseenter', clearAutoplay);
+    root.addEventListener('mouseleave', scheduleAutoplay);
+    document.addEventListener('portfolio:motion', (event) => {
+      if (event.detail.paused) clearAutoplay();
+      else scheduleAutoplay();
+    });
+
+    motionPreference.addEventListener('change', () => {
+      reduceMotion = motionPreference.matches;
+      if (reduceMotion) {
+        isPaused = true;
+        clearAutoplay();
+      }
+      cycleToggle.hidden = reduceMotion || mobileExperience;
+      updateCycleControl();
     });
 
     if (reduceMotion || mobileExperience) {

@@ -1,5 +1,5 @@
 :root {
-  --case-bg: #050507;
+  --case-bg: #000000;
   --case-surface: rgba(255, 255, 255, 0.035);
   --case-line: rgba(255, 255, 255, 0.13);
   --case-muted: rgba(255, 255, 255, 0.62);
@@ -19,7 +19,7 @@ body.case-page {
   margin: 0;
   overflow-x: clip;
   background:
-    radial-gradient(circle at 84% 4%, rgba(84, 91, 141, 0.13), transparent 25rem),
+    radial-gradient(ellipse at 84% 4%, rgba(255, 255, 255, 0.06), transparent 35rem),
     var(--case-bg);
   color: var(--case-text);
   font-family: "Inter", Arial, sans-serif;
@@ -31,7 +31,7 @@ body.case-page {
   z-index: 20;
   inset: 0;
   pointer-events: none;
-  opacity: 0.16;
+  opacity: 0.05;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
 }
 
@@ -47,8 +47,7 @@ body.case-page {
   justify-content: space-between;
   gap: 1rem;
   border-bottom: 1px solid var(--case-line);
-  background: rgba(5, 5, 7, 0.82);
-  backdrop-filter: blur(18px);
+  background: rgba(0, 0, 0, 0.94);
 }
 
 .case-nav__brand,
@@ -115,25 +114,24 @@ body.case-page {
 .case-aurora span {
   position: absolute;
   border-radius: 50%;
-  filter: blur(70px);
-  opacity: 0.3;
-  animation: case-aurora-drift 13s ease-in-out infinite alternate;
+  filter: none;
+  opacity: 0.45;
 }
 
 .case-aurora span:nth-child(1) {
   top: 4%; right: 6%; width: 45vw; height: 35vw;
-  background: rgba(113, 123, 183, 0.27);
+  background: radial-gradient(ellipse, rgba(255,255,255,.12), transparent 68%);
 }
 
 .case-aurora span:nth-child(2) {
   bottom: 3%; left: 8%; width: 34vw; height: 24vw;
-  background: rgba(255, 255, 255, 0.11);
+  background: radial-gradient(ellipse, rgba(255,255,255,.09), transparent 68%);
   animation-delay: -5s;
 }
 
 .case-aurora span:nth-child(3) {
   top: 24%; left: 43%; width: 22vw; height: 22vw;
-  background: rgba(61, 74, 126, 0.18);
+  background: radial-gradient(ellipse, rgba(255,255,255,.08), transparent 68%);
   animation-delay: -8s;
 }
 
@@ -155,7 +153,7 @@ body.case-page {
 .case-hero h1 {
   max-width: 11ch;
   margin: 0;
-  font: 650 clamp(4rem, 10.6vw, 11rem)/0.83 "Space Grotesk", sans-serif;
+  font: 650 clamp(3.25rem, 10.6vw, 11rem)/1.02 "Space Grotesk", sans-serif;
   letter-spacing: -0.075em;
   text-transform: uppercase;
   text-wrap: balance;

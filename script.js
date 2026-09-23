@@ -1,38 +1,5 @@
 
-// =========================================
-// APP DEPTH SCROLL (mobile) — a seção que domina a tela fica em primeiro
-// plano; as outras recuam/escurecem. Mede pela área visível na TELA (não
-// pelo tamanho da própria seção), então funciona igual numa seção curta
-// (Game Dev) e numa bem longa (Projetos, FAQ).
-// =========================================
-function initAppDepthScroll() {
-  if (window.innerWidth > 768) return;
-
-  const sections = document.querySelectorAll(".app-depth");
-  if (!sections.length || !("IntersectionObserver" in window)) return;
-
-  const thresholds = [];
-  for (let i = 0; i <= 20; i++) thresholds.push(i / 20);
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const vh = window.innerHeight;
-      entries.forEach((entry) => {
-        const visiblePx = entry.intersectionRect.height;
-        const visibleFraction = vh > 0 ? visiblePx / vh : 0;
-        if (visibleFraction > 0.5) {
-          entry.target.classList.add("is-active");
-        } else {
-          entry.target.classList.remove("is-active");
-        }
-      });
-    },
-    { threshold: thresholds },
-  );
-
-  sections.forEach((s) => observer.observe(s));
-}
-document.addEventListener("DOMContentLoaded", initAppDepthScroll);
+// Section backgrounds stay stable. Content and artwork own their local motion.
 
 // =========================================
 // TEXT MASK REVEAL (TITLES)
@@ -104,7 +71,7 @@ function initImageParallax() {
     });
   }, { passive: true });
 }
-document.addEventListener("DOMContentLoaded", initImageParallax);
+// Image movement is coordinated by visual-polish.js in every browser.
 
 // =========================================
 // CINEMATIC LOADER ANIMATION (Optimized)
@@ -196,6 +163,15 @@ document.addEventListener("DOMContentLoaded", () => {
       releaseStuckScroll();
     }
   }, 5200);
+
+  // Navigation always takes priority over the brief introduction.
+  const interruptIntro = () => {
+    if (document.getElementById('cinematic-loader')) releaseStuckScroll();
+  };
+  window.addEventListener('wheel', interruptIntro, { once: true, passive: true });
+  window.addEventListener('touchstart', interruptIntro, { once: true, passive: true });
+  window.addEventListener('pointerdown', interruptIntro, { once: true, passive: true });
+  window.addEventListener('keydown', interruptIntro, { once: true });
 
   // --- Lightweight canvas starfield (brighter, more visible) ---
   let animId = null;
@@ -303,10 +279,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         // Revelar hero
         document.body.classList.add("loader-complete");
-        }, 900);
-      }, 800); // hold after name reveals
-    }, 1100); // wait for the star to arrive near the name
-  }, 200);
+        }, 450);
+      }, 220); // brief hold on the name
+    }, 400); // the star arrives quickly
+  }, 50);
 
   // Safety fallback
   setTimeout(() => {
@@ -1041,23 +1017,14 @@ function initProjectCuration() {
     );
 
     if (expanded) {
+      archiveCards.forEach((card) => card.classList.add('revealed', 'is-visible', 'is-revealed'));
       requestAnimationFrame(() => {
-        archiveCards.forEach((card) => card.classList.add("revealed"));
-
-        // Os cards arquivados entram depois dos quatro destaques no carrossel.
-        // Levar a vitrine ao primeiro deles torna o resultado do clique imediato.
-        requestAnimationFrame(() => {
-          const firstArchiveCard = archiveCards[0];
-          const previousScrollBehavior = viewport.style.scrollBehavior;
-          viewport.style.scrollBehavior = "auto";
-          viewport.scrollLeft = Math.max(0, firstArchiveCard.offsetLeft - viewport.offsetLeft);
-          requestAnimationFrame(() => {
-            viewport.style.scrollBehavior = previousScrollBehavior;
-          });
-        });
+        if (getComputedStyle(viewport).display !== 'grid') {
+          viewport.scrollTo({ left: archiveCards[0].offsetLeft - viewport.offsetLeft, behavior: 'instant' });
+        }
       });
     } else {
-      viewport.scrollTo({ left: 0, behavior: "smooth" });
+      viewport.scrollTo({ left: 0, behavior: 'instant' });
     }
 
     requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
@@ -1273,7 +1240,7 @@ function initMobileExperience() {
       requestAnimationFrame(() => {
         const currentY = window.scrollY;
         const delta = currentY - lastScrollY;
-        if (!document.body.classList.contains("mobile-menu-open") && Math.abs(delta) > 8) {
+        if (!document.body.classList.contains("mobile-menu-open") && !dock.matches(":focus-within") && Math.abs(delta) > 28) {
           dock.classList.toggle("is-hidden", delta > 0 && currentY > 140);
           lastScrollY = currentY;
         }
@@ -1282,6 +1249,7 @@ function initMobileExperience() {
       });
     }, { passive: true });
 
+    dock.addEventListener("focusin", () => dock.classList.remove("is-hidden"));
     dockLinks.forEach((link) => {
       const release = () => link.classList.remove("is-pressed");
       link.addEventListener("pointerdown", () => link.classList.add("is-pressed"), { passive: true });
@@ -1308,6 +1276,7 @@ function initMobileExperience() {
     const detailsId = `skills-card-details-${index + 1}`;
     details.className = "skills-card-details";
     details.id = detailsId;
+    details.inert = true;
     detailsInner.className = "skills-card-details__inner";
     detailsInner.append(description, tags);
     details.append(detailsInner);
@@ -1326,6 +1295,8 @@ function initMobileExperience() {
       const willOpen = !card.classList.contains("is-open");
       skillCards.forEach((otherCard) => {
         otherCard.classList.remove("is-open");
+        const otherDetails = otherCard.querySelector(".skills-card-details");
+        if (otherDetails) otherDetails.inert = true;
         const otherToggle = otherCard.querySelector(".skills-card-toggle");
         if (otherToggle) {
           otherToggle.setAttribute("aria-expanded", "false");
@@ -1333,6 +1304,7 @@ function initMobileExperience() {
         }
       });
       card.classList.toggle("is-open", willOpen);
+      details.inert = !willOpen;
       toggle.setAttribute("aria-expanded", String(willOpen));
       toggle.textContent = willOpen ? "Ocultar detalhes" : "Ver detalhes";
       if (navigator.vibrate) navigator.vibrate(18);
@@ -1474,8 +1446,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initSafe(initDesignGallery, "initDesignGallery");
   initSafe(initMobileExperience, "initMobileExperience");
   if (!chromiumLite) {
-    initSafe(initTrajectorySpotlight, "initTrajectorySpotlight");
-    initSafe(initGameDevArtwork, "initGameDevArtwork");
+    // Gallery and artwork motion now share the on-demand visual-polish loop.
     initSafe(initBeyondCodePhoto, "initBeyondCodePhoto");
   }
   initSafe(initTabSystem, "initTabSystem");
@@ -2161,6 +2132,7 @@ if (modalLightbox && lightboxImg) {
         const key = srcFile.split(".")[0] || "";
 
         lightboxImg.src = targetImg.src || srcAttr;
+        lightboxImg.alt = targetImg.alt || "Imagem do projeto";
 
         const details = projectDetails[key];
         if (
@@ -2192,6 +2164,7 @@ if (modalLightbox && lightboxImg) {
             lightboxWrapper.style.gridTemplateColumns = "1fr";
         }
 
+        modalLightbox.setAttribute("aria-label", details?.title || lightboxImg.alt);
         modalLightbox.showModal();
       });
       img.style.cursor = "zoom-in";
@@ -2301,7 +2274,9 @@ function initTabSystem() {
     });
   });
 
-  // Scroll Spy using IntersectionObserver to update active state of navbar links dynamically!
+  if (window.matchMedia("(max-width: 768px)").matches) return;
+
+  // Desktop scroll spy; mobile state belongs to initMobileExperience.
   const spySections = ["hero", "sobre", "tech-stack", "projetos", "cta-final"];
   const options = {
     root: null,
@@ -2319,8 +2294,10 @@ function initTabSystem() {
           const href = link.getAttribute("href");
           if (href === `#${id}`) {
             link.classList.add("active");
+            link.setAttribute("aria-current", "location");
           } else {
             link.classList.remove("active");
+            link.removeAttribute("aria-current");
           }
         });
       }
@@ -2420,34 +2397,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// Mobile Bottom Dock Observer
-function initMobileDock() {
-  const sections = document.querySelectorAll('section[id]');
-  const dockItems = document.querySelectorAll('.dock-item');
-  if (dockItems.length === 0) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        dockItems.forEach(item => {
-          item.classList.remove('active');
-          if (item.getAttribute('href') === `#${entry.target.id}`) {
-            item.classList.add('active');
-          }
-        });
-      }
-    });
-  }, { threshold: 0.3 });
-
-  sections.forEach(section => observer.observe(section));
-
-  dockItems.forEach(item => {
-    item.addEventListener('click', () => {
-      if (navigator.vibrate) navigator.vibrate(10);
-    });
-  });
-}
-document.addEventListener('DOMContentLoaded', initMobileDock);
+// Dock state and input are owned by initMobileExperience.
 
 // ==========================================
 // FOOTER LIVE CLOCK (Natal/RN)
@@ -2466,7 +2416,7 @@ function initFooterClock() {
       second: '2-digit'
     }).format(now);
     
-    clockEl.innerHTML = `Natal/RN &mdash; ${timeString} BRT`;
+    clockEl.innerHTML = `Natal, RN &mdash; ${timeString} BRT`;
   }
   
   update();
@@ -2520,16 +2470,22 @@ document.addEventListener("DOMContentLoaded", initFooterClock);
     sheet.classList.remove("sheet-dragging");
 
     if (delta > 120) {
-      // Passou do ponto de corte: termina a animação pra fora e fecha
-      sheet.style.transform = "translateY(100%)";
-      sheet.addEventListener(
-        "transitionend",
-        () => {
-          sheet.close();
-          sheet.style.transform = "";
-        },
-        { once: true }
-      );
+      const closeSheet = () => {
+        sheet.close();
+        sheet.style.transform = "";
+      };
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+          document.documentElement.classList.contains('visual-motion-static')) {
+        closeSheet();
+      } else {
+        sheet.style.transform = "translateY(100%)";
+        // Closing must not depend on a transition event being delivered.
+        const fallback = window.setTimeout(closeSheet, 500);
+        sheet.addEventListener('transitionend', () => {
+          window.clearTimeout(fallback);
+          closeSheet();
+        }, { once: true });
+      }
     } else {
       // Não passou: volta suavemente pro lugar
       sheet.style.transform = "";
@@ -2546,7 +2502,7 @@ document.addEventListener("DOMContentLoaded", initFooterClock);
    keyboard users without changing the default appearance.
    ========================================================= */
 function initAccessibleMediaTriggers() {
-  document.querySelectorAll(".project-thumbnail-wrapper").forEach((wrapper) => {
+  document.querySelectorAll(".project-thumbnail-wrapper, .ux-card").forEach((wrapper) => {
     const trigger = wrapper.querySelector(".project-lightbox-trigger");
     if (!trigger) return;
 
@@ -2556,6 +2512,11 @@ function initAccessibleMediaTriggers() {
       const label = trigger.getAttribute("alt") || "imagem do projeto";
       wrapper.setAttribute("aria-label", `Ampliar ${label}`);
     }
+
+    wrapper.addEventListener('click', (event) => {
+      if (event.target === trigger || event.target.closest('a,button')) return;
+      trigger.click();
+    });
 
     wrapper.addEventListener("keydown", (event) => {
       if (event.key !== "Enter" && event.key !== " ") return;

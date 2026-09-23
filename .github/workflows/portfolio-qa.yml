@@ -33,10 +33,10 @@ jobs:
       - name: Install QA dependencies
         working-directory: qa
         run: npm install --no-audit --no-fund
-      - name: Install Chromium
+      - name: Install browser engines
         working-directory: qa
-        run: npx playwright install --with-deps chromium
-      - name: Test desktop and mobile
+        run: npx playwright install --with-deps chromium firefox webkit
+      - name: Test responsive composition and existing flows
         working-directory: qa
         run: npm test
       - name: Upload visual evidence

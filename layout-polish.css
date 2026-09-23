@@ -1000,7 +1000,7 @@ main > section{
   animation-play-state: paused !important;
 }
 
-#hero.is-performance-visible .hero-scroll-cta__chevron,#sobre.is-performance-visible .ambient-aurora__mesh,#sobre.is-performance-visible .trajectory-aurora__mesh,#sobre.is-performance-visible .live-dot,#cta-final.is-performance-visible .ambient-aurora__mesh{
+html:not(.visual-page-hidden):not(.visual-motion-static) #hero.is-performance-visible.visual-in-view .hero-scroll-cta__chevron,html:not(.visual-page-hidden):not(.visual-motion-static) #sobre.is-performance-visible.visual-in-view .ambient-aurora__mesh,html:not(.visual-page-hidden):not(.visual-motion-static) #sobre.is-performance-visible.visual-in-view .trajectory-aurora__mesh,html:not(.visual-page-hidden):not(.visual-motion-static) #sobre.is-performance-visible.visual-in-view .live-dot,html:not(.visual-page-hidden):not(.visual-motion-static) #cta-final.is-performance-visible.visual-in-view .ambient-aurora__mesh{
   animation-play-state: running !important;
 }
 
